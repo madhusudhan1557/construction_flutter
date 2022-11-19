@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "659233249949",
+    "project_id": "constuction-aakar",
+    "storage_bucket": "constuction-aakar.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:659233249949:android:6a5eb3e3b6e9f8193d9274",
+        "android_client_info": {
+          "package_name": "com.aakar.construction"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "659233249949-ncleg3dnp5mfmii7hf5d214rl35hfrht.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBC4QgZNq9hHKT597KakV33iP33j66JQNk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "659233249949-ncleg3dnp5mfmii7hf5d214rl35hfrht.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "659233249949-pbirdhcp9r4il0p7ntnlipf5q7133dis.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.aakar.construction"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:659233249949:android:274499124d6170703d9274",
+        "android_client_info": {
+          "package_name": "com.aakar.construction"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "659233249949-ncleg3dnp5mfmii7hf5d214rl35hfrht.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBC4QgZNq9hHKT597KakV33iP33j66JQNk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "659233249949-ncleg3dnp5mfmii7hf5d214rl35hfrht.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "659233249949-pbirdhcp9r4il0p7ntnlipf5q7133dis.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.aakar.construction"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

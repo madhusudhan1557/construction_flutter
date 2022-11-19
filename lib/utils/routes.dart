@@ -1,0 +1,12 @@
+const String splash = "/";
+const String login = "login";
+const String addmaterial = "add-material";
+const String listmaterial = "listmaterial";
+const String dashboard = "dashboard";
+const String site = "sites";
+const String workinprogress = "workinprogress";
+const String estimation = "estimation";
+const String invoices = "invoices";
+const String stocks = "stocks";
+const String orders = "orders";
+const String siteDesc = 'sitedesc';

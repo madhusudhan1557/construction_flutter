@@ -1,0 +1,13 @@
+import 'package:flutter/material.dart';
+
+class AppColors {
+  static getColor(String value) {
+    return Color(int.parse("0xff$value"));
+  }
+
+  static Color fadeblue = getColor("262262");
+  static Color white = getColor("F5F5F5");
+  static Color customGrey = getColor("E5E5E5");
+  static Color yellow = getColor("FFC000");
+  static Color red = getColor("C5221F");
+}
