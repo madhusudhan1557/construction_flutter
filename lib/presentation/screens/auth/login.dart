@@ -27,9 +27,9 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 
   TextEditingController usernameController =
-      TextEditingController(text: "madhu@test.com");
+      TextEditingController(text: "madsudan43@gmail.com");
   TextEditingController passwordController =
-      TextEditingController(text: "madhu123");
+      TextEditingController(text: "madhu12345");
   final GlobalKey<FormState> _formkey = GlobalKey();
   bool hidepassword = true;
   @override

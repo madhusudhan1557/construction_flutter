@@ -37,31 +37,7 @@ class _DashboardState extends State<Dashboard> {
     },
   ];
 
-  final String uid = FirebaseAuth.instance.currentUser!.uid;
-  bool? isAdmin;
-
-  @override
-  void initState() {
-    checkAdmin();
-    super.initState();
-  }
-
-  Future<void> checkAdmin() async {
-    QuerySnapshot<Map<String, dynamic>> doc = await FirebaseFirestore.instance
-        .collection("users")
-        .where("uid", isEqualTo: uid)
-        .where("role", isEqualTo: "Admin")
-        .get();
-    if (doc.docs.isNotEmpty) {
-      setState(() {
-        isAdmin = true;
-      });
-    } else {
-      setState(() {
-        isAdmin = false;
-      });
-    }
-  }
+  String role = "";
 
   @override
   Widget build(BuildContext context) {
@@ -70,109 +46,125 @@ class _DashboardState extends State<Dashboard> {
 
     return Scaffold(
       backgroundColor: AppColors.customGrey,
-      body: Column(
-        children: [
-          Expanded(
-            flex: 0,
-            child: CustomAppbar(
-              title: "",
-              bgcolor: AppColors.customGrey,
-              leading: Padding(
-                padding: const EdgeInsets.all(11.0),
-                child: Image.asset(
-                  'assets/images/logo.png',
-                  height: 20,
-                ),
-              ),
-              action: [
-                isAdmin == true
-                    ? IconButton(
-                        onPressed: () {
-                          Navigator.of(context).pushNamed(register);
-                        },
-                        icon: Iconify(
-                          EmojioneMonotone.construction_worker,
-                          size: 24,
-                          color: AppColors.fadeblue,
+      body: FutureBuilder<QuerySnapshot>(
+          future: FirebaseFirestore.instance
+              .collection("users")
+              .where("uid", isEqualTo: FirebaseAuth.instance.currentUser!.uid)
+              .get(),
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              for (var element in snapshot.data!.docs) {
+                role = element['role'];
+              }
+              return Column(
+                children: [
+                  Expanded(
+                    flex: 0,
+                    child: CustomAppbar(
+                      title: "",
+                      bgcolor: AppColors.customGrey,
+                      leading: Padding(
+                        padding: const EdgeInsets.all(11.0),
+                        child: Image.asset(
+                          'assets/images/logo.png',
+                          height: 20,
                         ),
-                      )
-                    : Container(),
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.notifications,
-                    color: AppColors.fadeblue,
-                    size: 24,
-                  ),
-                ),
-                IconButton(
-                  onPressed: () {},
-                  icon: Icon(
-                    Icons.settings,
-                    color: AppColors.fadeblue,
-                    size: 24,
-                  ),
-                )
-              ],
-            ),
-          ),
-          Expanded(
-            flex: 12,
-            child: GridView.builder(
-              physics: const NeverScrollableScrollPhysics(),
-              padding: EdgeInsets.symmetric(
-                  horizontal: padding.top * 0.7, vertical: padding.top),
-              itemCount: grids.length,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                mainAxisSpacing: size.height / 90 * 2.8,
-                crossAxisSpacing: size.height / 90 * 2.8,
-              ),
-              itemBuilder: (context, index) {
-                return GestureDetector(
-                  onTap: () {
-                    Navigator.of(context).pushNamed(
-                      grids[index]["route"],
-                    );
-                  },
-                  child: Container(
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(10),
-                      color: AppColors.customGrey,
-                      boxShadow: const [
-                        BoxShadow(
-                          blurRadius: 8.0,
-                          color: Colors.grey,
-                        ),
-                      ],
-                    ),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Image.asset(
-                          grids[index]['image'],
-                          height: size.height / 80 * 8.44,
-                        ),
-                        SizedBox(
-                          height: size.height / 90 * 2.3,
-                        ),
-                        Text(
-                          grids[index]["title"],
-                          style: TextStyle(
+                      ),
+                      action: [
+                        role == "Admin"
+                            ? IconButton(
+                                onPressed: () {
+                                  Navigator.of(context).pushNamed(register);
+                                },
+                                icon: Iconify(
+                                  EmojioneMonotone.construction_worker,
+                                  size: 24,
+                                  color: AppColors.fadeblue,
+                                ),
+                              )
+                            : Container(),
+                        IconButton(
+                          onPressed: () {},
+                          icon: Icon(
+                            Icons.notifications,
                             color: AppColors.fadeblue,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 16,
+                            size: 24,
                           ),
                         ),
+                        IconButton(
+                          onPressed: () {},
+                          icon: Icon(
+                            Icons.settings,
+                            color: AppColors.fadeblue,
+                            size: 24,
+                          ),
+                        )
                       ],
                     ),
                   ),
-                );
-              },
-            ),
-          ),
-        ],
-      ),
+                  Expanded(
+                    flex: 12,
+                    child: GridView.builder(
+                      physics: const NeverScrollableScrollPhysics(),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: padding.top * 0.7, vertical: padding.top),
+                      itemCount: grids.length,
+                      gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: 2,
+                        mainAxisSpacing: size.height / 90 * 2.8,
+                        crossAxisSpacing: size.height / 90 * 2.8,
+                      ),
+                      itemBuilder: (context, index) {
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.of(context).pushNamed(
+                              grids[index]["route"],
+                            );
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              color: AppColors.customGrey,
+                              boxShadow: const [
+                                BoxShadow(
+                                  blurRadius: 8.0,
+                                  color: Colors.grey,
+                                ),
+                              ],
+                            ),
+                            child: Column(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: [
+                                Image.asset(
+                                  grids[index]['image'],
+                                  height: size.height / 80 * 8.44,
+                                ),
+                                SizedBox(
+                                  height: size.height / 90 * 2.3,
+                                ),
+                                Text(
+                                  grids[index]["title"],
+                                  style: TextStyle(
+                                    color: AppColors.fadeblue,
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ],
+              );
+            } else {
+              return const Center(
+                child: CircularProgressIndicator.adaptive(),
+              );
+            }
+          }),
     );
   }
 }
