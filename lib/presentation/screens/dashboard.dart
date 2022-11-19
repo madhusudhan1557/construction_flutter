@@ -1,4 +1,6 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:construction/presentation/includes/appbar.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/emojione_monotone.dart';
@@ -35,10 +37,37 @@ class _DashboardState extends State<Dashboard> {
     },
   ];
 
+  final String uid = FirebaseAuth.instance.currentUser!.uid;
+  bool? isAdmin;
+
+  @override
+  void initState() {
+    checkAdmin();
+    super.initState();
+  }
+
+  Future<void> checkAdmin() async {
+    QuerySnapshot<Map<String, dynamic>> doc = await FirebaseFirestore.instance
+        .collection("users")
+        .where("uid", isEqualTo: uid)
+        .where("role", isEqualTo: "Admin")
+        .get();
+    if (doc.docs.isNotEmpty) {
+      setState(() {
+        isAdmin = true;
+      });
+    } else {
+      setState(() {
+        isAdmin = false;
+      });
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final padding = MediaQuery.of(context).padding;
+
     return Scaffold(
       backgroundColor: AppColors.customGrey,
       body: Column(
@@ -56,13 +85,18 @@ class _DashboardState extends State<Dashboard> {
                 ),
               ),
               action: [
-                IconButton(
-                    onPressed: () {},
-                    icon: Iconify(
-                      EmojioneMonotone.construction_worker,
-                      size: 24,
-                      color: AppColors.fadeblue,
-                    )),
+                isAdmin == true
+                    ? IconButton(
+                        onPressed: () {
+                          Navigator.of(context).pushNamed(register);
+                        },
+                        icon: Iconify(
+                          EmojioneMonotone.construction_worker,
+                          size: 24,
+                          color: AppColors.fadeblue,
+                        ),
+                      )
+                    : Container(),
                 IconButton(
                   onPressed: () {},
                   icon: Icon(

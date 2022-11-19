@@ -38,6 +38,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<CompletedLoadingEvent>((event, emit) {
       emit(CompletedLoadingState());
     });
+    on<EmailSignUpFailedEvent>((event, emit) {
+      emit(EmailSignUpFailedState(error: event.error));
+    });
   }
   final FirebaseAuth auth = FirebaseAuth.instance;
   String? verificationId;
@@ -102,24 +105,22 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   signUpWithEmail(UserModel usermodel) async {
     add(LoginLoadingEvent());
     try {
-      await FirebaseAuth.instance
-          .createUserWithEmailAndPassword(
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: usermodel.email!,
         password: usermodel.password!,
-      )
-          .then((value) async {
-        CollectionReference users =
-            FirebaseFirestore.instance.collection("users");
-        await users.add({
-          "uid": FirebaseAuth.instance.currentUser!.uid,
-          "firstname": usermodel.firstname,
-          "lastname": usermodel.lastname,
-          'email': usermodel.email,
-          'phone': usermodel.phone,
-          'address': usermodel.address,
-          "role": usermodel.role
-        });
+      );
+      CollectionReference users =
+          FirebaseFirestore.instance.collection("users");
+      await users.add({
+        "uid": FirebaseAuth.instance.currentUser!.uid,
+        "firstname": usermodel.firstname,
+        "lastname": usermodel.lastname,
+        'email': usermodel.email,
+        'phone': usermodel.phone,
+        'address': usermodel.address,
+        "role": usermodel.role
       });
+      add(CompletedLoadingEvent());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         add(WeakPasswordEvent());
@@ -127,9 +128,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         add(EmailAlreadyExistEvent());
       }
     } catch (e) {
-      debugPrint(e.toString());
+      add(
+        EmailSignUpFailedEvent(
+          error: e.toString(),
+        ),
+      );
     }
-    add(CompletedLoadingEvent());
   }
 
   signInWithEmail(UserModel userModel) async {
@@ -137,14 +141,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     try {
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: userModel.email!, password: userModel.password!);
+      add(CompletedLoadingEvent());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         add(UserNotFountEvent());
       } else if (e.code == 'wrong-password') {
         add(InvalidPasswordEvent());
       }
+    } catch (e) {
+      add(LoginFailedEvent(error: e.toString()));
     }
-    add(CompletedLoadingEvent());
   }
 
   signout(BuildContext context) async {

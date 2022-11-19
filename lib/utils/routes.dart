@@ -1,9 +1,9 @@
-const String splash = "splash";
+const String splash = "/";
 const String login = "login";
 const String register = "register";
 const String addmaterial = "add-material";
 const String listmaterial = "listmaterial";
-const String dashboard = "/";
+const String dashboard = "dashboard";
 const String site = "sites";
 const String workinprogress = "workinprogress";
 const String estimation = "estimation";

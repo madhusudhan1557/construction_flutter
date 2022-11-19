@@ -18,6 +18,11 @@ class InvalidPasswordState extends AuthState {}
 
 class EmailAlreadyExistState extends AuthState {}
 
+class EmailSignUpFailedState extends AuthState {
+  final String error;
+  EmailSignUpFailedState({required this.error});
+}
+
 class WeakPasswordState extends AuthState {}
 
 class LoginCodeSentState extends AuthState {}

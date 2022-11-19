@@ -18,6 +18,11 @@ class InvalidPasswordEvent extends AuthEvent {}
 
 class EmailAlreadyExistEvent extends AuthEvent {}
 
+class EmailSignUpFailedEvent extends AuthEvent {
+  final String error;
+  EmailSignUpFailedEvent({required this.error});
+}
+
 class WeakPasswordEvent extends AuthEvent {}
 
 class LoggedInEvent extends AuthEvent {

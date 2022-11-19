@@ -1,5 +1,12 @@
+import 'package:bot_toast/bot_toast.dart';
+import 'package:construction/bloc/auth/auth_bloc.dart';
+import 'package:construction/data/models/users.dart';
+import 'package:construction/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iconify_flutter/iconify_flutter.dart';
+import 'package:iconify_flutter/icons/ant_design.dart';
+import 'package:iconify_flutter/icons/carbon.dart';
 
 import '../../../bloc/hidepassword/hidepassword_cubit.dart';
 import '../../../utils/app_colors.dart';
@@ -81,10 +88,13 @@ class _LoginScreenState extends State<LoginScreen> {
                               child: TextFormField(
                                 controller: usernameController,
                                 decoration: InputDecoration(
-                                  prefixIcon: Image.asset(
-                                    "assets/icons/user.png",
-                                    height: 24,
-                                    color: AppColors.fadeblue,
+                                  prefixIcon: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Iconify(
+                                      AntDesign.user_outlined,
+                                      size: 16,
+                                      color: AppColors.fadeblue,
+                                    ),
                                   ),
                                 ),
                                 validator: (value) =>
@@ -104,10 +114,13 @@ class _LoginScreenState extends State<LoginScreen> {
                                     controller: passwordController,
                                     obscureText: state.hidepassword,
                                     decoration: InputDecoration(
-                                      prefixIcon: Image.asset(
-                                        "assets/icons/password.png",
-                                        height: 24,
-                                        color: AppColors.fadeblue,
+                                      prefixIcon: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Iconify(
+                                          Carbon.password,
+                                          size: 16,
+                                          color: AppColors.fadeblue,
+                                        ),
                                       ),
                                       suffixIcon: IconButton(
                                         icon: state.hidepassword
@@ -176,22 +189,55 @@ class _LoginScreenState extends State<LoginScreen> {
                             SizedBox(
                               height: size.height / 90 * 1.88,
                             ),
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: AppColors.fadeblue,
-                                fixedSize:
-                                    Size(size.width / 1.12, size.height / 20),
-                                shape: RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(10),
-                                ),
-                              ),
-                              onPressed: () {
-                                if (_formkey.currentState!.validate()) {}
+                            BlocConsumer<AuthBloc, AuthState>(
+                              listener: (context, state) {
+                                if (state is LoginLoadingState) {
+                                  BotToast.showLoading();
+                                }
+                                if (state is CompletedLoadingState) {
+                                  BotToast.closeAllLoading();
+                                  Navigator.of(context)
+                                      .pushReplacementNamed(dashboard);
+                                }
+                                if (state is UserNotFountState) {
+                                  BotToast.closeAllLoading();
+                                  BotToast.showText(
+                                    text: "Invalid Email Address",
+                                    contentColor: AppColors.red,
+                                  );
+                                }
+                                if (state is InvalidPasswordState) {
+                                  BotToast.closeAllLoading();
+                                  BotToast.showText(
+                                      text: "Invalid Password",
+                                      contentColor: AppColors.red);
+                                }
                               },
-                              child: const Text(
-                                "Sign In",
-                                style: TextStyle(color: Colors.white),
-                              ),
+                              builder: (context, state) {
+                                return ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                    backgroundColor: AppColors.fadeblue,
+                                    fixedSize: Size(
+                                        size.width / 1.12, size.height / 20),
+                                    shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                    ),
+                                  ),
+                                  onPressed: () {
+                                    if (_formkey.currentState!.validate()) {
+                                      UserModel userModel = UserModel(
+                                          email: usernameController.text,
+                                          password: passwordController.text);
+                                      BlocProvider.of<AuthBloc>(context)
+                                          .signInWithEmail(userModel);
+                                    }
+                                  },
+                                  child: const Text(
+                                    "Sign In",
+                                    style: TextStyle(color: Colors.white),
+                                  ),
+                                );
+                              },
                             ),
                             SizedBox(
                               height: size.height / 90 * 1.88,
