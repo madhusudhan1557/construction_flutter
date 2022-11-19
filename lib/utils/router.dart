@@ -1,3 +1,4 @@
+import 'package:construction/presentation/screens/auth/register.dart';
 import 'package:construction/presentation/screens/splash.dart';
 import 'package:construction/utils/routes.dart';
 import 'package:flutter/material.dart';
@@ -11,6 +12,9 @@ class AppRouter {
         return MaterialPageRoute(builder: (context) => const LoginScreen());
       case splash:
         return MaterialPageRoute(builder: (context) => const SplashScreen());
+      case register:
+        return MaterialPageRoute(
+            builder: (context) => const RegistrationScreen());
     }
     return null;
   }

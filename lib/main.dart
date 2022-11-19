@@ -1,3 +1,4 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:construction/bloc/auth/auth_bloc.dart';
 import 'package:construction/bloc/hidepassword/hidepassword_cubit.dart';
 import 'package:construction/utils/router.dart';
@@ -32,6 +33,8 @@ class AkarDevelopers extends StatelessWidget {
         BlocProvider<AuthBloc>(create: (context) => AuthBloc()),
       ],
       child: MaterialApp(
+        builder: BotToastInit(),
+        navigatorObservers: [BotToastNavigatorObserver()],
         debugShowCheckedModeBanner: false,
         title: "Akar Developers",
         onGenerateRoute: router.onGenerateRoute,

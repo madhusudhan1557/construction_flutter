@@ -1,5 +1,6 @@
 const String splash = "/";
 const String login = "login";
+const String register = "register";
 const String addmaterial = "add-material";
 const String listmaterial = "listmaterial";
 const String dashboard = "dashboard";

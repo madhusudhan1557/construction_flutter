@@ -1,5 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:construction/data/models/users.dart';
+import 'package:construction/utils/routes.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
@@ -20,6 +22,21 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     });
     on<NewUserCreatedEvent>((event, emit) {
       emit(NewUserCreatedState(firebaseUser: event.firebaseUser));
+    });
+    on<UserNotFountEvent>((event, emit) {
+      emit(UserNotFountState());
+    });
+    on<InvalidPasswordEvent>((event, emit) {
+      emit(InvalidPasswordState());
+    });
+    on<EmailAlreadyExistEvent>((event, emit) {
+      emit(EmailAlreadyExistState());
+    });
+    on<WeakPasswordEvent>((event, emit) {
+      emit(WeakPasswordState());
+    });
+    on<CompletedLoadingEvent>((event, emit) {
+      emit(CompletedLoadingState());
     });
   }
   final FirebaseAuth auth = FirebaseAuth.instance;
@@ -82,10 +99,61 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
+  signUpWithEmail(UserModel usermodel) async {
+    add(LoginLoadingEvent());
+    try {
+      await FirebaseAuth.instance
+          .createUserWithEmailAndPassword(
+        email: usermodel.email!,
+        password: usermodel.password!,
+      )
+          .then((value) async {
+        CollectionReference users =
+            FirebaseFirestore.instance.collection("users");
+        await users.add({
+          "uid": FirebaseAuth.instance.currentUser!.uid,
+          "firstname": usermodel.firstname,
+          "lastname": usermodel.lastname,
+          'email': usermodel.email,
+          'phone': usermodel.phone,
+          'address': usermodel.address,
+          "role": usermodel.role
+        });
+      });
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        add(WeakPasswordEvent());
+      } else if (e.code == 'email-already-in-use') {
+        add(EmailAlreadyExistEvent());
+      }
+    } catch (e) {
+      debugPrint(e.toString());
+    }
+    add(CompletedLoadingEvent());
+  }
+
+  signInWithEmail(UserModel userModel) async {
+    add(LoginLoadingEvent());
+    try {
+      await FirebaseAuth.instance.signInWithEmailAndPassword(
+          email: userModel.email!, password: userModel.password!);
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'user-not-found') {
+        add(UserNotFountEvent());
+      } else if (e.code == 'wrong-password') {
+        add(InvalidPasswordEvent());
+      }
+    }
+    add(CompletedLoadingEvent());
+  }
+
+  signout(BuildContext context) async {
+    await FirebaseAuth.instance.signOut().then((value) =>
+        Navigator.of(context).pushNamedAndRemoveUntil(login, (route) => true));
+  }
+
   @override
   Future<void> close() async {
-    sendOTP("");
-    verifyOtp("");
     super.close();
   }
 }

@@ -4,9 +4,11 @@ import 'package:flutter/material.dart';
 class CustomAppbar extends StatelessWidget {
   final String title;
   final Color? bgcolor;
+  final Widget leading;
   const CustomAppbar({
     super.key,
     required this.title,
+    required this.leading,
     this.bgcolor,
   });
 
@@ -15,16 +17,9 @@ class CustomAppbar extends StatelessWidget {
     return Column(
       children: [
         AppBar(
+          iconTheme: IconThemeData(color: AppColors.fadeblue),
           automaticallyImplyLeading: false,
-          leading: IconButton(
-            icon: const Icon(
-              Icons.arrow_back_ios_new,
-              size: 24,
-            ),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
+          leading: leading,
           backgroundColor: bgcolor,
           centerTitle: true,
           title: Text(

@@ -12,6 +12,14 @@ class LoginFailedState extends AuthState {
   LoginFailedState({required this.error});
 }
 
+class UserNotFountState extends AuthState {}
+
+class InvalidPasswordState extends AuthState {}
+
+class EmailAlreadyExistState extends AuthState {}
+
+class WeakPasswordState extends AuthState {}
+
 class LoginCodeSentState extends AuthState {}
 
 class LoggedInState extends AuthState {
@@ -25,3 +33,5 @@ class NewUserCreatedState extends AuthState {
   final User firebaseUser;
   NewUserCreatedState({required this.firebaseUser});
 }
+
+class CompletedLoadingState extends AuthState {}

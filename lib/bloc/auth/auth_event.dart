@@ -12,6 +12,14 @@ class LoginFailedEvent extends AuthEvent {
 
 class LoginCodeSentEvent extends AuthEvent {}
 
+class UserNotFountEvent extends AuthEvent {}
+
+class InvalidPasswordEvent extends AuthEvent {}
+
+class EmailAlreadyExistEvent extends AuthEvent {}
+
+class WeakPasswordEvent extends AuthEvent {}
+
 class LoggedInEvent extends AuthEvent {
   final User firebaseUser;
   LoggedInEvent({required this.firebaseUser});
@@ -23,3 +31,5 @@ class NewUserCreatedEvent extends AuthEvent {
   final User firebaseUser;
   NewUserCreatedEvent({required this.firebaseUser});
 }
+
+class CompletedLoadingEvent extends AuthEvent {}
