@@ -45,7 +45,7 @@
       "client_info": {
         "mobilesdk_app_id": "1:659233249949:android:274499124d6170703d9274",
         "android_client_info": {
-          "package_name": "com.aakar.construction"
+          "package_name": "com.example.construction"
         }
       },
       "oauth_client": [

@@ -54,7 +54,7 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions android = FirebaseOptions(
     apiKey: 'AIzaSyBC4QgZNq9hHKT597KakV33iP33j66JQNk',
-    appId: '1:659233249949:android:274499124d6170703d9274',
+    appId: '1:659233249949:android:6a5eb3e3b6e9f8193d9274',
     messagingSenderId: '659233249949',
     projectId: 'constuction-aakar',
     storageBucket: 'constuction-aakar.appspot.com',
@@ -62,23 +62,21 @@ class DefaultFirebaseOptions {
 
   static const FirebaseOptions ios = FirebaseOptions(
     apiKey: 'AIzaSyDc6HdudAFwTxRKyALxBiKfYTnNN6dQRaA',
-    appId: '1:659233249949:ios:5ba8b8ddd6acb2d53d9274',
+    appId: '1:659233249949:ios:5ceaa7c7f97413543d9274',
     messagingSenderId: '659233249949',
     projectId: 'constuction-aakar',
     storageBucket: 'constuction-aakar.appspot.com',
-    iosClientId:
-        '659233249949-pgi0athhcae87jeefp9gqogf3pqthfrp.apps.googleusercontent.com',
+    iosClientId: '659233249949-pbirdhcp9r4il0p7ntnlipf5q7133dis.apps.googleusercontent.com',
     iosBundleId: 'com.aakar.construction',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
     apiKey: 'AIzaSyDc6HdudAFwTxRKyALxBiKfYTnNN6dQRaA',
-    appId: '1:659233249949:ios:5ba8b8ddd6acb2d53d9274',
+    appId: '1:659233249949:ios:5ceaa7c7f97413543d9274',
     messagingSenderId: '659233249949',
     projectId: 'constuction-aakar',
     storageBucket: 'constuction-aakar.appspot.com',
-    iosClientId:
-        '659233249949-pgi0athhcae87jeefp9gqogf3pqthfrp.apps.googleusercontent.com',
+    iosClientId: '659233249949-pbirdhcp9r4il0p7ntnlipf5q7133dis.apps.googleusercontent.com',
     iosBundleId: 'com.aakar.construction',
   );
 }
