@@ -1,5 +1,7 @@
 import 'package:construction/presentation/includes/appbar.dart';
 import 'package:flutter/material.dart';
+import 'package:iconify_flutter/iconify_flutter.dart';
+import 'package:iconify_flutter/icons/emojione_monotone.dart';
 
 import '../../utils/app_colors.dart';
 import '../../utils/routes.dart';
@@ -39,20 +41,53 @@ class _DashboardState extends State<Dashboard> {
     final padding = MediaQuery.of(context).padding;
     return Scaffold(
       backgroundColor: AppColors.customGrey,
-      body: Container(
-        padding: EdgeInsets.symmetric(horizontal: padding.top * 0.8),
-        margin: EdgeInsets.only(top: padding.top * 0.8),
-        child: Column(
-          children: [
-            CustomAppbar(
-              title: "Dashboard",
-              leading: Image.asset(
-                'assets/images/logo/png',
-                height: 24,
+      body: Column(
+        children: [
+          Expanded(
+            flex: 0,
+            child: CustomAppbar(
+              title: "",
+              bgcolor: AppColors.customGrey,
+              leading: Padding(
+                padding: const EdgeInsets.all(11.0),
+                child: Image.asset(
+                  'assets/images/logo.png',
+                  height: 20,
+                ),
               ),
+              action: [
+                IconButton(
+                    onPressed: () {},
+                    icon: Iconify(
+                      EmojioneMonotone.construction_worker,
+                      size: 24,
+                      color: AppColors.fadeblue,
+                    )),
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.notifications,
+                    color: AppColors.fadeblue,
+                    size: 24,
+                  ),
+                ),
+                IconButton(
+                  onPressed: () {},
+                  icon: Icon(
+                    Icons.settings,
+                    color: AppColors.fadeblue,
+                    size: 24,
+                  ),
+                )
+              ],
             ),
-            GridView.builder(
+          ),
+          Expanded(
+            flex: 12,
+            child: GridView.builder(
               physics: const NeverScrollableScrollPhysics(),
+              padding: EdgeInsets.symmetric(
+                  horizontal: padding.top * 0.7, vertical: padding.top),
               itemCount: grids.length,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
                 crossAxisCount: 2,
@@ -101,8 +136,8 @@ class _DashboardState extends State<Dashboard> {
                 );
               },
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

@@ -5,11 +5,14 @@ class CustomAppbar extends StatelessWidget {
   final String title;
   final Color? bgcolor;
   final Widget leading;
+  final List<Widget>? action;
+
   const CustomAppbar({
     super.key,
     required this.title,
     required this.leading,
     this.bgcolor,
+    this.action,
   });
 
   @override
@@ -30,6 +33,7 @@ class CustomAppbar extends StatelessWidget {
               fontWeight: FontWeight.w500,
             ),
           ),
+          actions: action,
         ),
         Image.asset('assets/icons/horline.png'),
       ],
