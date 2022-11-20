@@ -1,5 +1,6 @@
 import 'package:construction/presentation/screens/auth/register.dart';
 import 'package:construction/presentation/screens/dashboard.dart';
+import 'package:construction/presentation/screens/sites/site_page.dart';
 import 'package:construction/presentation/screens/splash.dart';
 import 'package:construction/utils/routes.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +19,9 @@ class AppRouter {
             builder: (context) => const RegistrationScreen());
       case dashboard:
         return MaterialPageRoute(builder: (context) => const Dashboard());
+      case site:
+        return MaterialPageRoute(
+            builder: (context) => const SitePage(), settings: settings);
     }
     return null;
   }

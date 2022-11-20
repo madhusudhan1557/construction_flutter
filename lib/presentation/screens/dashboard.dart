@@ -118,8 +118,8 @@ class _DashboardState extends State<Dashboard> {
                         return GestureDetector(
                           onTap: () {
                             Navigator.of(context).pushNamed(
-                              grids[index]["route"],
-                            );
+                                grids[index]["route"],
+                                arguments: {'role': role});
                           },
                           child: Container(
                             decoration: BoxDecoration(

@@ -1,6 +1,8 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:construction/bloc/auth/auth_bloc.dart';
 import 'package:construction/bloc/hidepassword/hidepassword_cubit.dart';
+import 'package:construction/bloc/pickimage/pickimage_bloc.dart';
+import 'package:construction/bloc/sites/sites_bloc.dart';
 import 'package:construction/utils/router.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -31,6 +33,8 @@ class AkarDevelopers extends StatelessWidget {
         BlocProvider<HidepasswordCubit>(
             create: (context) => HidepasswordCubit()),
         BlocProvider<AuthBloc>(create: (context) => AuthBloc()),
+        BlocProvider<SitesBloc>(create: (context) => SitesBloc()),
+        BlocProvider<PickimageBloc>(create: (context) => PickimageBloc()),
       ],
       child: MaterialApp(
         builder: BotToastInit(),
