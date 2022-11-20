@@ -35,7 +35,6 @@ class _SitePageState extends State<SitePage> {
   final _formKey = GlobalKey<FormState>();
   List<String> images = [];
   List<XFile> siteimages = [];
-  final List<String> roles = ["Supervisor", "Engineer"];
   String dropdownvalue = "";
   @override
   Widget build(BuildContext context) {
@@ -349,120 +348,200 @@ class _SitePageState extends State<SitePage> {
                 },
               ),
             ),
-            StreamBuilder<QuerySnapshot>(
-                stream: null,
-                builder: (context, snapshot) {
-                  return CustomBox(
-                    horizontalMargin: paddding.top * 0.4,
-                    verticalMargin: paddding.top * 0.28,
-                    height: size.height / 90 * 18,
-                    width: size.width,
-                    color: AppColors.customGrey,
-                    blurRadius: 4.0,
-                    radius: 10,
-                    shadowColor: Colors.grey,
-                    child: Padding(
-                      padding: EdgeInsets.symmetric(
-                          horizontal: paddding.top * 0.31,
-                          vertical: paddding.top * 0.11),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                        children: [
-                          Text(
-                            "Site 1",
-                            style: TextStyle(
-                              fontSize: 21,
-                              fontWeight: FontWeight.w700,
-                              color: Colors.grey[700],
+            StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+              stream: FirebaseFirestore.instance
+                  .collection("sites")
+                  .get()
+                  .asStream(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return snapshot.data!.docs.isEmpty
+                      ? Column(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          children: [
+                            SizedBox(
+                              height: size.height / 90 * 4.43,
                             ),
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Client Name",
+                            Image.asset(
+                              "assets/images/sites.png",
+                              height: size.height / 90 * 18.54,
+                              width: size.width / 2,
+                            ),
+                            SizedBox(
+                              height: size.height / 90 * 2.43,
+                            ),
+                            Center(
+                              child: Text(
+                                "No Sites At The Moment",
                                 style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w700,
                                   color: AppColors.fadeblue,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 24,
                                 ),
                               ),
-                              InkWell(
-                                onTap: () {
-                                  ShowCustomModal().showDeleteDialog(
-                                    id: 1,
-                                    context: context,
-                                    height: size.height / 90 * 23,
-                                    width: size.width / 2 * 11,
-                                    imageheight: size.height / 90 * 6.54,
-                                  );
-                                },
-                                child: Image.asset(
-                                  "assets/icons/delete.png",
-                                  height: 28,
-                                ),
-                              )
-                            ],
-                          ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Text(
-                                "Location",
-                                style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w500,
-                                  color: Colors.grey[700],
-                                ),
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  ShowCustomModal().showArchriveDialog(
-                                    id: 1,
-                                    context: context,
-                                    height: size.height / 90 * 23,
-                                    width: size.width / 2 * 11,
-                                    imageheight: size.height / 90 * 6.54,
-                                  );
-                                },
-                                child: Image.asset(
-                                  "assets/icons/archrive.png",
-                                  height: 28,
-                                ),
-                              )
-                            ],
-                          ),
-                          RichText(
-                            overflow: TextOverflow.clip,
-                            textAlign: TextAlign.start,
-                            textDirection: TextDirection.rtl,
-                            softWrap: true,
-                            maxLines: 1,
-                            text: TextSpan(
-                              text: 'Supervisor : ',
-                              style: TextStyle(
-                                fontSize: 14,
-                                fontWeight: FontWeight.w600,
-                                color: AppColors.fadeblue,
-                              ),
-                              children: <TextSpan>[
-                                TextSpan(
-                                  text: 'Madhusudhan Ghimire',
-                                  style: TextStyle(
-                                    fontSize: 14,
-                                    fontWeight: FontWeight.w500,
-                                    color: AppColors.fadeblue,
-                                  ),
-                                ),
-                              ],
                             ),
-                          ),
-                        ],
-                      ),
-                    ),
+                            SizedBox(
+                              height: size.height / 90 * 5.43,
+                            ),
+                            args['role'] == "Admin"
+                                ? ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                        shape: RoundedRectangleBorder(
+                                          borderRadius: BorderRadius.circular(
+                                            size.width / 90 * 1.8,
+                                          ),
+                                        ),
+                                        backgroundColor: AppColors.yellow,
+                                        foregroundColor: Colors.black,
+                                        fixedSize: Size(
+                                          size.width / 1.11,
+                                          size.height / 90 * 4.76,
+                                        )),
+                                    onPressed: () {
+                                      showAddSiteModal();
+                                    },
+                                    child: const Text("Add New Sites"),
+                                  )
+                                : Container(),
+                          ],
+                        )
+                      : ListView.builder(
+                          itemCount: snapshot.data!.docs.length,
+                          shrinkWrap: true,
+                          itemBuilder: (context, index) {
+                            print(snapshot.data!.docs[index]);
+                            return CustomBox(
+                              horizontalMargin: paddding.top * 0.4,
+                              verticalMargin: paddding.top * 0.28,
+                              height: size.height / 90 * 18,
+                              width: size.width,
+                              color: AppColors.customGrey,
+                              blurRadius: 4.0,
+                              radius: 10,
+                              shadowColor: Colors.grey,
+                              child: Padding(
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: paddding.top * 0.31,
+                                    vertical: paddding.top * 0.11),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Text(
+                                      "Site 1",
+                                      style: TextStyle(
+                                        fontSize: 21,
+                                        fontWeight: FontWeight.w700,
+                                        color: Colors.grey[700],
+                                      ),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Client Name",
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w700,
+                                            color: AppColors.fadeblue,
+                                          ),
+                                        ),
+                                        args['role'] == "Admin"
+                                            ? InkWell(
+                                                onTap: () {
+                                                  ShowCustomModal()
+                                                      .showDeleteDialog(
+                                                    id: 1,
+                                                    context: context,
+                                                    height:
+                                                        size.height / 90 * 23,
+                                                    width: size.width / 2 * 11,
+                                                    imageheight:
+                                                        size.height / 90 * 6.54,
+                                                  );
+                                                },
+                                                child: Image.asset(
+                                                  "assets/icons/delete.png",
+                                                  height: 28,
+                                                ),
+                                              )
+                                            : Container()
+                                      ],
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          "Location",
+                                          style: TextStyle(
+                                            fontSize: 18,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.grey[700],
+                                          ),
+                                        ),
+                                        args['role'] == "Admin"
+                                            ? InkWell(
+                                                onTap: () {
+                                                  ShowCustomModal()
+                                                      .showArchriveDialog(
+                                                    id: 1,
+                                                    context: context,
+                                                    height:
+                                                        size.height / 90 * 23,
+                                                    width: size.width / 2 * 11,
+                                                    imageheight:
+                                                        size.height / 90 * 6.54,
+                                                  );
+                                                },
+                                                child: Image.asset(
+                                                  "assets/icons/archrive.png",
+                                                  height: 28,
+                                                ),
+                                              )
+                                            : Container()
+                                      ],
+                                    ),
+                                    RichText(
+                                      overflow: TextOverflow.clip,
+                                      textAlign: TextAlign.start,
+                                      textDirection: TextDirection.rtl,
+                                      softWrap: true,
+                                      maxLines: 1,
+                                      text: TextSpan(
+                                        text: 'Supervisor : ',
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          fontWeight: FontWeight.w600,
+                                          color: AppColors.fadeblue,
+                                        ),
+                                        children: <TextSpan>[
+                                          TextSpan(
+                                            text: 'Madhusudhan Ghimire',
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              fontWeight: FontWeight.w500,
+                                              color: AppColors.fadeblue,
+                                            ),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                } else {
+                  return const Center(
+                    child: CircularProgressIndicator.adaptive(),
                   );
-                }),
+                }
+              },
+            ),
           ],
         ),
       ),
