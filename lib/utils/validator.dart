@@ -32,4 +32,12 @@ class Validator {
     }
     return null;
   }
+
+  static String? getNumberValidator(String? phone) {
+    if (phone == null || phone.isEmpty) {
+      return "This field shall be Provided";
+    }
+
+    return null;
+  }
 }
