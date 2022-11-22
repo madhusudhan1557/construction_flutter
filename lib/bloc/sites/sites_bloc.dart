@@ -1,5 +1,12 @@
+import 'dart:io';
+import 'dart:math';
+
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:construction/utils/routes.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 import '../../data/models/sites.dart';
 
@@ -34,5 +41,44 @@ class SitesBloc extends Bloc<SitesEvent, SitesState> {
     );
   }
 
-  Future<void> addSite(SiteModel siteModel) async {}
+  CollectionReference sites = FirebaseFirestore.instance.collection("sites");
+  String id = "";
+  Future<void> addSite(SiteModel siteModel, List<XFile> images) async {
+    add(LoadingSiteEvent());
+    List<dynamic> imageUrls = [];
+    id = sites.doc().id;
+    try {
+      await sites.doc(id).set({
+        "sid": id,
+        "sitename": siteModel.sitename,
+        "sitedesc": siteModel.sitedesc,
+        "sitelocation": siteModel.sitelocation,
+        "clientname": siteModel.clientname,
+        "phone": siteModel.phone,
+        "supervisor": siteModel.supervisor,
+      });
+
+      for (int i = 0; i < images.length; i++) {
+        var url = uploadFile(images[i]);
+        imageUrls.add(url.toString());
+      }
+
+      add(CompletedSiteEvent());
+    } on FirebaseException catch (e) {
+      add(FailedSiteEvent(error: e.message));
+    }
+  }
+
+  uploadFile(XFile image) async {
+    Reference reference =
+        FirebaseStorage.instance.ref().child("siteimages").child(image.name);
+    UploadTask uploadTask = reference.putFile(File(image.path));
+    await uploadTask.whenComplete(() async {
+      sites.doc(id).collection("siteimages").add({
+        "sid": id,
+        "image": await reference.getDownloadURL(),
+      });
+    });
+    return await reference.getDownloadURL();
+  }
 }

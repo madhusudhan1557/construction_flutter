@@ -1,11 +1,15 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:bot_toast/bot_toast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:construction/data/models/sites.dart';
 import 'package:construction/presentation/includes/appbar.dart';
 import 'package:construction/presentation/includes/custom_box.dart';
+import 'package:construction/presentation/includes/custom_phone_field.dart';
 import 'package:construction/presentation/includes/custom_textfield.dart';
 import 'package:construction/presentation/includes/show_modal.dart';
+import 'package:construction/utils/routes.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 
 import 'package:flutter/material.dart';
@@ -125,9 +129,8 @@ class _SitePageState extends State<SitePage> {
                             SizedBox(
                               height: size.height / 90 * 1.538,
                             ),
-                            CustomTextField(
+                            CustomPhoneField(
                               controller: _phone,
-                              hintText: "Phone Number",
                               suffixIcon: const Icon(
                                 Icons.phone,
                                 color: Colors.black,
@@ -151,9 +154,9 @@ class _SitePageState extends State<SitePage> {
                                 offset: Offset(0, -size.height / 90 * 2.44),
                                 items: snapshot.data!.docs.map((supervisor) {
                                   return DropdownMenuItem(
-                                    value: supervisor['uid'],
+                                    value: "${supervisor['fullname']}",
                                     child: Text(
-                                      "${supervisor['firstname']} ${supervisor['lastname']}",
+                                      "${supervisor['fullname']}",
                                     ),
                                   );
                                 }).toList(),
@@ -294,7 +297,26 @@ class _SitePageState extends State<SitePage> {
                                   },
                                   builder: (context, state) {
                                     return BlocConsumer<SitesBloc, SitesState>(
-                                      listener: (context, state) {},
+                                      listener: (context, state) {
+                                        if (state is LoadingSiteState) {
+                                          BotToast.showLoading();
+                                        }
+                                        if (state is CompletedSiteState) {
+                                          BotToast.closeAllLoading();
+                                          Navigator.of(context).pop();
+                                          BotToast.showText(
+                                            text: "Site Added",
+                                            contentColor: Colors.green,
+                                          );
+                                        }
+                                        if (state is FailedSiteState) {
+                                          BotToast.closeAllLoading();
+                                          BotToast.showText(
+                                            text: state.error!,
+                                            contentColor: Colors.red,
+                                          );
+                                        }
+                                      },
                                       builder: (context, state) {
                                         return ElevatedButton(
                                           style: ElevatedButton.styleFrom(
@@ -305,7 +327,23 @@ class _SitePageState extends State<SitePage> {
                                           ),
                                           onPressed: () {
                                             if (_formKey.currentState!
-                                                .validate()) {}
+                                                .validate()) {
+                                              SiteModel siteModel = SiteModel(
+                                                sitename: _sitename.text,
+                                                sitedesc: _sitedes.text,
+                                                sitelocation:
+                                                    _sitelocation.text,
+                                                clientname: _clientname.text,
+                                                phone: _phone.text,
+                                                supervisor: dropdownvalue,
+                                              );
+                                              BlocProvider.of<SitesBloc>(
+                                                      context)
+                                                  .addSite(
+                                                siteModel,
+                                                siteimages,
+                                              );
+                                            }
                                           },
                                           child: const Text("Save"),
                                         );
@@ -349,10 +387,8 @@ class _SitePageState extends State<SitePage> {
               ),
             ),
             StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-              stream: FirebaseFirestore.instance
-                  .collection("sites")
-                  .get()
-                  .asStream(),
+              stream:
+                  FirebaseFirestore.instance.collection("sites").snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   return snapshot.data!.docs.isEmpty
@@ -406,130 +442,157 @@ class _SitePageState extends State<SitePage> {
                           ],
                         )
                       : ListView.builder(
+                          padding: const EdgeInsets.only(top: 0),
                           itemCount: snapshot.data!.docs.length,
                           shrinkWrap: true,
                           itemBuilder: (context, index) {
-                            print(snapshot.data!.docs[index]);
-                            return CustomBox(
-                              horizontalMargin: paddding.top * 0.4,
-                              verticalMargin: paddding.top * 0.28,
-                              height: size.height / 90 * 18,
-                              width: size.width,
-                              color: AppColors.customGrey,
-                              blurRadius: 4.0,
-                              radius: 10,
-                              shadowColor: Colors.grey,
-                              child: Padding(
-                                padding: EdgeInsets.symmetric(
-                                    horizontal: paddding.top * 0.31,
-                                    vertical: paddding.top * 0.11),
-                                child: Column(
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Text(
-                                      "Site 1",
-                                      style: TextStyle(
-                                        fontSize: 21,
-                                        fontWeight: FontWeight.w700,
-                                        color: Colors.grey[700],
-                                      ),
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          "Client Name",
-                                          style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w700,
-                                            color: AppColors.fadeblue,
-                                          ),
-                                        ),
-                                        args['role'] == "Admin"
-                                            ? InkWell(
-                                                onTap: () {
-                                                  ShowCustomModal()
-                                                      .showDeleteDialog(
-                                                    id: 1,
-                                                    context: context,
-                                                    height:
-                                                        size.height / 90 * 23,
-                                                    width: size.width / 2 * 11,
-                                                    imageheight:
-                                                        size.height / 90 * 6.54,
-                                                  );
-                                                },
-                                                child: Image.asset(
-                                                  "assets/icons/delete.png",
-                                                  height: 28,
-                                                ),
-                                              )
-                                            : Container()
-                                      ],
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceBetween,
-                                      children: [
-                                        Text(
-                                          "Location",
-                                          style: TextStyle(
-                                            fontSize: 18,
-                                            fontWeight: FontWeight.w500,
-                                            color: Colors.grey[700],
-                                          ),
-                                        ),
-                                        args['role'] == "Admin"
-                                            ? InkWell(
-                                                onTap: () {
-                                                  ShowCustomModal()
-                                                      .showArchriveDialog(
-                                                    id: 1,
-                                                    context: context,
-                                                    height:
-                                                        size.height / 90 * 23,
-                                                    width: size.width / 2 * 11,
-                                                    imageheight:
-                                                        size.height / 90 * 6.54,
-                                                  );
-                                                },
-                                                child: Image.asset(
-                                                  "assets/icons/archrive.png",
-                                                  height: 28,
-                                                ),
-                                              )
-                                            : Container()
-                                      ],
-                                    ),
-                                    RichText(
-                                      overflow: TextOverflow.clip,
-                                      textAlign: TextAlign.start,
-                                      textDirection: TextDirection.rtl,
-                                      softWrap: true,
-                                      maxLines: 1,
-                                      text: TextSpan(
-                                        text: 'Supervisor : ',
+                            return InkWell(
+                              onTap: () {
+                                Navigator.of(context)
+                                    .pushNamed(siteDesc, arguments: {
+                                  "sid": snapshot.data!.docs[index]['sid'],
+                                  "sitename": snapshot.data!.docs[index]
+                                      ['sitename'],
+                                  "sitedesc": snapshot.data!.docs[index]
+                                      ['sitedesc'],
+                                  "sitelocation": snapshot.data!.docs[index]
+                                      ['sitelocation'],
+                                  "clientname": snapshot.data!.docs[index]
+                                      ['clientname'],
+                                  "phone": snapshot.data!.docs[index]['phone'],
+                                  "supervisor": snapshot.data!.docs[index]
+                                      ['supervisor']
+                                });
+                              },
+                              child: CustomBox(
+                                horizontalMargin: paddding.top * 0.4,
+                                verticalMargin: paddding.top * 0.28,
+                                height: size.height / 90 * 18,
+                                width: size.width,
+                                color: AppColors.customGrey,
+                                blurRadius: 4.0,
+                                radius: 10,
+                                shadowColor: Colors.grey,
+                                child: Padding(
+                                  padding: EdgeInsets.symmetric(
+                                      horizontal: paddding.top * 0.31,
+                                      vertical: paddding.top * 0.11),
+                                  child: Column(
+                                    crossAxisAlignment:
+                                        CrossAxisAlignment.start,
+                                    mainAxisAlignment:
+                                        MainAxisAlignment.spaceEvenly,
+                                    children: [
+                                      Text(
+                                        snapshot.data!.docs[index]['sitename'],
                                         style: TextStyle(
-                                          fontSize: 14,
-                                          fontWeight: FontWeight.w600,
-                                          color: AppColors.fadeblue,
+                                          fontSize: 21,
+                                          fontWeight: FontWeight.w700,
+                                          color: Colors.grey[700],
                                         ),
-                                        children: <TextSpan>[
-                                          TextSpan(
-                                            text: 'Madhusudhan Ghimire',
+                                      ),
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            snapshot.data!.docs[index]
+                                                ['clientname'],
                                             style: TextStyle(
-                                              fontSize: 14,
-                                              fontWeight: FontWeight.w500,
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w700,
                                               color: AppColors.fadeblue,
                                             ),
                                           ),
+                                          args['role'] == "Admin"
+                                              ? InkWell(
+                                                  onTap: () {
+                                                    ShowCustomModal()
+                                                        .showDeleteDialog(
+                                                      id: 1,
+                                                      context: context,
+                                                      height:
+                                                          size.height / 90 * 23,
+                                                      width:
+                                                          size.width / 2 * 11,
+                                                      imageheight: size.height /
+                                                          90 *
+                                                          6.54,
+                                                    );
+                                                  },
+                                                  child: Image.asset(
+                                                    "assets/icons/delete.png",
+                                                    height: 28,
+                                                  ),
+                                                )
+                                              : Container()
                                         ],
                                       ),
-                                    ),
-                                  ],
+                                      Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceBetween,
+                                        children: [
+                                          Text(
+                                            snapshot.data!.docs[index]
+                                                ['sitelocation'],
+                                            style: TextStyle(
+                                              fontSize: 18,
+                                              fontWeight: FontWeight.w500,
+                                              color: Colors.grey[700],
+                                            ),
+                                          ),
+                                          args['role'] == "Admin"
+                                              ? InkWell(
+                                                  onTap: () {
+                                                    ShowCustomModal()
+                                                        .showArchriveDialog(
+                                                      id: 1,
+                                                      context: context,
+                                                      height:
+                                                          size.height / 90 * 23,
+                                                      width:
+                                                          size.width / 2 * 11,
+                                                      imageheight: size.height /
+                                                          90 *
+                                                          6.54,
+                                                    );
+                                                  },
+                                                  child: Image.asset(
+                                                    "assets/icons/archrive.png",
+                                                    height: 28,
+                                                  ),
+                                                )
+                                              : Container()
+                                        ],
+                                      ),
+                                      RichText(
+                                        overflow: TextOverflow.clip,
+                                        textAlign: TextAlign.start,
+                                        textDirection: TextDirection.rtl,
+                                        softWrap: true,
+                                        maxLines: 1,
+                                        text: TextSpan(
+                                          text: 'Supervisor : ',
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w600,
+                                            color: AppColors.fadeblue,
+                                          ),
+                                          children: <TextSpan>[
+                                            TextSpan(
+                                              text: snapshot.data!.docs[index]
+                                                  ['supervisor'],
+                                              style: TextStyle(
+                                                fontSize: 14,
+                                                fontWeight: FontWeight.w500,
+                                                color: AppColors.fadeblue,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                    ],
+                                  ),
                                 ),
                               ),
                             );

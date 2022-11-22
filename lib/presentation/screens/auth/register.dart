@@ -18,12 +18,12 @@ class RegistrationScreen extends StatefulWidget {
 
 class _RegistrationScreenState extends State<RegistrationScreen> {
   final _formKey = GlobalKey<FormState>();
-  final TextEditingController _firstname = TextEditingController();
+
   final TextEditingController _email = TextEditingController();
   final TextEditingController _password = TextEditingController();
   final TextEditingController _address = TextEditingController();
   final TextEditingController _phone = TextEditingController();
-  final TextEditingController _lastname = TextEditingController();
+  final TextEditingController _fullname = TextEditingController();
 
   final List<String> roles = ["Supervisor", "Engineer"];
   String dropdownvalue = "";
@@ -66,16 +66,8 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         height: size.height / 90 * 5.51,
                       ),
                       CustomTextField(
-                        controller: _firstname,
-                        hintText: "Firstname",
-                        size: size.height / 90 * 5.44,
-                      ),
-                      SizedBox(
-                        height: size.height / 90 * 1.51,
-                      ),
-                      CustomTextField(
-                        controller: _lastname,
-                        hintText: "Lastname",
+                        controller: _fullname,
+                        hintText: "Fullname",
                         size: size.height / 90 * 5.44,
                       ),
                       SizedBox(
@@ -192,8 +184,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         UserModel userModel = UserModel(
-                          firstname: _firstname.text,
-                          lastname: _lastname.text,
                           email: _email.text,
                           phone: _phone.text,
                           password: _password.text,

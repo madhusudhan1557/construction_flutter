@@ -1,5 +1,6 @@
 import 'package:construction/presentation/screens/auth/register.dart';
 import 'package:construction/presentation/screens/dashboard.dart';
+import 'package:construction/presentation/screens/sites/site_description.dart';
 import 'package:construction/presentation/screens/sites/site_page.dart';
 import 'package:construction/presentation/screens/splash.dart';
 import 'package:construction/utils/routes.dart';
@@ -22,6 +23,9 @@ class AppRouter {
       case site:
         return MaterialPageRoute(
             builder: (context) => const SitePage(), settings: settings);
+      case siteDesc:
+        return MaterialPageRoute(
+            builder: (context) => const SiteDescription(), settings: settings);
     }
     return null;
   }

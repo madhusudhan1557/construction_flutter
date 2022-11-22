@@ -1,7 +1,7 @@
 class UserModel {
   String? uid;
-  String? firstname;
-  String? lastname;
+
+  String? fullname;
   String? email;
   String? password;
   String? phone;
@@ -10,8 +10,7 @@ class UserModel {
 
   UserModel({
     this.uid,
-    this.firstname,
-    this.lastname,
+    this.fullname,
     this.email,
     this.password,
     this.phone,
@@ -22,8 +21,7 @@ class UserModel {
   factory UserModel.fromDocument(Map<String, dynamic> doc) {
     return UserModel(
       uid: doc['uid'] ?? "",
-      firstname: doc['firstname'] ?? "",
-      lastname: doc['lastname'] ?? "",
+      fullname: doc['fullname'] ?? "",
       email: doc['email'] ?? "",
       password: doc['password'] ?? "",
       address: doc['address'] ?? "",

@@ -113,8 +113,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           FirebaseFirestore.instance.collection("users");
       await users.add({
         "uid": FirebaseAuth.instance.currentUser!.uid,
-        "firstname": usermodel.firstname,
-        "lastname": usermodel.lastname,
+        "fullname": usermodel.fullname,
         'email': usermodel.email,
         'phone': usermodel.phone,
         'address': usermodel.address,
