@@ -30,7 +30,7 @@ class CustomPhoneField extends StatelessWidget {
             borderSide: BorderSide.none,
           ),
         ),
-        validator: (value) => Validator.getBlankFieldValidator(value),
+        validator: (value) => Validator.getPhoneValidator(value),
       ),
     );
   }

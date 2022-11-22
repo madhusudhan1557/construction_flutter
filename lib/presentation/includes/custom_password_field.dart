@@ -29,7 +29,7 @@ class CustomPasswordField extends StatelessWidget {
             borderSide: BorderSide.none,
           ),
         ),
-        validator: (value) => Validator.getBlankFieldValidator(value),
+        validator: (value) => Validator.getPasswordValidator(value),
       ),
     );
   }

@@ -29,7 +29,7 @@ class CustomEmailField extends StatelessWidget {
             borderSide: BorderSide.none,
           ),
         ),
-        validator: (value) => Validator.getBlankFieldValidator(value),
+        validator: (value) => Validator.getEmailValidator(value),
       ),
     );
   }

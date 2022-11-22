@@ -185,6 +185,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       if (_formKey.currentState!.validate()) {
                         UserModel userModel = UserModel(
                           email: _email.text,
+                          fullname: _fullname.text,
                           phone: _phone.text,
                           password: _password.text,
                           address: _address.text,
