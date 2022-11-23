@@ -29,6 +29,15 @@ class SiteDataState extends SitesState {
   SiteDataState({this.siteData});
 }
 
+class FailedDeleteSiteState extends SitesState {
+  final String? error;
+  FailedDeleteSiteState({this.error});
+}
+
+class LoadingDeleteSiteState extends SitesState {}
+
+class LoadingDeleteCompleteState extends SitesState {}
+
 class SiteImagesState extends SitesState {
   final List<dynamic>? siteImages;
   SiteImagesState({this.siteImages});

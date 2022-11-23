@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:bloc/bloc.dart';
+import 'package:bot_toast/bot_toast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 import 'package:firebase_storage/firebase_storage.dart';
@@ -37,6 +38,15 @@ class SitesBloc extends Bloc<SitesEvent, SitesState> {
     );
     on<SiteImagesEvent>(
       (event, emit) => emit(SiteImagesState(siteImages: event.siteImages)),
+    );
+    on<LoadingDeleteCompleteEvent>(
+      (event, emit) => emit(LoadingCompleteState()),
+    );
+    on<LoadingDeleteSiteEvent>(
+      (event, emit) => emit(LoadingDeleteSiteState()),
+    );
+    on<FailedDeleteSiteEvent>(
+      (event, emit) => emit(FailedDeleteSiteState()),
     );
   }
 
@@ -79,5 +89,39 @@ class SitesBloc extends Bloc<SitesEvent, SitesState> {
       });
     });
     return await reference.getDownloadURL();
+  }
+
+  Future<void> deleteSite(String sid, List<String> imageurl, context) async {
+    try {
+      BotToast.showLoading();
+      for (String url in imageurl) {
+        await FirebaseStorage.instance.refFromURL(url).delete();
+      }
+      Future<QuerySnapshot> siteimages =
+          sites.doc(id).collection("siteimages").get();
+      siteimages.then((value) {
+        for (QueryDocumentSnapshot element in value.docs) {
+          sites.doc(id).collection("siteimages").doc(element.id).delete();
+        }
+      });
+      QuerySnapshot snapshot = await sites.where('sid', isEqualTo: sid).get();
+      for (QueryDocumentSnapshot doc in snapshot.docs) {
+        await doc.reference.delete();
+      }
+      BotToast.closeAllLoading();
+      Navigator.of(context).pop();
+      BotToast.closeAllLoading();
+      BotToast.showText(
+        text: "Site Deleted",
+        contentColor: Colors.green,
+      );
+    } on FirebaseException catch (e) {
+      BotToast.closeAllLoading();
+      Navigator.of(context).pop();
+      BotToast.showText(
+        text: e.message!,
+        contentColor: Colors.red,
+      );
+    }
   }
 }

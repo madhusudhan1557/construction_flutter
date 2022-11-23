@@ -1,7 +1,9 @@
+import 'package:carousel_indicator/carousel_indicator.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:construction/presentation/includes/appbar.dart';
 import 'package:construction/utils/app_colors.dart';
+
 import 'package:flutter/material.dart';
 
 class SiteDescription extends StatefulWidget {
@@ -16,11 +18,14 @@ class _SiteDescriptionState extends State<SiteDescription> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final padding = MediaQuery.of(context).padding;
+    int dotposition = 0;
+    CarouselController carouselController = CarouselController();
+
     final Map<String, dynamic> args =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     return Scaffold(
       backgroundColor: AppColors.white,
-      body: ListView(
+      body: Column(
         children: [
           CustomAppbar(
             bgcolor: AppColors.white,
@@ -43,139 +48,223 @@ class _SiteDescriptionState extends State<SiteDescription> {
                 .snapshots(),
             builder: (context, snapshot) {
               if (snapshot.hasData) {
-                return Container(
-                  width: size.width,
-                  height: size.height,
-                  padding: EdgeInsets.symmetric(horizontal: padding.top * 0.8),
-                  child: ListView(
-                    padding: EdgeInsets.symmetric(vertical: padding.top * 0.4),
+                return SingleChildScrollView(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      CarouselSlider(
-                        items: snapshot.data!.docs.map((siteimage) {
-                          return Image.network(
-                            siteimage['image'],
-                            fit: BoxFit.cover,
-                            width: 1000,
-                          );
-                        }).toList(),
-                        options: CarouselOptions(
-                          viewportFraction: 1.0,
-                          height: size.height / 90 * 21.5,
+                      SizedBox(
+                        height: size.height / 90 * 1.3,
+                      ),
+                      Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: padding.top * 0.8),
+                        child: CarouselSlider.builder(
+                          carouselController: carouselController,
+                          itemCount: snapshot.data!.docs.length,
+                          itemBuilder: (context, index, _) {
+                            return PageView(
+                              onPageChanged: (value) {
+                                setState(() {
+                                  dotposition = value;
+                                });
+                              },
+                              children: [
+                                Container(
+                                  margin: const EdgeInsets.symmetric(
+                                      horizontal: 5, vertical: 5),
+                                  decoration: BoxDecoration(
+                                    color: AppColors.fadeblue,
+                                    image: DecorationImage(
+                                      image: NetworkImage(
+                                          snapshot.data!.docs[index]['image']),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
+                          options: CarouselOptions(
+                            viewportFraction: 1.0,
+                            height: size.height / 90 * 21.5,
+                          ),
                         ),
                       ),
                       SizedBox(
-                        height: size.height / 90 * 4.3,
+                        height: size.height / 90 * 1.3,
                       ),
-                      Text(
-                        "Site Name : ${args['sitename']}",
-                        style: TextStyle(
-                            color: AppColors.fadeblue,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 24),
-                      ),
-                      SizedBox(
-                        height: size.height / 90 * 1.8,
-                      ),
-                      Text(
-                        "Site Location : ${args['sitelocation']}",
-                        style: TextStyle(
-                          color: Colors.grey[800],
-                          fontWeight: FontWeight.w600,
-                          fontSize: 18,
-                        ),
-                      ),
-                      SizedBox(
-                        height: size.height / 90 * 1.8,
-                      ),
-                      Text(
-                        "Client Name : ${args['clientname']}",
-                        style: TextStyle(
-                          color: Colors.grey[800],
-                          fontWeight: FontWeight.w600,
-                          fontSize: 18,
-                        ),
-                      ),
-                      SizedBox(
-                        height: size.height / 90 * 1.8,
-                      ),
-                      Text(
-                        "Client Phone : +977${args['phone']}",
-                        style: TextStyle(
-                          color: Colors.grey[800],
-                          fontWeight: FontWeight.w600,
-                          fontSize: 18,
-                        ),
-                      ),
-                      SizedBox(
-                        height: size.height / 90 * 3.66,
-                      ),
-                      Text(
-                        "Estimation Sheet",
-                        style: TextStyle(
+                      Align(
+                        alignment: Alignment.center,
+                        child: CarouselIndicator(
+                          count: snapshot.data!.docs.length,
+                          activeColor: AppColors.yellow,
                           color: AppColors.fadeblue,
-                          fontWeight: FontWeight.w600,
-                          fontSize: 16,
+                          index: dotposition,
                         ),
                       ),
                       SizedBox(
-                        height: size.height / 90 * 0.66,
+                        height: size.height / 90 * 1.3,
                       ),
-                      DataTable(
-                        headingRowColor: MaterialStateColor.resolveWith(
-                          (states) => AppColors.fadeblue,
+                      Container(
+                        padding:
+                            EdgeInsets.symmetric(horizontal: padding.top * 0.8),
+                        child: Column(
+                          children: [
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Site Name : ${args['sitename']}",
+                                  style: TextStyle(
+                                    color: AppColors.fadeblue,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                Icon(
+                                  Icons.home,
+                                  size: size.height / 90 * 2.66,
+                                  color: AppColors.fadeblue,
+                                )
+                              ],
+                            ),
+                            SizedBox(
+                              height: size.height / 90 * 1.3,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Site Location : ${args['sitelocation']}",
+                                  style: TextStyle(
+                                    color: AppColors.fadeblue,
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                Icon(
+                                  Icons.location_pin,
+                                  size: size.height / 90 * 2.66,
+                                  color: AppColors.fadeblue,
+                                )
+                              ],
+                            ),
+                            SizedBox(
+                              height: size.height / 90 * 1.3,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Client Name : ${args['clientname']}",
+                                  style: TextStyle(
+                                    color: AppColors.fadeblue,
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                Icon(
+                                  Icons.person,
+                                  size: size.height / 90 * 2.66,
+                                  color: AppColors.fadeblue,
+                                )
+                              ],
+                            ),
+                            SizedBox(
+                              height: size.height / 90 * 1.3,
+                            ),
+                            Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                Text(
+                                  "Client Phone : +977${args['phone']}",
+                                  style: TextStyle(
+                                    color: AppColors.fadeblue,
+                                    fontWeight: FontWeight.w400,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                                Icon(
+                                  Icons.phone,
+                                  size: size.height / 90 * 2.66,
+                                  color: AppColors.fadeblue,
+                                )
+                              ],
+                            ),
+                            SizedBox(
+                              height: size.height / 90 * 2.36,
+                            ),
+                            Text(
+                              "Estimation Sheet",
+                              style: TextStyle(
+                                color: AppColors.fadeblue,
+                                fontWeight: FontWeight.w400,
+                                fontSize: 16,
+                              ),
+                            ),
+                            SizedBox(
+                              height: size.height / 90 * 0.66,
+                            ),
+                            DataTable(
+                              headingRowColor: MaterialStateColor.resolveWith(
+                                (states) => AppColors.fadeblue,
+                              ),
+                              border: TableBorder(
+                                  bottom: BorderSide(
+                                      width: 1,
+                                      color: AppColors.fadeblue,
+                                      style: BorderStyle.solid),
+                                  left: BorderSide(
+                                      width: 1,
+                                      color: AppColors.fadeblue,
+                                      style: BorderStyle.solid),
+                                  right: BorderSide(
+                                      width: 1,
+                                      color: AppColors.fadeblue,
+                                      style: BorderStyle.solid),
+                                  horizontalInside: BorderSide(
+                                      width: 1,
+                                      color: AppColors.fadeblue,
+                                      style: BorderStyle.solid)),
+                              headingTextStyle:
+                                  TextStyle(color: AppColors.white),
+                              showBottomBorder: true,
+                              columnSpacing: padding.top * 1.2,
+                              columns: const <DataColumn>[
+                                DataColumn(
+                                  label: Text('Name'),
+                                ),
+                                DataColumn(
+                                  label: Text('Quantity'),
+                                ),
+                                DataColumn(
+                                  label: Text('Rate'),
+                                ),
+                                DataColumn(
+                                  label: Text('Amount'),
+                                ),
+                              ],
+                              rows: const [
+                                DataRow(
+                                  cells: <DataCell>[
+                                    DataCell(Text('Cement')),
+                                    DataCell(Text('19')),
+                                    DataCell(Text('1300')),
+                                    DataCell(Text('${19 * 1300}')),
+                                  ],
+                                ),
+                                DataRow(
+                                  cells: <DataCell>[
+                                    DataCell(Text('Cement')),
+                                    DataCell(Text('19')),
+                                    DataCell(Text('1300')),
+                                    DataCell(Text('${19 * 1300}')),
+                                  ],
+                                )
+                              ],
+                            ),
+                          ],
                         ),
-                        border: TableBorder(
-                            bottom: BorderSide(
-                                width: 1,
-                                color: AppColors.fadeblue,
-                                style: BorderStyle.solid),
-                            left: BorderSide(
-                                width: 1,
-                                color: AppColors.fadeblue,
-                                style: BorderStyle.solid),
-                            right: BorderSide(
-                                width: 1,
-                                color: AppColors.fadeblue,
-                                style: BorderStyle.solid),
-                            horizontalInside: BorderSide(
-                                width: 1,
-                                color: AppColors.fadeblue,
-                                style: BorderStyle.solid)),
-                        headingTextStyle: TextStyle(color: AppColors.white),
-                        showBottomBorder: true,
-                        columnSpacing: padding.top * 0.8,
-                        columns: const <DataColumn>[
-                          DataColumn(
-                            label: Text('Name'),
-                          ),
-                          DataColumn(
-                            label: Text('Quantity'),
-                          ),
-                          DataColumn(
-                            label: Text('Rate'),
-                          ),
-                          DataColumn(
-                            label: Text('Amount'),
-                          ),
-                        ],
-                        rows: const [
-                          DataRow(
-                            cells: <DataCell>[
-                              DataCell(Text('Cement')),
-                              DataCell(Text('19')),
-                              DataCell(Text('1300')),
-                              DataCell(Text('${19 * 1300}')),
-                            ],
-                          ),
-                          DataRow(
-                            cells: <DataCell>[
-                              DataCell(Text('Cement')),
-                              DataCell(Text('19')),
-                              DataCell(Text('1300')),
-                              DataCell(Text('${19 * 1300}')),
-                            ],
-                          )
-                        ],
                       ),
                     ],
                   ),

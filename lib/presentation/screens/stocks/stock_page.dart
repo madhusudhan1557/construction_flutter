@@ -1,3 +1,4 @@
+import 'package:construction/presentation/includes/appbar.dart';
 import 'package:construction/presentation/includes/custom_number_field.dart';
 import 'package:construction/presentation/includes/custom_textfield.dart';
 
@@ -24,17 +25,19 @@ class _StockPageState extends State<StockPage> {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final paddding = MediaQuery.of(context).padding;
+    final padding = MediaQuery.of(context).padding;
 
     showAddStockModal() {
       return showDialog(
         context: context,
         builder: (context) {
           return AlertDialog(
+            shape:
+                RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
             content: Form(
                 key: _formKey,
                 child: SizedBox(
-                  height: size.height / 90 * 44.334,
+                  height: size.height / 90 * 48.334,
                   child: Column(
                     children: [
                       SizedBox(
@@ -52,69 +55,70 @@ class _StockPageState extends State<StockPage> {
                       ),
                       CustomTextField(
                         controller: _itemname,
-                        hintText: "Items Name",
+                        hintText: "Brand Name",
                         size: size.height / 90 * 5.44,
                       ),
                       SizedBox(
                         height: size.height / 90 * 1.538,
                       ),
-                      CustomNumberField(
-                        hintText: "Item Quantity",
-                        controller: _quantity,
+                      CustomTextField(
+                        controller: _itemname,
+                        hintText: "Supplier Name",
                         size: size.height / 90 * 5.44,
                       ),
                       SizedBox(
                         height: size.height / 90 * 1.538,
                       ),
-                      // Container(
-                      //   height: size.height / 90 * 5.44,
-                      //   decoration: BoxDecoration(
-                      //       color: AppColors.customGrey
-                      //           .withOpacity(0.6)),
-                      //   child: DropdownButtonHideUnderline(
-                      //       child: DropdownButtonFormField(
-                      //     decoration: InputDecoration(
-                      //       contentPadding: EdgeInsets.symmetric(
-                      //         horizontal: paddding.top * 0.4,
-                      //       ),
-                      //       hintText: "Select Unit",
-                      //       border: InputBorder.none,
-                      //     ),
-                      //     items: listmaterial.unit!
-                      //         .map<DropdownMenuItem<String>>(
-                      //             (items) {
-                      //       return DropdownMenuItem<String>(
-                      //         value: items["id"].toString(),
-                      //         child: Text(
-                      //           items["name"],
-                      //         ),
-                      //       );
-                      //     }).toList(),
-                      //     onChanged: (value) {
-                      //       setState(() {
-                      //         unit = value.toString();
-                      //       });
-                      //     },
-                      //   )),
-                      // ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text("Item Quantity"),
+                          SizedBox(
+                            width: size.width / 5.6,
+                            child: CustomNumberField(
+                              hintText: "Qty",
+                              controller: _quantity,
+                              size: size.height / 90 * 5.44,
+                            ),
+                          ),
+                        ],
+                      ),
                       SizedBox(
                         height: size.height / 90 * 1.538,
                       ),
-                      CustomNumberField(
-                        hintText: "Item Rate",
-                        controller: _rate,
-                        size: size.height / 90 * 5.44,
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text("Item rate"),
+                          SizedBox(
+                            width: size.width / 5.6,
+                            child: CustomNumberField(
+                              hintText: "Rate",
+                              controller: _rate,
+                              size: size.height / 90 * 5.44,
+                            ),
+                          ),
+                        ],
                       ),
                       SizedBox(
                         height: size.height / 90 * 2.334,
                       ),
+                      CustomTextField(
+                        controller: _itemname,
+                        hintText: "Unit",
+                        size: size.height / 90 * 5.44,
+                      ),
+                      SizedBox(
+                        height: size.height / 90 * 1.838,
+                      ),
                       Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
                         children: [
                           TextButton(
                             style: ElevatedButton.styleFrom(
                               elevation: 0,
-                              fixedSize: const Size(103, 33),
+                              fixedSize: Size(size.width / 90 * 8.66,
+                                  size.height / 90 * 5.86),
                               foregroundColor: AppColors.fadeblue,
                             ),
                             onPressed: () {
@@ -122,13 +126,11 @@ class _StockPageState extends State<StockPage> {
                             },
                             child: const Text("Cancel"),
                           ),
-                          const SizedBox(
-                            width: 20,
-                          ),
                           ElevatedButton(
                             style: ElevatedButton.styleFrom(
                               elevation: 0,
-                              fixedSize: const Size(103, 33),
+                              fixedSize: Size(size.width / 90 * 25.66,
+                                  size.height / 90 * 3.86),
                               backgroundColor: AppColors.yellow,
                               foregroundColor: AppColors.fadeblue,
                             ),
@@ -148,66 +150,23 @@ class _StockPageState extends State<StockPage> {
     }
 
     return Scaffold(
-      body: Container(
-        padding: EdgeInsets.symmetric(horizontal: paddding.top * 0.3),
-        margin: EdgeInsets.only(top: paddding.top * 0.8),
-        child: Column(
-          children: [
-            Expanded(
-              flex: 1,
-              child: Row(
-                children: [
-                  IconButton(
-                    onPressed: () {
-                      Navigator.of(context).pop();
-                    },
-                    icon: Icon(
-                      Icons.arrow_back_ios_new,
-                      size: size.height / 90 * 2.532,
-                      color: AppColors.fadeblue,
-                    ),
-                  ),
-                  SizedBox(
-                    width: size.width / 5 * 1.432,
-                  ),
-                  Text(
-                    "Stocks",
-                    style: TextStyle(
-                      color: AppColors.fadeblue,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 24,
-                    ),
-                  ),
-                ],
+      backgroundColor: AppColors.customGrey,
+      body: Column(
+        children: [
+          CustomAppbar(
+            title: "Stocks",
+            bgcolor: AppColors.customGrey,
+            leading: IconButton(
+              icon: Icon(
+                Icons.arrow_back_ios_new,
+                color: AppColors.fadeblue,
               ),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
             ),
-            Expanded(
-              flex: 11,
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: size.height / 90 * 3.44,
-                  ),
-                  Image.asset(
-                    "assets/images/stocks.png",
-                    height: size.height / 90 * 15.334,
-                  ),
-                  SizedBox(
-                    height: size.height / 90 * 3.44,
-                  ),
-                  Text(
-                    "Seems Like there are no Stocks",
-                    style: TextStyle(
-                      color: AppColors.fadeblue,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 24,
-                    ),
-                  ),
-                ],
-              ),
-            )
-          ],
-        ),
+          )
+        ],
       ),
       floatingActionButton: FloatingActionButton(
         shape: const CircleBorder(),

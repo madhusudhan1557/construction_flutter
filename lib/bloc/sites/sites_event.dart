@@ -22,6 +22,15 @@ class LoadingSiteEvent extends SitesEvent {}
 
 class LoadingCompleteEvent extends SitesEvent {}
 
+class FailedDeleteSiteEvent extends SitesEvent {
+  final String? error;
+  FailedDeleteSiteEvent({this.error});
+}
+
+class LoadingDeleteSiteEvent extends SitesEvent {}
+
+class LoadingDeleteCompleteEvent extends SitesEvent {}
+
 class SiteDataEvent extends SitesEvent {
   final Map<String, dynamic>? siteData;
   SiteDataEvent({this.siteData});

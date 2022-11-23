@@ -35,6 +35,7 @@ class _SitePageState extends State<SitePage> {
       TextEditingController(text: "Hello");
   final TextEditingController _phone =
       TextEditingController(text: "9864022154");
+  List<String> imageurl = [];
   final _formKey = GlobalKey<FormState>();
   List<String> images = [];
   List<XFile> siteimages = [];
@@ -504,25 +505,86 @@ class _SitePageState extends State<SitePage> {
                                             ),
                                           ),
                                           args['role'] == "Admin"
-                                              ? InkWell(
-                                                  onTap: () {
-                                                    ShowCustomModal()
-                                                        .showDeleteDialog(
-                                                      id: 1,
-                                                      context: context,
-                                                      height:
-                                                          size.height / 90 * 23,
-                                                      width:
-                                                          size.width / 2 * 11,
-                                                      imageheight: size.height /
-                                                          90 *
-                                                          6.54,
+                                              ? BlocConsumer<SitesBloc,
+                                                  SitesState>(
+                                                  listener: (context, state) {
+                                                    if (state
+                                                        is LoadingDeleteSiteState) {
+                                                      BotToast.showLoading();
+                                                    }
+                                                    if (state
+                                                        is LoadingDeleteCompleteState) {
+                                                      BotToast
+                                                          .closeAllLoading();
+                                                      BotToast.showText(
+                                                        text:
+                                                            " Delete ${snapshot.data!.docs[index]['sitename']} Site",
+                                                        contentColor:
+                                                            Colors.green,
+                                                      );
+                                                      Navigator.of(context)
+                                                          .pop();
+                                                    }
+                                                    if (state
+                                                        is FailedDeleteSiteState) {}
+                                                  },
+                                                  builder: (context, state) {
+                                                    return InkWell(
+                                                      onTap: () async {
+                                                        QuerySnapshot
+                                                            siteimages =
+                                                            await FirebaseFirestore
+                                                                .instance
+                                                                .collection(
+                                                                    "sites")
+                                                                .doc(snapshot
+                                                                        .data!
+                                                                        .docs[index]
+                                                                    ['sid'])
+                                                                .collection(
+                                                                    "siteimages")
+                                                                .where("sid",
+                                                                    isEqualTo: snapshot
+                                                                            .data!
+                                                                            .docs[index]
+                                                                        ['sid'])
+                                                                .get();
+                                                        imageurl.clear();
+                                                        for (int i = 0;
+                                                            i <
+                                                                siteimages.docs
+                                                                    .length;
+                                                            i++) {
+                                                          imageurl.add(
+                                                              siteimages.docs[i]
+                                                                  ['image']);
+                                                        }
+
+                                                        ShowCustomModal()
+                                                            .showDeleteDialog(
+                                                          id: snapshot.data!
+                                                                  .docs[index]
+                                                              ['sid'],
+                                                          context: context,
+                                                          height: size.height /
+                                                              90 *
+                                                              23,
+                                                          width: size.width /
+                                                              2 *
+                                                              11,
+                                                          imageheight:
+                                                              size.height /
+                                                                  90 *
+                                                                  6.54,
+                                                          imageurl: imageurl,
+                                                        );
+                                                      },
+                                                      child: Image.asset(
+                                                        "assets/icons/delete.png",
+                                                        height: 28,
+                                                      ),
                                                     );
                                                   },
-                                                  child: Image.asset(
-                                                    "assets/icons/delete.png",
-                                                    height: 28,
-                                                  ),
                                                 )
                                               : Container()
                                         ],
@@ -545,7 +607,8 @@ class _SitePageState extends State<SitePage> {
                                                   onTap: () {
                                                     ShowCustomModal()
                                                         .showArchriveDialog(
-                                                      id: 1,
+                                                      id: snapshot.data!
+                                                          .docs[index]['sid'],
                                                       context: context,
                                                       height:
                                                           size.height / 90 * 23,
