@@ -7,6 +7,7 @@ import 'package:construction/presentation/screens/sites/site_description.dart';
 import 'package:construction/presentation/screens/sites/site_page.dart';
 import 'package:construction/presentation/screens/splash.dart';
 import 'package:construction/presentation/screens/stocks/stock_page.dart';
+import 'package:construction/presentation/settings.dart';
 import 'package:construction/utils/routes.dart';
 import 'package:flutter/material.dart';
 
@@ -42,6 +43,9 @@ class AppRouter {
       case invoices:
         return MaterialPageRoute(
             builder: (context) => const InvoicePage(), settings: settings);
+      case settingspage:
+        return MaterialPageRoute(
+            builder: (context) => const SettingsPage(), settings: settings);
     }
     return null;
   }

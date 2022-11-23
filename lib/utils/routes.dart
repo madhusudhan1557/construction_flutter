@@ -11,3 +11,4 @@ const String invoices = "invoices";
 const String stocks = "stocks";
 const String orders = "orders";
 const String siteDesc = 'sitedesc';
+const String settingspage = "settings";

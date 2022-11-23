@@ -61,7 +61,7 @@ class _DashboardState extends State<Dashboard> {
                   Expanded(
                     flex: 0,
                     child: CustomAppbar(
-                      title: "",
+                      title: "Aakar Developers",
                       bgcolor: AppColors.customGrey,
                       leading: Padding(
                         padding: const EdgeInsets.all(11.0),
@@ -74,7 +74,7 @@ class _DashboardState extends State<Dashboard> {
                         role == "Admin"
                             ? IconButton(
                                 onPressed: () {
-                                  Navigator.of(context).pushNamed(register);
+                                  Navigator.of(context).pushNamed(settingspage);
                                 },
                                 icon: Iconify(
                                   EmojioneMonotone.construction_worker,
@@ -91,14 +91,6 @@ class _DashboardState extends State<Dashboard> {
                             size: 24,
                           ),
                         ),
-                        IconButton(
-                          onPressed: () {},
-                          icon: Icon(
-                            Icons.settings,
-                            color: AppColors.fadeblue,
-                            size: 24,
-                          ),
-                        )
                       ],
                     ),
                   ),

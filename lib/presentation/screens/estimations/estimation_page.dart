@@ -7,11 +7,11 @@ class EstimationPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final paddding = MediaQuery.of(context).padding;
+    final padding = MediaQuery.of(context).padding;
     return Scaffold(
       body: Container(
-        padding: EdgeInsets.symmetric(horizontal: paddding.top * 0.8),
-        margin: EdgeInsets.only(top: paddding.top * 0.8),
+        padding: EdgeInsets.symmetric(horizontal: padding.top * 0.8),
+        margin: EdgeInsets.only(top: padding.top * 0.8),
         child: Column(
           children: [
             Expanded(
@@ -41,22 +41,75 @@ class EstimationPage extends StatelessWidget {
               child: Column(
                 children: [
                   SizedBox(
-                    height: size.height / 90 * 3.44,
-                  ),
-                  Image.asset(
-                    "assets/images/estimation.png",
-                    height: size.height / 90 * 15.334,
-                  ),
-                  SizedBox(
-                    height: size.height / 90 * 3.44,
+                    height: size.height / 90 * 2.36,
                   ),
                   Text(
-                    "Seems Like there are no Estimations",
+                    "Estimation Sheet",
                     style: TextStyle(
                       color: AppColors.fadeblue,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 21,
+                      fontWeight: FontWeight.w400,
+                      fontSize: 16,
                     ),
+                  ),
+                  SizedBox(
+                    height: size.height / 90 * 0.66,
+                  ),
+                  DataTable(
+                    headingRowColor: MaterialStateColor.resolveWith(
+                      (states) => AppColors.fadeblue,
+                    ),
+                    border: TableBorder(
+                        bottom: BorderSide(
+                            width: 1,
+                            color: AppColors.fadeblue,
+                            style: BorderStyle.solid),
+                        left: BorderSide(
+                            width: 1,
+                            color: AppColors.fadeblue,
+                            style: BorderStyle.solid),
+                        right: BorderSide(
+                            width: 1,
+                            color: AppColors.fadeblue,
+                            style: BorderStyle.solid),
+                        horizontalInside: BorderSide(
+                            width: 1,
+                            color: AppColors.fadeblue,
+                            style: BorderStyle.solid)),
+                    headingTextStyle: TextStyle(color: AppColors.white),
+                    showBottomBorder: true,
+                    columnSpacing: padding.top * 1.2,
+                    columns: const <DataColumn>[
+                      DataColumn(
+                        label: Text('Name'),
+                      ),
+                      DataColumn(
+                        label: Text('Quantity'),
+                      ),
+                      DataColumn(
+                        label: Text('Rate'),
+                      ),
+                      DataColumn(
+                        label: Text('Amount'),
+                      ),
+                    ],
+                    rows: const [
+                      DataRow(
+                        cells: <DataCell>[
+                          DataCell(Text('Cement')),
+                          DataCell(Text('19')),
+                          DataCell(Text('1300')),
+                          DataCell(Text('${19 * 1300}')),
+                        ],
+                      ),
+                      DataRow(
+                        cells: <DataCell>[
+                          DataCell(Text('Cement')),
+                          DataCell(Text('19')),
+                          DataCell(Text('1300')),
+                          DataCell(Text('${19 * 1300}')),
+                        ],
+                      )
+                    ],
                   ),
                 ],
               ),
