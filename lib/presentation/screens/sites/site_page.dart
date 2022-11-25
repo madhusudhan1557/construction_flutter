@@ -603,10 +603,6 @@ class _SitePageState extends State<SitePage> {
                                                           width: size.width /
                                                               2 *
                                                               11,
-                                                          imageheight:
-                                                              size.height /
-                                                                  90 *
-                                                                  6.54,
                                                           imageurl: imageurl,
                                                         );
                                                       },

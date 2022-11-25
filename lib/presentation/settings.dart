@@ -1,10 +1,13 @@
 import 'package:construction/presentation/includes/appbar.dart';
 import 'package:construction/presentation/includes/custom_box.dart';
-import 'package:construction/presentation/includes/custom_listtile.dart';
+
+import 'package:construction/presentation/includes/show_modal.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/fluent_mdl2.dart';
 
+import '../bloc/auth/auth_bloc.dart';
 import '../utils/app_colors.dart';
 
 class SettingsPage extends StatelessWidget {
@@ -43,7 +46,7 @@ class SettingsPage extends StatelessWidget {
             color: AppColors.customGrey,
             horizontalMargin: padding.top * 0.4,
             verticalMargin: padding.top * 0.2,
-            child: CustomListTile(
+            child: ListTile(
               title: const Text(
                 "Add Supervisor / Engineer",
                 textAlign: TextAlign.start,
@@ -54,6 +57,7 @@ class SettingsPage extends StatelessWidget {
               trailing: Icon(
                 Icons.arrow_forward_ios,
                 color: AppColors.fadeblue,
+                size: 18,
               ),
             ),
           ),
@@ -66,7 +70,7 @@ class SettingsPage extends StatelessWidget {
             color: AppColors.customGrey,
             horizontalMargin: padding.top * 0.4,
             verticalMargin: padding.top * 0.2,
-            child: CustomListTile(
+            child: ListTile(
               title: const Text(
                 "Add Supervisor / Engineer",
                 textAlign: TextAlign.start,
@@ -77,6 +81,7 @@ class SettingsPage extends StatelessWidget {
               trailing: Icon(
                 Icons.arrow_forward_ios,
                 color: AppColors.fadeblue,
+                size: 18,
               ),
             ),
           ),
@@ -89,7 +94,7 @@ class SettingsPage extends StatelessWidget {
             color: AppColors.customGrey,
             horizontalMargin: padding.top * 0.4,
             verticalMargin: padding.top * 0.2,
-            child: CustomListTile(
+            child: ListTile(
               title: const Text(
                 "Add Supervisor / Engineer",
                 textAlign: TextAlign.start,
@@ -100,6 +105,7 @@ class SettingsPage extends StatelessWidget {
               trailing: Icon(
                 Icons.arrow_forward_ios,
                 color: AppColors.fadeblue,
+                size: 18,
               ),
             ),
           ),
@@ -112,7 +118,7 @@ class SettingsPage extends StatelessWidget {
             color: AppColors.customGrey,
             horizontalMargin: padding.top * 0.4,
             verticalMargin: padding.top * 0.2,
-            child: CustomListTile(
+            child: ListTile(
               title: const Text(
                 "Add Supervisor / Engineer",
                 textAlign: TextAlign.start,
@@ -123,6 +129,7 @@ class SettingsPage extends StatelessWidget {
               trailing: Icon(
                 Icons.arrow_forward_ios,
                 color: AppColors.fadeblue,
+                size: 18,
               ),
             ),
           ),
@@ -135,7 +142,7 @@ class SettingsPage extends StatelessWidget {
             color: AppColors.customGrey,
             horizontalMargin: padding.top * 0.4,
             verticalMargin: padding.top * 0.2,
-            child: CustomListTile(
+            child: ListTile(
               title: const Text(
                 "Add Supervisor / Engineer",
                 textAlign: TextAlign.start,
@@ -146,7 +153,47 @@ class SettingsPage extends StatelessWidget {
               trailing: Icon(
                 Icons.arrow_forward_ios,
                 color: AppColors.fadeblue,
+                size: 18,
               ),
+            ),
+          ),
+          InkWell(
+            onTap: () {
+              ShowCustomModal().showSignOutDialog(
+                context: context,
+                height: size.height / 90 * 23,
+                width: size.width / 2 * 11,
+              );
+            },
+            child: BlocConsumer<AuthBloc, AuthState>(
+              listener: (context, state) {},
+              builder: (context, state) {
+                return CustomBox(
+                  height: size.height / 90 * 5.8,
+                  width: size.width,
+                  radius: 15,
+                  blurRadius: 4.0,
+                  shadowColor: Colors.grey,
+                  color: AppColors.customGrey,
+                  horizontalMargin: padding.top * 0.4,
+                  verticalMargin: padding.top * 0.2,
+                  child: ListTile(
+                    title: const Text(
+                      "Log out",
+                      textAlign: TextAlign.start,
+                    ),
+                    leading: Iconify(
+                      FluentMdl2.sign_out,
+                      color: AppColors.red,
+                    ),
+                    trailing: Icon(
+                      Icons.arrow_forward_ios,
+                      color: AppColors.fadeblue,
+                      size: 18,
+                    ),
+                  ),
+                );
+              },
             ),
           ),
         ],
