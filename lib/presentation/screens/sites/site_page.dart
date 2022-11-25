@@ -2,10 +2,10 @@ import 'dart:io';
 
 import 'package:bot_toast/bot_toast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:construction/data/models/sites.dart';
 import 'package:construction/presentation/includes/appbar.dart';
 import 'package:construction/presentation/includes/custom_box.dart';
 import 'package:construction/presentation/includes/custom_phone_field.dart';
+import 'package:construction/presentation/includes/custom_textarea.dart';
 import 'package:construction/presentation/includes/custom_textfield.dart';
 import 'package:construction/presentation/includes/show_modal.dart';
 import 'package:construction/utils/routes.dart';
@@ -16,8 +16,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../utils/app_colors.dart';
+import '../../../bloc/dropdown/dropdown_bloc.dart';
 import '../../../bloc/pickimage/pickimage_bloc.dart';
 import '../../../bloc/sites/sites_bloc.dart';
+import '../../../data/models/sites.dart';
 
 class SitePage extends StatefulWidget {
   const SitePage({super.key});
@@ -51,324 +53,352 @@ class _SitePageState extends State<SitePage> {
       images.clear();
       return showDialog(
         context: context,
-        builder: (context) => AlertDialog(
-          content: StreamBuilder<QuerySnapshot>(
-              stream: FirebaseFirestore.instance
-                  .collection("users")
-                  .where("role", isEqualTo: "Supervisor")
-                  .get()
-                  .asStream(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return SizedBox(
-                    width: size.width,
-                    height: size.height / 90 * 74.334,
-                    child: Form(
-                      key: _formKey,
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: size.height / 90 * 1.338,
-                            ),
-                            Text(
-                              "Add Site",
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600,
-                                  color: AppColors.fadeblue),
-                            ),
-                            SizedBox(
-                              height: size.height / 90 * 2.538,
-                            ),
-                            CustomTextField(
-                              controller: _sitename,
-                              hintText: "Site Name",
-                              suffixIcon: const Icon(
-                                Icons.home_sharp,
-                                color: Colors.black,
+        builder: (context) => BlocListener<DropdownBloc, DropdownState>(
+          listener: (context, state) {
+            if (state is DropdownSelectState) {
+              dropdownvalue = state.value!;
+            }
+          },
+          child: AlertDialog(
+            content: StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collection("users")
+                    .where("role", isEqualTo: "Supervisor")
+                    .get()
+                    .asStream(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return SizedBox(
+                      width: size.width,
+                      height: size.height / 90 * 74.334,
+                      child: Form(
+                        key: _formKey,
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: size.height / 90 * 1.338,
                               ),
-                              size: size.height / 90 * 5.44,
-                            ),
-                            SizedBox(
-                              height: size.height / 90 * 1.538,
-                            ),
-                            CustomTextField(
-                              controller: _sitedes,
-                              hintText: "Site Description",
-                              suffixIcon: const Icon(
-                                Icons.home_sharp,
-                                color: Colors.black,
+                              Text(
+                                "Add Site",
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColors.fadeblue),
                               ),
-                              size: size.height / 90 * 11.44,
-                            ),
-                            SizedBox(
-                              height: size.height / 90 * 1.538,
-                            ),
-                            CustomTextField(
-                              controller: _sitelocation,
-                              hintText: "Site Location",
-                              suffixIcon: const Icon(
-                                Icons.location_pin,
-                                color: Colors.black,
+                              SizedBox(
+                                height: size.height / 90 * 2.538,
                               ),
-                              size: size.height / 90 * 5.44,
-                            ),
-                            SizedBox(
-                              height: size.height / 90 * 1.538,
-                            ),
-                            CustomTextField(
-                              controller: _clientname,
-                              hintText: "Client Name",
-                              suffixIcon: const Icon(
-                                Icons.person,
-                                color: Colors.black,
-                              ),
-                              size: size.height / 90 * 5.44,
-                            ),
-                            SizedBox(
-                              height: size.height / 90 * 1.538,
-                            ),
-                            CustomPhoneField(
-                              controller: _phone,
-                              suffixIcon: const Icon(
-                                Icons.phone,
-                                color: Colors.black,
-                              ),
-                              size: size.height / 90 * 5.44,
-                            ),
-                            SizedBox(
-                              height: size.height / 90 * 1.538,
-                            ),
-                            Container(
-                              decoration: BoxDecoration(
-                                color: AppColors.customGrey.withOpacity(0.6),
-                              ),
-                              child: DropdownButtonFormField2(
-                                decoration: const InputDecoration(
-                                  border: InputBorder.none,
+                              CustomTextField(
+                                controller: _sitename,
+                                hintText: "Site Name",
+                                suffixIcon: const Icon(
+                                  Icons.home_sharp,
+                                  color: Colors.black,
                                 ),
-                                buttonPadding: EdgeInsets.symmetric(
-                                    horizontal: paddding.top * 0.4),
-                                hint: const Text("Assign Supervisor"),
-                                offset: Offset(0, -size.height / 90 * 2.44),
-                                items: snapshot.data!.docs.map((supervisor) {
-                                  return DropdownMenuItem(
-                                    value: "${supervisor['fullname']}",
-                                    child: Text(
-                                      "${supervisor['fullname']}",
-                                    ),
-                                  );
-                                }).toList(),
-                                onChanged: (newValue) {
-                                  setState(() {
-                                    dropdownvalue = newValue!.toString();
-                                  });
-                                },
+                                size: size.height / 90 * 5.44,
                               ),
-                            ),
-                            SizedBox(
-                              height: size.height / 90 * 1.538,
-                            ),
-                            InkWell(
-                              onTap: () async {
-                                final ImagePicker picker = ImagePicker();
-                                siteimages = await picker.pickMultiImage();
-                                images.clear();
+                              SizedBox(
+                                height: size.height / 90 * 1.538,
+                              ),
+                              CustomTextArea(
+                                controller: _sitedes,
+                                hintText: "Site Description",
+                                suffixIcon: const Icon(
+                                  Icons.home_sharp,
+                                  color: Colors.black,
+                                ),
+                                size: size.height / 90 * 11.44,
+                              ),
+                              SizedBox(
+                                height: size.height / 90 * 1.538,
+                              ),
+                              CustomTextField(
+                                controller: _sitelocation,
+                                hintText: "Site Location",
+                                suffixIcon: const Icon(
+                                  Icons.location_pin,
+                                  color: Colors.black,
+                                ),
+                                size: size.height / 90 * 5.44,
+                              ),
+                              SizedBox(
+                                height: size.height / 90 * 1.538,
+                              ),
+                              CustomTextField(
+                                controller: _clientname,
+                                hintText: "Client Name",
+                                suffixIcon: const Icon(
+                                  Icons.person,
+                                  color: Colors.black,
+                                ),
+                                size: size.height / 90 * 5.44,
+                              ),
+                              SizedBox(
+                                height: size.height / 90 * 1.538,
+                              ),
+                              CustomPhoneField(
+                                controller: _phone,
+                                suffixIcon: const Icon(
+                                  Icons.phone,
+                                  color: Colors.black,
+                                ),
+                                size: size.height / 90 * 5.44,
+                              ),
+                              SizedBox(
+                                height: size.height / 90 * 1.538,
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: AppColors.customGrey.withOpacity(0.6),
+                                ),
+                                child: DropdownButtonFormField2(
+                                  decoration: const InputDecoration(
+                                    border: InputBorder.none,
+                                  ),
+                                  buttonPadding: EdgeInsets.symmetric(
+                                      horizontal: paddding.top * 0.4),
+                                  hint: const Text("Assign Supervisor"),
+                                  offset: Offset(0, -size.height / 90 * 2.44),
+                                  items: snapshot.data!.docs.map((supervisor) {
+                                    return DropdownMenuItem(
+                                      value: "${supervisor['fullname']}",
+                                      child: Text(
+                                        "${supervisor['fullname']}",
+                                      ),
+                                    );
+                                  }).toList(),
+                                  onChanged: (newValue) {
+                                    BlocProvider.of<DropdownBloc>(context)
+                                        .onSelectDropdown(newValue.toString());
+                                  },
+                                ),
+                              ),
+                              SizedBox(
+                                height: size.height / 90 * 1.538,
+                              ),
+                              InkWell(
+                                onTap: () async {
+                                  final ImagePicker picker = ImagePicker();
+                                  siteimages = await picker.pickMultiImage();
+                                  images.clear();
 
-                                siteimageBloc.pickImage(siteimages);
-                              },
-                              child: Row(
-                                children: [
-                                  Image.asset(
-                                    "assets/icons/camera.png",
-                                    height: 44,
-                                    width: 44,
-                                  ),
-                                  const SizedBox(
-                                    width: 10,
-                                  ),
-                                  Text(
-                                    "Add Site Images",
-                                    style: TextStyle(
-                                      decoration: TextDecoration.underline,
-                                      fontSize: 14,
-                                      color: AppColors.fadeblue,
+                                  siteimageBloc.pickImage(siteimages);
+                                },
+                                child: Row(
+                                  children: [
+                                    Image.asset(
+                                      "assets/icons/camera.png",
+                                      height: 44,
+                                      width: 44,
                                     ),
-                                  ),
-                                ],
+                                    const SizedBox(
+                                      width: 10,
+                                    ),
+                                    Text(
+                                      "Add Site Images",
+                                      style: TextStyle(
+                                        decoration: TextDecoration.underline,
+                                        fontSize: 14,
+                                        color: AppColors.fadeblue,
+                                      ),
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                            SizedBox(
-                              height: size.height / 90 * 7,
-                              child:
-                                  BlocConsumer<PickimageBloc, PickimageState>(
-                                listener: (context, state) {},
-                                builder: (context, state) => state.siteimage !=
-                                        null
-                                    ? GridView.builder(
-                                        physics:
-                                            const NeverScrollableScrollPhysics(),
-                                        itemCount: state.siteimage!.length,
-                                        gridDelegate:
-                                            const SliverGridDelegateWithFixedCrossAxisCount(
-                                                crossAxisCount: 4),
-                                        itemBuilder: (context, index) {
-                                          images.add(
-                                              state.siteimage![index].path);
-                                          return Stack(
-                                            children: [
-                                              Container(
-                                                decoration: BoxDecoration(
-                                                  image: DecorationImage(
-                                                    image: FileImage(
-                                                      File(state
-                                                          .siteimage![index]
-                                                          .path),
+                              SizedBox(
+                                height: size.height / 90 * 7,
+                                child:
+                                    BlocConsumer<PickimageBloc, PickimageState>(
+                                  listener: (context, state) {},
+                                  builder: (context, state) => state
+                                              .siteimage !=
+                                          null
+                                      ? GridView.builder(
+                                          physics:
+                                              const NeverScrollableScrollPhysics(),
+                                          itemCount: state.siteimage!.length,
+                                          gridDelegate:
+                                              const SliverGridDelegateWithFixedCrossAxisCount(
+                                                  crossAxisCount: 4),
+                                          itemBuilder: (context, index) {
+                                            return Stack(
+                                              children: [
+                                                Container(
+                                                  decoration: BoxDecoration(
+                                                    image: DecorationImage(
+                                                      image: FileImage(
+                                                        File(state
+                                                            .siteimage![index]
+                                                            .path),
+                                                      ),
                                                     ),
                                                   ),
                                                 ),
-                                              ),
-                                              Align(
-                                                alignment:
-                                                    const Alignment(1.8, -2.8),
-                                                child: IconButton(
-                                                  icon: const CircleAvatar(
-                                                    radius: 8,
-                                                    backgroundColor: Colors.red,
-                                                    child: Icon(
-                                                      Icons.close,
-                                                      size: 5,
+                                                Align(
+                                                  alignment: const Alignment(
+                                                      1.8, -2.8),
+                                                  child: IconButton(
+                                                    icon: const CircleAvatar(
+                                                      radius: 8,
+                                                      backgroundColor:
+                                                          Colors.red,
+                                                      child: Icon(
+                                                        Icons.close,
+                                                        size: 5,
+                                                      ),
                                                     ),
+                                                    onPressed: () {
+                                                      BlocProvider.of<
+                                                                  PickimageBloc>(
+                                                              context)
+                                                          .removeImage(
+                                                        state.siteimage!,
+                                                        index,
+                                                      );
+                                                    },
                                                   ),
-                                                  onPressed: () {
-                                                    setState(() {
-                                                      images.removeAt(index);
-                                                      state.siteimage!
-                                                          .removeAt(index);
-                                                    });
-                                                  },
                                                 ),
-                                              ),
-                                            ],
+                                              ],
+                                            );
+                                          },
+                                        )
+                                      : Container(),
+                                ),
+                              ),
+                              SizedBox(
+                                height: size.height / 90 * 2.334,
+                              ),
+                              BlocBuilder<PickimageBloc, PickimageState>(
+                                builder: (context, state) {
+                                  return Row(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: [
+                                      TextButton(
+                                        style: ElevatedButton.styleFrom(
+                                          elevation: 0,
+                                          fixedSize: const Size(103, 33),
+                                          foregroundColor: AppColors.fadeblue,
+                                        ),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                          _clientname.clear();
+                                          _phone.clear();
+                                          _sitelocation.clear();
+                                          _sitename.clear();
+                                          if (state.siteimage != null) {
+                                            state.siteimage!.clear();
+                                          }
+                                        },
+                                        child: const Text("Cancel"),
+                                      ),
+                                      const SizedBox(
+                                        width: 20,
+                                      ),
+                                      BlocConsumer<SitesBloc, SitesState>(
+                                        listener: (context, state) {
+                                          if (state is LoadingSiteState) {
+                                            BotToast.showLoading();
+                                          }
+                                          if (state is LoadingCompleteEvent) {
+                                            BotToast.closeAllLoading();
+                                          }
+                                          if (state is AddedSiteState) {
+                                            BotToast.showText(
+                                                text: state.message!);
+                                            Navigator.of(context).pop();
+                                            BotToast.closeAllLoading();
+                                          }
+                                          if (state is FailedSiteState) {
+                                            BotToast.showText(
+                                                text: state.error!);
+                                            BotToast.closeAllLoading();
+                                          }
+                                        },
+                                        builder: (context, state) {
+                                          return BlocConsumer<SitesBloc,
+                                              SitesState>(
+                                            listener: (context, state) {
+                                              if (state is LoadingSiteState) {
+                                                BotToast.showLoading();
+                                              }
+                                              if (state is CompletedSiteState) {
+                                                BotToast.closeAllLoading();
+                                                Navigator.of(context).pop();
+                                                BotToast.showText(
+                                                  text: "Site Added",
+                                                  contentColor: Colors.green,
+                                                );
+                                              }
+                                              if (state is FailedSiteState) {
+                                                BotToast.closeAllLoading();
+                                                BotToast.showText(
+                                                  text: state.error!,
+                                                  contentColor: Colors.red,
+                                                );
+                                              }
+                                            },
+                                            builder: (context, state) {
+                                              return ElevatedButton(
+                                                style: ElevatedButton.styleFrom(
+                                                  elevation: 0,
+                                                  fixedSize:
+                                                      const Size(103, 33),
+                                                  backgroundColor:
+                                                      AppColors.yellow,
+                                                  foregroundColor:
+                                                      AppColors.fadeblue,
+                                                ),
+                                                onPressed: () {
+                                                  if (_formKey.currentState!
+                                                      .validate()) {
+                                                    SiteModel siteModel =
+                                                        SiteModel(
+                                                      sitename: _sitename.text,
+                                                      sitedesc: _sitedes.text,
+                                                      sitelocation:
+                                                          _sitelocation.text,
+                                                      clientname:
+                                                          _clientname.text,
+                                                      phone: _phone.text,
+                                                      supervisor: dropdownvalue,
+                                                    );
+                                                    BlocProvider.of<SitesBloc>(
+                                                            context)
+                                                        .addSite(
+                                                      siteModel,
+                                                      siteimages,
+                                                    );
+                                                  }
+                                                },
+                                                child: const Text("Save"),
+                                              );
+                                            },
                                           );
                                         },
-                                      )
-                                    : Container(),
-                              ),
-                            ),
-                            SizedBox(
-                              height: size.height / 90 * 2.334,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: [
-                                TextButton(
-                                  style: ElevatedButton.styleFrom(
-                                    elevation: 0,
-                                    fixedSize: const Size(103, 33),
-                                    foregroundColor: AppColors.fadeblue,
-                                  ),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: const Text("Cancel"),
-                                ),
-                                const SizedBox(
-                                  width: 20,
-                                ),
-                                BlocConsumer<SitesBloc, SitesState>(
-                                  listener: (context, state) {
-                                    if (state is LoadingSiteState) {
-                                      BotToast.showLoading();
-                                    }
-                                    if (state is LoadingCompleteEvent) {
-                                      BotToast.closeAllLoading();
-                                    }
-                                    if (state is AddedSiteState) {
-                                      BotToast.showText(text: state.message!);
-                                      Navigator.of(context).pop();
-                                      BotToast.closeAllLoading();
-                                    }
-                                    if (state is FailedSiteState) {
-                                      BotToast.showText(text: state.error!);
-                                      BotToast.closeAllLoading();
-                                    }
-                                  },
-                                  builder: (context, state) {
-                                    return BlocConsumer<SitesBloc, SitesState>(
-                                      listener: (context, state) {
-                                        if (state is LoadingSiteState) {
-                                          BotToast.showLoading();
-                                        }
-                                        if (state is CompletedSiteState) {
-                                          BotToast.closeAllLoading();
-                                          Navigator.of(context).pop();
-                                          BotToast.showText(
-                                            text: "Site Added",
-                                            contentColor: Colors.green,
-                                          );
-                                        }
-                                        if (state is FailedSiteState) {
-                                          BotToast.closeAllLoading();
-                                          BotToast.showText(
-                                            text: state.error!,
-                                            contentColor: Colors.red,
-                                          );
-                                        }
-                                      },
-                                      builder: (context, state) {
-                                        return ElevatedButton(
-                                          style: ElevatedButton.styleFrom(
-                                            elevation: 0,
-                                            fixedSize: const Size(103, 33),
-                                            backgroundColor: AppColors.yellow,
-                                            foregroundColor: AppColors.fadeblue,
-                                          ),
-                                          onPressed: () {
-                                            if (_formKey.currentState!
-                                                .validate()) {
-                                              SiteModel siteModel = SiteModel(
-                                                sitename: _sitename.text,
-                                                sitedesc: _sitedes.text,
-                                                sitelocation:
-                                                    _sitelocation.text,
-                                                clientname: _clientname.text,
-                                                phone: _phone.text,
-                                                supervisor: dropdownvalue,
-                                              );
-                                              BlocProvider.of<SitesBloc>(
-                                                      context)
-                                                  .addSite(
-                                                siteModel,
-                                                siteimages,
-                                              );
-                                            }
-                                          },
-                                          child: const Text("Save"),
-                                        );
-                                      },
-                                    );
-                                  },
-                                ),
-                              ],
-                            )
-                          ],
+                                      ),
+                                    ],
+                                  );
+                                },
+                              )
+                            ],
+                          ),
                         ),
                       ),
-                    ),
-                  );
-                } else {
-                  return const Center(
-                    child: CircularProgressIndicator.adaptive(),
-                  );
-                }
-              }),
+                    );
+                  } else {
+                    return const Center(
+                      child: CircularProgressIndicator.adaptive(),
+                    );
+                  }
+                }),
+          ),
         ),
       );
     }
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.customGrey,
       body: SingleChildScrollView(
         child: Column(
@@ -461,7 +491,8 @@ class _SitePageState extends State<SitePage> {
                                       ['clientname'],
                                   "phone": snapshot.data!.docs[index]['phone'],
                                   "supervisor": snapshot.data!.docs[index]
-                                      ['supervisor']
+                                      ['supervisor'],
+                                  "role": args['role'],
                                 });
                               },
                               child: CustomBox(

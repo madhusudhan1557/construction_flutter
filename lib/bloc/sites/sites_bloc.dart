@@ -9,6 +9,7 @@ import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../data/models/sites.dart';
+import '../../data/models/stocks.dart';
 
 part 'sites_event.dart';
 part 'sites_state.dart';
@@ -78,6 +79,17 @@ class SitesBloc extends Bloc<SitesEvent, SitesState> {
     }
   }
 
+  addSiteStock(StockModel stockModel, sid) async {
+    add(LoadingSiteEvent());
+    try {
+      sites.doc(sid).collection("sitestocks").add({
+        "sid": sid,
+      });
+    } on FirebaseException catch (e) {
+      add(FailedSiteEvent(error: e.message));
+    }
+  }
+
   uploadFile(XFile image) async {
     Reference reference =
         FirebaseStorage.instance.ref().child("siteimages").child(image.name);
@@ -94,11 +106,9 @@ class SitesBloc extends Bloc<SitesEvent, SitesState> {
   Future<void> deleteSite(String sid, List<String> imageurl, context) async {
     try {
       BotToast.showLoading();
-      for (String url in imageurl) {
-        await FirebaseStorage.instance.refFromURL(url).delete();
-      }
+
       Future<QuerySnapshot> siteimages =
-          sites.doc(id).collection("siteimages").get();
+          sites.doc(sid).collection("siteimages").get();
       siteimages.then((value) {
         for (QueryDocumentSnapshot element in value.docs) {
           sites.doc(id).collection("siteimages").doc(element.id).delete();
@@ -108,6 +118,10 @@ class SitesBloc extends Bloc<SitesEvent, SitesState> {
       for (QueryDocumentSnapshot doc in snapshot.docs) {
         await doc.reference.delete();
       }
+      for (String url in imageurl) {
+        await FirebaseStorage.instance.refFromURL(url).delete();
+      }
+
       BotToast.closeAllLoading();
       Navigator.of(context).pop();
       BotToast.closeAllLoading();

@@ -1,5 +1,6 @@
 import 'package:construction/presentation/includes/appbar.dart';
 import 'package:construction/presentation/includes/custom_box.dart';
+import 'package:construction/presentation/includes/custom_listtile.dart';
 import 'package:flutter/material.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/fluent_mdl2.dart';
@@ -42,8 +43,7 @@ class SettingsPage extends StatelessWidget {
             color: AppColors.customGrey,
             horizontalMargin: padding.top * 0.4,
             verticalMargin: padding.top * 0.2,
-            child: ListTile(
-              onTap: () {},
+            child: CustomListTile(
               title: const Text(
                 "Add Supervisor / Engineer",
                 textAlign: TextAlign.start,
@@ -66,10 +66,9 @@ class SettingsPage extends StatelessWidget {
             color: AppColors.customGrey,
             horizontalMargin: padding.top * 0.4,
             verticalMargin: padding.top * 0.2,
-            child: ListTile(
-              onTap: () {},
+            child: CustomListTile(
               title: const Text(
-                "Register a new Admin",
+                "Add Supervisor / Engineer",
                 textAlign: TextAlign.start,
               ),
               leading: const Iconify(
@@ -85,15 +84,14 @@ class SettingsPage extends StatelessWidget {
             height: size.height / 90 * 5.8,
             width: size.width,
             radius: 15,
-            blurRadius: 8.0,
+            blurRadius: 4.0,
             shadowColor: Colors.grey,
             color: AppColors.customGrey,
             horizontalMargin: padding.top * 0.4,
             verticalMargin: padding.top * 0.2,
-            child: ListTile(
-              onTap: () {},
+            child: CustomListTile(
               title: const Text(
-                "View Archrive List",
+                "Add Supervisor / Engineer",
                 textAlign: TextAlign.start,
               ),
               leading: const Iconify(
@@ -109,15 +107,14 @@ class SettingsPage extends StatelessWidget {
             height: size.height / 90 * 5.8,
             width: size.width,
             radius: 15,
-            blurRadius: 8.0,
+            blurRadius: 4.0,
             shadowColor: Colors.grey,
             color: AppColors.customGrey,
             horizontalMargin: padding.top * 0.4,
             verticalMargin: padding.top * 0.2,
-            child: ListTile(
-              onTap: () {},
+            child: CustomListTile(
               title: const Text(
-                "Add Categories for Stocks",
+                "Add Supervisor / Engineer",
                 textAlign: TextAlign.start,
               ),
               leading: const Iconify(
@@ -133,15 +130,14 @@ class SettingsPage extends StatelessWidget {
             height: size.height / 90 * 5.8,
             width: size.width,
             radius: 15,
-            blurRadius: 8.0,
+            blurRadius: 4.0,
             shadowColor: Colors.grey,
             color: AppColors.customGrey,
             horizontalMargin: padding.top * 0.4,
             verticalMargin: padding.top * 0.2,
-            child: ListTile(
-              onTap: () {},
+            child: CustomListTile(
               title: const Text(
-                "Add Measurement Units",
+                "Add Supervisor / Engineer",
                 textAlign: TextAlign.start,
               ),
               leading: const Iconify(

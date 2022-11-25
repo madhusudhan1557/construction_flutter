@@ -19,4 +19,8 @@ class PickimageBloc extends Bloc<PickimageEvent, PickimageState> {
   pickImage(List<XFile> siteimage) async {
     add(OnSelectImage(siteimage: siteimage));
   }
+
+  removeImage(List<XFile> siteimage, index) async {
+    siteimage.removeAt(index);
+  }
 }

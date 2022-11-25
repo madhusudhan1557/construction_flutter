@@ -10,4 +10,6 @@ class AppColors {
   static Color customGrey = getColor("E5E5E5");
   static Color yellow = getColor("FFC000");
   static Color red = getColor("C5221F");
+  static Color grey = getColor("606060");
+  static Color green = getColor("34A853");
 }

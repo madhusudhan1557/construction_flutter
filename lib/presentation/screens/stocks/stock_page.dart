@@ -38,110 +38,112 @@ class _StockPageState extends State<StockPage> {
                 key: _formKey,
                 child: SizedBox(
                   height: size.height / 90 * 48.334,
-                  child: Column(
-                    children: [
-                      SizedBox(
-                        height: size.height / 90 * 1.338,
-                      ),
-                      Text(
-                        "Add Stocks",
-                        style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w600,
-                            color: AppColors.fadeblue),
-                      ),
-                      SizedBox(
-                        height: size.height / 90 * 2.538,
-                      ),
-                      CustomTextField(
-                        controller: _itemname,
-                        hintText: "Brand Name",
-                        size: size.height / 90 * 5.44,
-                      ),
-                      SizedBox(
-                        height: size.height / 90 * 1.538,
-                      ),
-                      CustomTextField(
-                        controller: _itemname,
-                        hintText: "Supplier Name",
-                        size: size.height / 90 * 5.44,
-                      ),
-                      SizedBox(
-                        height: size.height / 90 * 1.538,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text("Item Quantity"),
-                          SizedBox(
-                            width: size.width / 5.6,
-                            child: CustomNumberField(
-                              hintText: "Qty",
-                              controller: _quantity,
-                              size: size.height / 90 * 5.44,
+                  child: SingleChildScrollView(
+                    child: Column(
+                      children: [
+                        SizedBox(
+                          height: size.height / 90 * 1.338,
+                        ),
+                        Text(
+                          "Add Stocks",
+                          style: TextStyle(
+                              fontSize: 18,
+                              fontWeight: FontWeight.w600,
+                              color: AppColors.fadeblue),
+                        ),
+                        SizedBox(
+                          height: size.height / 90 * 2.538,
+                        ),
+                        CustomTextField(
+                          controller: _itemname,
+                          hintText: "Brand Name",
+                          size: size.height / 90 * 5.44,
+                        ),
+                        SizedBox(
+                          height: size.height / 90 * 1.538,
+                        ),
+                        CustomTextField(
+                          controller: _itemname,
+                          hintText: "Supplier Name",
+                          size: size.height / 90 * 5.44,
+                        ),
+                        SizedBox(
+                          height: size.height / 90 * 1.538,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text("Item Quantity"),
+                            SizedBox(
+                              width: size.width / 5.6,
+                              child: CustomNumberField(
+                                hintText: "Qty",
+                                controller: _quantity,
+                                size: size.height / 90 * 5.44,
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: size.height / 90 * 1.538,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          const Text("Item rate"),
-                          SizedBox(
-                            width: size.width / 5.6,
-                            child: CustomNumberField(
-                              hintText: "Rate",
-                              controller: _rate,
-                              size: size.height / 90 * 5.44,
+                          ],
+                        ),
+                        SizedBox(
+                          height: size.height / 90 * 1.538,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const Text("Item rate"),
+                            SizedBox(
+                              width: size.width / 5.6,
+                              child: CustomNumberField(
+                                hintText: "Rate",
+                                controller: _rate,
+                                size: size.height / 90 * 5.44,
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: size.height / 90 * 2.334,
-                      ),
-                      CustomTextField(
-                        controller: _itemname,
-                        hintText: "Unit",
-                        size: size.height / 90 * 5.44,
-                      ),
-                      SizedBox(
-                        height: size.height / 90 * 1.838,
-                      ),
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          TextButton(
-                            style: ElevatedButton.styleFrom(
-                              elevation: 0,
-                              fixedSize: Size(size.width / 90 * 8.66,
-                                  size.height / 90 * 5.86),
-                              foregroundColor: AppColors.fadeblue,
+                          ],
+                        ),
+                        SizedBox(
+                          height: size.height / 90 * 2.334,
+                        ),
+                        CustomTextField(
+                          controller: _itemname,
+                          hintText: "Unit",
+                          size: size.height / 90 * 5.44,
+                        ),
+                        SizedBox(
+                          height: size.height / 90 * 1.838,
+                        ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            TextButton(
+                              style: ElevatedButton.styleFrom(
+                                elevation: 0,
+                                fixedSize: Size(size.width / 90 * 8.66,
+                                    size.height / 90 * 5.86),
+                                foregroundColor: AppColors.fadeblue,
+                              ),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              },
+                              child: const Text("Cancel"),
                             ),
-                            onPressed: () {
-                              Navigator.of(context).pop();
-                            },
-                            child: const Text("Cancel"),
-                          ),
-                          ElevatedButton(
-                            style: ElevatedButton.styleFrom(
-                              elevation: 0,
-                              fixedSize: Size(size.width / 90 * 25.66,
-                                  size.height / 90 * 3.86),
-                              backgroundColor: AppColors.yellow,
-                              foregroundColor: AppColors.fadeblue,
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                elevation: 0,
+                                fixedSize: Size(size.width / 90 * 25.66,
+                                    size.height / 90 * 3.86),
+                                backgroundColor: AppColors.yellow,
+                                foregroundColor: AppColors.fadeblue,
+                              ),
+                              onPressed: () {
+                                if (_formKey.currentState!.validate()) {}
+                              },
+                              child: const Text("Save"),
                             ),
-                            onPressed: () {
-                              if (_formKey.currentState!.validate()) {}
-                            },
-                            child: const Text("Save"),
-                          ),
-                        ],
-                      )
-                    ],
+                          ],
+                        )
+                      ],
+                    ),
                   ),
                 )),
           );
@@ -150,6 +152,7 @@ class _StockPageState extends State<StockPage> {
     }
 
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.customGrey,
       body: Column(
         children: [

@@ -40,6 +40,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         }
       },
       child: Scaffold(
+        resizeToAvoidBottomInset: false,
         body: SingleChildScrollView(
           child: Column(
             children: [

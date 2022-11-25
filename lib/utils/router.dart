@@ -4,7 +4,9 @@ import 'package:construction/presentation/screens/estimations/estimation_page.da
 import 'package:construction/presentation/screens/invoices/invoices_page.dart';
 import 'package:construction/presentation/screens/orders/orders_page.dart';
 import 'package:construction/presentation/screens/sites/site_description.dart';
+import 'package:construction/presentation/screens/sites/site_estimation.dart';
 import 'package:construction/presentation/screens/sites/site_page.dart';
+import 'package:construction/presentation/screens/sites/site_stocks.dart';
 import 'package:construction/presentation/screens/splash.dart';
 import 'package:construction/presentation/screens/stocks/stock_page.dart';
 import 'package:construction/presentation/settings.dart';
@@ -46,6 +48,12 @@ class AppRouter {
       case settingspage:
         return MaterialPageRoute(
             builder: (context) => const SettingsPage(), settings: settings);
+      case siteStocks:
+        return MaterialPageRoute(
+            builder: (context) => const SiteStocks(), settings: settings);
+      case siteEstimation:
+        return MaterialPageRoute(
+            builder: (context) => const SiteEstimation(), settings: settings);
     }
     return null;
   }
