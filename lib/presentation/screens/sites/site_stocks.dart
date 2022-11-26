@@ -40,7 +40,7 @@ class _SiteStocksState extends State<SiteStocks> {
             radius: 15,
             blurRadius: 4.0,
             shadowColor: Colors.grey,
-            color: AppColors.white,
+            color: AppColors.customGrey,
             horizontalMargin: padding.top * 0.4,
             verticalMargin: padding.top * 0.4,
             child: Container(
@@ -122,7 +122,7 @@ class _SiteStocksState extends State<SiteStocks> {
                       const Spacer(),
                       Icon(
                         Icons.more_vert,
-                        color: AppColors.white,
+                        color: AppColors.customGrey,
                       ),
                     ],
                   )
