@@ -38,122 +38,182 @@ class SettingsPage extends StatelessWidget {
             height: size.height / 90 * 1.86,
           ),
           CustomBox(
-            height: size.height / 90 * 5.8,
+            height: size.height / 90 * 5.6,
             width: size.width,
-            radius: 15,
+            radius: 18,
             blurRadius: 4.0,
             shadowColor: Colors.grey,
             color: AppColors.customGrey,
             horizontalMargin: padding.top * 0.4,
             verticalMargin: padding.top * 0.2,
-            child: ListTile(
-              title: const Text(
-                "Add Supervisor / Engineer",
-                textAlign: TextAlign.start,
-              ),
-              leading: const Iconify(
-                FluentMdl2.archive_undo,
-              ),
-              trailing: Icon(
-                Icons.arrow_forward_ios,
-                color: AppColors.fadeblue,
-                size: 18,
+            child: Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(width: size.width / 18.3),
+                  CircleAvatar(
+                    backgroundColor: AppColors.fadeblue,
+                    radius: 18,
+                    child: Iconify(
+                      FluentMdl2.engineering_group,
+                      color: AppColors.white,
+                    ),
+                  ),
+                  SizedBox(width: size.width / 11.3),
+                  Text(
+                    "Add Supervisor or Engineer",
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      color: AppColors.fadeblue,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                    ),
+                  ),
+                  const Spacer(),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(
+                      Icons.arrow_forward_ios,
+                      color: AppColors.fadeblue,
+                      size: 18,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
           CustomBox(
-            height: size.height / 90 * 5.8,
+            height: size.height / 90 * 5.6,
             width: size.width,
-            radius: 15,
+            radius: 18,
             blurRadius: 4.0,
             shadowColor: Colors.grey,
             color: AppColors.customGrey,
             horizontalMargin: padding.top * 0.4,
             verticalMargin: padding.top * 0.2,
-            child: ListTile(
-              title: const Text(
-                "Add Supervisor / Engineer",
-                textAlign: TextAlign.start,
-              ),
-              leading: const Iconify(
-                FluentMdl2.archive_undo,
-              ),
-              trailing: Icon(
-                Icons.arrow_forward_ios,
-                color: AppColors.fadeblue,
-                size: 18,
+            child: Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(width: size.width / 18.3),
+                  CircleAvatar(
+                    backgroundColor: AppColors.fadeblue,
+                    radius: 18,
+                    child: Iconify(
+                      FluentMdl2.user_followed,
+                      color: AppColors.white,
+                    ),
+                  ),
+                  SizedBox(width: size.width / 11.3),
+                  Text(
+                    "Register a new Admin",
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      color: AppColors.fadeblue,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                    ),
+                  ),
+                  const Spacer(),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(
+                      Icons.arrow_forward_ios,
+                      color: AppColors.fadeblue,
+                      size: 18,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
           CustomBox(
-            height: size.height / 90 * 5.8,
+            height: size.height / 90 * 5.6,
             width: size.width,
-            radius: 15,
+            radius: 18,
             blurRadius: 4.0,
             shadowColor: Colors.grey,
             color: AppColors.customGrey,
             horizontalMargin: padding.top * 0.4,
             verticalMargin: padding.top * 0.2,
-            child: ListTile(
-              title: const Text(
-                "Add Supervisor / Engineer",
-                textAlign: TextAlign.start,
-              ),
-              leading: const Iconify(
-                FluentMdl2.archive_undo,
-              ),
-              trailing: Icon(
-                Icons.arrow_forward_ios,
-                color: AppColors.fadeblue,
-                size: 18,
+            child: Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(width: size.width / 18.3),
+                  CircleAvatar(
+                    backgroundColor: AppColors.fadeblue,
+                    radius: 18,
+                    child: Iconify(
+                      FluentMdl2.archive,
+                      color: AppColors.white,
+                    ),
+                  ),
+                  SizedBox(width: size.width / 11.3),
+                  Text(
+                    "View Archrive",
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      color: AppColors.fadeblue,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                    ),
+                  ),
+                  const Spacer(),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(
+                      Icons.arrow_forward_ios,
+                      color: AppColors.fadeblue,
+                      size: 18,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
           CustomBox(
-            height: size.height / 90 * 5.8,
+            height: size.height / 90 * 5.6,
             width: size.width,
-            radius: 15,
+            radius: 18,
             blurRadius: 4.0,
             shadowColor: Colors.grey,
             color: AppColors.customGrey,
             horizontalMargin: padding.top * 0.4,
             verticalMargin: padding.top * 0.2,
-            child: ListTile(
-              title: const Text(
-                "Add Supervisor / Engineer",
-                textAlign: TextAlign.start,
-              ),
-              leading: const Iconify(
-                FluentMdl2.archive_undo,
-              ),
-              trailing: Icon(
-                Icons.arrow_forward_ios,
-                color: AppColors.fadeblue,
-                size: 18,
-              ),
-            ),
-          ),
-          CustomBox(
-            height: size.height / 90 * 5.8,
-            width: size.width,
-            radius: 15,
-            blurRadius: 4.0,
-            shadowColor: Colors.grey,
-            color: AppColors.customGrey,
-            horizontalMargin: padding.top * 0.4,
-            verticalMargin: padding.top * 0.2,
-            child: ListTile(
-              title: const Text(
-                "Add Supervisor / Engineer",
-                textAlign: TextAlign.start,
-              ),
-              leading: const Iconify(
-                FluentMdl2.archive_undo,
-              ),
-              trailing: Icon(
-                Icons.arrow_forward_ios,
-                color: AppColors.fadeblue,
-                size: 18,
+            child: Center(
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  SizedBox(width: size.width / 18.3),
+                  CircleAvatar(
+                    backgroundColor: AppColors.fadeblue,
+                    radius: 18,
+                    child: Iconify(
+                      FluentMdl2.database_view,
+                      color: AppColors.white,
+                    ),
+                  ),
+                  SizedBox(width: size.width / 11.3),
+                  Text(
+                    "Add Static Data",
+                    textAlign: TextAlign.start,
+                    style: TextStyle(
+                      color: AppColors.fadeblue,
+                      fontWeight: FontWeight.w500,
+                      fontSize: 16,
+                    ),
+                  ),
+                  const Spacer(),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Icon(
+                      Icons.arrow_forward_ios,
+                      color: AppColors.fadeblue,
+                      size: 18,
+                    ),
+                  ),
+                ],
               ),
             ),
           ),
@@ -169,27 +229,47 @@ class SettingsPage extends StatelessWidget {
               listener: (context, state) {},
               builder: (context, state) {
                 return CustomBox(
-                  height: size.height / 90 * 5.8,
+                  height: size.height / 90 * 5.6,
                   width: size.width,
-                  radius: 15,
+                  radius: 18,
                   blurRadius: 4.0,
                   shadowColor: Colors.grey,
                   color: AppColors.customGrey,
                   horizontalMargin: padding.top * 0.4,
                   verticalMargin: padding.top * 0.2,
-                  child: ListTile(
-                    title: const Text(
-                      "Log out",
-                      textAlign: TextAlign.start,
-                    ),
-                    leading: Iconify(
-                      FluentMdl2.sign_out,
-                      color: AppColors.red,
-                    ),
-                    trailing: Icon(
-                      Icons.arrow_forward_ios,
-                      color: AppColors.fadeblue,
-                      size: 18,
+                  child: Center(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        SizedBox(width: size.width / 18.3),
+                        CircleAvatar(
+                          backgroundColor: AppColors.fadeblue,
+                          radius: 18,
+                          child: Iconify(
+                            FluentMdl2.sign_out,
+                            color: AppColors.white,
+                          ),
+                        ),
+                        SizedBox(width: size.width / 11.3),
+                        Text(
+                          "Log out",
+                          textAlign: TextAlign.start,
+                          style: TextStyle(
+                            color: AppColors.fadeblue,
+                            fontWeight: FontWeight.w500,
+                            fontSize: 16,
+                          ),
+                        ),
+                        const Spacer(),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Icon(
+                            Icons.arrow_forward_ios,
+                            color: AppColors.fadeblue,
+                            size: 18,
+                          ),
+                        ),
+                      ],
                     ),
                   ),
                 );

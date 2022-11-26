@@ -154,7 +154,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   signout(BuildContext context) async {
     await FirebaseAuth.instance.signOut().then((value) =>
-        Navigator.of(context).pushNamedAndRemoveUntil(login, (route) => true));
+        Navigator.of(context).pushNamedAndRemoveUntil(login, (route) => false));
   }
 
   @override

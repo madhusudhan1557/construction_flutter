@@ -9,6 +9,7 @@ import 'package:construction/presentation/screens/sites/site_page.dart';
 import 'package:construction/presentation/screens/sites/site_stocks.dart';
 import 'package:construction/presentation/screens/splash.dart';
 import 'package:construction/presentation/screens/stocks/stock_page.dart';
+import 'package:construction/presentation/screens/workinprogress/workprogress_page.dart';
 import 'package:construction/presentation/settings.dart';
 import 'package:construction/utils/routes.dart';
 import 'package:flutter/material.dart';
@@ -54,6 +55,10 @@ class AppRouter {
       case siteEstimation:
         return MaterialPageRoute(
             builder: (context) => const SiteEstimation(), settings: settings);
+      case workinprogress:
+        return MaterialPageRoute(
+            builder: (context) => const WorkInProgressPage(),
+            settings: settings);
     }
     return null;
   }

@@ -19,11 +19,11 @@ class _SiteStocksState extends State<SiteStocks> {
     final Map<String, dynamic> args =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     return Scaffold(
-      backgroundColor: AppColors.white,
+      backgroundColor: AppColors.customGrey,
       body: Column(
         children: [
           CustomAppbar(
-            bgcolor: AppColors.white,
+            bgcolor: AppColors.customGrey,
             title: args['sitename'],
             leading: IconButton(
               icon: const Icon(
