@@ -106,6 +106,7 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                   height: size.height / 90 * 1.2,
                 ),
                 Container(
+                  height: size.height / 90 * 2.26,
                   decoration: BoxDecoration(
                     borderRadius: BorderRadius.circular(10),
                     boxShadow: [
