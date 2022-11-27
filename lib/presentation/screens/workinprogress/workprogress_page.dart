@@ -1,4 +1,5 @@
 import 'package:construction/presentation/includes/appbar.dart';
+import 'package:construction/presentation/includes/custom_box.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 
 import 'package:flutter/material.dart';
@@ -90,6 +91,20 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                           .onSelectDropdown(newValue.toString());
                     },
                   ),
+                ),
+                SizedBox(
+                  height: size.height / 90 * 1.2,
+                ),
+                CustomBox(
+                  height: size.height / 90 * 35,
+                  width: size.width,
+                  radius: 15,
+                  blurRadius: 4.0,
+                  shadowColor: AppColors.grey.withOpacity(0.3),
+                  color: AppColors.customGrey,
+                  horizontalMargin: 0,
+                  verticalMargin: 0,
+                  child: const Text("Stocks"),
                 ),
                 SizedBox(
                   height: size.height / 90 * 1.2,
