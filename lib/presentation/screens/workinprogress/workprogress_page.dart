@@ -2,8 +2,8 @@ import 'package:construction/presentation/includes/appbar.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:getwidget/getwidget.dart';
 
 import '../../../bloc/dropdown/dropdown_bloc.dart';
 import '../../../utils/app_colors.dart';
@@ -20,11 +20,7 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final padding = MediaQuery.of(context).padding;
-    final List<dynamic> items = [
-      "jhfgadfdasjklfdkajfldksafjlksdajfldf",
-      "Brick",
-      "Woods"
-    ];
+    final List<dynamic> items = ["Cement", "Brick", "Woods"];
     return Scaffold(
       resizeToAvoidBottomInset: false,
       backgroundColor: AppColors.customGrey,
@@ -111,33 +107,28 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                 ),
                 Container(
                   decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(10),
                     boxShadow: [
                       BoxShadow(
                           color: AppColors.grey.withOpacity(0.3),
                           blurRadius: 4.0),
                     ],
                   ),
-                  child: GFProgressBar(
-                    type: GFProgressType.linear,
+                  child: FAProgressBar(
+                    formatValueFixed: 2,
+                    animatedDuration: const Duration(seconds: 2),
+                    borderRadius: BorderRadius.circular(15),
                     backgroundColor: AppColors.customGrey,
-                    progressBarColor: AppColors.yellow,
-                    percentage: 0.2,
-                    lineHeight: size.height / 90 * 2.3,
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Text(
-                          "On Going",
-                          style: TextStyle(color: AppColors.fadeblue),
-                        ),
-                        Text(
-                          "30 %",
-                          style: TextStyle(color: AppColors.fadeblue),
-                        )
-                      ],
+                    progressColor: AppColors.yellow,
+                    direction: Axis.horizontal,
+                    displayText: "%",
+                    displayTextStyle: TextStyle(
+                      color: AppColors.fadeblue,
                     ),
+                    maxValue: 100,
+                    currentValue: 90,
                   ),
-                )
+                ),
               ],
             ),
           ),

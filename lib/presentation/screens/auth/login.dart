@@ -51,7 +51,7 @@ class _LoginScreenState extends State<LoginScreen> {
           }
         },
         child: Scaffold(
-          resizeToAvoidBottomInset: false,
+          resizeToAvoidBottomInset: true,
           body: Column(
             children: [
               Expanded(

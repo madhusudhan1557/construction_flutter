@@ -1,9 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:construction/bloc/auth/auth_bloc.dart';
 import 'package:construction/presentation/includes/appbar.dart';
+import 'package:construction/presentation/includes/show_modal.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/emojione_monotone.dart';
+import 'package:iconify_flutter/icons/fluent_mdl2.dart';
 
 import '../../utils/app_colors.dart';
 import '../../utils/routes.dart';
@@ -83,6 +87,26 @@ class _DashboardState extends State<Dashboard> {
                                 ),
                               )
                             : Container(),
+                        role == "Admin"
+                            ? Container()
+                            : IconButton(
+                                onPressed: () {
+                                  ShowCustomModal().showSignOutDialog(
+                                    context: context,
+                                    height: size.height / 90 * 23,
+                                    width: size.width / 2 * 11,
+                                  );
+                                },
+                                icon: CircleAvatar(
+                                  backgroundColor: AppColors.fadeblue,
+                                  radius: 15,
+                                  child: Iconify(
+                                    FluentMdl2.sign_out,
+                                    size: 18,
+                                    color: AppColors.white,
+                                  ),
+                                ),
+                              ),
                         IconButton(
                           onPressed: () {},
                           icon: Icon(
