@@ -3,21 +3,21 @@
 <plist version="1.0">
 <dict>
 	<key>CLIENT_ID</key>
-	<string>659233249949-pgi0athhcae87jeefp9gqogf3pqthfrp.apps.googleusercontent.com</string>
+	<string>369677296680-tctev1d0gr6lrn97d97anicq6dde6fn9.apps.googleusercontent.com</string>
 	<key>REVERSED_CLIENT_ID</key>
-	<string>com.googleusercontent.apps.659233249949-pgi0athhcae87jeefp9gqogf3pqthfrp</string>
+	<string>com.googleusercontent.apps.369677296680-tctev1d0gr6lrn97d97anicq6dde6fn9</string>
 	<key>API_KEY</key>
-	<string>AIzaSyDc6HdudAFwTxRKyALxBiKfYTnNN6dQRaA</string>
+	<string>AIzaSyCg0B3VvU_fNaegfLKEDkbAVU8YEYSalX0</string>
 	<key>GCM_SENDER_ID</key>
-	<string>659233249949</string>
+	<string>369677296680</string>
 	<key>PLIST_VERSION</key>
 	<string>1</string>
 	<key>BUNDLE_ID</key>
-	<string>com.aakar.construction</string>
+	<string>com.mtech.aakar.construction</string>
 	<key>PROJECT_ID</key>
-	<string>constuction-aakar</string>
+	<string>construction-aakar</string>
 	<key>STORAGE_BUCKET</key>
-	<string>constuction-aakar.appspot.com</string>
+	<string>construction-aakar.appspot.com</string>
 	<key>IS_ADS_ENABLED</key>
 	<false></false>
 	<key>IS_ANALYTICS_ENABLED</key>
@@ -29,6 +29,6 @@
 	<key>IS_SIGNIN_ENABLED</key>
 	<true></true>
 	<key>GOOGLE_APP_ID</key>
-	<string>1:659233249949:ios:5ba8b8ddd6acb2d53d9274</string>
+	<string>1:369677296680:ios:bdf1299d17736d60ea811d</string>
 </dict>
 </plist>

@@ -8,7 +8,7 @@
 PRODUCT_NAME = construction
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.aakar.construction
+PRODUCT_BUNDLE_IDENTIFIER = com.mtech.aakar.construction
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2022 com.example. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2022 com.mtech.aakar. All rights reserved.

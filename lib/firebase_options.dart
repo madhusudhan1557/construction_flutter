@@ -44,39 +44,39 @@ class DefaultFirebaseOptions {
   }
 
   static const FirebaseOptions web = FirebaseOptions(
-    apiKey: 'AIzaSyB2N0d_iLi5FML1aK6S03DdJgujoa2d6zU',
-    appId: '1:659233249949:web:844bab3ba2ffeff73d9274',
-    messagingSenderId: '659233249949',
-    projectId: 'constuction-aakar',
-    authDomain: 'constuction-aakar.firebaseapp.com',
-    storageBucket: 'constuction-aakar.appspot.com',
+    apiKey: 'AIzaSyB5Qwsl_d3D8oeEaDiFOF9Ii9jkIsa1C9I',
+    appId: '1:369677296680:web:a8515e8dbfb0dfddea811d',
+    messagingSenderId: '369677296680',
+    projectId: 'construction-aakar',
+    authDomain: 'construction-aakar.firebaseapp.com',
+    storageBucket: 'construction-aakar.appspot.com',
   );
 
   static const FirebaseOptions android = FirebaseOptions(
-    apiKey: 'AIzaSyBC4QgZNq9hHKT597KakV33iP33j66JQNk',
-    appId: '1:659233249949:android:6a5eb3e3b6e9f8193d9274',
-    messagingSenderId: '659233249949',
-    projectId: 'constuction-aakar',
-    storageBucket: 'constuction-aakar.appspot.com',
+    apiKey: 'AIzaSyC0xeIhhmbg_79JajDb0TedVTrRTOPbDD4',
+    appId: '1:369677296680:android:53ca875955b65dceea811d',
+    messagingSenderId: '369677296680',
+    projectId: 'construction-aakar',
+    storageBucket: 'construction-aakar.appspot.com',
   );
 
   static const FirebaseOptions ios = FirebaseOptions(
-    apiKey: 'AIzaSyDc6HdudAFwTxRKyALxBiKfYTnNN6dQRaA',
-    appId: '1:659233249949:ios:5ceaa7c7f97413543d9274',
-    messagingSenderId: '659233249949',
-    projectId: 'constuction-aakar',
-    storageBucket: 'constuction-aakar.appspot.com',
-    iosClientId: '659233249949-pbirdhcp9r4il0p7ntnlipf5q7133dis.apps.googleusercontent.com',
-    iosBundleId: 'com.aakar.construction',
+    apiKey: 'AIzaSyCg0B3VvU_fNaegfLKEDkbAVU8YEYSalX0',
+    appId: '1:369677296680:ios:bdf1299d17736d60ea811d',
+    messagingSenderId: '369677296680',
+    projectId: 'construction-aakar',
+    storageBucket: 'construction-aakar.appspot.com',
+    iosClientId: '369677296680-tctev1d0gr6lrn97d97anicq6dde6fn9.apps.googleusercontent.com',
+    iosBundleId: 'com.mtech.aakar.construction',
   );
 
   static const FirebaseOptions macos = FirebaseOptions(
-    apiKey: 'AIzaSyDc6HdudAFwTxRKyALxBiKfYTnNN6dQRaA',
-    appId: '1:659233249949:ios:5ceaa7c7f97413543d9274',
-    messagingSenderId: '659233249949',
-    projectId: 'constuction-aakar',
-    storageBucket: 'constuction-aakar.appspot.com',
-    iosClientId: '659233249949-pbirdhcp9r4il0p7ntnlipf5q7133dis.apps.googleusercontent.com',
-    iosBundleId: 'com.aakar.construction',
+    apiKey: 'AIzaSyCg0B3VvU_fNaegfLKEDkbAVU8YEYSalX0',
+    appId: '1:369677296680:ios:bdf1299d17736d60ea811d',
+    messagingSenderId: '369677296680',
+    projectId: 'construction-aakar',
+    storageBucket: 'construction-aakar.appspot.com',
+    iosClientId: '369677296680-tctev1d0gr6lrn97d97anicq6dde6fn9.apps.googleusercontent.com',
+    iosBundleId: 'com.mtech.aakar.construction',
   );
 }
