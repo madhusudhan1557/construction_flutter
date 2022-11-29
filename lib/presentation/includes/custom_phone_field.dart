@@ -18,7 +18,7 @@ class CustomPhoneField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: size,
-      decoration: BoxDecoration(color: AppColors.customGrey.withOpacity(0.6)),
+      decoration: BoxDecoration(color: AppColors.customWhite.withOpacity(0.6)),
       child: TextFormField(
         controller: controller,
         keyboardType: TextInputType.number,

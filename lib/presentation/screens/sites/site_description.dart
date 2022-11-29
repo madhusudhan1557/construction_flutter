@@ -27,11 +27,11 @@ class _SiteDescriptionState extends State<SiteDescription> {
     final Map<String, dynamic> args =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     return Scaffold(
-      backgroundColor: AppColors.customGrey,
+      backgroundColor: AppColors.customWhite,
       body: Column(
         children: [
           CustomAppbar(
-            bgcolor: AppColors.customGrey,
+            bgcolor: AppColors.customWhite,
             title: args['sitename'],
             leading: IconButton(
               icon: Icon(
@@ -233,7 +233,7 @@ class _SiteDescriptionState extends State<SiteDescription> {
                               radius: 15,
                               blurRadius: 4.0,
                               shadowColor: Colors.grey,
-                              color: AppColors.customGrey,
+                              color: AppColors.customWhite,
                               horizontalMargin: 0,
                               verticalMargin: 0,
                               child: Container(
@@ -275,7 +275,7 @@ class _SiteDescriptionState extends State<SiteDescription> {
                                       radius: 15,
                                       blurRadius: 4.0,
                                       shadowColor: Colors.grey,
-                                      color: AppColors.customGrey,
+                                      color: AppColors.customWhite,
                                       horizontalMargin: 0,
                                       verticalMargin: 0,
                                       child: Container(
@@ -317,7 +317,7 @@ class _SiteDescriptionState extends State<SiteDescription> {
                                 radius: 15,
                                 blurRadius: 4.0,
                                 shadowColor: Colors.grey,
-                                color: AppColors.customGrey,
+                                color: AppColors.customWhite,
                                 horizontalMargin: 0,
                                 verticalMargin: 0,
                                 child: InkWell(
@@ -364,7 +364,7 @@ class _SiteDescriptionState extends State<SiteDescription> {
                                 radius: 15,
                                 blurRadius: 4.0,
                                 shadowColor: Colors.grey,
-                                color: AppColors.customGrey,
+                                color: AppColors.customWhite,
                                 horizontalMargin: 0,
                                 verticalMargin: 0,
                                 child: Container(

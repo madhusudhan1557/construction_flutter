@@ -263,7 +263,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               ),
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(
-                                  backgroundColor: AppColors.customGrey,
+                                  backgroundColor: AppColors.customWhite,
                                   fixedSize: Size(
                                     size.width / 1.12,
                                     size.height / 20,

@@ -2,6 +2,7 @@ import 'package:construction/presentation/includes/appbar.dart';
 import 'package:construction/presentation/includes/custom_box.dart';
 
 import 'package:construction/presentation/includes/show_modal.dart';
+import 'package:construction/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
@@ -18,12 +19,12 @@ class SettingsPage extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     final padding = MediaQuery.of(context).padding;
     return Scaffold(
-      backgroundColor: AppColors.customGrey,
+      backgroundColor: AppColors.customWhite,
       body: Column(
         children: [
           CustomAppbar(
             title: "Settings",
-            bgcolor: AppColors.customGrey,
+            bgcolor: AppColors.customWhite,
             leading: IconButton(
               icon: Icon(
                 Icons.arrow_back_ios_new,
@@ -43,42 +44,47 @@ class SettingsPage extends StatelessWidget {
             radius: 18,
             blurRadius: 4.0,
             shadowColor: Colors.grey,
-            color: AppColors.customGrey,
+            color: AppColors.customWhite,
             horizontalMargin: padding.top * 0.4,
             verticalMargin: padding.top * 0.2,
-            child: Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(width: size.width / 18.3),
-                  CircleAvatar(
-                    backgroundColor: AppColors.fadeblue,
-                    radius: 18,
-                    child: Iconify(
-                      FluentMdl2.engineering_group,
-                      color: AppColors.white,
+            child: InkWell(
+              onTap: () {
+                Navigator.of(context).pushNamed(register);
+              },
+              child: Center(
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(width: size.width / 18.3),
+                    CircleAvatar(
+                      backgroundColor: AppColors.fadeblue,
+                      radius: 18,
+                      child: Iconify(
+                        FluentMdl2.engineering_group,
+                        color: AppColors.white,
+                      ),
                     ),
-                  ),
-                  SizedBox(width: size.width / 11.3),
-                  Text(
-                    "Add Supervisor or Engineer",
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                      color: AppColors.fadeblue,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16,
+                    SizedBox(width: size.width / 11.3),
+                    Text(
+                      "Add a new User",
+                      textAlign: TextAlign.start,
+                      style: TextStyle(
+                        color: AppColors.fadeblue,
+                        fontWeight: FontWeight.w500,
+                        fontSize: 16,
+                      ),
                     ),
-                  ),
-                  const Spacer(),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Icon(
-                      Icons.arrow_forward_ios,
-                      color: AppColors.fadeblue,
-                      size: 18,
+                    const Spacer(),
+                    Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Icon(
+                        Icons.arrow_forward_ios,
+                        color: AppColors.fadeblue,
+                        size: 18,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
             ),
           ),
@@ -88,52 +94,7 @@ class SettingsPage extends StatelessWidget {
             radius: 18,
             blurRadius: 4.0,
             shadowColor: Colors.grey,
-            color: AppColors.customGrey,
-            horizontalMargin: padding.top * 0.4,
-            verticalMargin: padding.top * 0.2,
-            child: Center(
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  SizedBox(width: size.width / 18.3),
-                  CircleAvatar(
-                    backgroundColor: AppColors.fadeblue,
-                    radius: 18,
-                    child: Iconify(
-                      FluentMdl2.user_followed,
-                      color: AppColors.white,
-                    ),
-                  ),
-                  SizedBox(width: size.width / 11.3),
-                  Text(
-                    "Register a new Admin",
-                    textAlign: TextAlign.start,
-                    style: TextStyle(
-                      color: AppColors.fadeblue,
-                      fontWeight: FontWeight.w500,
-                      fontSize: 16,
-                    ),
-                  ),
-                  const Spacer(),
-                  Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Icon(
-                      Icons.arrow_forward_ios,
-                      color: AppColors.fadeblue,
-                      size: 18,
-                    ),
-                  ),
-                ],
-              ),
-            ),
-          ),
-          CustomBox(
-            height: size.height / 90 * 5.6,
-            width: size.width,
-            radius: 18,
-            blurRadius: 4.0,
-            shadowColor: Colors.grey,
-            color: AppColors.customGrey,
+            color: AppColors.customWhite,
             horizontalMargin: padding.top * 0.4,
             verticalMargin: padding.top * 0.2,
             child: Center(
@@ -178,7 +139,7 @@ class SettingsPage extends StatelessWidget {
             radius: 18,
             blurRadius: 4.0,
             shadowColor: Colors.grey,
-            color: AppColors.customGrey,
+            color: AppColors.customWhite,
             horizontalMargin: padding.top * 0.4,
             verticalMargin: padding.top * 0.2,
             child: Center(
@@ -234,7 +195,7 @@ class SettingsPage extends StatelessWidget {
                   radius: 18,
                   blurRadius: 4.0,
                   shadowColor: Colors.grey,
-                  color: AppColors.customGrey,
+                  color: AppColors.customWhite,
                   horizontalMargin: padding.top * 0.4,
                   verticalMargin: padding.top * 0.2,
                   child: Center(

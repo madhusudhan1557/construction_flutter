@@ -153,12 +153,12 @@ class _StockPageState extends State<StockPage> {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: AppColors.customGrey,
+      backgroundColor: AppColors.customWhite,
       body: Column(
         children: [
           CustomAppbar(
             title: "Stocks",
-            bgcolor: AppColors.customGrey,
+            bgcolor: AppColors.customWhite,
             leading: IconButton(
               icon: Icon(
                 Icons.arrow_back_ios_new,

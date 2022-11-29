@@ -7,12 +7,17 @@ part 'dropdown_state.dart';
 class DropdownBloc extends Bloc<DropdownEvent, DropdownState> {
   DropdownBloc() : super(DropdownInitial()) {
     on<DropdownEvent>((event, emit) {});
-    on<DropdownSelectEvent>((event, emit) {
-      emit(DropdownSelectState(value: event.value));
+    on<DropdownUserSelectEvent>((event, emit) {
+      emit(DropdownUserSelectState(value: event.value));
+    });
+    on<DropdownItemSelectEvent>((event, emit) {
+      emit(DropdownItemSelectState(value: event.value));
     });
   }
 
-  onSelectDropdown(String value) async {
-    add(DropdownSelectEvent(value: value));
+  onUserSelectDropdown(String value) async {
+    add(DropdownUserSelectEvent(value: value));
   }
+
+  onItemSelectDropdown(String value) async {}
 }

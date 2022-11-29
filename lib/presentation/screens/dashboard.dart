@@ -49,7 +49,7 @@ class _DashboardState extends State<Dashboard> {
     final padding = MediaQuery.of(context).padding;
 
     return Scaffold(
-      backgroundColor: AppColors.customGrey,
+      backgroundColor: AppColors.customWhite,
       body: FutureBuilder<QuerySnapshot>(
           future: FirebaseFirestore.instance
               .collection("users")
@@ -66,7 +66,7 @@ class _DashboardState extends State<Dashboard> {
                     flex: 0,
                     child: CustomAppbar(
                       title: "Aakar Developers",
-                      bgcolor: AppColors.customGrey,
+                      bgcolor: AppColors.customWhite,
                       leading: Padding(
                         padding: const EdgeInsets.all(11.0),
                         child: Image.asset(
@@ -140,7 +140,7 @@ class _DashboardState extends State<Dashboard> {
                           child: Container(
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(10),
-                              color: AppColors.customGrey,
+                              color: AppColors.customWhite,
                               boxShadow: const [
                                 BoxShadow(
                                   blurRadius: 8.0,

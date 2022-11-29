@@ -1,5 +1,7 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:construction/bloc/auth/auth_bloc.dart';
+import 'package:construction/bloc/dropdown/dropdown_bloc.dart';
+import 'package:construction/bloc/pickimage/pickimage_bloc.dart';
 import 'package:construction/data/models/users.dart';
 import 'package:construction/presentation/includes/appbar.dart';
 import 'package:construction/presentation/includes/custom_textfield.dart';
@@ -25,7 +27,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
   final TextEditingController _phone = TextEditingController();
   final TextEditingController _fullname = TextEditingController();
 
-  final List<String> roles = ["Supervisor", "Engineer"];
+  final List<String> roles = ["Admin", "Supervisor", "Engineer"];
   String dropdownvalue = "";
   @override
   Widget build(BuildContext context) {
@@ -40,26 +42,29 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
         }
       },
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: SingleChildScrollView(
-          child: Column(
-            children: [
-              CustomAppbar(
-                title: "Add a New User",
-                bgcolor: AppColors.white,
-                leading: IconButton(
-                  icon: const Icon(
-                    Icons.arrow_back_ios_new,
-                    size: 24,
-                  ),
-                  onPressed: () {
-                    Navigator.of(context).pop();
-                  },
-                ),
+        resizeToAvoidBottomInset: true,
+        appBar: PreferredSize(
+          preferredSize: Size(size.width, size.height / 90 * 7.5),
+          child: CustomAppbar(
+            title: "Add a New User",
+            bgcolor: AppColors.white,
+            leading: IconButton(
+              icon: const Icon(
+                Icons.arrow_back_ios_new,
+                size: 24,
               ),
-              Container(
-                padding: EdgeInsets.symmetric(horizontal: padding.top * 0.4),
-                child: Form(
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+          ),
+        ),
+        body: SingleChildScrollView(
+          child: Container(
+            padding: EdgeInsets.symmetric(horizontal: padding.top * 0.4),
+            child: Column(
+              children: [
+                Form(
                   key: _formKey,
                   child: Column(
                     children: [
@@ -106,101 +111,104 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       SizedBox(
                         height: size.height / 90 * 1.51,
                       ),
-                      Container(
-                        decoration: BoxDecoration(
-                          color: AppColors.customGrey.withOpacity(0.6),
-                        ),
-                        child: DropdownButtonFormField2(
-                          decoration: const InputDecoration(
-                            border: InputBorder.none,
-                          ),
-                          buttonPadding: EdgeInsets.symmetric(
-                              horizontal: padding.top * 0.4),
-                          hint: const Text("Select Role"),
-                          offset: Offset(0, -size.height / 90 * 2.44),
-                          items: roles.map((role) {
-                            return DropdownMenuItem(
-                              value: role,
-                              child: Text(role),
-                            );
-                          }).toList(),
-                          onChanged: (newValue) {
-                            setState(() {
-                              dropdownvalue = newValue!;
-                            });
-                          },
-                        ),
+                      BlocConsumer<DropdownBloc, DropdownState>(
+                        listener: (context, state) {
+                          if (state is DropdownUserSelectState) {
+                            dropdownvalue = state.value!;
+                          }
+                        },
+                        builder: (context, state) {
+                          return Container(
+                            decoration: BoxDecoration(
+                              color: AppColors.customWhite.withOpacity(0.6),
+                            ),
+                            child: DropdownButtonFormField2(
+                              decoration: const InputDecoration(
+                                border: InputBorder.none,
+                              ),
+                              hint: const Text("Select Role"),
+                              offset: Offset(0, -size.height / 90 * 2.44),
+                              items: roles.map((role) {
+                                return DropdownMenuItem(
+                                  value: role,
+                                  child: Text(role),
+                                );
+                              }).toList(),
+                              onChanged: (newValue) {},
+                            ),
+                          );
+                        },
                       ),
                     ],
                   ),
                 ),
-              ),
-              SizedBox(
-                height: size.height / 90 * 1.51,
-              ),
-              BlocConsumer<AuthBloc, AuthState>(
-                listener: (context, state) {
-                  if (state is LoginLoadingState) {
-                    BotToast.showLoading();
-                  }
-                  if (state is CompletedLoadingState) {
-                    BotToast.closeAllLoading();
-                    BotToast.showText(
-                        text: "New User Added", contentColor: Colors.green);
-                    Navigator.of(context).pushReplacementNamed(dashboard);
-                  }
-                  if (state is EmailAlreadyExistState) {
-                    BotToast.closeAllLoading();
-                    BotToast.showText(
-                      text: "Email Alredy Exist",
-                      contentColor: Colors.redAccent,
-                    );
-                  }
-                  if (state is EmailSignUpFailedState) {
-                    BotToast.closeAllLoading();
-                    BotToast.showText(
-                      text: state.error,
-                      contentColor: Colors.redAccent,
-                    );
-                  }
-                  if (state is WeakPasswordState) {
-                    BotToast.closeAllLoading();
-                    BotToast.showText(
-                      text: "Password too Weak",
-                      contentColor: Colors.redAccent,
-                    );
-                  }
-                },
-                builder: (context, state) {
-                  return ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      elevation: 0,
-                      fixedSize: Size(
-                        size.width / 2 * 1.85,
-                        size.height / 90 * 4.41,
+                SizedBox(
+                  height: size.height / 90 * 1.51,
+                ),
+                BlocConsumer<AuthBloc, AuthState>(
+                  listener: (context, state) {
+                    if (state is LoginLoadingState) {
+                      BotToast.showLoading();
+                    }
+                    if (state is CompletedLoadingState) {
+                      BotToast.closeAllLoading();
+                      BotToast.showText(
+                          text: "New User Added", contentColor: Colors.green);
+                      Navigator.of(context).pushReplacementNamed(dashboard);
+                    }
+                    if (state is EmailAlreadyExistState) {
+                      BotToast.closeAllLoading();
+                      BotToast.showText(
+                        text: "Email Alredy Exist",
+                        contentColor: Colors.redAccent,
+                      );
+                    }
+                    if (state is EmailSignUpFailedState) {
+                      BotToast.closeAllLoading();
+                      BotToast.showText(
+                        text: state.error,
+                        contentColor: Colors.redAccent,
+                      );
+                    }
+                    if (state is WeakPasswordState) {
+                      BotToast.closeAllLoading();
+                      BotToast.showText(
+                        text: "Password too Weak",
+                        contentColor: Colors.redAccent,
+                      );
+                    }
+                  },
+                  builder: (context, state) {
+                    return ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        elevation: 0,
+                        fixedSize: Size(
+                          size.width / 2 * 1.85,
+                          size.height / 90 * 4.41,
+                        ),
+                        backgroundColor: AppColors.yellow,
+                        foregroundColor: AppColors.fadeblue,
                       ),
-                      backgroundColor: AppColors.yellow,
-                      foregroundColor: AppColors.fadeblue,
-                    ),
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        UserModel userModel = UserModel(
-                          email: _email.text,
-                          fullname: _fullname.text,
-                          phone: _phone.text,
-                          password: _password.text,
-                          address: _address.text,
-                          role: dropdownvalue,
-                        );
-                        BlocProvider.of<AuthBloc>(context)
-                            .signUpWithEmail(userModel);
-                      }
-                    },
-                    child: const Text("Save"),
-                  );
-                },
-              ),
-            ],
+                      onPressed: () {
+                        if (_formKey.currentState!.validate()) {
+                          UserModel userModel = UserModel(
+                            email: _email.text,
+                            fullname: _fullname.text,
+                            phone: _phone.text,
+                            password: _password.text,
+                            address: _address.text,
+                            role: dropdownvalue,
+                          );
+                          BlocProvider.of<AuthBloc>(context)
+                              .signUpWithEmail(userModel);
+                        }
+                      },
+                      child: const Text("Save"),
+                    );
+                  },
+                ),
+              ],
+            ),
           ),
         ),
       ),

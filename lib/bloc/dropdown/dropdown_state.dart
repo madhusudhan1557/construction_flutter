@@ -5,7 +5,12 @@ abstract class DropdownState {}
 
 class DropdownInitial extends DropdownState {}
 
-class DropdownSelectState extends DropdownState {
+class DropdownUserSelectState extends DropdownState {
   final String? value;
-  DropdownSelectState({this.value});
+  DropdownUserSelectState({this.value});
+}
+
+class DropdownItemSelectState extends DropdownState {
+  final String? value;
+  DropdownItemSelectState({this.value});
 }

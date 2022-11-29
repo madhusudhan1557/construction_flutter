@@ -55,7 +55,7 @@ class _SitePageState extends State<SitePage> {
         context: context,
         builder: (context) => BlocListener<DropdownBloc, DropdownState>(
           listener: (context, state) {
-            if (state is DropdownSelectState) {
+            if (state is DropdownUserSelectState) {
               dropdownvalue = state.value!;
             }
           },
@@ -150,7 +150,7 @@ class _SitePageState extends State<SitePage> {
                               ),
                               Container(
                                 decoration: BoxDecoration(
-                                  color: AppColors.customGrey.withOpacity(0.6),
+                                  color: AppColors.customWhite.withOpacity(0.6),
                                 ),
                                 child: DropdownButtonFormField2(
                                   decoration: const InputDecoration(
@@ -160,7 +160,8 @@ class _SitePageState extends State<SitePage> {
                                       horizontal: paddding.top * 0.4),
                                   hint: const Text("Assign Supervisor"),
                                   offset: Offset(0, -size.height / 90 * 2.44),
-                                  items: snapshot.data!.docs.map((supervisor) {
+                                  items: snapshot.data!.docs
+                                      .map<DropdownMenuItem>((supervisor) {
                                     return DropdownMenuItem(
                                       value: "${supervisor['fullname']}",
                                       child: Text(
@@ -170,7 +171,8 @@ class _SitePageState extends State<SitePage> {
                                   }).toList(),
                                   onChanged: (newValue) {
                                     BlocProvider.of<DropdownBloc>(context)
-                                        .onSelectDropdown(newValue.toString());
+                                        .onUserSelectDropdown(
+                                            newValue.toString());
                                   },
                                 ),
                               ),
@@ -399,13 +401,13 @@ class _SitePageState extends State<SitePage> {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: AppColors.customGrey,
+      backgroundColor: AppColors.customWhite,
       body: SingleChildScrollView(
         child: Column(
           children: [
             CustomAppbar(
               title: "Sites",
-              bgcolor: AppColors.customGrey,
+              bgcolor: AppColors.customWhite,
               leading: IconButton(
                 icon: Icon(
                   Icons.arrow_back_ios_new,
@@ -500,7 +502,7 @@ class _SitePageState extends State<SitePage> {
                                 verticalMargin: paddding.top * 0.28,
                                 height: size.height / 90 * 18,
                                 width: size.width,
-                                color: AppColors.customGrey,
+                                color: AppColors.customWhite,
                                 blurRadius: 4.0,
                                 radius: 10,
                                 shadowColor: Colors.grey,

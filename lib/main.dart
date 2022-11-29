@@ -1,11 +1,12 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:construction/bloc/auth/auth_bloc.dart';
+import 'package:construction/bloc/counter/counter_bloc.dart';
+
 import 'package:construction/bloc/dropdown/dropdown_bloc.dart';
 import 'package:construction/bloc/hidepassword/hidepassword_cubit.dart';
 import 'package:construction/bloc/pickimage/pickimage_bloc.dart';
 import 'package:construction/bloc/sites/sites_bloc.dart';
-import 'package:construction/presentation/screens/auth/login.dart';
-import 'package:construction/presentation/screens/sites/site_page.dart';
+
 import 'package:construction/utils/router.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -35,13 +36,10 @@ class AkarDevelopers extends StatelessWidget {
       providers: [
         BlocProvider<HidepasswordCubit>(
             create: (context) => HidepasswordCubit()),
-        BlocProvider<AuthBloc>.value(
-          value: AuthBloc(),
-          child: const LoginScreen(),
-        ),
-        BlocProvider<DropdownBloc>.value(
-          value: DropdownBloc(),
-          child: const SitePage(),
+        BlocProvider<AuthBloc>(create: (context) => AuthBloc()),
+        BlocProvider<CounterBloc>(create: (context) => CounterBloc()),
+        BlocProvider<DropdownBloc>(
+          create: (context) => DropdownBloc(),
         ),
         BlocProvider<SitesBloc>(create: (context) => SitesBloc()),
         BlocProvider<PickimageBloc>(create: (context) => PickimageBloc()),

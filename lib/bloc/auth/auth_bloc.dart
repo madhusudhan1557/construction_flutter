@@ -117,7 +117,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         'email': usermodel.email,
         'phone': usermodel.phone,
         'address': usermodel.address,
-        "role": "admin"
+        "role": usermodel.role,
       });
       add(CompletedLoadingEvent());
     } on FirebaseAuthException catch (e) {
