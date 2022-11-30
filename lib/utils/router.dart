@@ -9,6 +9,7 @@ import 'package:construction/presentation/screens/sites/site_page.dart';
 import 'package:construction/presentation/screens/sites/site_stocks.dart';
 import 'package:construction/presentation/screens/splash.dart';
 import 'package:construction/presentation/screens/stocks/stock_page.dart';
+import 'package:construction/presentation/screens/workinprogress/schedule_work.dart';
 import 'package:construction/presentation/screens/workinprogress/workprogress_page.dart';
 import 'package:construction/presentation/settings.dart';
 import 'package:construction/utils/routes.dart';
@@ -59,6 +60,9 @@ class AppRouter {
         return MaterialPageRoute(
             builder: (context) => const WorkInProgressPage(),
             settings: settings);
+      case scheduleWOrk:
+        return MaterialPageRoute(
+            builder: (context) => const ScheduleWork(), settings: settings);
     }
     return null;
   }

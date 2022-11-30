@@ -6,6 +6,7 @@ import 'package:construction/bloc/dropdown/dropdown_bloc.dart';
 import 'package:construction/bloc/hidepassword/hidepassword_cubit.dart';
 import 'package:construction/bloc/pickimage/pickimage_bloc.dart';
 import 'package:construction/bloc/sites/sites_bloc.dart';
+import 'package:construction/bloc/workinprogress/workinprogress_bloc.dart';
 
 import 'package:construction/utils/router.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -38,6 +39,8 @@ class AkarDevelopers extends StatelessWidget {
             create: (context) => HidepasswordCubit()),
         BlocProvider<AuthBloc>(create: (context) => AuthBloc()),
         BlocProvider<CounterBloc>(create: (context) => CounterBloc()),
+        BlocProvider<WorkinprogressBloc>(
+            create: (context) => WorkinprogressBloc()),
         BlocProvider<DropdownBloc>(
           create: (context) => DropdownBloc(),
         ),

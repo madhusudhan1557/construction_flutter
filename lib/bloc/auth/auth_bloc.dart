@@ -29,6 +29,12 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<InvalidPasswordEvent>((event, emit) {
       emit(InvalidPasswordState());
     });
+    on<EmailSignUpCompletedEvent>((event, emit) {
+      emit(EmailSignUpCompletedState());
+    });
+    on<EmailSignUpLoadingEvent>((event, emit) {
+      emit(EmailSignUpLoadingState());
+    });
     on<EmailAlreadyExistEvent>((event, emit) {
       emit(EmailAlreadyExistState());
     });
@@ -103,12 +109,13 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   }
 
   signUpWithEmail(UserModel usermodel) async {
-    add(LoginLoadingEvent());
     try {
+      add(EmailSignUpLoadingEvent());
       await FirebaseAuth.instance.createUserWithEmailAndPassword(
         email: usermodel.email!,
         password: usermodel.password!,
       );
+
       CollectionReference users =
           FirebaseFirestore.instance.collection("users");
       await users.add({
@@ -119,7 +126,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         'address': usermodel.address,
         "role": usermodel.role,
       });
-      add(CompletedLoadingEvent());
+      add(EmailSignUpCompletedEvent());
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         add(WeakPasswordEvent());

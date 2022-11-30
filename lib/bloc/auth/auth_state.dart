@@ -25,6 +25,10 @@ class EmailSignUpFailedState extends AuthState {
 
 class WeakPasswordState extends AuthState {}
 
+class EmailSignUpCompletedState extends AuthState {}
+
+class EmailSignUpLoadingState extends AuthState {}
+
 class LoginCodeSentState extends AuthState {}
 
 class LoggedInState extends AuthState {

@@ -58,6 +58,7 @@ class _StockPageState extends State<StockPage> {
                           controller: _itemname,
                           hintText: "Brand Name",
                           size: size.height / 90 * 5.44,
+                          width: size.width,
                         ),
                         SizedBox(
                           height: size.height / 90 * 1.538,
@@ -66,6 +67,7 @@ class _StockPageState extends State<StockPage> {
                           controller: _itemname,
                           hintText: "Supplier Name",
                           size: size.height / 90 * 5.44,
+                          width: size.width,
                         ),
                         SizedBox(
                           height: size.height / 90 * 1.538,
@@ -108,6 +110,7 @@ class _StockPageState extends State<StockPage> {
                           controller: _itemname,
                           hintText: "Unit",
                           size: size.height / 90 * 5.44,
+                          width: size.width,
                         ),
                         SizedBox(
                           height: size.height / 90 * 1.838,

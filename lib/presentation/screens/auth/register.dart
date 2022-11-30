@@ -75,6 +75,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         controller: _fullname,
                         hintText: "Fullname",
                         size: size.height / 90 * 5.44,
+                        width: size.width,
                       ),
                       SizedBox(
                         height: size.height / 90 * 1.51,
@@ -83,6 +84,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         controller: _email,
                         hintText: "Email",
                         size: size.height / 90 * 5.44,
+                        width: size.width,
                       ),
                       SizedBox(
                         height: size.height / 90 * 1.51,
@@ -91,6 +93,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         controller: _password,
                         hintText: "Password",
                         size: size.height / 90 * 5.44,
+                        width: size.width,
                       ),
                       SizedBox(
                         height: size.height / 90 * 1.51,
@@ -99,6 +102,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         controller: _phone,
                         hintText: "PhoneNumber",
                         size: size.height / 90 * 5.44,
+                        width: size.width,
                       ),
                       SizedBox(
                         height: size.height / 90 * 1.51,
@@ -107,6 +111,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         controller: _address,
                         hintText: "Address",
                         size: size.height / 90 * 5.44,
+                        width: size.width,
                       ),
                       SizedBox(
                         height: size.height / 90 * 1.51,
@@ -134,7 +139,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                   child: Text(role),
                                 );
                               }).toList(),
-                              onChanged: (newValue) {},
+                              onChanged: (newValue) {
+                                BlocProvider.of<DropdownBloc>(context)
+                                    .onUserSelectDropdown(newValue.toString());
+                                dropdownvalue = newValue.toString();
+                              },
                             ),
                           );
                         },
@@ -147,14 +156,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 ),
                 BlocConsumer<AuthBloc, AuthState>(
                   listener: (context, state) {
-                    if (state is LoginLoadingState) {
+                    if (state is EmailSignUpLoadingState) {
                       BotToast.showLoading();
                     }
-                    if (state is CompletedLoadingState) {
+                    if (state is EmailSignUpCompletedState) {
                       BotToast.closeAllLoading();
                       BotToast.showText(
                           text: "New User Added", contentColor: Colors.green);
-                      Navigator.of(context).pushReplacementNamed(dashboard);
                     }
                     if (state is EmailAlreadyExistState) {
                       BotToast.closeAllLoading();

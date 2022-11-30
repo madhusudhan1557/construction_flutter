@@ -14,3 +14,4 @@ const String siteDesc = 'sitedesc';
 const String settingspage = "settings";
 const String siteEstimation = 'siteestimation';
 const String siteStocks = "sitestocks";
+const String scheduleWOrk = "scheduleWork";

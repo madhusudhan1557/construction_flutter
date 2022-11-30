@@ -91,6 +91,7 @@ class _SitePageState extends State<SitePage> {
                               ),
                               CustomTextField(
                                 controller: _sitename,
+                                width: size.width,
                                 hintText: "Site Name",
                                 suffixIcon: const Icon(
                                   Icons.home_sharp,
@@ -116,6 +117,7 @@ class _SitePageState extends State<SitePage> {
                               CustomTextField(
                                 controller: _sitelocation,
                                 hintText: "Site Location",
+                                width: size.width,
                                 suffixIcon: const Icon(
                                   Icons.location_pin,
                                   color: Colors.black,
@@ -128,6 +130,7 @@ class _SitePageState extends State<SitePage> {
                               CustomTextField(
                                 controller: _clientname,
                                 hintText: "Client Name",
+                                width: size.width,
                                 suffixIcon: const Icon(
                                   Icons.person,
                                   color: Colors.black,
@@ -401,13 +404,13 @@ class _SitePageState extends State<SitePage> {
 
     return Scaffold(
       resizeToAvoidBottomInset: false,
-      backgroundColor: AppColors.customWhite,
+      backgroundColor: AppColors.white,
       body: SingleChildScrollView(
         child: Column(
           children: [
             CustomAppbar(
               title: "Sites",
-              bgcolor: AppColors.customWhite,
+              bgcolor: AppColors.white,
               leading: IconButton(
                 icon: Icon(
                   Icons.arrow_back_ios_new,
@@ -502,10 +505,10 @@ class _SitePageState extends State<SitePage> {
                                 verticalMargin: paddding.top * 0.28,
                                 height: size.height / 90 * 18,
                                 width: size.width,
-                                color: AppColors.customWhite,
-                                blurRadius: 4.0,
+                                color: AppColors.white,
+                                blurRadius: 2.0,
                                 radius: 10,
-                                shadowColor: Colors.grey,
+                                shadowColor: AppColors.grey,
                                 child: Padding(
                                   padding: EdgeInsets.symmetric(
                                       horizontal: paddding.top * 0.31,

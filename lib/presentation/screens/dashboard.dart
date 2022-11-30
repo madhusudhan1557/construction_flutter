@@ -1,10 +1,10 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:construction/bloc/auth/auth_bloc.dart';
+
 import 'package:construction/presentation/includes/appbar.dart';
 import 'package:construction/presentation/includes/show_modal.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
+
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/emojione_monotone.dart';
 import 'package:iconify_flutter/icons/fluent_mdl2.dart';
@@ -22,11 +22,11 @@ class Dashboard extends StatefulWidget {
 class _DashboardState extends State<Dashboard> {
   List<Map<String, dynamic>> grids = [
     {"route": site, "title": "Sites", "image": "assets/images/sites.png"},
-    {
-      "route": "workinprogress",
-      "title": "Work in Progress",
-      "image": "assets/images/workinprogress.png"
-    },
+    // {
+    //   "route": "workinprogress",
+    //   "title": "Work in Progress",
+    //   "image": "assets/images/workinprogress.png"
+    // },
     {"route": stocks, "title": "Stocks", "image": "assets/images/stocks.png"},
     {"route": orders, "title": "Orders", "image": "assets/images/order.png"},
     {
