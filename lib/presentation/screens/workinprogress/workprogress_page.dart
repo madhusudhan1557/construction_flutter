@@ -80,24 +80,22 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                       width: size.width,
                       decoration: BoxDecoration(
                         borderRadius: BorderRadius.circular(10),
-                        boxShadow: const [
+                        boxShadow: [
                           BoxShadow(
                             blurRadius: 4.0,
-                            color: Colors.grey,
+                            color: AppColors.customWhite,
                           )
                         ],
                         color: AppColors.white,
                       ),
                       child: DropdownButtonFormField2(
                         dropdownDecoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          color: AppColors.customWhite,
+                          borderRadius: BorderRadius.circular(15),
+                          color: AppColors.white,
                         ),
                         decoration: const InputDecoration(
                           border: InputBorder.none,
                         ),
-                        buttonPadding:
-                            EdgeInsets.symmetric(horizontal: padding.top * 0.2),
                         hint: const Text("Select Item"),
                         offset: Offset(0, -size.height / 90 * 2.44),
                         items: items.map((item) {
@@ -117,115 +115,47 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                     SizedBox(
                       height: size.height / 90 * 1.2,
                     ),
-                    CustomBox(
-                      height: size.height / 90 * 20,
-                      width: size.width,
-                      radius: 15,
-                      blurRadius: 4.0,
-                      shadowColor: AppColors.customWhite,
-                      color: AppColors.customWhite,
-                      horizontalMargin: 0,
-                      verticalMargin: 0,
-                      child: Form(
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: size.height / 90 * 1.2,
-                            ),
-                            Text(
-                              "Stock Used",
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w500,
-                                  color: AppColors.grey),
-                            ),
-                            const Divider(
-                              thickness: 1,
-                            ),
-                            BlocBuilder<CounterBloc, num>(
-                              builder: (context, stock) {
-                                return SizedBox(
-                                  height: size.height / 90 * 4,
-                                  child: Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      CircleAvatar(
-                                        radius: 14,
-                                        backgroundColor: AppColors.fadeblue,
-                                        child: IconButton(
-                                          onPressed: () {
-                                            BlocProvider.of<CounterBloc>(
-                                                    context)
-                                                .add(DecrementEvent());
-                                            stocks.text = stock.toString();
-                                          },
-                                          icon: Iconify(
-                                            FluentMdl2.calculator_subtract,
-                                            color: AppColors.white,
-                                          ),
-                                        ),
-                                      ),
-                                      SizedBox(
-                                        height: size.height / 90 * 4,
-                                        width: size.width / 7 * 2.8,
-                                        child: TextFormField(
-                                          controller: stocks,
-                                          style: const TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w400),
-                                          keyboardType: TextInputType.number,
-                                          decoration: InputDecoration(
-                                            border: InputBorder.none,
-                                            hintText: "Stocks",
-                                            contentPadding:
-                                                EdgeInsets.symmetric(
-                                              horizontal: padding.top * 0.4,
-                                              vertical: padding.top * 0.4,
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      CircleAvatar(
-                                        radius: 14,
-                                        backgroundColor: AppColors.fadeblue,
-                                        child: IconButton(
-                                          onPressed: () {
-                                            BlocProvider.of<CounterBloc>(
-                                                    context)
-                                                .add(IncrementEvent());
-                                            stocks.text = stock.toString();
-                                          },
-                                          icon: Iconify(
-                                            FluentMdl2.add,
-                                            color: AppColors.white,
-                                          ),
-                                        ),
-                                      ),
-                                    ],
+                    Form(
+                      child: Column(
+                        children: [
+                          Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              CustomBox(
+                                height: size.height / 90 * 5.86,
+                                width: size.width / 7 * 3.8,
+                                radius: 15,
+                                blurRadius: 4.0,
+                                shadowColor: AppColors.customWhite,
+                                color: AppColors.white,
+                                horizontalMargin: 0,
+                                verticalMargin: 0,
+                                child: TextFormField(
+                                  keyboardType: TextInputType.number,
+                                  decoration: InputDecoration(
+                                    contentPadding: EdgeInsets.symmetric(
+                                      horizontal: padding.top * 0.5,
+                                    ),
+                                    hintText: "Stock Used",
+                                    border: InputBorder.none,
                                   ),
-                                );
-                              },
-                            ),
-                            const Divider(
-                              thickness: 1,
-                            ),
-                            SizedBox(
-                              height: size.height / 90 * 1.2,
-                            ),
-                            SizedBox(
-                              width: size.width / 7 * 2.8,
-                              child: IconButton(
-                                  color: AppColors.yellow,
-                                  style: ButtonStyle(
-                                    backgroundColor: MaterialStateProperty.all(
-                                        AppColors.yellow),
-                                  ),
-                                  onPressed: () {},
-                                  icon: const Text("Update")),
-                            )
-                          ],
-                        ),
+                                ),
+                              ),
+                              SizedBox(
+                                width: size.width / 7 * 1.3,
+                                child: IconButton(
+                                    color: AppColors.yellow,
+                                    style: ButtonStyle(
+                                      backgroundColor:
+                                          MaterialStateProperty.all(
+                                              AppColors.yellow),
+                                    ),
+                                    onPressed: () {},
+                                    icon: const Text("Update")),
+                              ),
+                            ],
+                          )
+                        ],
                       ),
                     ),
                     SizedBox(
@@ -256,12 +186,12 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                         formatValueFixed: 2,
                         animatedDuration: const Duration(seconds: 2),
                         borderRadius: BorderRadius.circular(15),
-                        backgroundColor: AppColors.customWhite,
-                        progressColor: AppColors.yellow,
+                        backgroundColor: AppColors.white,
+                        progressColor: AppColors.fadeblue,
                         direction: Axis.horizontal,
                         displayText: "%",
                         displayTextStyle: TextStyle(
-                          color: AppColors.fadeblue,
+                          color: AppColors.customWhite,
                         ),
                         maxValue: 100,
                         currentValue: 90,
@@ -290,7 +220,7 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                       builder: (context, snapshot) {
                         if (snapshot.hasData) {
                           return CustomBox(
-                            height: size.height / 90 * 25,
+                            height: size.height / 90 * 41,
                             width: size.width,
                             radius: 15,
                             blurRadius: 4.0,
@@ -302,13 +232,16 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                               thickness: 4,
                               radius: const Radius.circular(12),
                               child: ListView.builder(
-                                padding:
-                                    EdgeInsets.only(top: padding.top * 0.4),
+                                padding: EdgeInsets.only(
+                                  top: padding.top * 0.4,
+                                ),
                                 shrinkWrap: true,
                                 itemCount: snapshot.data!.docs.length,
                                 itemBuilder: (context, index) {
                                   return Container(
-                                    height: size.height / 90 * 3,
+                                    height: size.height / 90 * 2.6,
+                                    margin: EdgeInsets.symmetric(
+                                        vertical: padding.top * 0.2),
                                     decoration: BoxDecoration(
                                         color: AppColors.white,
                                         borderRadius: BorderRadius.circular(15),
@@ -327,9 +260,8 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                                               const Duration(seconds: 2),
                                           borderRadius:
                                               BorderRadius.circular(15),
-                                          backgroundColor:
-                                              AppColors.customWhite,
-                                          progressColor: AppColors.green,
+                                          backgroundColor: AppColors.white,
+                                          progressColor: AppColors.yellow,
                                           direction: Axis.horizontal,
                                           displayTextStyle: TextStyle(
                                             color: AppColors.fadeblue,
@@ -339,11 +271,29 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                                               .data!.docs[index]['progress']
                                               .toString()),
                                         ),
-                                        Align(
-                                          heightFactor: 2,
-                                          alignment: Alignment.center,
-                                          child: Text(
-                                            snapshot.data!.docs[index]['title'],
+                                        Padding(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: padding.top * 0.4),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.spaceBetween,
+                                            children: [
+                                              Align(
+                                                heightFactor: 2,
+                                                alignment: Alignment.center,
+                                                child: Text(
+                                                  snapshot.data!.docs[index]
+                                                      ['title'],
+                                                ),
+                                              ),
+                                              Align(
+                                                heightFactor: 2,
+                                                alignment: Alignment.center,
+                                                child: Text(
+                                                  "${snapshot.data!.docs[index]['progress']} %",
+                                                ),
+                                              ),
+                                            ],
                                           ),
                                         )
                                       ],
@@ -368,7 +318,7 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.yellow,
-                          foregroundColor: AppColors.grey,
+                          foregroundColor: AppColors.fadeblue,
                           fixedSize: Size(
                             size.width,
                             size.height / 90 * 3,

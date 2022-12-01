@@ -17,6 +17,7 @@ class ScheduleWork extends StatefulWidget {
 
 class _ScheduleWorkState extends State<ScheduleWork> {
   DateTime? startDate;
+  TextEditingController worktitle = TextEditingController();
   DateTime? endDate;
   @override
   Widget build(BuildContext context) {
@@ -61,6 +62,7 @@ class _ScheduleWorkState extends State<ScheduleWork> {
                   SizedBox(
                     height: size.height / 90 * 6.5,
                     child: TextFormField(
+                      controller: worktitle,
                       decoration: InputDecoration(
                         hintText: "Work Title",
                         border: OutlineInputBorder(
@@ -257,7 +259,7 @@ class _ScheduleWorkState extends State<ScheduleWork> {
                         ),
                         onPressed: () {
                           WorksModel worksModel = WorksModel(
-                            title: "Work Title",
+                            title: worktitle.text,
                             startdate: startDate!,
                             endDate: endDate!,
                           );
