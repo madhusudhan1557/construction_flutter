@@ -11,6 +11,7 @@ import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/fluent_mdl2.dart';
 
 import '../../../bloc/stock/stocks_bloc.dart';
+import '../../../main.dart';
 import '../../includes/custom_number_field.dart';
 import '../../includes/custom_textfield.dart';
 
@@ -47,7 +48,7 @@ class _SiteStocksState extends State<SiteStocks> {
             content: Form(
                 key: _formKey,
                 child: SizedBox(
-                  height: size.height / 90 * 52.334,
+                  height: size.height / 90 * 54.334,
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
@@ -243,158 +244,161 @@ class _SiteStocksState extends State<SiteStocks> {
           ],
         ),
       ),
-      body: Column(
-        children: [
-          CustomBox(
-            height: size.height / 90 * 4.8,
-            width: size.width,
-            radius: 15,
-            blurRadius: 4.0,
-            shadowColor: AppColors.grey.withOpacity(0.2),
-            color: AppColors.white,
-            horizontalMargin: padding.top * 0.4,
-            verticalMargin: padding.top * 0.2,
-            child: TextFormField(
-              style: const TextStyle(fontSize: 18),
-              decoration: InputDecoration(
-                  border: InputBorder.none,
-                  prefixIcon: Padding(
-                    padding: EdgeInsets.all(padding.top * 0.3),
-                    child: const Iconify(
-                      FluentMdl2.search,
-                    ),
-                  )),
+      body: SingleChildScrollView(
+        child: Column(
+          children: [
+            CustomBox(
+              height: size.height / 90 * 4.8,
+              width: size.width,
+              radius: 15,
+              blurRadius: 4.0,
+              shadowColor: AppColors.grey.withOpacity(0.2),
+              color: AppColors.white,
+              horizontalMargin: padding.top * 0.4,
+              verticalMargin: padding.top * 0.2,
+              child: TextFormField(
+                style: const TextStyle(fontSize: 18),
+                decoration: InputDecoration(
+                    border: InputBorder.none,
+                    prefixIcon: Padding(
+                      padding: EdgeInsets.all(padding.top * 0.3),
+                      child: const Iconify(
+                        FluentMdl2.search,
+                      ),
+                    )),
+              ),
             ),
-          ),
-          StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-            stream: FirebaseFirestore.instance
-                .collection("sites")
-                .doc(args['sid'])
-                .collection("stocks")
-                .snapshots(),
-            builder: (context, snapshot) {
-              if (snapshot.hasData) {
-                return snapshot.data!.docs.isEmpty
-                    ? const Center(
-                        child: Text("No Stocks at the Moment"),
-                      )
-                    : ListView.builder(
-                        shrinkWrap: true,
-                        itemCount: snapshot.data!.docs.length,
-                        itemBuilder: (context, index) {
-                          return CustomBox(
-                            height: size.height / 90 * 12.15,
-                            width: size.width,
-                            radius: 15,
-                            blurRadius: 4.0,
-                            shadowColor: AppColors.grey.withOpacity(0.2),
-                            color: AppColors.white,
-                            horizontalMargin: padding.top * 0.4,
-                            verticalMargin: padding.top * 0.2,
-                            child: Container(
-                              height: size.height,
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: padding.top * 0.4),
-                              child: Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceEvenly,
-                                children: [
-                                  Text(
-                                    snapshot.data!.docs[index]['itemname'],
-                                    style: TextStyle(
-                                      fontSize: 18,
-                                      color: AppColors.grey,
-                                      fontWeight: FontWeight.w700,
-                                    ),
-                                  ),
-                                  Row(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Text(
-                                        snapshot.data!.docs[index]['brandname'],
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w500,
-                                        ),
+            StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+              stream: FirebaseFirestore.instance
+                  .collection("sites")
+                  .doc(args['sid'])
+                  .collection("stocks")
+                  .snapshots(),
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return snapshot.data!.docs.isEmpty
+                      ? const Center(
+                          child: Text("No Stocks at the Moment"),
+                        )
+                      : ListView.builder(
+                          shrinkWrap: true,
+                          itemCount: snapshot.data!.docs.length,
+                          itemBuilder: (context, index) {
+                            return CustomBox(
+                              height: size.height / 90 * 12.15,
+                              width: size.width,
+                              radius: 15,
+                              blurRadius: 4.0,
+                              shadowColor: AppColors.grey.withOpacity(0.2),
+                              color: AppColors.white,
+                              horizontalMargin: padding.top * 0.4,
+                              verticalMargin: padding.top * 0.2,
+                              child: Container(
+                                height: size.height,
+                                padding: EdgeInsets.symmetric(
+                                    horizontal: padding.top * 0.4),
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Text(
+                                      snapshot.data!.docs[index]['itemname'],
+                                      style: TextStyle(
+                                        fontSize: 18,
+                                        color: AppColors.grey,
+                                        fontWeight: FontWeight.w700,
                                       ),
-                                      const Spacer(),
-                                      CustomBox(
-                                        height: size.height / 90 * 2.44,
-                                        width: size.width / 3.86,
-                                        radius: 15,
-                                        blurRadius: 4.0,
-                                        shadowColor: AppColors.customWhite,
-                                        color: snapshot.data!.docs[index]
-                                                    ['quantity'] ==
-                                                0
-                                            ? AppColors.red
-                                            : snapshot.data!.docs[index]
-                                                        ['quantity'] >=
-                                                    10
-                                                ? AppColors.green
-                                                : Colors.deepOrangeAccent,
-                                        horizontalMargin: 0,
-                                        verticalMargin: 0,
-                                        child: Center(
-                                          child: Text(
-                                            snapshot.data!.docs[index]
-                                                        ['quantity'] ==
-                                                    0
-                                                ? "Out of Stock"
-                                                : snapshot.data!.docs[index]
-                                                            ['quantity'] >=
-                                                        10
-                                                    ? "In Stock"
-                                                    : "Low Stock",
-                                            style: TextStyle(
-                                                color: AppColors.white),
+                                    ),
+                                    Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceBetween,
+                                      children: [
+                                        Text(
+                                          snapshot.data!.docs[index]
+                                              ['brandname'],
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
                                           ),
                                         ),
-                                      ),
-                                      const Spacer(),
-                                      InkWell(
-                                        onTap: () {},
-                                        child: const Icon(
-                                          Icons.more_vert,
+                                        const Spacer(),
+                                        CustomBox(
+                                          height: size.height / 90 * 2.44,
+                                          width: size.width / 3.86,
+                                          radius: 15,
+                                          blurRadius: 4.0,
+                                          shadowColor: AppColors.customWhite,
+                                          color: snapshot.data!.docs[index]
+                                                      ['quantity'] ==
+                                                  0
+                                              ? AppColors.red
+                                              : snapshot.data!.docs[index]
+                                                          ['quantity'] >=
+                                                      10
+                                                  ? AppColors.green
+                                                  : Colors.deepOrangeAccent,
+                                          horizontalMargin: 0,
+                                          verticalMargin: 0,
+                                          child: Center(
+                                            child: Text(
+                                              snapshot.data!.docs[index]
+                                                          ['quantity'] ==
+                                                      0
+                                                  ? "Out of Stock"
+                                                  : snapshot.data!.docs[index]
+                                                              ['quantity'] >=
+                                                          10
+                                                      ? "In Stock"
+                                                      : "Low Stock",
+                                              style: TextStyle(
+                                                  color: AppColors.white),
+                                            ),
+                                          ),
                                         ),
-                                      )
-                                    ],
-                                  ),
-                                  Row(
-                                    children: [
-                                      const Text(
-                                        "Quantities : ",
-                                        style: TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w500,
+                                        const Spacer(),
+                                        InkWell(
+                                          onTap: () {},
+                                          child: const Icon(
+                                            Icons.more_vert,
+                                          ),
+                                        )
+                                      ],
+                                    ),
+                                    Row(
+                                      children: [
+                                        const Text(
+                                          "Quantities : ",
+                                          style: TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                         ),
-                                      ),
-                                      const Spacer(),
-                                      Text(
-                                        "${snapshot.data!.docs[index]['quantity']} ${snapshot.data!.docs[index]['unit']}",
-                                        style: const TextStyle(
-                                          fontSize: 16,
-                                          fontWeight: FontWeight.w500,
+                                        const Spacer(),
+                                        Text(
+                                          "${snapshot.data!.docs[index]['quantity']} ${snapshot.data!.docs[index]['unit']}",
+                                          style: const TextStyle(
+                                            fontSize: 16,
+                                            fontWeight: FontWeight.w500,
+                                          ),
                                         ),
-                                      ),
-                                      const Spacer()
-                                    ],
-                                  )
-                                ],
+                                        const Spacer()
+                                      ],
+                                    )
+                                  ],
+                                ),
                               ),
-                            ),
-                          );
-                        });
-              } else {
-                return const Center(
-                  child: CircularProgressIndicator.adaptive(),
-                );
-              }
-            },
-          ),
-        ],
+                            );
+                          });
+                } else {
+                  return const Center(
+                    child: CircularProgressIndicator.adaptive(),
+                  );
+                }
+              },
+            ),
+          ],
+        ),
       ),
     );
   }

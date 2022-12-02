@@ -24,6 +24,21 @@ class StocksBloc extends Bloc<StocksEvent, StocksState> {
         emit(FailedSiteStockState(error: event.error));
       },
     );
+    on<CompleteUpdatingStockQuantityEvent>(
+      (event, emit) {
+        emit(CompleteUpdatingStockQuantityState());
+      },
+    );
+    on<UpdatingStockQuantityEvent>(
+      (event, emit) {
+        emit(UpdatingStockQuantityState());
+      },
+    );
+    on<FailedUpdatingStockQuantityEvent>(
+      (event, emit) {
+        emit(FailedUpdatingStockQuantityState(error: event.error));
+      },
+    );
   }
 
   addStock(StockModel stockModel, String sid) async {
@@ -33,10 +48,10 @@ class StocksBloc extends Bloc<StocksEvent, StocksState> {
           .collection("sites")
           .doc(sid)
           .collection("stocks");
-
-      await sitestock.add({
+      String skid = sitestock.doc().id;
+      await sitestock.doc(skid).set({
         "sid": sid,
-        "skid": sitestock.doc().id,
+        "skid": skid,
         "itemname": stockModel.itemname,
         "brandname": stockModel.brandname,
         "suppliername": stockModel.suppliername,
@@ -47,6 +62,40 @@ class StocksBloc extends Bloc<StocksEvent, StocksState> {
       add(CompletedAddingSiteStockEvent());
     } on FirebaseException catch (e) {
       add(FailedSiteStockEvent(error: e.message!));
+    }
+  }
+
+  updateStockQuantity(String sid, double quantity, String skid) async {
+    try {
+      add(UpdatingStockQuantityEvent());
+      double qty = 0;
+      QuerySnapshot workDoc = await FirebaseFirestore.instance
+          .collection("sites")
+          .doc(sid)
+          .collection("stocks")
+          .where("skid", isEqualTo: skid)
+          .get();
+      for (QueryDocumentSnapshot<Object?> element in workDoc.docs) {
+        qty = element['quantity'] - quantity;
+      }
+      if (qty.isNegative) {
+        add(
+          FailedUpdatingStockQuantityEvent(
+              error: "Stock used is greater than available quantity"),
+        );
+      } else {
+        DocumentReference workDoc = FirebaseFirestore.instance
+            .collection("sites")
+            .doc(sid)
+            .collection("stocks")
+            .doc(skid);
+        await workDoc.update({
+          "quantity": qty,
+        });
+        add(CompleteUpdatingStockQuantityEvent());
+      }
+    } on FirebaseException catch (e) {
+      add(FailedUpdatingStockQuantityEvent(error: e.message!));
     }
   }
 }

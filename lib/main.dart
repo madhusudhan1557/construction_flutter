@@ -62,8 +62,8 @@ class AkarDevelopers extends StatelessWidget {
 
 Container customLoading(Size size) {
   return Container(
-    height: size.height / 90 * 8.6,
-    width: size.width / 2 * 1.3,
+    height: size.width / 7 * 1.8,
+    width: size.width / 7 * 1.8,
     decoration: BoxDecoration(
       color: AppColors.customWhite,
       borderRadius: BorderRadius.circular(15),
@@ -71,6 +71,7 @@ Container customLoading(Size size) {
     child: Center(
       child: CircularProgressIndicator(
         color: AppColors.fadeblue,
+        strokeWidth: 4.0,
       ),
     ),
   );

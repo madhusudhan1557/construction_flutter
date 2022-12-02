@@ -11,3 +11,12 @@ class FailedSiteStockEvent extends StocksEvent {
   final String? error;
   FailedSiteStockEvent({this.error});
 }
+
+class UpdatingStockQuantityEvent extends StocksEvent {}
+
+class CompleteUpdatingStockQuantityEvent extends StocksEvent {}
+
+class FailedUpdatingStockQuantityEvent extends StocksEvent {
+  final String? error;
+  FailedUpdatingStockQuantityEvent({this.error});
+}
