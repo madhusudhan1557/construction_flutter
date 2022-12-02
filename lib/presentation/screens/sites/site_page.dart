@@ -303,7 +303,12 @@ class _SitePageState extends State<SitePage> {
                                       BlocConsumer<SitesBloc, SitesState>(
                                         listener: (context, state) {
                                           if (state is LoadingSiteState) {
-                                            BotToast.showLoading();
+                                            BotToast.showCustomLoading(
+                                              toastBuilder: (cancelFunc) {
+                                                return customLoading(size);
+                                              },
+                                            );
+                                            ;
                                           }
                                           if (state is LoadingCompleteEvent) {
                                             BotToast.closeAllLoading();
@@ -325,7 +330,12 @@ class _SitePageState extends State<SitePage> {
                                               SitesState>(
                                             listener: (context, state) {
                                               if (state is LoadingSiteState) {
-                                                BotToast.showLoading();
+                                                BotToast.showCustomLoading(
+                                                  toastBuilder: (cancelFunc) {
+                                                    return customLoading(size);
+                                                  },
+                                                );
+                                                ;
                                               }
                                               if (state is CompletedSiteState) {
                                                 BotToast.closeAllLoading();
@@ -546,7 +556,15 @@ class _SitePageState extends State<SitePage> {
                                                   listener: (context, state) {
                                                     if (state
                                                         is LoadingDeleteSiteState) {
-                                                      BotToast.showLoading();
+                                                      BotToast
+                                                          .showCustomLoading(
+                                                        toastBuilder:
+                                                            (cancelFunc) {
+                                                          return customLoading(
+                                                              size);
+                                                        },
+                                                      );
+                                                      ;
                                                     }
                                                     if (state
                                                         is LoadingDeleteCompleteState) {

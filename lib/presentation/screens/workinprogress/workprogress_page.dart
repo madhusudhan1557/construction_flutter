@@ -1,3 +1,4 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:construction/presentation/includes/appbar.dart';
 import 'package:construction/presentation/includes/custom_box.dart';
@@ -11,6 +12,7 @@ import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.da
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 import '../../../bloc/dropdown/dropdown_bloc.dart';
+import '../../../bloc/workinprogress/workinprogress_bloc.dart';
 import '../../../utils/app_colors.dart';
 
 class WorkInProgressPage extends StatefulWidget {
@@ -36,6 +38,7 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
         builder: (context) {
           return AlertDialog(
             content: SizedBox(
+              height: size.height / 90 * 12,
               child: Form(
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -46,14 +49,31 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                       controller: _progress,
                       size: size.height / 90 * 5.876,
                     ),
-                    ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        shape: const CircleBorder(),
-                        foregroundColor: AppColors.fadeblue,
-                        backgroundColor: AppColors.yellow,
-                      ),
-                      onPressed: () {},
-                      child: const Icon(Icons.update_disabled_rounded),
+                    BlocConsumer<WorkinprogressBloc, WorkinprogressState>(
+                      listener: (context, state) {
+                        if (state is UpdatingWorkProgressState) {
+                          BotToast.showCustomLoading(
+                            toastBuilder: (cancelFunc) {
+                              return Center(
+                                child: CircularProgressIndicator(
+                                  color: AppColors.fadeblue,
+                                ),
+                              );
+                            },
+                          );
+                        }
+                      },
+                      builder: (context, state) {
+                        return ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            shape: const CircleBorder(),
+                            foregroundColor: AppColors.fadeblue,
+                            backgroundColor: AppColors.yellow,
+                          ),
+                          onPressed: () {},
+                          child: const Icon(Icons.update_rounded),
+                        );
+                      },
                     ),
                   ],
                 ),

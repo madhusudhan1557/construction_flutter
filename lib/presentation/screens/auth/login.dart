@@ -9,6 +9,7 @@ import 'package:iconify_flutter/icons/ant_design.dart';
 import 'package:iconify_flutter/icons/carbon.dart';
 
 import '../../../bloc/hidepassword/hidepassword_cubit.dart';
+import '../../../main.dart';
 import '../../../utils/app_colors.dart';
 import '../../../utils/validator.dart';
 import '../../includes/custom_clipper.dart';
@@ -202,7 +203,11 @@ class _LoginScreenState extends State<LoginScreen> {
                               BlocConsumer<AuthBloc, AuthState>(
                                 listener: (context, state) {
                                   if (state is LoginLoadingState) {
-                                    BotToast.showLoading();
+                                    BotToast.showCustomLoading(
+                                      toastBuilder: (cancelFunc) {
+                                        return customLoading(size);
+                                      },
+                                    );
                                   }
                                   if (state is CompletedLoadingState) {
                                     BotToast.closeAllLoading();

@@ -11,6 +11,8 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../main.dart';
+
 class RegistrationScreen extends StatefulWidget {
   const RegistrationScreen({super.key});
 
@@ -157,7 +159,11 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 BlocConsumer<AuthBloc, AuthState>(
                   listener: (context, state) {
                     if (state is EmailSignUpLoadingState) {
-                      BotToast.showLoading();
+                      BotToast.showCustomLoading(
+                        toastBuilder: (cancelFunc) {
+                          return customLoading(size);
+                        },
+                      );
                     }
                     if (state is EmailSignUpCompletedState) {
                       BotToast.closeAllLoading();

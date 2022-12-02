@@ -10,6 +10,7 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../data/models/sites.dart';
 import '../../data/models/stocks.dart';
+import '../../main.dart';
 
 part 'sites_event.dart';
 part 'sites_state.dart';
@@ -105,8 +106,6 @@ class SitesBloc extends Bloc<SitesEvent, SitesState> {
 
   Future<void> deleteSite(String sid, List<String> imageurl, context) async {
     try {
-      BotToast.showLoading();
-
       Future<QuerySnapshot> siteimages =
           sites.doc(sid).collection("siteimages").get();
       siteimages.then((value) {
@@ -122,15 +121,13 @@ class SitesBloc extends Bloc<SitesEvent, SitesState> {
         await FirebaseStorage.instance.refFromURL(url).delete();
       }
 
-      BotToast.closeAllLoading();
       Navigator.of(context).pop();
-      BotToast.closeAllLoading();
+
       BotToast.showText(
         text: "Site Deleted",
         contentColor: Colors.green,
       );
     } on FirebaseException catch (e) {
-      BotToast.closeAllLoading();
       Navigator.of(context).pop();
       BotToast.showText(
         text: e.message!,

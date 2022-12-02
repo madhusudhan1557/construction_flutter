@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
 import '../../../bloc/workinprogress/workinprogress_bloc.dart';
+import '../../../main.dart';
 import '../../../utils/app_colors.dart';
 
 class ScheduleWork extends StatefulWidget {
@@ -230,7 +231,12 @@ class _ScheduleWorkState extends State<ScheduleWork> {
                   BlocConsumer<WorkinprogressBloc, WorkinprogressState>(
                     listener: (context, state) {
                       if (state is AddingWorkState) {
-                        BotToast.showLoading();
+                        BotToast.showCustomLoading(
+                          toastBuilder: (cancelFunc) {
+                            return customLoading(size);
+                          },
+                        );
+                        ;
                       }
                       if (state is CompletedAddingWorkState) {
                         BotToast.closeAllLoading();

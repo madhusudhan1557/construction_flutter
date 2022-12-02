@@ -152,7 +152,12 @@ class _SiteStocksState extends State<SiteStocks> {
                             BlocConsumer<StocksBloc, StocksState>(
                               listener: (context, state) {
                                 if (state is AddingSiteStockState) {
-                                  BotToast.showLoading();
+                                  BotToast.showCustomLoading(
+                                    toastBuilder: (cancelFunc) {
+                                      return customLoading(size);
+                                    },
+                                  );
+                                  ;
                                 }
                                 if (state is CompletedAddingSiteStockState) {
                                   BotToast.closeAllLoading();

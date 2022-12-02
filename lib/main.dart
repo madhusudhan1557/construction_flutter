@@ -6,6 +6,7 @@ import 'package:construction/bloc/hidepassword/hidepassword_cubit.dart';
 import 'package:construction/bloc/pickimage/pickimage_bloc.dart';
 import 'package:construction/bloc/sites/sites_bloc.dart';
 import 'package:construction/bloc/stock/stocks_bloc.dart';
+import 'package:construction/utils/app_colors.dart';
 
 import 'package:construction/utils/router.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -57,4 +58,20 @@ class AkarDevelopers extends StatelessWidget {
       ),
     );
   }
+}
+
+Container customLoading(Size size) {
+  return Container(
+    height: size.height / 90 * 8.6,
+    width: size.width / 2 * 1.3,
+    decoration: BoxDecoration(
+      color: AppColors.customWhite,
+      borderRadius: BorderRadius.circular(15),
+    ),
+    child: Center(
+      child: CircularProgressIndicator(
+        color: AppColors.fadeblue,
+      ),
+    ),
+  );
 }
