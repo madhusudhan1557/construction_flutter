@@ -14,3 +14,8 @@ class DropdownItemSelectState extends DropdownState {
   final String? value;
   DropdownItemSelectState({this.value});
 }
+
+class DropdownSiteSelectState extends DropdownState {
+  final String? value;
+  DropdownSiteSelectState({this.value});
+}

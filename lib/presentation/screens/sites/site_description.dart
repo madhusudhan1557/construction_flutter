@@ -32,6 +32,12 @@ class _SiteDescriptionState extends State<SiteDescription> {
         preferredSize: Size(size.width, size.height / 90 * 7.5),
         child: CustomAppbar(
           title: args['sitename'],
+          action: [
+            IconButton(
+              onPressed: () {},
+              icon: Image.asset("assets/icons/camera.png"),
+            ),
+          ],
           bgcolor: AppColors.white,
           leading: IconButton(
             icon: const Icon(
@@ -75,8 +81,9 @@ class _SiteDescriptionState extends State<SiteDescription> {
                                       },
                                       children: [
                                         Container(
-                                          margin: const EdgeInsets.symmetric(
-                                              horizontal: 5, vertical: 5),
+                                          margin: EdgeInsets.symmetric(
+                                              horizontal: padding.top * 0.2,
+                                              vertical: padding.top * 0.2),
                                           decoration: BoxDecoration(
                                             color: AppColors.fadeblue,
                                             image: DecorationImage(
@@ -232,9 +239,9 @@ class _SiteDescriptionState extends State<SiteDescription> {
                             height: size.height / 90 * 4.2,
                             width: size.width,
                             radius: 15,
-                            blurRadius: 4.0,
-                            shadowColor: Colors.grey,
-                            color: AppColors.customWhite,
+                            blurRadius: 8.0,
+                            shadowColor: AppColors.customWhite,
+                            color: AppColors.white,
                             horizontalMargin: 0,
                             verticalMargin: 0,
                             child: Container(
@@ -274,9 +281,9 @@ class _SiteDescriptionState extends State<SiteDescription> {
                                     height: size.height / 90 * 4.2,
                                     width: size.width,
                                     radius: 15,
-                                    blurRadius: 4.0,
-                                    shadowColor: Colors.grey,
-                                    color: AppColors.customWhite,
+                                    blurRadius: 8.0,
+                                    shadowColor: AppColors.customWhite,
+                                    color: AppColors.white,
                                     horizontalMargin: 0,
                                     verticalMargin: 0,
                                     child: Container(
@@ -316,9 +323,9 @@ class _SiteDescriptionState extends State<SiteDescription> {
                               height: size.height / 90 * 4.2,
                               width: size.width,
                               radius: 15,
-                              blurRadius: 4.0,
-                              shadowColor: Colors.grey,
-                              color: AppColors.customWhite,
+                              blurRadius: 8.0,
+                              shadowColor: AppColors.customWhite,
+                              color: AppColors.white,
                               horizontalMargin: 0,
                               verticalMargin: 0,
                               child: InkWell(
@@ -363,9 +370,9 @@ class _SiteDescriptionState extends State<SiteDescription> {
                               height: size.height / 90 * 4.2,
                               width: size.width,
                               radius: 15,
-                              blurRadius: 4.0,
-                              shadowColor: Colors.grey,
-                              color: AppColors.customWhite,
+                              blurRadius: 8.0,
+                              shadowColor: AppColors.customWhite,
+                              color: AppColors.white,
                               horizontalMargin: 0,
                               verticalMargin: 0,
                               child: Container(

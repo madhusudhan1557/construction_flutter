@@ -1,12 +1,12 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:construction/bloc/auth/auth_bloc.dart';
 import 'package:construction/bloc/dropdown/dropdown_bloc.dart';
-import 'package:construction/bloc/pickimage/pickimage_bloc.dart';
+
 import 'package:construction/data/models/users.dart';
 import 'package:construction/presentation/includes/appbar.dart';
 import 'package:construction/presentation/includes/custom_textfield.dart';
 import 'package:construction/utils/app_colors.dart';
-import 'package:construction/utils/routes.dart';
+
 import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';

@@ -403,7 +403,7 @@ class _SitePageState extends State<SitePage> {
     }
 
     return Scaffold(
-      resizeToAvoidBottomInset: false,
+      resizeToAvoidBottomInset: true,
       backgroundColor: AppColors.white,
       body: SingleChildScrollView(
         child: Column(
@@ -506,9 +506,9 @@ class _SitePageState extends State<SitePage> {
                                 height: size.height / 90 * 18,
                                 width: size.width,
                                 color: AppColors.white,
-                                blurRadius: 2.0,
+                                blurRadius: 4.0,
                                 radius: 10,
-                                shadowColor: AppColors.grey,
+                                shadowColor: AppColors.grey.withOpacity(0.2),
                                 child: Padding(
                                   padding: EdgeInsets.symmetric(
                                       horizontal: paddding.top * 0.31,
@@ -625,13 +625,17 @@ class _SitePageState extends State<SitePage> {
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Text(
-                                            snapshot.data!.docs[index]
-                                                ['sitelocation'],
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                              fontWeight: FontWeight.w500,
-                                              color: Colors.grey[700],
+                                          SizedBox(
+                                            width: size.width / 2 * 1.2,
+                                            child: Text(
+                                              snapshot.data!.docs[index]
+                                                  ['sitelocation'],
+                                              style: TextStyle(
+                                                overflow: TextOverflow.clip,
+                                                fontSize: 18,
+                                                fontWeight: FontWeight.w500,
+                                                color: Colors.grey[700],
+                                              ),
                                             ),
                                           ),
                                           args['role'] == "Admin"
@@ -685,6 +689,9 @@ class _SitePageState extends State<SitePage> {
                                           ],
                                         ),
                                       ),
+                                      SizedBox(
+                                        height: size.height / 98 * 0.8,
+                                      )
                                     ],
                                   ),
                                 ),

@@ -12,3 +12,8 @@ class DropdownItemSelectEvent extends DropdownEvent {
   final String? value;
   DropdownItemSelectEvent({this.value});
 }
+
+class DropdownSiteSelectEvent extends DropdownEvent {
+  final String? value;
+  DropdownSiteSelectEvent({this.value});
+}

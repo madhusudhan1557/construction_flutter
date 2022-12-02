@@ -1,18 +1,18 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:construction/bloc/auth/auth_bloc.dart';
-import 'package:construction/bloc/counter/counter_bloc.dart';
 
 import 'package:construction/bloc/dropdown/dropdown_bloc.dart';
 import 'package:construction/bloc/hidepassword/hidepassword_cubit.dart';
 import 'package:construction/bloc/pickimage/pickimage_bloc.dart';
 import 'package:construction/bloc/sites/sites_bloc.dart';
-import 'package:construction/bloc/workinprogress/workinprogress_bloc.dart';
+import 'package:construction/bloc/stock/stocks_bloc.dart';
 
 import 'package:construction/utils/router.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+import 'bloc/bloc/workinprogress_bloc.dart';
 import 'firebase_options.dart';
 
 Future<void> main() async {
@@ -38,7 +38,7 @@ class AkarDevelopers extends StatelessWidget {
         BlocProvider<HidepasswordCubit>(
             create: (context) => HidepasswordCubit()),
         BlocProvider<AuthBloc>(create: (context) => AuthBloc()),
-        BlocProvider<CounterBloc>(create: (context) => CounterBloc()),
+        BlocProvider<StocksBloc>(create: (context) => StocksBloc()),
         BlocProvider<WorkinprogressBloc>(
             create: (context) => WorkinprogressBloc()),
         BlocProvider<DropdownBloc>(

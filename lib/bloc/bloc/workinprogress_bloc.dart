@@ -1,8 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:construction/data/models/works.dart';
-import 'package:construction/utils/routes.dart';
-import 'package:firebase_core/firebase_core.dart';
+
 import 'package:flutter/material.dart';
 
 part 'workinprogress_event.dart';

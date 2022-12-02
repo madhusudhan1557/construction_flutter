@@ -1,6 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
 
 class SiteEstimation extends StatefulWidget {
   const SiteEstimation({super.key});
@@ -12,6 +10,6 @@ class SiteEstimation extends StatefulWidget {
 class _SiteEstimationState extends State<SiteEstimation> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold();
+    return const Scaffold();
   }
 }

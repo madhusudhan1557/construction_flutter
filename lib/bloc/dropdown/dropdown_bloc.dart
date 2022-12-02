@@ -13,11 +13,20 @@ class DropdownBloc extends Bloc<DropdownEvent, DropdownState> {
     on<DropdownItemSelectEvent>((event, emit) {
       emit(DropdownItemSelectState(value: event.value));
     });
+    on<DropdownSiteSelectEvent>((event, emit) {
+      emit(DropdownSiteSelectState(value: event.value));
+    });
   }
 
   onUserSelectDropdown(String value) async {
     add(DropdownUserSelectEvent(value: value));
   }
 
-  onItemSelectDropdown(String value) async {}
+  onItemSelectDropdown(String value) async {
+    add(DropdownItemSelectEvent(value: value));
+  }
+
+  onSiteSelectDropdown(String value) async {
+    add(DropdownSiteSelectEvent(value: value));
+  }
 }
