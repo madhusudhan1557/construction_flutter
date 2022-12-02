@@ -122,6 +122,9 @@ class _SiteDescriptionState extends State<SiteDescription> {
                     child: ListView(
                       shrinkWrap: true,
                       children: [
+                        SizedBox(
+                          height: size.height / 90 * 1.4,
+                        ),
                         Align(
                           alignment: Alignment.topLeft,
                           child: Text(

@@ -5,8 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
-import '../../../bloc/bloc/workinprogress_bloc.dart';
-
+import '../../../bloc/workinprogress/workinprogress_bloc.dart';
 import '../../../utils/app_colors.dart';
 
 class ScheduleWork extends StatefulWidget {

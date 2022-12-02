@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:construction/presentation/includes/appbar.dart';
 import 'package:construction/presentation/includes/custom_box.dart';
+import 'package:construction/presentation/includes/custom_number_field.dart';
 import 'package:construction/utils/routes.dart';
 
 import 'package:dropdown_button2/dropdown_button2.dart';
@@ -20,13 +21,48 @@ class WorkInProgressPage extends StatefulWidget {
 }
 
 class _WorkInProgressPageState extends State<WorkInProgressPage> {
-  TextEditingController stocks = TextEditingController();
+  final TextEditingController stocks = TextEditingController();
+  final TextEditingController _progress = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
     final Map<String, dynamic> args =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     final padding = MediaQuery.of(context).padding;
+    String dropdownvalue = "";
+    showProgressModal(String wid) {
+      return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            content: SizedBox(
+              child: Form(
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    const Text("Update Work Progress"),
+                    CustomNumberField(
+                      hintText: "Progress in Percent ( 1 - 100 )",
+                      controller: _progress,
+                      size: size.height / 90 * 5.876,
+                    ),
+                    ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        shape: const CircleBorder(),
+                        foregroundColor: AppColors.fadeblue,
+                        backgroundColor: AppColors.yellow,
+                      ),
+                      onPressed: () {},
+                      child: const Icon(Icons.update_disabled_rounded),
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          );
+        },
+      );
+    }
 
     return GestureDetector(
       onTap: () {
@@ -118,6 +154,7 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                                         );
                                       }).toList(),
                                       onChanged: (newValue) {
+                                        dropdownvalue = newValue.toString();
                                         BlocProvider.of<DropdownBloc>(context)
                                             .onItemSelectDropdown(
                                                 newValue.toString());
@@ -165,7 +202,19 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                                                   MaterialStateProperty.all(
                                                       AppColors.yellow),
                                             ),
-                                            onPressed: () {},
+                                            onPressed: () {
+                                              String sid = "";
+                                              for (int i = 0;
+                                                  i <
+                                                      snapshot
+                                                          .data!.docs.length;
+                                                  i++) {
+                                                sid = snapshot.data!.docs[i]
+                                                    ['sid'];
+                                              }
+                                              print(dropdownvalue);
+                                              print(sid);
+                                            },
                                             icon: const Text("Update")),
                                       ),
                                     ],
@@ -254,7 +303,7 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                                         itemCount: snapshot.data!.docs.length,
                                         itemBuilder: (context, index) {
                                           return Container(
-                                            height: size.height / 90 * 2.6,
+                                            height: size.height / 90 * 4.6,
                                             margin: EdgeInsets.symmetric(
                                                 vertical: padding.top * 0.2),
                                             decoration: BoxDecoration(
@@ -268,62 +317,71 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                                                     blurRadius: 2.0,
                                                   )
                                                 ]),
-                                            child: Stack(
-                                              children: [
-                                                FAProgressBar(
-                                                  formatValueFixed: 2,
-                                                  animatedDuration:
-                                                      const Duration(
-                                                          seconds: 2),
-                                                  borderRadius:
-                                                      BorderRadius.circular(15),
-                                                  backgroundColor:
-                                                      AppColors.white,
-                                                  progressColor:
-                                                      AppColors.yellow,
-                                                  direction: Axis.horizontal,
-                                                  displayTextStyle: TextStyle(
-                                                    color: AppColors.fadeblue,
+                                            child: InkWell(
+                                              onTap: () {
+                                                showProgressModal(snapshot
+                                                    .data!.docs[index]['wid']);
+                                              },
+                                              child: Stack(
+                                                children: [
+                                                  FAProgressBar(
+                                                    formatValueFixed: 2,
+                                                    animatedDuration:
+                                                        const Duration(
+                                                            seconds: 2),
+                                                    borderRadius:
+                                                        BorderRadius.circular(
+                                                            15),
+                                                    backgroundColor:
+                                                        AppColors.white,
+                                                    progressColor:
+                                                        AppColors.yellow,
+                                                    direction: Axis.horizontal,
+                                                    displayTextStyle: TextStyle(
+                                                      color: AppColors.fadeblue,
+                                                    ),
+                                                    maxValue: 100,
+                                                    currentValue: double.parse(
+                                                        snapshot
+                                                            .data!
+                                                            .docs[index]
+                                                                ['progress']
+                                                            .toString()),
                                                   ),
-                                                  maxValue: 100,
-                                                  currentValue: double.parse(
-                                                      snapshot
-                                                          .data!
-                                                          .docs[index]
-                                                              ['progress']
-                                                          .toString()),
-                                                ),
-                                                Padding(
-                                                  padding: EdgeInsets.symmetric(
-                                                      horizontal:
-                                                          padding.top * 0.4),
-                                                  child: Row(
-                                                    mainAxisAlignment:
-                                                        MainAxisAlignment
-                                                            .spaceBetween,
-                                                    children: [
-                                                      Align(
-                                                        heightFactor: 2,
-                                                        alignment:
-                                                            Alignment.center,
-                                                        child: Text(
-                                                          snapshot.data!
-                                                                  .docs[index]
-                                                              ['title'],
+                                                  Padding(
+                                                    padding:
+                                                        EdgeInsets.symmetric(
+                                                            horizontal:
+                                                                padding.top *
+                                                                    0.4),
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        Align(
+                                                          heightFactor: 2,
+                                                          alignment:
+                                                              Alignment.center,
+                                                          child: Text(
+                                                            snapshot.data!
+                                                                    .docs[index]
+                                                                ['title'],
+                                                          ),
                                                         ),
-                                                      ),
-                                                      Align(
-                                                        heightFactor: 2,
-                                                        alignment:
-                                                            Alignment.center,
-                                                        child: Text(
-                                                          "${snapshot.data!.docs[index]['progress']} %",
+                                                        Align(
+                                                          heightFactor: 2,
+                                                          alignment:
+                                                              Alignment.center,
+                                                          child: Text(
+                                                            "${snapshot.data!.docs[index]['progress']} %",
+                                                          ),
                                                         ),
-                                                      ),
-                                                    ],
-                                                  ),
-                                                )
-                                              ],
+                                                      ],
+                                                    ),
+                                                  )
+                                                ],
+                                              ),
                                             ),
                                           );
                                         },
