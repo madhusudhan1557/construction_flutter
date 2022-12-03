@@ -48,7 +48,7 @@ class _SiteStocksState extends State<SiteStocks> {
             content: Form(
                 key: _formKey,
                 child: SizedBox(
-                  height: size.height / 90 * 54.334,
+                  height: size.height / 90 * 58.334,
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
@@ -101,6 +101,7 @@ class _SiteStocksState extends State<SiteStocks> {
                               child: CustomNumberField(
                                 hintText: "Qty",
                                 controller: _quantity,
+                                color: AppColors.grey.withOpacity(0.1),
                                 size: size.height / 90 * 5.44,
                               ),
                             ),
@@ -117,6 +118,7 @@ class _SiteStocksState extends State<SiteStocks> {
                               width: size.width / 5.6,
                               child: CustomNumberField(
                                 hintText: "Rate",
+                                color: AppColors.grey.withOpacity(0.1),
                                 controller: _rate,
                                 size: size.height / 90 * 5.44,
                               ),
@@ -285,7 +287,7 @@ class _SiteStocksState extends State<SiteStocks> {
                           itemCount: snapshot.data!.docs.length,
                           itemBuilder: (context, index) {
                             return CustomBox(
-                              height: size.height / 90 * 12.15,
+                              height: size.height / 90 * 14.15,
                               width: size.width,
                               radius: 15,
                               blurRadius: 4.0,
@@ -314,12 +316,15 @@ class _SiteStocksState extends State<SiteStocks> {
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
                                       children: [
-                                        Text(
-                                          snapshot.data!.docs[index]
-                                              ['brandname'],
-                                          style: const TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w500,
+                                        SizedBox(
+                                          width: size.width / 7 * 2.6,
+                                          child: Text(
+                                            snapshot.data!.docs[index]
+                                                ['brandname'],
+                                            style: const TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w500,
+                                            ),
                                           ),
                                         ),
                                         const Spacer(),
@@ -367,11 +372,14 @@ class _SiteStocksState extends State<SiteStocks> {
                                     ),
                                     Row(
                                       children: [
-                                        const Text(
-                                          "Quantities : ",
-                                          style: TextStyle(
-                                            fontSize: 16,
-                                            fontWeight: FontWeight.w500,
+                                        SizedBox(
+                                          width: size.width / 7 * 2.2,
+                                          child: const Text(
+                                            "Quantities : ",
+                                            style: TextStyle(
+                                              fontSize: 16,
+                                              fontWeight: FontWeight.w500,
+                                            ),
                                           ),
                                         ),
                                         const Spacer(),
@@ -384,7 +392,10 @@ class _SiteStocksState extends State<SiteStocks> {
                                         ),
                                         const Spacer()
                                       ],
-                                    )
+                                    ),
+                                    SizedBox(
+                                      height: size.height / 90 * 0.1,
+                                    ),
                                   ],
                                 ),
                               ),

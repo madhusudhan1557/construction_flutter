@@ -60,6 +60,7 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                     CustomNumberField(
                       hintText: "Progress in Percent ( 1 - 100 )",
                       controller: _progress,
+                      color: AppColors.grey.withOpacity(0.1),
                       size: size.height / 90 * 5.876,
                     ),
                     BlocConsumer<WorkinprogressBloc, WorkinprogressState>(
