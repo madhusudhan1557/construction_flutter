@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
 
-import '../../utils/app_colors.dart';
 import '../../utils/validator.dart';
 
 class CustomNumberField extends StatelessWidget {
   final TextEditingController controller;
   final String hintText;
+  final Color? color;
   final Icon? suffixIcon;
   final double size;
   const CustomNumberField({
     super.key,
     required this.hintText,
+    this.color,
     required this.controller,
     this.suffixIcon,
     required this.size,
@@ -20,7 +21,7 @@ class CustomNumberField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       height: size,
-      decoration: BoxDecoration(color: AppColors.customWhite.withOpacity(0.6)),
+      decoration: BoxDecoration(color: color),
       child: TextFormField(
         controller: controller,
         keyboardType: TextInputType.number,
@@ -32,7 +33,7 @@ class CustomNumberField extends StatelessWidget {
             borderSide: BorderSide.none,
           ),
         ),
-        validator: (value) => Validator.getNumberValidator(value),
+        validator: (value) => Validator.getNumberValidator(value, hintText),
       ),
     );
   }

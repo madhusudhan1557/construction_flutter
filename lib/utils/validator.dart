@@ -1,41 +1,51 @@
+import 'package:bot_toast/bot_toast.dart';
+import 'package:construction/utils/app_colors.dart';
+
 class Validator {
-  static String? getBlankFieldValidator(String? name) {
+  static getBlankFieldValidator(String? name, String value) {
     if (name == null || name.isEmpty) {
-      return "This Field is Required";
+      return BotToast.showText(
+          text: "$value is required", contentColor: AppColors.red);
     }
     return null;
   }
 
-  static String? getPasswordValidator(String? password) {
+  static getPasswordValidator(String? password) {
     if (password == null || password.isEmpty) {
-      return "Password Shall be Provided";
+      return BotToast.showText(
+          text: "Password Shall be Provided", contentColor: AppColors.red);
     }
     return null;
   }
 
-  static String? getEmailValidator(String? email) {
+  static getEmailValidator(String? email) {
     if (email == null || email.isEmpty) {
-      return "Email Shall be Provided";
+      return BotToast.showText(
+          text: "Email Shall be Provided", contentColor: AppColors.red);
     }
     if (!email.contains("@") || !email.contains(".com")) {
-      return "Email Address is Not Valid";
+      return BotToast.showText(
+          text: "Email Address is Not Valid", contentColor: AppColors.red);
     }
     return null;
   }
 
-  static String? getPhoneValidator(String? phone) {
+  static getPhoneValidator(String? phone) {
     if (phone == null || phone.isEmpty) {
-      return "Phone Shall be Provided";
+      return BotToast.showText(
+          text: "Phone Shall be Provided", contentColor: AppColors.red);
     }
     if (phone.length != 10) {
-      return "Phone Number is Not Valid";
+      return BotToast.showText(
+          text: "Phone Number is Not Valid", contentColor: AppColors.red);
     }
     return null;
   }
 
-  static String? getNumberValidator(String? phone) {
-    if (phone == null || phone.isEmpty) {
-      return "This field shall be Provided";
+  static getNumberValidator(String? number, String value) {
+    if (number == null || number.isEmpty) {
+      return BotToast.showText(
+          text: "$value shall be Provided", contentColor: AppColors.red);
     }
 
     return null;

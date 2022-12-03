@@ -46,6 +46,7 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
             content: SizedBox(
               height: size.height / 90 * 18.3,
               child: Form(
+                key: _formKey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -99,12 +100,14 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                             backgroundColor: AppColors.yellow,
                           ),
                           onPressed: () {
-                            BlocProvider.of<WorkinprogressBloc>(context)
-                                .updateWorkProgress(
-                              double.parse(_progress.text),
-                              wid,
-                              sid,
-                            );
+                            if (_formKey.currentState!.validate()) {
+                              BlocProvider.of<WorkinprogressBloc>(context)
+                                  .updateWorkProgress(
+                                double.parse(_progress.text),
+                                wid,
+                                sid,
+                              );
+                            }
                           },
                           child: const Iconify(FluentMdl2.update_restore),
                         );
@@ -235,29 +238,20 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           CustomBox(
-                                            height: size.height / 90 * 5.86,
-                                            width: size.width / 7 * 3.8,
-                                            radius: 15,
-                                            blurRadius: 4.0,
-                                            shadowColor:
-                                                AppColors.grey.withOpacity(0.2),
-                                            color: AppColors.white,
-                                            horizontalMargin: 0,
-                                            verticalMargin: 0,
-                                            child: TextFormField(
-                                              controller: stocks,
-                                              keyboardType:
-                                                  TextInputType.number,
-                                              decoration: InputDecoration(
-                                                contentPadding:
-                                                    EdgeInsets.symmetric(
-                                                  horizontal: padding.top * 0.5,
-                                                ),
+                                              height: size.height / 90 * 5.86,
+                                              width: size.width / 7 * 3.8,
+                                              radius: 15,
+                                              blurRadius: 4.0,
+                                              shadowColor: AppColors.grey
+                                                  .withOpacity(0.2),
+                                              color: AppColors.white,
+                                              horizontalMargin: 0,
+                                              verticalMargin: 0,
+                                              child: CustomNumberField(
+                                                controller: stocks,
                                                 hintText: "Stock Used",
-                                                border: InputBorder.none,
-                                              ),
-                                            ),
-                                          ),
+                                                size: size.height / 90 * 5.86,
+                                              )),
                                           BlocConsumer<StocksBloc, StocksState>(
                                             listener: (context, state) {
                                               if (state
@@ -299,27 +293,47 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                                                     onPressed: () {
                                                       if (_formKey.currentState!
                                                           .validate()) {
-                                                        String sid = "";
+                                                        if (dropdownvalue
+                                                            .isEmpty) {
+                                                          BotToast.showText(
+                                                            text:
+                                                                "Please select a Stock",
+                                                            contentColor:
+                                                                AppColors.red,
+                                                          );
+                                                        } else {
+                                                          String sid = "";
 
-                                                        for (int i = 0;
-                                                            i <
-                                                                snapshot
-                                                                    .data!
-                                                                    .docs
-                                                                    .length;
-                                                            i++) {
-                                                          sid = snapshot.data!
-                                                              .docs[i]['sid'];
+                                                          for (int i = 0;
+                                                              i <
+                                                                  snapshot
+                                                                      .data!
+                                                                      .docs
+                                                                      .length;
+                                                              i++) {
+                                                            sid = snapshot.data!
+                                                                .docs[i]['sid'];
+                                                          }
+                                                          if (stocks
+                                                              .text.isEmpty) {
+                                                            BotToast.showText(
+                                                              text:
+                                                                  "Stock used value is Empty",
+                                                              contentColor:
+                                                                  AppColors.red,
+                                                            );
+                                                          } else {
+                                                            BlocProvider.of<
+                                                                        StocksBloc>(
+                                                                    context)
+                                                                .updateStockQuantity(
+                                                              sid,
+                                                              double.parse(
+                                                                  stocks.text),
+                                                              dropdownvalue,
+                                                            );
+                                                          }
                                                         }
-                                                        BlocProvider.of<
-                                                                    StocksBloc>(
-                                                                context)
-                                                            .updateStockQuantity(
-                                                          sid,
-                                                          double.parse(
-                                                              stocks.text),
-                                                          dropdownvalue,
-                                                        );
                                                       }
                                                     },
                                                     icon: const Text("Update")),
@@ -396,7 +410,7 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                                   builder: (context, snapshot) {
                                     if (snapshot.hasData) {
                                       return CustomBox(
-                                        height: size.height / 90 * 41,
+                                        height: size.height / 90 * 42,
                                         width: size.width,
                                         radius: 15,
                                         blurRadius: 4.0,
@@ -487,7 +501,10 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                                                                   .spaceBetween,
                                                           children: [
                                                             Align(
-                                                              heightFactor: 2,
+                                                              heightFactor:
+                                                                  size.height /
+                                                                      90 *
+                                                                      0.4,
                                                               alignment:
                                                                   Alignment
                                                                       .center,
@@ -496,6 +513,15 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                                                                             .docs[
                                                                         index]
                                                                     ['title'],
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: 16,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                  color: AppColors
+                                                                      .fadeblue,
+                                                                ),
                                                               ),
                                                             ),
                                                             Align(
@@ -505,6 +531,15 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                                                                       .center,
                                                               child: Text(
                                                                 "${snapshot.data!.docs[index]['progress']} %",
+                                                                style:
+                                                                    TextStyle(
+                                                                  fontSize: 16,
+                                                                  fontWeight:
+                                                                      FontWeight
+                                                                          .w400,
+                                                                  color: AppColors
+                                                                      .fadeblue,
+                                                                ),
                                                               ),
                                                             ),
                                                           ],
@@ -527,7 +562,7 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                                   },
                                 ),
                                 SizedBox(
-                                  height: size.height / 90 * 1.5,
+                                  height: size.height / 90 * 1.8,
                                 ),
                                 Align(
                                   alignment: Alignment.bottomCenter,

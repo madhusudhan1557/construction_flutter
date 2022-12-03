@@ -29,6 +29,8 @@ class EmailSignUpCompletedState extends AuthState {}
 
 class EmailSignUpLoadingState extends AuthState {}
 
+class UsernameAlreadyExistState extends AuthState {}
+
 class LoginCodeSentState extends AuthState {}
 
 class LoggedInState extends AuthState {

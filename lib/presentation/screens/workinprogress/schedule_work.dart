@@ -134,7 +134,7 @@ class _ScheduleWorkState extends State<ScheduleWork> {
                                   style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w500,
-                                    color: AppColors.grey,
+                                    color: AppColors.fadeblue,
                                   ),
                                 ),
                           const Icon(Icons.calendar_month_rounded),
@@ -205,7 +205,7 @@ class _ScheduleWorkState extends State<ScheduleWork> {
                                   style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w500,
-                                    color: AppColors.grey,
+                                    color: AppColors.fadeblue,
                                   ),
                                 ),
                           const Icon(Icons.calendar_month_rounded),
@@ -236,7 +236,6 @@ class _ScheduleWorkState extends State<ScheduleWork> {
                             return customLoading(size);
                           },
                         );
-                        ;
                       }
                       if (state is CompletedAddingWorkState) {
                         BotToast.closeAllLoading();

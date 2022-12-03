@@ -9,6 +9,7 @@ import 'package:construction/presentation/includes/custom_textarea.dart';
 import 'package:construction/presentation/includes/custom_textfield.dart';
 import 'package:construction/presentation/includes/show_modal.dart';
 import 'package:construction/utils/routes.dart';
+import 'package:construction/utils/validator.dart';
 import 'package:dropdown_button2/dropdown_button2.dart';
 
 import 'package:flutter/material.dart';
@@ -160,10 +161,15 @@ class _SitePageState extends State<SitePage> {
                                   decoration: const InputDecoration(
                                     border: InputBorder.none,
                                   ),
-                                  buttonPadding: EdgeInsets.symmetric(
-                                      horizontal: paddding.top * 0.4),
-                                  hint: const Text("Assign Supervisor"),
+                                  validator: (value) =>
+                                      Validator.getBlankFieldValidator(
+                                          value.toString(),
+                                          "Supervisor for site"),
+                                  isExpanded: true,
+                                  hint: const Text("Assign a Supervisior"),
                                   offset: Offset(0, -size.height / 90 * 2.44),
+                                  buttonPadding: EdgeInsets.only(
+                                      right: paddding.top * 0.4),
                                   items: snapshot.data!.docs
                                       .map<DropdownMenuItem>((supervisor) {
                                     return DropdownMenuItem(
@@ -291,6 +297,7 @@ class _SitePageState extends State<SitePage> {
                                           _clientname.clear();
                                           _phone.clear();
                                           _sitelocation.clear();
+                                          _sitedes.clear();
                                           _sitename.clear();
                                           if (state.siteimage != null) {
                                             state.siteimage!.clear();
@@ -309,7 +316,6 @@ class _SitePageState extends State<SitePage> {
                                                 return customLoading(size);
                                               },
                                             );
-                                            ;
                                           }
                                           if (state is LoadingCompleteEvent) {
                                             BotToast.closeAllLoading();
@@ -368,23 +374,35 @@ class _SitePageState extends State<SitePage> {
                                                 onPressed: () {
                                                   if (_formKey.currentState!
                                                       .validate()) {
-                                                    SiteModel siteModel =
-                                                        SiteModel(
-                                                      sitename: _sitename.text,
-                                                      sitedesc: _sitedes.text,
-                                                      sitelocation:
-                                                          _sitelocation.text,
-                                                      clientname:
-                                                          _clientname.text,
-                                                      phone: _phone.text,
-                                                      supervisor: dropdownvalue,
-                                                    );
-                                                    BlocProvider.of<SitesBloc>(
-                                                            context)
-                                                        .addSite(
-                                                      siteModel,
-                                                      siteimages,
-                                                    );
+                                                    if (dropdownvalue.isEmpty) {
+                                                      BotToast.showText(
+                                                        text:
+                                                            "Please Assign a Supervisor",
+                                                        contentColor:
+                                                            AppColors.red,
+                                                      );
+                                                    } else {
+                                                      SiteModel siteModel =
+                                                          SiteModel(
+                                                        sitename:
+                                                            _sitename.text,
+                                                        sitedesc: _sitedes.text,
+                                                        sitelocation:
+                                                            _sitelocation.text,
+                                                        clientname:
+                                                            _clientname.text,
+                                                        phone: _phone.text,
+                                                        supervisor:
+                                                            dropdownvalue,
+                                                      );
+                                                      BlocProvider.of<
+                                                                  SitesBloc>(
+                                                              context)
+                                                          .addSite(
+                                                        siteModel,
+                                                        siteimages,
+                                                      );
+                                                    }
                                                   }
                                                 },
                                                 child: const Text("Save"),

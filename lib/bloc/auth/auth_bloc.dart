@@ -38,6 +38,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     on<EmailAlreadyExistEvent>((event, emit) {
       emit(EmailAlreadyExistState());
     });
+    on<UsernameAlreadyExistEvent>((event, emit) {
+      emit(UsernameAlreadyExistState());
+    });
     on<WeakPasswordEvent>((event, emit) {
       emit(WeakPasswordState());
     });
@@ -111,22 +114,27 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   signUpWithEmail(UserModel usermodel) async {
     try {
       add(EmailSignUpLoadingEvent());
-      await FirebaseAuth.instance.createUserWithEmailAndPassword(
-        email: usermodel.email!,
-        password: usermodel.password!,
-      );
-
       CollectionReference users =
           FirebaseFirestore.instance.collection("users");
-      await users.add({
-        "uid": FirebaseAuth.instance.currentUser!.uid,
-        "fullname": usermodel.fullname,
-        'email': usermodel.email,
-        'phone': usermodel.phone,
-        'address': usermodel.address,
-        "role": usermodel.role,
-      });
-      add(EmailSignUpCompletedEvent());
+      QuerySnapshot userQuery =
+          await users.where("fullname", isEqualTo: usermodel.fullname).get();
+      if (userQuery.docs.isEmpty) {
+        await users.add({
+          "uid": FirebaseAuth.instance.currentUser!.uid,
+          "fullname": usermodel.fullname,
+          'email': usermodel.email,
+          'phone': usermodel.phone,
+          'address': usermodel.address,
+          "role": usermodel.role,
+        });
+        await FirebaseAuth.instance.createUserWithEmailAndPassword(
+          email: usermodel.email!,
+          password: usermodel.password!,
+        );
+        add(EmailSignUpCompletedEvent());
+      } else {
+        add(UsernameAlreadyExistEvent());
+      }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         add(WeakPasswordEvent());

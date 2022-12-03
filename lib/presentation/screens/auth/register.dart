@@ -170,6 +170,13 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       BotToast.showText(
                           text: "New User Added", contentColor: Colors.green);
                     }
+                    if (state is UsernameAlreadyExistState) {
+                      BotToast.closeAllLoading();
+                      BotToast.showText(
+                        text: "Username Already Exist",
+                        contentColor: Colors.green,
+                      );
+                    }
                     if (state is EmailAlreadyExistState) {
                       BotToast.closeAllLoading();
                       BotToast.showText(

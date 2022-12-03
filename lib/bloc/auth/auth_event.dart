@@ -18,6 +18,8 @@ class InvalidPasswordEvent extends AuthEvent {}
 
 class EmailAlreadyExistEvent extends AuthEvent {}
 
+class UsernameAlreadyExistEvent extends AuthEvent {}
+
 class EmailSignUpCompletedEvent extends AuthEvent {}
 
 class EmailSignUpLoadingEvent extends AuthEvent {}
