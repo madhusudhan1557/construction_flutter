@@ -114,6 +114,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   signUpWithEmail(UserModel usermodel) async {
     try {
       add(EmailSignUpLoadingEvent());
+      await FirebaseAuth.instance.createUserWithEmailAndPassword(
+        email: usermodel.email!,
+        password: usermodel.password!,
+      );
       CollectionReference users =
           FirebaseFirestore.instance.collection("users");
       QuerySnapshot userQuery =
@@ -127,10 +131,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
           'address': usermodel.address,
           "role": usermodel.role,
         });
-        await FirebaseAuth.instance.createUserWithEmailAndPassword(
-          email: usermodel.email!,
-          password: usermodel.password!,
-        );
+
         add(EmailSignUpCompletedEvent());
       } else {
         add(UsernameAlreadyExistEvent());

@@ -41,8 +41,6 @@ class _DashboardState extends State<Dashboard> {
     },
   ];
 
-  String role = "";
-
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -50,16 +48,19 @@ class _DashboardState extends State<Dashboard> {
 
     return Scaffold(
       backgroundColor: AppColors.customWhite,
-      body: FutureBuilder<QuerySnapshot>(
-          future: FirebaseFirestore.instance
+      body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+          stream: FirebaseFirestore.instance
               .collection("users")
               .where("uid", isEqualTo: FirebaseAuth.instance.currentUser!.uid)
-              .get(),
+              .snapshots(),
           builder: (context, snapshot) {
             if (snapshot.hasData) {
-              for (var element in snapshot.data!.docs) {
+              String role = "";
+              for (QueryDocumentSnapshot<Map<String, dynamic>> element
+                  in snapshot.data!.docs) {
                 role = element['role'];
               }
+
               return Column(
                 children: [
                   Expanded(

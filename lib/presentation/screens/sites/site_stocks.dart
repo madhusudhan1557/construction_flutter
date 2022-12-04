@@ -160,7 +160,6 @@ class _SiteStocksState extends State<SiteStocks> {
                                       return customLoading(size);
                                     },
                                   );
-                                  ;
                                 }
                                 if (state is CompletedAddingSiteStockState) {
                                   BotToast.closeAllLoading();

@@ -144,7 +144,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                               onChanged: (newValue) {
                                 BlocProvider.of<DropdownBloc>(context)
                                     .onUserSelectDropdown(newValue.toString());
-                                dropdownvalue = newValue.toString();
                               },
                             ),
                           );

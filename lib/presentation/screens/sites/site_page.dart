@@ -342,7 +342,6 @@ class _SitePageState extends State<SitePage> {
                                                     return customLoading(size);
                                                   },
                                                 );
-                                                ;
                                               }
                                               if (state is CompletedSiteState) {
                                                 BotToast.closeAllLoading();
@@ -583,7 +582,6 @@ class _SitePageState extends State<SitePage> {
                                                               size);
                                                         },
                                                       );
-                                                      ;
                                                     }
                                                     if (state
                                                         is LoadingDeleteCompleteState) {

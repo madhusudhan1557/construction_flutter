@@ -46,7 +46,6 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
             content: SizedBox(
               height: size.height / 90 * 18.3,
               child: Form(
-                key: _formKey,
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
@@ -101,13 +100,17 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                             backgroundColor: AppColors.yellow,
                           ),
                           onPressed: () {
-                            if (_formKey.currentState!.validate()) {
+                            if (_progress.text.isNotEmpty) {
                               BlocProvider.of<WorkinprogressBloc>(context)
                                   .updateWorkProgress(
                                 double.parse(_progress.text),
                                 wid,
                                 sid,
                               );
+                            } else {
+                              BotToast.showText(
+                                  text: "Empty value Provided",
+                                  contentColor: AppColors.red);
                             }
                           },
                           child: const Iconify(FluentMdl2.update_restore),
