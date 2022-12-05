@@ -255,16 +255,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                 },
                               ),
                               SizedBox(
-                                height: size.height / 90 * 1.88,
+                                height: size.height / 90 * 1.2,
                               ),
-                              Image.asset("assets/icons/vert_line.png"),
+                              const Icon(Icons.more_vert),
                               Text(
                                 "Or",
                                 style: TextStyle(color: AppColors.fadeblue),
                               ),
-                              Image.asset("assets/icons/vert_line.png"),
+                              const Icon(Icons.more_vert),
                               SizedBox(
-                                height: size.height / 90 * 1.88,
+                                height: size.height / 90 * 1.2,
                               ),
                               ElevatedButton(
                                 style: ElevatedButton.styleFrom(

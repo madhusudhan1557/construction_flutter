@@ -1,6 +1,6 @@
 import 'package:flutter/cupertino.dart';
 
-class CustomBox extends StatelessWidget {
+class CustomBox {
   final double height;
   final double width;
   final double radius;
@@ -11,7 +11,6 @@ class CustomBox extends StatelessWidget {
   final double horizontalMargin;
   final double verticalMargin;
   const CustomBox({
-    super.key,
     required this.height,
     required this.width,
     required this.radius,
@@ -23,8 +22,7 @@ class CustomBox extends StatelessWidget {
     required this.verticalMargin,
   });
 
-  @override
-  Widget build(BuildContext context) {
+  customBox() {
     return Container(
       margin: EdgeInsets.symmetric(
           horizontal: horizontalMargin, vertical: verticalMargin),

@@ -61,7 +61,7 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                       controller: _progress,
                       color: AppColors.grey.withOpacity(0.1),
                       size: size.height / 90 * 5.876,
-                    ),
+                    ).customNumberField(),
                     BlocConsumer<WorkinprogressBloc, WorkinprogressState>(
                       listener: (context, state) {
                         if (state is UpdatingWorkProgressState) {
@@ -137,9 +137,23 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
         resizeToAvoidBottomInset: false,
         backgroundColor: AppColors.white,
         appBar: PreferredSize(
-          preferredSize: Size(size.width, size.height / 90 * 7.5),
+          preferredSize: Size(size.width, size.height / 90 * 8.5),
           child: CustomAppbar(
             action: [
+              IconButton(
+                onPressed: () {
+                  Navigator.of(context)
+                      .pushNamed(scheduleWOrk, arguments: {"sid": args['sid']});
+                },
+                icon: CircleAvatar(
+                  radius: 18,
+                  backgroundColor: AppColors.yellow,
+                  child: Icon(
+                    Icons.add,
+                    color: AppColors.fadeblue,
+                  ),
+                ),
+              ),
               IconButton(
                 onPressed: () {},
                 icon: Image.asset("assets/icons/camera.png"),
@@ -156,7 +170,7 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                 Navigator.of(context).pop();
               },
             ),
-          ),
+          ).customAppBar(),
         ),
         body: BlocConsumer<DropdownBloc, DropdownState>(
           listener: (context, state) {},
@@ -242,20 +256,21 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                                             MainAxisAlignment.spaceBetween,
                                         children: [
                                           CustomBox(
-                                              height: size.height / 90 * 5.86,
-                                              width: size.width / 7 * 3.8,
-                                              radius: 15,
-                                              blurRadius: 4.0,
-                                              shadowColor: AppColors.grey
-                                                  .withOpacity(0.2),
-                                              color: AppColors.white,
-                                              horizontalMargin: 0,
-                                              verticalMargin: 0,
-                                              child: CustomNumberField(
-                                                controller: stocks,
-                                                hintText: "Stock Used",
-                                                size: size.height / 90 * 5.86,
-                                              )),
+                                            height: size.height / 90 * 5.86,
+                                            width: size.width / 7 * 3.8,
+                                            radius: 15,
+                                            blurRadius: 4.0,
+                                            shadowColor:
+                                                AppColors.grey.withOpacity(0.2),
+                                            color: AppColors.white,
+                                            horizontalMargin: 0,
+                                            verticalMargin: 0,
+                                            child: CustomNumberField(
+                                              controller: stocks,
+                                              hintText: "Stock Used",
+                                              size: size.height / 90 * 5.86,
+                                            ).customNumberField(),
+                                          ).customBox(),
                                           BlocConsumer<StocksBloc, StocksState>(
                                             listener: (context, state) {
                                               if (state
@@ -413,21 +428,15 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                                       .snapshots(),
                                   builder: (context, snapshot) {
                                     if (snapshot.hasData) {
-                                      return CustomBox(
-                                        height: size.height / 90 * 42,
+                                      return SizedBox(
+                                        height: size.height / 90 * 48.78,
                                         width: size.width,
-                                        radius: 15,
-                                        blurRadius: 4.0,
-                                        shadowColor: AppColors.white,
-                                        color: AppColors.white,
-                                        horizontalMargin: 0,
-                                        verticalMargin: 0,
                                         child: Scrollbar(
                                           thickness: 4,
                                           radius: const Radius.circular(12),
                                           child: ListView.builder(
-                                            padding: EdgeInsets.only(
-                                              top: padding.top * 0.4,
+                                            padding: const EdgeInsets.only(
+                                              top: 0,
                                             ),
                                             shrinkWrap: true,
                                             itemCount:
@@ -435,9 +444,11 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                                             itemBuilder: (context, index) {
                                               return Container(
                                                 height: size.height / 90 * 4.6,
+                                                width: size.width,
                                                 margin: EdgeInsets.symmetric(
-                                                    vertical:
-                                                        padding.top * 0.2),
+                                                  horizontal: padding.top * 0.2,
+                                                  vertical: padding.top * 0.2,
+                                                ),
                                                 decoration: BoxDecoration(
                                                     color: AppColors.white,
                                                     borderRadius:
@@ -565,29 +576,6 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                                     }
                                   },
                                 ),
-                                SizedBox(
-                                  height: size.height / 90 * 1.8,
-                                ),
-                                Align(
-                                  alignment: Alignment.bottomCenter,
-                                  child: ElevatedButton(
-                                    style: ElevatedButton.styleFrom(
-                                      backgroundColor: AppColors.yellow,
-                                      foregroundColor: AppColors.fadeblue,
-                                      fixedSize: Size(
-                                        size.width,
-                                        size.height / 90 * 3,
-                                      ),
-                                    ),
-                                    onPressed: () {
-                                      Navigator.of(context).pushNamed(
-                                        scheduleWOrk,
-                                        arguments: {"sid": args['sid']},
-                                      );
-                                    },
-                                    child: const Text("Schedule Work"),
-                                  ),
-                                )
                               ],
                             ),
                           ),

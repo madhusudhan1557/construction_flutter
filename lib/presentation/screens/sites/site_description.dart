@@ -29,7 +29,7 @@ class _SiteDescriptionState extends State<SiteDescription> {
     return Scaffold(
       backgroundColor: AppColors.white,
       appBar: PreferredSize(
-        preferredSize: Size(size.width, size.height / 90 * 7.5),
+        preferredSize: Size(size.width, size.height / 90 * 8.5),
         child: CustomAppbar(
           title: args['sitename'],
           action: [
@@ -48,7 +48,7 @@ class _SiteDescriptionState extends State<SiteDescription> {
               Navigator.of(context).pop();
             },
           ),
-        ),
+        ).customAppBar(),
       ),
       body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream: FirebaseFirestore.instance
@@ -269,7 +269,7 @@ class _SiteDescriptionState extends State<SiteDescription> {
                                 ],
                               ),
                             ),
-                          ),
+                          ).customBox(),
                         ),
                         SizedBox(
                           height: size.height / 90 * 1.2,
@@ -281,38 +281,39 @@ class _SiteDescriptionState extends State<SiteDescription> {
                                       .pushNamed(siteEstimation);
                                 },
                                 child: CustomBox(
-                                    height: size.height / 90 * 4.2,
-                                    width: size.width,
-                                    radius: 15,
-                                    blurRadius: 8.0,
-                                    shadowColor: AppColors.customWhite,
-                                    color: AppColors.white,
-                                    horizontalMargin: 0,
-                                    verticalMargin: 0,
-                                    child: Container(
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal: padding.top * 0.4,
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: const [
-                                          Text(
-                                            "Estimation",
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 16,
-                                            ),
+                                  height: size.height / 90 * 4.2,
+                                  width: size.width,
+                                  radius: 15,
+                                  blurRadius: 8.0,
+                                  shadowColor: AppColors.customWhite,
+                                  color: AppColors.white,
+                                  horizontalMargin: 0,
+                                  verticalMargin: 0,
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: padding.top * 0.4,
+                                    ),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: const [
+                                        Text(
+                                          "Estimation",
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 16,
                                           ),
-                                          Spacer(),
-                                          Icon(
-                                            Icons.arrow_forward_ios,
-                                            size: 18,
-                                          )
-                                        ],
-                                      ),
-                                    )),
+                                        ),
+                                        Spacer(),
+                                        Icon(
+                                          Icons.arrow_forward_ios,
+                                          size: 18,
+                                        )
+                                      ],
+                                    ),
+                                  ),
+                                ).customBox(),
                               )
                             : Container(),
                         SizedBox(
@@ -323,61 +324,19 @@ class _SiteDescriptionState extends State<SiteDescription> {
                             Navigator.of(context).pushNamed(siteEstimation);
                           },
                           child: CustomBox(
-                              height: size.height / 90 * 4.2,
-                              width: size.width,
-                              radius: 15,
-                              blurRadius: 8.0,
-                              shadowColor: AppColors.customWhite,
-                              color: AppColors.white,
-                              horizontalMargin: 0,
-                              verticalMargin: 0,
-                              child: InkWell(
-                                onTap: () {
-                                  Navigator.of(context).pushNamed(
-                                      workinprogress,
-                                      arguments: {"sid": args['sid']});
-                                },
-                                child: Container(
-                                  padding: EdgeInsets.symmetric(
-                                    horizontal: padding.top * 0.4,
-                                  ),
-                                  child: Row(
-                                    mainAxisAlignment: MainAxisAlignment.start,
-                                    children: const [
-                                      Text(
-                                        "Work in Progress",
-                                        style: TextStyle(
-                                          color: Colors.black,
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 16,
-                                        ),
-                                      ),
-                                      Spacer(),
-                                      Icon(
-                                        Icons.arrow_forward_ios,
-                                        size: 18,
-                                      )
-                                    ],
-                                  ),
-                                ),
-                              )),
-                        ),
-                        SizedBox(
-                          height: size.height / 90 * 1.2,
-                        ),
-                        InkWell(
-                          onTap: () {
-                            Navigator.of(context).pushNamed(siteEstimation);
-                          },
-                          child: CustomBox(
-                              height: size.height / 90 * 4.2,
-                              width: size.width,
-                              radius: 15,
-                              blurRadius: 8.0,
-                              shadowColor: AppColors.customWhite,
-                              color: AppColors.white,
-                              horizontalMargin: 0,
-                              verticalMargin: 0,
+                            height: size.height / 90 * 4.2,
+                            width: size.width,
+                            radius: 15,
+                            blurRadius: 8.0,
+                            shadowColor: AppColors.customWhite,
+                            color: AppColors.white,
+                            horizontalMargin: 0,
+                            verticalMargin: 0,
+                            child: InkWell(
+                              onTap: () {
+                                Navigator.of(context).pushNamed(workinprogress,
+                                    arguments: {"sid": args['sid']});
+                              },
                               child: Container(
                                 padding: EdgeInsets.symmetric(
                                   horizontal: padding.top * 0.4,
@@ -386,7 +345,7 @@ class _SiteDescriptionState extends State<SiteDescription> {
                                   mainAxisAlignment: MainAxisAlignment.start,
                                   children: const [
                                     Text(
-                                      "Manage Orders",
+                                      "Work in Progress",
                                       style: TextStyle(
                                         color: Colors.black,
                                         fontWeight: FontWeight.w400,
@@ -400,7 +359,50 @@ class _SiteDescriptionState extends State<SiteDescription> {
                                     )
                                   ],
                                 ),
-                              )),
+                              ),
+                            ),
+                          ).customBox(),
+                        ),
+                        SizedBox(
+                          height: size.height / 90 * 1.2,
+                        ),
+                        InkWell(
+                          onTap: () {
+                            Navigator.of(context).pushNamed(siteEstimation);
+                          },
+                          child: CustomBox(
+                            height: size.height / 90 * 4.2,
+                            width: size.width,
+                            radius: 15,
+                            blurRadius: 8.0,
+                            shadowColor: AppColors.customWhite,
+                            color: AppColors.white,
+                            horizontalMargin: 0,
+                            verticalMargin: 0,
+                            child: Container(
+                              padding: EdgeInsets.symmetric(
+                                horizontal: padding.top * 0.4,
+                              ),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.start,
+                                children: const [
+                                  Text(
+                                    "Manage Orders",
+                                    style: TextStyle(
+                                      color: Colors.black,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                  Spacer(),
+                                  Icon(
+                                    Icons.arrow_forward_ios,
+                                    size: 18,
+                                  )
+                                ],
+                              ),
+                            ),
+                          ).customBox(),
                         )
                       ],
                     ),

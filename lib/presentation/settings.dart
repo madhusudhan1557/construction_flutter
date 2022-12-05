@@ -19,25 +19,25 @@ class SettingsPage extends StatelessWidget {
     final size = MediaQuery.of(context).size;
     final padding = MediaQuery.of(context).padding;
     return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: Size(size.width, size.height / 90 * 8.5),
+        child: CustomAppbar(
+          title: "Settings",
+          bgcolor: AppColors.customWhite,
+          leading: IconButton(
+            icon: Icon(
+              Icons.arrow_back_ios_new,
+              color: AppColors.fadeblue,
+            ),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ).customAppBar(),
+      ),
       backgroundColor: AppColors.customWhite,
       body: Column(
         children: [
-          CustomAppbar(
-            title: "Settings",
-            bgcolor: AppColors.customWhite,
-            leading: IconButton(
-              icon: Icon(
-                Icons.arrow_back_ios_new,
-                color: AppColors.fadeblue,
-              ),
-              onPressed: () {
-                Navigator.of(context).pop();
-              },
-            ),
-          ),
-          SizedBox(
-            height: size.height / 90 * 1.86,
-          ),
           CustomBox(
             height: size.height / 90 * 5.6,
             width: size.width,
@@ -87,7 +87,7 @@ class SettingsPage extends StatelessWidget {
                 ),
               ),
             ),
-          ),
+          ).customBox(),
           CustomBox(
             height: size.height / 90 * 5.6,
             width: size.width,
@@ -132,7 +132,7 @@ class SettingsPage extends StatelessWidget {
                 ],
               ),
             ),
-          ),
+          ).customBox(),
           CustomBox(
             height: size.height / 90 * 5.6,
             width: size.width,
@@ -177,7 +177,7 @@ class SettingsPage extends StatelessWidget {
                 ],
               ),
             ),
-          ),
+          ).customBox(),
           InkWell(
             onTap: () {
               ShowCustomModal().showSignOutDialog(
@@ -233,7 +233,7 @@ class SettingsPage extends StatelessWidget {
                       ],
                     ),
                   ),
-                );
+                ).customBox();
               },
             ),
           ),

@@ -3,21 +3,19 @@ import 'package:flutter/material.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/validator.dart';
 
-class CustomTextArea extends StatelessWidget {
+class CustomTextArea {
   final TextEditingController controller;
   final String hintText;
   final Icon? suffixIcon;
   final double size;
   const CustomTextArea({
-    super.key,
     required this.controller,
     required this.hintText,
     this.suffixIcon,
     required this.size,
   });
 
-  @override
-  Widget build(BuildContext context) {
+  customTextArea() {
     return Container(
       height: size,
       decoration: BoxDecoration(color: AppColors.customWhite.withOpacity(0.6)),

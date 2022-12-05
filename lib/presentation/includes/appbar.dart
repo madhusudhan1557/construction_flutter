@@ -1,22 +1,20 @@
 import 'package:construction/utils/app_colors.dart';
 import 'package:flutter/material.dart';
 
-class CustomAppbar extends StatelessWidget {
+class CustomAppbar {
   final String title;
   final Color? bgcolor;
   final Widget leading;
   final List<Widget>? action;
 
   const CustomAppbar({
-    super.key,
     required this.title,
     required this.leading,
     this.bgcolor,
     this.action,
   });
 
-  @override
-  Widget build(BuildContext context) {
+  customAppBar() {
     return Column(
       children: [
         AppBar(
@@ -35,7 +33,10 @@ class CustomAppbar extends StatelessWidget {
           ),
           actions: action,
         ),
-        Image.asset('assets/icons/horline.png'),
+        Divider(
+          thickness: 4,
+          color: AppColors.yellow,
+        ),
       ],
     );
   }

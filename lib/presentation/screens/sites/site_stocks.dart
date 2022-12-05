@@ -70,7 +70,7 @@ class _SiteStocksState extends State<SiteStocks> {
                           hintText: "Item Name",
                           size: size.height / 90 * 5.44,
                           width: size.width,
-                        ),
+                        ).customTextField(),
                         SizedBox(
                           height: size.height / 90 * 1.538,
                         ),
@@ -79,7 +79,7 @@ class _SiteStocksState extends State<SiteStocks> {
                           hintText: "Brand Name",
                           size: size.height / 90 * 5.44,
                           width: size.width,
-                        ),
+                        ).customTextField(),
                         SizedBox(
                           height: size.height / 90 * 1.538,
                         ),
@@ -88,7 +88,7 @@ class _SiteStocksState extends State<SiteStocks> {
                           hintText: "Supplier Name",
                           size: size.height / 90 * 5.44,
                           width: size.width,
-                        ),
+                        ).customTextField(),
                         SizedBox(
                           height: size.height / 90 * 1.538,
                         ),
@@ -103,7 +103,7 @@ class _SiteStocksState extends State<SiteStocks> {
                                 controller: _quantity,
                                 color: AppColors.grey.withOpacity(0.1),
                                 size: size.height / 90 * 5.44,
-                              ),
+                              ).customNumberField(),
                             ),
                           ],
                         ),
@@ -121,7 +121,7 @@ class _SiteStocksState extends State<SiteStocks> {
                                 color: AppColors.grey.withOpacity(0.1),
                                 controller: _rate,
                                 size: size.height / 90 * 5.44,
-                              ),
+                              ).customNumberField(),
                             ),
                           ],
                         ),
@@ -133,7 +133,7 @@ class _SiteStocksState extends State<SiteStocks> {
                           hintText: "Unit",
                           size: size.height / 90 * 5.44,
                           width: size.width,
-                        ),
+                        ).customTextField(),
                         SizedBox(
                           height: size.height / 90 * 1.838,
                         ),
@@ -216,7 +216,7 @@ class _SiteStocksState extends State<SiteStocks> {
     return Scaffold(
       backgroundColor: AppColors.white,
       appBar: PreferredSize(
-        preferredSize: Size(size.width, size.height / 90 * 7.5),
+        preferredSize: Size(size.width, size.height / 90 * 8.5),
         child: CustomAppbar(
           bgcolor: AppColors.white,
           title: args['sitename'],
@@ -243,7 +243,7 @@ class _SiteStocksState extends State<SiteStocks> {
               ),
             ),
           ],
-        ),
+        ).customAppBar(),
       ),
       body: SingleChildScrollView(
         child: Column(
@@ -260,15 +260,16 @@ class _SiteStocksState extends State<SiteStocks> {
               child: TextFormField(
                 style: const TextStyle(fontSize: 18),
                 decoration: InputDecoration(
-                    border: InputBorder.none,
-                    prefixIcon: Padding(
-                      padding: EdgeInsets.all(padding.top * 0.3),
-                      child: const Iconify(
-                        FluentMdl2.search,
-                      ),
-                    )),
+                  border: InputBorder.none,
+                  prefixIcon: Padding(
+                    padding: EdgeInsets.all(padding.top * 0.3),
+                    child: const Iconify(
+                      FluentMdl2.search,
+                    ),
+                  ),
+                ),
               ),
-            ),
+            ).customBox(),
             StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
               stream: FirebaseFirestore.instance
                   .collection("sites")
@@ -359,7 +360,7 @@ class _SiteStocksState extends State<SiteStocks> {
                                                   color: AppColors.white),
                                             ),
                                           ),
-                                        ),
+                                        ).customBox(),
                                         const Spacer(),
                                         InkWell(
                                           onTap: () {},
@@ -398,7 +399,7 @@ class _SiteStocksState extends State<SiteStocks> {
                                   ],
                                 ),
                               ),
-                            );
+                            ).customBox();
                           });
                 } else {
                   return const Center(

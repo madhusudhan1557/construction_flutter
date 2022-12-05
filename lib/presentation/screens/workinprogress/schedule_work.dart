@@ -36,7 +36,7 @@ class _ScheduleWorkState extends State<ScheduleWork> {
       child: Scaffold(
         backgroundColor: AppColors.white,
         appBar: PreferredSize(
-          preferredSize: Size(size.width, size.height / 90 * 7.5),
+          preferredSize: Size(size.width, size.height / 90 * 8.5),
           child: CustomAppbar(
             title: "Schedule Work",
             bgcolor: AppColors.white,
@@ -49,7 +49,7 @@ class _ScheduleWorkState extends State<ScheduleWork> {
                 Navigator.of(context).pop();
               },
             ),
-          ),
+          ).customAppBar(),
         ),
         body: Container(
           margin: EdgeInsets.only(top: padding.top * 0.4),
@@ -256,7 +256,7 @@ class _ScheduleWorkState extends State<ScheduleWork> {
                       return ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.yellow,
-                          foregroundColor: AppColors.grey,
+                          foregroundColor: AppColors.fadeblue,
                           fixedSize: Size(
                             size.width,
                             size.height / 90 * 3,

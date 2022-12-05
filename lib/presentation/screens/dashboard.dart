@@ -117,7 +117,7 @@ class _DashboardState extends State<Dashboard> {
                           ),
                         ),
                       ],
-                    ),
+                    ).customAppBar(),
                   ),
                   Expanded(
                     flex: 12,

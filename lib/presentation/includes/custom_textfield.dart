@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import '../../utils/app_colors.dart';
 import '../../utils/validator.dart';
 
-class CustomTextField extends StatelessWidget {
+class CustomTextField {
   final TextEditingController controller;
   final String hintText;
   final Widget? suffixIcon;
@@ -11,7 +11,6 @@ class CustomTextField extends StatelessWidget {
   final double size;
   final double width;
   const CustomTextField({
-    super.key,
     required this.controller,
     required this.hintText,
     this.suffixIcon,
@@ -20,8 +19,7 @@ class CustomTextField extends StatelessWidget {
     required this.width,
   });
 
-  @override
-  Widget build(BuildContext context) {
+  customTextField() {
     return Container(
       height: size,
       width: width,

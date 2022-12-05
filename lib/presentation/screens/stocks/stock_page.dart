@@ -70,7 +70,7 @@ class _StockPageState extends State<StockPage> {
                                   hintText: "Item Name",
                                   size: size.height / 90 * 5.44,
                                   width: size.width,
-                                ),
+                                ).customTextField(),
                                 SizedBox(
                                   height: size.height / 90 * 1.538,
                                 ),
@@ -79,7 +79,7 @@ class _StockPageState extends State<StockPage> {
                                   hintText: "Supplier Name",
                                   size: size.height / 90 * 5.44,
                                   width: size.width,
-                                ),
+                                ).customTextField(),
                                 SizedBox(
                                   height: size.height / 90 * 1.538,
                                 ),
@@ -94,7 +94,7 @@ class _StockPageState extends State<StockPage> {
                                         hintText: "Qty",
                                         controller: _quantity,
                                         size: size.height / 90 * 5.44,
-                                      ),
+                                      ).customNumberField(),
                                     ),
                                   ],
                                 ),
@@ -112,7 +112,7 @@ class _StockPageState extends State<StockPage> {
                                         hintText: "Rate",
                                         controller: _rate,
                                         size: size.height / 90 * 5.44,
-                                      ),
+                                      ).customNumberField(),
                                     ),
                                   ],
                                 ),
@@ -124,7 +124,7 @@ class _StockPageState extends State<StockPage> {
                                   hintText: "Unit",
                                   size: size.height / 90 * 5.44,
                                   width: size.width,
-                                ),
+                                ).customTextField(),
                                 SizedBox(
                                   height: size.height / 90 * 1.838,
                                 ),
@@ -232,7 +232,7 @@ class _StockPageState extends State<StockPage> {
                 Navigator.of(context).pop();
               },
             ),
-          )
+          ).customAppBar(),
         ],
       ),
       floatingActionButton: FloatingActionButton(

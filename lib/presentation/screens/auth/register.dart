@@ -46,7 +46,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
       child: Scaffold(
         resizeToAvoidBottomInset: true,
         appBar: PreferredSize(
-          preferredSize: Size(size.width, size.height / 90 * 7.5),
+          preferredSize: Size(size.width, size.height / 90 * 8.5),
           child: CustomAppbar(
             title: "Add a New User",
             bgcolor: AppColors.white,
@@ -59,7 +59,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                 Navigator.of(context).pop();
               },
             ),
-          ),
+          ).customAppBar(),
         ),
         body: SingleChildScrollView(
           child: Container(
@@ -78,7 +78,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         hintText: "Fullname",
                         size: size.height / 90 * 5.44,
                         width: size.width,
-                      ),
+                      ).customTextField(),
                       SizedBox(
                         height: size.height / 90 * 1.51,
                       ),
@@ -87,7 +87,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         hintText: "Email",
                         size: size.height / 90 * 5.44,
                         width: size.width,
-                      ),
+                      ).customTextField(),
                       SizedBox(
                         height: size.height / 90 * 1.51,
                       ),
@@ -96,7 +96,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         hintText: "Password",
                         size: size.height / 90 * 5.44,
                         width: size.width,
-                      ),
+                      ).customTextField(),
                       SizedBox(
                         height: size.height / 90 * 1.51,
                       ),
@@ -105,15 +105,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         hintText: "PhoneNumber",
                         size: size.height / 90 * 5.44,
                         width: size.width,
-                      ),
+                      ).customTextField(),
                       SizedBox(
                         height: size.height / 90 * 1.51,
-                      ),
-                      CustomTextField(
-                        controller: _address,
-                        hintText: "Address",
-                        size: size.height / 90 * 5.44,
-                        width: size.width,
                       ),
                       SizedBox(
                         height: size.height / 90 * 1.51,
