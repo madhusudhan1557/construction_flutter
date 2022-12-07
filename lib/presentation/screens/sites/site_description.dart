@@ -26,6 +26,12 @@ class SiteDescription extends StatefulWidget {
 class _SiteDescriptionState extends State<SiteDescription> {
   final _formKey = GlobalKey<FormState>();
   String dropdownvalue = "";
+  String sid = "";
+  String sitename = "";
+  String sitelocation = "";
+  String clientname = "";
+  String phone = "";
+  String about = "";
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -219,7 +225,7 @@ class _SiteDescriptionState extends State<SiteDescription> {
                                     border: InputBorder.none,
                                   ),
                                   onChanged: (value) {
-                                    sitename = value;
+                                    about = value;
                                   },
                                   validator: (value) {
                                     if (value == null || value.isEmpty) {
@@ -362,12 +368,13 @@ class _SiteDescriptionState extends State<SiteDescription> {
                 ? IconButton(
                     onPressed: () {
                       showEditSiteModal(
-                          sid: args['sid'],
-                          sitename: args['sitename'],
-                          sitelocation: args['sitelocation'],
-                          clientname: args['clientname'],
-                          phone: args['phone'],
-                          about: args['sitedesc']);
+                        sid: sid,
+                        sitename: sitename,
+                        sitelocation: sitelocation,
+                        clientname: clientname,
+                        phone: phone,
+                        about: about,
+                      );
                     },
                     icon: CircleAvatar(
                       backgroundColor: AppColors.yellow,
@@ -472,6 +479,12 @@ class _SiteDescriptionState extends State<SiteDescription> {
                         .snapshots(),
                     builder: (context, snapshot) {
                       if (snapshot.hasData) {
+                        sid = snapshot.data!['sid'];
+                        sitename = snapshot.data!['sitename'];
+                        sitelocation = snapshot.data!['sitelocation'];
+                        clientname = snapshot.data!['clientname'];
+                        phone = snapshot.data!['phone'];
+                        about = snapshot.data!['sitedesc'];
                         return Container(
                           height: size.height / 90 * 52,
                           padding: EdgeInsets.symmetric(
