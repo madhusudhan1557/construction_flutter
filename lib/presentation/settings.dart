@@ -49,7 +49,7 @@ class SettingsPage extends StatelessWidget {
             verticalMargin: padding.top * 0.2,
             child: InkWell(
               onTap: () {
-                Navigator.of(context).pushNamed(register);
+                Navigator.of(context).pushNamed(userspage);
               },
               child: Center(
                 child: Row(
@@ -66,7 +66,7 @@ class SettingsPage extends StatelessWidget {
                     ),
                     SizedBox(width: size.width / 11.3),
                     Text(
-                      "Add a new User",
+                      "View Users",
                       textAlign: TextAlign.start,
                       style: TextStyle(
                         color: AppColors.fadeblue,

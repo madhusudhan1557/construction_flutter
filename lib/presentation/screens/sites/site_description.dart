@@ -1,12 +1,19 @@
+import 'package:bot_toast/bot_toast.dart';
 import 'package:carousel_indicator/carousel_indicator.dart';
 import 'package:carousel_slider/carousel_slider.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:construction/presentation/includes/appbar.dart';
 import 'package:construction/utils/app_colors.dart';
+import 'package:dropdown_button2/dropdown_button2.dart';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
+import '../../../bloc/dropdown/dropdown_bloc.dart';
+import '../../../bloc/sites/sites_bloc.dart';
+import '../../../main.dart';
 import '../../../utils/routes.dart';
+import '../../../utils/validator.dart';
 import '../../includes/custom_box.dart';
 
 class SiteDescription extends StatefulWidget {
@@ -17,6 +24,8 @@ class SiteDescription extends StatefulWidget {
 }
 
 class _SiteDescriptionState extends State<SiteDescription> {
+  final _formKey = GlobalKey<FormState>();
+  String dropdownvalue = "";
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -26,6 +35,322 @@ class _SiteDescriptionState extends State<SiteDescription> {
 
     final Map<String, dynamic> args =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+
+    showEditSiteModal({
+      required String sid,
+      required String sitename,
+      required String sitelocation,
+      required String clientname,
+      required String phone,
+      required String about,
+    }) {
+      return showDialog(
+        context: context,
+        builder: (context) => BlocListener<DropdownBloc, DropdownState>(
+          listener: (context, state) {
+            if (state is DropdownUserSelectState) {
+              dropdownvalue = state.value!;
+            }
+          },
+          child: AlertDialog(
+            content: StreamBuilder<QuerySnapshot>(
+                stream: FirebaseFirestore.instance
+                    .collection("users")
+                    .where("role", isEqualTo: "Supervisor")
+                    .get()
+                    .asStream(),
+                builder: (context, snapshot) {
+                  if (snapshot.hasData) {
+                    return SizedBox(
+                      width: size.width,
+                      height: size.height / 90 * 53.334,
+                      child: Form(
+                        key: _formKey,
+                        child: SingleChildScrollView(
+                          child: Column(
+                            children: [
+                              SizedBox(
+                                height: size.height / 90 * 1.338,
+                              ),
+                              Text(
+                                "Update Site Info",
+                                style: TextStyle(
+                                    fontSize: 18,
+                                    fontWeight: FontWeight.w600,
+                                    color: AppColors.fadeblue),
+                              ),
+                              SizedBox(
+                                height: size.height / 90 * 2.538,
+                              ),
+                              Container(
+                                height: size.height / 90 * 5.44,
+                                width: size.width,
+                                decoration: BoxDecoration(
+                                  color: AppColors.customWhite.withOpacity(0.6),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: TextFormField(
+                                  initialValue: sitename,
+                                  decoration: InputDecoration(
+                                    contentPadding: EdgeInsets.symmetric(
+                                      horizontal: padding.top * 0.4,
+                                    ),
+                                    hintText: "Site Name",
+                                    border: InputBorder.none,
+                                  ),
+                                  onChanged: (value) {
+                                    sitename = value;
+                                  },
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return "Cant Send Empty value";
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                              SizedBox(
+                                height: size.height / 90 * 1.538,
+                              ),
+                              Container(
+                                height: size.height / 90 * 5.44,
+                                width: size.width,
+                                decoration: BoxDecoration(
+                                  color: AppColors.customWhite.withOpacity(0.6),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: TextFormField(
+                                  initialValue: sitelocation,
+                                  decoration: InputDecoration(
+                                    contentPadding: EdgeInsets.symmetric(
+                                      horizontal: padding.top * 0.4,
+                                    ),
+                                    hintText: "Site Location",
+                                    border: InputBorder.none,
+                                  ),
+                                  onChanged: (value) {
+                                    sitelocation = value;
+                                  },
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return "Cant Send Empty value";
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                              SizedBox(
+                                height: size.height / 90 * 1.538,
+                              ),
+                              Container(
+                                height: size.height / 90 * 5.44,
+                                width: size.width,
+                                decoration: BoxDecoration(
+                                  color: AppColors.customWhite.withOpacity(0.6),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: TextFormField(
+                                  initialValue: clientname,
+                                  decoration: InputDecoration(
+                                    contentPadding: EdgeInsets.symmetric(
+                                      horizontal: padding.top * 0.4,
+                                    ),
+                                    hintText: "Client Name",
+                                    border: InputBorder.none,
+                                  ),
+                                  onChanged: (value) {
+                                    clientname = value;
+                                  },
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return "Cant Send Empty value";
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                              SizedBox(
+                                height: size.height / 90 * 1.538,
+                              ),
+                              Container(
+                                height: size.height / 90 * 5.44,
+                                width: size.width,
+                                decoration: BoxDecoration(
+                                  color: AppColors.customWhite.withOpacity(0.6),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: TextFormField(
+                                  initialValue: phone,
+                                  decoration: InputDecoration(
+                                    contentPadding: EdgeInsets.symmetric(
+                                      horizontal: padding.top * 0.4,
+                                    ),
+                                    hintText: "Phone",
+                                    border: InputBorder.none,
+                                  ),
+                                  onChanged: (value) {
+                                    phone = value;
+                                  },
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return "Cant Send Empty value";
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                              SizedBox(
+                                height: size.height / 90 * 1.538,
+                              ),
+                              Container(
+                                height: size.height / 90 * 5.44,
+                                width: size.width,
+                                decoration: BoxDecoration(
+                                  color: AppColors.customWhite.withOpacity(0.6),
+                                  borderRadius: BorderRadius.circular(10),
+                                ),
+                                child: TextFormField(
+                                  initialValue: about,
+                                  decoration: InputDecoration(
+                                    contentPadding: EdgeInsets.symmetric(
+                                      horizontal: padding.top * 0.4,
+                                    ),
+                                    hintText: "About Site",
+                                    border: InputBorder.none,
+                                  ),
+                                  onChanged: (value) {
+                                    sitename = value;
+                                  },
+                                  validator: (value) {
+                                    if (value == null || value.isEmpty) {
+                                      return "Cant Send Empty value";
+                                    }
+                                    return null;
+                                  },
+                                ),
+                              ),
+                              SizedBox(
+                                height: size.height / 90 * 1.538,
+                              ),
+                              Container(
+                                decoration: BoxDecoration(
+                                  color: AppColors.customWhite.withOpacity(0.6),
+                                ),
+                                child: DropdownButtonFormField2(
+                                  decoration: const InputDecoration(
+                                    border: InputBorder.none,
+                                  ),
+                                  validator: (value) =>
+                                      Validator.getBlankFieldValidator(
+                                          value.toString(),
+                                          "Supervisor for site"),
+                                  isExpanded: true,
+                                  hint: const Text("Assign a Supervisior"),
+                                  offset: Offset(0, -size.height / 90 * 2.44),
+                                  buttonPadding:
+                                      EdgeInsets.only(right: padding.top * 0.4),
+                                  items: snapshot.data!.docs
+                                      .map<DropdownMenuItem>((supervisor) {
+                                    return DropdownMenuItem(
+                                      value: "${supervisor['fullname']}",
+                                      child: Text(
+                                        "${supervisor['fullname']}",
+                                      ),
+                                    );
+                                  }).toList(),
+                                  onChanged: (newValue) {
+                                    BlocProvider.of<DropdownBloc>(context)
+                                        .onUserSelectDropdown(
+                                            newValue.toString());
+                                  },
+                                ),
+                              ),
+                              SizedBox(
+                                height: size.height / 90 * 1.538,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  ElevatedButton(
+                                    style: ElevatedButton.styleFrom(
+                                      elevation: 0,
+                                      fixedSize: const Size(103, 33),
+                                      backgroundColor: AppColors.white,
+                                      foregroundColor: AppColors.fadeblue,
+                                    ),
+                                    onPressed: () {
+                                      Navigator.of(context).pop();
+                                    },
+                                    child: const Text("Cancel"),
+                                  ),
+                                  BlocConsumer<SitesBloc, SitesState>(
+                                    listener: (context, state) {
+                                      if (state is UpdatingSiteState) {
+                                        BotToast.showCustomLoading(
+                                          toastBuilder: (context) =>
+                                              customLoading(size),
+                                        );
+                                      }
+                                      if (state is CompleteUpdatingSiteState) {
+                                        BotToast.closeAllLoading();
+                                        Navigator.of(context).pop();
+                                        BotToast.showText(
+                                          text: "Site Information Updated",
+                                          contentColor: AppColors.green,
+                                        );
+                                      }
+                                      if (state is FailedUpdatingSiteState) {
+                                        BotToast.closeAllLoading();
+                                        Navigator.of(context).pop();
+                                        BotToast.showText(
+                                          text: state.error!,
+                                          contentColor: AppColors.red,
+                                        );
+                                      }
+                                    },
+                                    builder: (context, state) {
+                                      return ElevatedButton(
+                                        style: ElevatedButton.styleFrom(
+                                          elevation: 0,
+                                          fixedSize: const Size(103, 33),
+                                          backgroundColor: AppColors.yellow,
+                                          foregroundColor: AppColors.fadeblue,
+                                        ),
+                                        onPressed: () {
+                                          BlocProvider.of<SitesBloc>(context)
+                                              .updateSiteInfo(
+                                            sid: sid,
+                                            sitename: sitename,
+                                            sitelocation: sitelocation,
+                                            clientname: clientname,
+                                            phone: phone,
+                                            sitedesc: about,
+                                            supervisor: dropdownvalue,
+                                          );
+                                        },
+                                        child: const Text("Update"),
+                                      );
+                                    },
+                                  ),
+                                ],
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                    );
+                  } else {
+                    return const Center(
+                      child: CircularProgressIndicator.adaptive(),
+                    );
+                  }
+                }),
+          ),
+        ),
+      );
+    }
+
     return Scaffold(
       backgroundColor: AppColors.white,
       appBar: PreferredSize(
@@ -33,9 +358,33 @@ class _SiteDescriptionState extends State<SiteDescription> {
         child: CustomAppbar(
           title: args['sitename'],
           action: [
-            IconButton(
-              onPressed: () {},
-              icon: Image.asset("assets/icons/camera.png"),
+            args['role'] == "Admin"
+                ? IconButton(
+                    onPressed: () {
+                      showEditSiteModal(
+                          sid: args['sid'],
+                          sitename: args['sitename'],
+                          sitelocation: args['sitelocation'],
+                          clientname: args['clientname'],
+                          phone: args['phone'],
+                          about: args['sitedesc']);
+                    },
+                    icon: CircleAvatar(
+                      backgroundColor: AppColors.yellow,
+                      radius: 18,
+                      child: Icon(
+                        Icons.edit,
+                        color: AppColors.fadeblue,
+                      ),
+                    ),
+                  )
+                : Container(),
+            Padding(
+              padding: EdgeInsets.only(right: padding.top * 0.2),
+              child: IconButton(
+                onPressed: () {},
+                icon: Image.asset("assets/icons/camera.png"),
+              ),
             ),
           ],
           bgcolor: AppColors.white,
@@ -116,166 +465,271 @@ class _SiteDescriptionState extends State<SiteDescription> {
                             index: dotposition,
                           ),
                         ),
-                  Container(
-                    padding:
-                        EdgeInsets.symmetric(horizontal: padding.top * 0.8),
-                    child: ListView(
-                      shrinkWrap: true,
-                      children: [
-                        SizedBox(
-                          height: size.height / 90 * 1.4,
-                        ),
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            "${args['sitename']}",
-                            style: TextStyle(
-                              color: AppColors.fadeblue,
-                              fontWeight: FontWeight.w700,
-                              fontSize: 21,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: size.height / 90 * 1.0,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SizedBox(
-                              width: size.width / 2 * 1.4,
-                              child: Text(
-                                "${args['sitelocation']}",
-                                overflow: TextOverflow.clip,
+                  StreamBuilder<DocumentSnapshot<Map<String, dynamic>>>(
+                    stream: FirebaseFirestore.instance
+                        .collection("sites")
+                        .doc(args['sid'])
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.hasData) {
+                        return Container(
+                          height: size.height / 90 * 52,
+                          padding: EdgeInsets.symmetric(
+                              horizontal: padding.top * 0.8),
+                          child: ListView(
+                            shrinkWrap: true,
+                            children: [
+                              SizedBox(
+                                height: size.height / 90 * 1.4,
+                              ),
+                              Align(
+                                alignment: Alignment.topLeft,
+                                child: Text(
+                                  "${snapshot.data!['sitename']}",
+                                  style: TextStyle(
+                                    color: AppColors.fadeblue,
+                                    fontWeight: FontWeight.w700,
+                                    fontSize: 21,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: size.height / 90 * 1.0,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  SizedBox(
+                                    width: size.width / 2 * 1.4,
+                                    child: Text(
+                                      "${snapshot.data!['sitelocation']}",
+                                      overflow: TextOverflow.clip,
+                                      style: TextStyle(
+                                        color: AppColors.grey,
+                                        fontWeight: FontWeight.w500,
+                                        fontSize: 18,
+                                      ),
+                                    ),
+                                  ),
+                                  Icon(
+                                    Icons.location_pin,
+                                    size: size.height / 90 * 2.66,
+                                    color: AppColors.grey,
+                                  )
+                                ],
+                              ),
+                              SizedBox(
+                                height: size.height / 90 * 0.5,
+                              ),
+                              Align(
+                                alignment: Alignment.topLeft,
+                                child: Text(
+                                  "${snapshot.data!['clientname']}",
+                                  style: TextStyle(
+                                    color: AppColors.grey,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 18,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: size.height / 90 * 0.5,
+                              ),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    "+977${snapshot.data!['phone']}",
+                                    style: TextStyle(
+                                      color: AppColors.grey,
+                                      fontWeight: FontWeight.w500,
+                                      fontSize: 18,
+                                    ),
+                                  ),
+                                  Icon(
+                                    Icons.phone,
+                                    size: size.height / 90 * 2.66,
+                                    color: AppColors.grey,
+                                  )
+                                ],
+                              ),
+                              SizedBox(
+                                height: size.height / 90 * 1.0,
+                              ),
+                              Text(
+                                "About ${snapshot.data!['sitename']}",
+                                style: TextStyle(
+                                  color: AppColors.fadeblue,
+                                  fontWeight: FontWeight.w700,
+                                  fontSize: 21,
+                                ),
+                              ),
+                              SizedBox(
+                                height: size.height / 90 * 1.0,
+                              ),
+                              Text(
+                                maxLines: 15,
+                                softWrap: true,
+                                overflow: TextOverflow.ellipsis,
+                                textWidthBasis: TextWidthBasis.parent,
+                                "${snapshot.data!['sitedesc']}",
                                 style: TextStyle(
                                   color: AppColors.grey,
                                   fontWeight: FontWeight.w500,
                                   fontSize: 18,
                                 ),
                               ),
-                            ),
-                            Icon(
-                              Icons.location_pin,
-                              size: size.height / 90 * 2.66,
-                              color: AppColors.grey,
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: size.height / 90 * 0.5,
-                        ),
-                        Align(
-                          alignment: Alignment.topLeft,
-                          child: Text(
-                            "${args['clientname']}",
-                            style: TextStyle(
-                              color: AppColors.grey,
-                              fontWeight: FontWeight.w500,
-                              fontSize: 18,
-                            ),
-                          ),
-                        ),
-                        SizedBox(
-                          height: size.height / 90 * 0.5,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              "+977${args['phone']}",
-                              style: TextStyle(
-                                color: AppColors.grey,
-                                fontWeight: FontWeight.w500,
-                                fontSize: 18,
+                              SizedBox(
+                                height: size.height / 90 * 3.5,
                               ),
-                            ),
-                            Icon(
-                              Icons.phone,
-                              size: size.height / 90 * 2.66,
-                              color: AppColors.grey,
-                            )
-                          ],
-                        ),
-                        SizedBox(
-                          height: size.height / 90 * 1.0,
-                        ),
-                        Text(
-                          "About This site",
-                          style: TextStyle(
-                            color: AppColors.fadeblue,
-                            fontWeight: FontWeight.w700,
-                            fontSize: 21,
-                          ),
-                        ),
-                        SizedBox(
-                          height: size.height / 90 * 1.0,
-                        ),
-                        Text(
-                          maxLines: 15,
-                          softWrap: true,
-                          overflow: TextOverflow.ellipsis,
-                          textWidthBasis: TextWidthBasis.parent,
-                          "${args['sitedesc']}",
-                          style: TextStyle(
-                            color: AppColors.grey,
-                            fontWeight: FontWeight.w500,
-                            fontSize: 18,
-                          ),
-                        ),
-                        SizedBox(
-                          height: size.height / 90 * 3.5,
-                        ),
-                        InkWell(
-                          onTap: () {
-                            Navigator.of(context)
-                                .pushNamed(siteStocks, arguments: {
-                              "sid": args['sid'],
-                              "sitename": args['sitename'],
-                              "sitedesc": args['sitedesc'],
-                              "sitelocation": args['sitelocation'],
-                              "clientname": args['clientname'],
-                              "phone": args['phone'],
-                              "supervisor": args['supervisor']
-                            });
-                          },
-                          child: CustomBox(
-                            height: size.height / 90 * 4.2,
-                            width: size.width,
-                            radius: 15,
-                            blurRadius: 8.0,
-                            shadowColor: AppColors.customWhite,
-                            color: AppColors.white,
-                            horizontalMargin: 0,
-                            verticalMargin: 0,
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                  horizontal: padding.top * 0.4),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: const [
-                                  Text(
-                                    "Manage Stocks",
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 16,
+                              InkWell(
+                                onTap: () {
+                                  Navigator.of(context)
+                                      .pushNamed(siteStocks, arguments: {
+                                    "sid": args['sid'],
+                                    "sitename": args['sitename'],
+                                    "sitedesc": args['sitedesc'],
+                                    "sitelocation": args['sitelocation'],
+                                    "clientname": args['clientname'],
+                                    "phone": args['phone'],
+                                    "supervisor": args['supervisor']
+                                  });
+                                },
+                                child: CustomBox(
+                                  height: size.height / 90 * 4.2,
+                                  width: size.width,
+                                  radius: 15,
+                                  blurRadius: 8.0,
+                                  shadowColor: AppColors.customWhite,
+                                  color: AppColors.white,
+                                  horizontalMargin: 0,
+                                  verticalMargin: 0,
+                                  child: Container(
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: padding.top * 0.4),
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      children: const [
+                                        Text(
+                                          "Manage Stocks",
+                                          style: TextStyle(
+                                            color: Colors.black,
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 16,
+                                          ),
+                                        ),
+                                        Spacer(),
+                                        Icon(
+                                          Icons.arrow_forward_ios,
+                                          size: 18,
+                                        )
+                                      ],
                                     ),
                                   ),
-                                  Spacer(),
-                                  Icon(
-                                    Icons.arrow_forward_ios,
-                                    size: 18,
-                                  )
-                                ],
+                                ).customBox(),
                               ),
-                            ),
-                          ).customBox(),
-                        ),
-                        SizedBox(
-                          height: size.height / 90 * 1.2,
-                        ),
-                        args['role'] == "Admin"
-                            ? InkWell(
+                              SizedBox(
+                                height: size.height / 90 * 1.2,
+                              ),
+                              args['role'] == "Admin"
+                                  ? InkWell(
+                                      onTap: () {
+                                        Navigator.of(context)
+                                            .pushNamed(siteEstimation);
+                                      },
+                                      child: CustomBox(
+                                        height: size.height / 90 * 4.2,
+                                        width: size.width,
+                                        radius: 15,
+                                        blurRadius: 8.0,
+                                        shadowColor: AppColors.customWhite,
+                                        color: AppColors.white,
+                                        horizontalMargin: 0,
+                                        verticalMargin: 0,
+                                        child: Container(
+                                          padding: EdgeInsets.symmetric(
+                                            horizontal: padding.top * 0.4,
+                                          ),
+                                          child: Row(
+                                            mainAxisAlignment:
+                                                MainAxisAlignment.start,
+                                            children: const [
+                                              Text(
+                                                "Estimation",
+                                                style: TextStyle(
+                                                  color: Colors.black,
+                                                  fontWeight: FontWeight.w400,
+                                                  fontSize: 16,
+                                                ),
+                                              ),
+                                              Spacer(),
+                                              Icon(
+                                                Icons.arrow_forward_ios,
+                                                size: 18,
+                                              )
+                                            ],
+                                          ),
+                                        ),
+                                      ).customBox(),
+                                    )
+                                  : Container(),
+                              SizedBox(
+                                height: size.height / 90 * 1.2,
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  Navigator.of(context)
+                                      .pushNamed(siteEstimation);
+                                },
+                                child: CustomBox(
+                                  height: size.height / 90 * 4.2,
+                                  width: size.width,
+                                  radius: 15,
+                                  blurRadius: 8.0,
+                                  shadowColor: AppColors.customWhite,
+                                  color: AppColors.white,
+                                  horizontalMargin: 0,
+                                  verticalMargin: 0,
+                                  child: InkWell(
+                                    onTap: () {
+                                      Navigator.of(context).pushNamed(
+                                          workinprogress,
+                                          arguments: {"sid": args['sid']});
+                                    },
+                                    child: Container(
+                                      padding: EdgeInsets.symmetric(
+                                        horizontal: padding.top * 0.4,
+                                      ),
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        children: const [
+                                          Text(
+                                            "Work in Progress",
+                                            style: TextStyle(
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w400,
+                                              fontSize: 16,
+                                            ),
+                                          ),
+                                          Spacer(),
+                                          Icon(
+                                            Icons.arrow_forward_ios,
+                                            size: 18,
+                                          )
+                                        ],
+                                      ),
+                                    ),
+                                  ),
+                                ).customBox(),
+                              ),
+                              SizedBox(
+                                height: size.height / 90 * 1.2,
+                              ),
+                              InkWell(
                                 onTap: () {
                                   Navigator.of(context)
                                       .pushNamed(siteEstimation);
@@ -298,7 +752,7 @@ class _SiteDescriptionState extends State<SiteDescription> {
                                           MainAxisAlignment.start,
                                       children: const [
                                         Text(
-                                          "Estimation",
+                                          "Manage Orders",
                                           style: TextStyle(
                                             color: Colors.black,
                                             fontWeight: FontWeight.w400,
@@ -314,98 +768,19 @@ class _SiteDescriptionState extends State<SiteDescription> {
                                     ),
                                   ),
                                 ).customBox(),
-                              )
-                            : Container(),
-                        SizedBox(
-                          height: size.height / 90 * 1.2,
-                        ),
-                        InkWell(
-                          onTap: () {
-                            Navigator.of(context).pushNamed(siteEstimation);
-                          },
-                          child: CustomBox(
-                            height: size.height / 90 * 4.2,
-                            width: size.width,
-                            radius: 15,
-                            blurRadius: 8.0,
-                            shadowColor: AppColors.customWhite,
-                            color: AppColors.white,
-                            horizontalMargin: 0,
-                            verticalMargin: 0,
-                            child: InkWell(
-                              onTap: () {
-                                Navigator.of(context).pushNamed(workinprogress,
-                                    arguments: {"sid": args['sid']});
-                              },
-                              child: Container(
-                                padding: EdgeInsets.symmetric(
-                                  horizontal: padding.top * 0.4,
-                                ),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.start,
-                                  children: const [
-                                    Text(
-                                      "Work in Progress",
-                                      style: TextStyle(
-                                        color: Colors.black,
-                                        fontWeight: FontWeight.w400,
-                                        fontSize: 16,
-                                      ),
-                                    ),
-                                    Spacer(),
-                                    Icon(
-                                      Icons.arrow_forward_ios,
-                                      size: 18,
-                                    )
-                                  ],
-                                ),
                               ),
-                            ),
-                          ).customBox(),
-                        ),
-                        SizedBox(
-                          height: size.height / 90 * 1.2,
-                        ),
-                        InkWell(
-                          onTap: () {
-                            Navigator.of(context).pushNamed(siteEstimation);
-                          },
-                          child: CustomBox(
-                            height: size.height / 90 * 4.2,
-                            width: size.width,
-                            radius: 15,
-                            blurRadius: 8.0,
-                            shadowColor: AppColors.customWhite,
-                            color: AppColors.white,
-                            horizontalMargin: 0,
-                            verticalMargin: 0,
-                            child: Container(
-                              padding: EdgeInsets.symmetric(
-                                horizontal: padding.top * 0.4,
+                              SizedBox(
+                                height: size.height / 90 * 0.5,
                               ),
-                              child: Row(
-                                mainAxisAlignment: MainAxisAlignment.start,
-                                children: const [
-                                  Text(
-                                    "Manage Orders",
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 16,
-                                    ),
-                                  ),
-                                  Spacer(),
-                                  Icon(
-                                    Icons.arrow_forward_ios,
-                                    size: 18,
-                                  )
-                                ],
-                              ),
-                            ),
-                          ).customBox(),
-                        )
-                      ],
-                    ),
+                            ],
+                          ),
+                        );
+                      } else {
+                        return const Center(
+                          child: CircularProgressIndicator.adaptive(),
+                        );
+                      }
+                    },
                   ),
                 ],
               ),

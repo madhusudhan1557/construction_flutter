@@ -71,7 +71,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                   child: Column(
                     children: [
                       SizedBox(
-                        height: size.height / 90 * 5.51,
+                        height: size.height / 90 * 2.51,
                       ),
                       CustomTextField(
                         controller: _fullname,
@@ -109,6 +109,12 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                       SizedBox(
                         height: size.height / 90 * 1.51,
                       ),
+                      CustomTextField(
+                        controller: _address,
+                        hintText: "Address",
+                        size: size.height / 90 * 5.44,
+                        width: size.width,
+                      ).customTextField(),
                       SizedBox(
                         height: size.height / 90 * 1.51,
                       ),

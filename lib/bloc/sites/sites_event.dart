@@ -27,6 +27,15 @@ class FailedDeleteSiteEvent extends SitesEvent {
   FailedDeleteSiteEvent({this.error});
 }
 
+class UpdatingSiteEvent extends SitesEvent {}
+
+class CompleteUpdatingSiteEvent extends SitesEvent {}
+
+class FailedUpdatingSiteEvent extends SitesEvent {
+  final String? error;
+  FailedUpdatingSiteEvent({this.error});
+}
+
 class LoadingDeleteSiteEvent extends SitesEvent {}
 
 class LoadingDeleteCompleteEvent extends SitesEvent {}

@@ -29,6 +29,15 @@ class SiteDataState extends SitesState {
   SiteDataState({this.siteData});
 }
 
+class UpdatingSiteState extends SitesState {}
+
+class CompleteUpdatingSiteState extends SitesState {}
+
+class FailedUpdatingSiteState extends SitesState {
+  final String? error;
+  FailedUpdatingSiteState({this.error});
+}
+
 class FailedDeleteSiteState extends SitesState {
   final String? error;
   FailedDeleteSiteState({this.error});

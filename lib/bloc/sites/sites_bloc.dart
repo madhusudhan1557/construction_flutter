@@ -50,6 +50,15 @@ class SitesBloc extends Bloc<SitesEvent, SitesState> {
     on<FailedDeleteSiteEvent>(
       (event, emit) => emit(FailedDeleteSiteState()),
     );
+    on<UpdatingSiteEvent>(
+      (event, emit) => emit(UpdatingSiteState()),
+    );
+    on<CompleteUpdatingSiteEvent>(
+      (event, emit) => emit(CompleteUpdatingSiteState()),
+    );
+    on<FailedUpdatingSiteEvent>(
+      (event, emit) => emit(FailedUpdatingSiteState()),
+    );
   }
 
   CollectionReference sites = FirebaseFirestore.instance.collection("sites");
@@ -142,6 +151,37 @@ class SitesBloc extends Bloc<SitesEvent, SitesState> {
         text: e.message!,
         contentColor: Colors.red,
       );
+    }
+  }
+
+  updateSiteInfo({
+    required String sid,
+    required String sitename,
+    required String sitelocation,
+    required String clientname,
+    required String phone,
+    required String sitedesc,
+    required String supervisor,
+  }) async {
+    try {
+      add(UpdatingSiteEvent());
+      DocumentReference sites =
+          FirebaseFirestore.instance.collection("sites").doc(sid);
+
+      await sites.update({
+        "sitename": sitename,
+        "sitelocation": sitelocation,
+        "clientname": clientname,
+        "phone": phone,
+        "sitedesc": sitedesc,
+      });
+
+      if (supervisor.isNotEmpty) {
+        await sites.update({"supervisor": supervisor});
+      }
+      add(CompleteUpdatingSiteEvent());
+    } on FirebaseException catch (e) {
+      add(FailedUpdatingSiteEvent(error: e.message!));
     }
   }
 }

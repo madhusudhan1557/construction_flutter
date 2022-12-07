@@ -123,14 +123,16 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
       QuerySnapshot userQuery =
           await users.where("fullname", isEqualTo: usermodel.fullname).get();
       if (userQuery.docs.isEmpty) {
-        await users.add({
-          "uid": FirebaseAuth.instance.currentUser!.uid,
-          "fullname": usermodel.fullname,
-          'email': usermodel.email,
-          'phone': usermodel.phone,
-          'address': usermodel.address,
-          "role": usermodel.role,
-        });
+        await users.doc(FirebaseAuth.instance.currentUser!.uid).set(
+          {
+            "uid": FirebaseAuth.instance.currentUser!.uid,
+            "fullname": usermodel.fullname,
+            'email': usermodel.email,
+            'phone': usermodel.phone,
+            'address': usermodel.address,
+            "role": usermodel.role,
+          },
+        );
 
         add(EmailSignUpCompletedEvent());
       } else {
@@ -154,9 +156,18 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   signInWithEmail(UserModel userModel) async {
     add(LoginLoadingEvent());
     try {
+      await FirebaseAuth.instance.signOut();
       await FirebaseAuth.instance.signInWithEmailAndPassword(
           email: userModel.email!, password: userModel.password!);
-      add(CompletedLoadingEvent());
+      QuerySnapshot users = await FirebaseFirestore.instance
+          .collection("users")
+          .where("email", isEqualTo: userModel.email!)
+          .get();
+      if (users.docs.isEmpty) {
+        add(UserNotFountEvent());
+      } else {
+        add(CompletedLoadingEvent());
+      }
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') {
         add(UserNotFountEvent());
