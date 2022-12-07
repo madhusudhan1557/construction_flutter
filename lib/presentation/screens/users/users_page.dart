@@ -408,118 +408,122 @@ class _UsersPageState extends State<UsersPage> {
                     color: AppColors.white,
                     horizontalMargin: padding.top * 0.3,
                     verticalMargin: padding.top * 0.2,
-                    child: InkWell(
-                      onTap: () {
-                        showEditUserModal(
-                          snapshot.data!.docs[index]['uid'],
-                          snapshot.data!.docs[index]['fullname'],
-                          snapshot.data!.docs[index]['phone'],
-                          snapshot.data!.docs[index]['address'],
-                        );
-                      },
-                      child: Padding(
-                        padding:
-                            EdgeInsets.symmetric(horizontal: padding.top * 0.4),
-                        child: Stack(
-                          children: [
-                            Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                SizedBox(height: size.height / 90 * 1.1),
-                                Text(
-                                  snapshot.data!.docs[index]['fullname'],
-                                  style: TextStyle(
-                                    color: AppColors.grey,
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w600,
-                                  ),
+                    child: Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: padding.top * 0.4),
+                      child: Stack(
+                        children: [
+                          Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(height: size.height / 90 * 1.1),
+                              Text(
+                                snapshot.data!.docs[index]['fullname'],
+                                style: TextStyle(
+                                  color: AppColors.grey,
+                                  fontSize: 18,
+                                  fontWeight: FontWeight.w600,
                                 ),
-                                SizedBox(height: size.height / 90 * 1.1),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
-                                  children: [
-                                    Text(
-                                      snapshot.data!.docs[index]['phone'],
-                                      style: const TextStyle(
-                                        fontSize: 16,
-                                        fontWeight: FontWeight.w500,
+                              ),
+                              SizedBox(height: size.height / 90 * 1.1),
+                              Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Text(
+                                    snapshot.data!.docs[index]['phone'],
+                                    style: const TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
+                                  CustomBox(
+                                    height: size.height / 90 * 2.44,
+                                    width: size.width / 3.86,
+                                    radius: 15,
+                                    blurRadius: 4.0,
+                                    shadowColor: AppColors.customWhite,
+                                    color: snapshot.data!.docs[index]['role'] ==
+                                            "Admin"
+                                        ? AppColors.green
+                                        : snapshot.data!.docs[index]['role'] ==
+                                                "Supervisor"
+                                            ? AppColors.fadeblue
+                                            : Colors.deepOrangeAccent,
+                                    horizontalMargin: 0,
+                                    verticalMargin: 0,
+                                    child: Center(
+                                      child: Text(
+                                        snapshot.data!.docs[index]['role'],
+                                        style:
+                                            TextStyle(color: AppColors.white),
                                       ),
                                     ),
-                                    CustomBox(
-                                      height: size.height / 90 * 2.44,
-                                      width: size.width / 3.86,
-                                      radius: 15,
-                                      blurRadius: 4.0,
-                                      shadowColor: AppColors.customWhite,
-                                      color: snapshot.data!.docs[index]
-                                                  ['role'] ==
-                                              "Admin"
-                                          ? AppColors.green
-                                          : snapshot.data!.docs[index]
-                                                      ['role'] ==
-                                                  "Supervisor"
-                                              ? AppColors.fadeblue
-                                              : Colors.deepOrangeAccent,
-                                      horizontalMargin: 0,
-                                      verticalMargin: 0,
-                                      child: Center(
-                                        child: Text(
-                                          snapshot.data!.docs[index]['role'],
-                                          style:
-                                              TextStyle(color: AppColors.white),
-                                        ),
+                                  ).customBox(),
+                                  Padding(
+                                    padding: EdgeInsets.only(
+                                        right: padding.top * 0.4),
+                                    child: InkWell(
+                                      onTap: () {
+                                        showEditUserModal(
+                                          snapshot.data!.docs[index]['uid'],
+                                          snapshot.data!.docs[index]
+                                              ['fullname'],
+                                          snapshot.data!.docs[index]['phone'],
+                                          snapshot.data!.docs[index]['address'],
+                                        );
+                                      },
+                                      child: Icon(
+                                        Icons.edit,
+                                        color: AppColors.grey,
+                                        size: size.height / 90 * 2.3,
                                       ),
-                                    ).customBox(),
-                                    Icon(
-                                      Icons.more_vert,
-                                      color: AppColors.white,
-                                    ),
-                                  ],
-                                ),
-                                SizedBox(height: size.height / 90 * 1.1),
-                                Text(
-                                  snapshot.data!.docs[index]['address'],
-                                  style: const TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.w500,
-                                  ),
-                                ),
-                              ],
-                            ),
-                            Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Align(
-                                  alignment: Alignment.centerRight,
-                                  child: IconButton(
-                                    onPressed: () {
-                                      showDeleteDialog(
-                                        snapshot.data!.docs[index]['uid'],
-                                      );
-                                    },
-                                    icon: Iconify(
-                                      FluentMdl2.delete,
-                                      color: AppColors.red,
-                                      size: size.height / 90 * 2.3,
                                     ),
                                   ),
+                                ],
+                              ),
+                              SizedBox(height: size.height / 90 * 1.1),
+                              Text(
+                                snapshot.data!.docs[index]['address'],
+                                style: const TextStyle(
+                                  fontSize: 16,
+                                  fontWeight: FontWeight.w500,
                                 ),
-                                Align(
-                                  alignment: Alignment.centerRight,
-                                  child: IconButton(
-                                    onPressed: () {},
-                                    icon: Iconify(
-                                      FluentMdl2.archive,
-                                      color: AppColors.fadeblue,
-                                      size: size.height / 90 * 2.3,
-                                    ),
+                              ),
+                            ],
+                          ),
+                          Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Align(
+                                alignment: Alignment.centerRight,
+                                child: IconButton(
+                                  onPressed: () {
+                                    showDeleteDialog(
+                                      snapshot.data!.docs[index]['uid'],
+                                    );
+                                  },
+                                  icon: Iconify(
+                                    FluentMdl2.delete,
+                                    color: AppColors.red,
+                                    size: size.height / 90 * 2.3,
                                   ),
                                 ),
-                              ],
-                            )
-                          ],
-                        ),
+                              ),
+                              Align(
+                                alignment: Alignment.centerRight,
+                                child: IconButton(
+                                  onPressed: () {},
+                                  icon: Iconify(
+                                    FluentMdl2.archive,
+                                    color: AppColors.fadeblue,
+                                    size: size.height / 90 * 2.3,
+                                  ),
+                                ),
+                              ),
+                            ],
+                          )
+                        ],
                       ),
                     ),
                   ).customBox();
