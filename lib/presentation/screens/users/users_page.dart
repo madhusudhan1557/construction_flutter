@@ -400,7 +400,7 @@ class _UsersPageState extends State<UsersPage> {
                 itemCount: snapshot.data!.docs.length,
                 itemBuilder: (context, index) {
                   return CustomBox(
-                    height: size.height / 90 * 12.3,
+                    height: size.height / 90 * 15.3,
                     width: size.width,
                     radius: 15,
                     blurRadius: 4.0,
@@ -460,11 +460,10 @@ class _UsersPageState extends State<UsersPage> {
                                       ),
                                     ),
                                   ).customBox(),
-                                  Padding(
-                                    padding: EdgeInsets.only(
-                                        right: padding.top * 0.4),
-                                    child: InkWell(
-                                      onTap: () {
+                                  Align(
+                                    alignment: Alignment.centerRight,
+                                    child: IconButton(
+                                      onPressed: () {
                                         showEditUserModal(
                                           snapshot.data!.docs[index]['uid'],
                                           snapshot.data!.docs[index]
@@ -473,8 +472,8 @@ class _UsersPageState extends State<UsersPage> {
                                           snapshot.data!.docs[index]['address'],
                                         );
                                       },
-                                      child: Icon(
-                                        Icons.edit,
+                                      icon: Iconify(
+                                        FluentMdl2.edit,
                                         color: AppColors.grey,
                                         size: size.height / 90 * 2.3,
                                       ),

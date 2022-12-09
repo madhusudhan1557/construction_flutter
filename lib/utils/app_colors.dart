@@ -12,4 +12,5 @@ class AppColors {
   static Color red = getColor("C5221F");
   static Color grey = getColor("606060");
   static Color green = getColor("34A853");
+  static Color orange = getColor("FF9900");
 }

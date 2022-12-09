@@ -4,6 +4,7 @@ import 'package:construction/bloc/auth/auth_bloc.dart';
 import 'package:construction/bloc/dropdown/dropdown_bloc.dart';
 import 'package:construction/bloc/hidepassword/hidepassword_cubit.dart';
 import 'package:construction/bloc/pickimage/pickimage_bloc.dart';
+import 'package:construction/bloc/progressbar/progressbar_cubit.dart';
 import 'package:construction/bloc/sites/sites_bloc.dart';
 import 'package:construction/bloc/stock/stocks_bloc.dart';
 import 'package:construction/bloc/users/users_bloc.dart';
@@ -40,6 +41,7 @@ class AkarDevelopers extends StatelessWidget {
         BlocProvider<HidepasswordCubit>(
             create: (context) => HidepasswordCubit()),
         BlocProvider<AuthBloc>(create: (context) => AuthBloc()),
+        BlocProvider<ProgressbarCubit>(create: (context) => ProgressbarCubit()),
         BlocProvider<UsersBloc>(create: (context) => UsersBloc()),
         BlocProvider<StocksBloc>(create: (context) => StocksBloc()),
         BlocProvider<WorkinprogressBloc>(

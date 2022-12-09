@@ -31,6 +31,7 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
   final TextEditingController _progress = TextEditingController();
   String dropdownvalue = "";
   final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -395,11 +396,11 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                                         const Duration(seconds: 2),
                                     borderRadius: BorderRadius.circular(15),
                                     backgroundColor: AppColors.white,
-                                    progressColor: AppColors.fadeblue,
+                                    progressColor: AppColors.green,
                                     direction: Axis.horizontal,
                                     displayText: "%",
                                     displayTextStyle: TextStyle(
-                                      color: AppColors.customWhite,
+                                      color: AppColors.white,
                                     ),
                                     maxValue: 100,
                                     currentValue: 90,
@@ -442,127 +443,112 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                                             itemCount:
                                                 snapshot.data!.docs.length,
                                             itemBuilder: (context, index) {
-                                              return Container(
-                                                height: size.height / 90 * 4.6,
-                                                width: size.width,
-                                                margin: EdgeInsets.symmetric(
-                                                  horizontal: padding.top * 0.2,
-                                                  vertical: padding.top * 0.2,
-                                                ),
-                                                decoration: BoxDecoration(
-                                                    color: AppColors.white,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            15),
-                                                    boxShadow: [
-                                                      BoxShadow(
-                                                        color: AppColors.grey
-                                                            .withOpacity(0.3),
-                                                        blurRadius: 2.0,
-                                                      )
-                                                    ]),
-                                                child: InkWell(
-                                                  onTap: () {
-                                                    showProgressModal(
-                                                      snapshot.data!.docs[index]
-                                                          ['wid'],
-                                                      snapshot.data!.docs[index]
-                                                          ['sid'],
-                                                    );
-                                                  },
-                                                  child: Stack(
-                                                    children: [
-                                                      SizedBox(
-                                                        height: size.height /
-                                                            90 *
-                                                            41,
-                                                        child: FAProgressBar(
-                                                          formatValueFixed: 2,
-                                                          animatedDuration:
-                                                              const Duration(
-                                                                  seconds: 2),
-                                                          borderRadius:
-                                                              BorderRadius
-                                                                  .circular(15),
-                                                          backgroundColor:
-                                                              AppColors.white,
-                                                          progressColor: Colors
-                                                              .orangeAccent,
-                                                          direction:
-                                                              Axis.horizontal,
-                                                          displayTextStyle:
-                                                              TextStyle(
-                                                            color: AppColors
-                                                                .fadeblue,
+                                              return Column(
+                                                children: [
+                                                  InkWell(
+                                                    onTap: () {
+                                                      showProgressModal(
+                                                        snapshot.data!
+                                                            .docs[index]['wid'],
+                                                        snapshot.data!
+                                                            .docs[index]['sid'],
+                                                      );
+                                                    },
+                                                    child: Row(
+                                                      mainAxisAlignment:
+                                                          MainAxisAlignment
+                                                              .spaceBetween,
+                                                      children: [
+                                                        SizedBox(
+                                                          width: size.width / 2,
+                                                          child: Text(
+                                                            "${snapshot.data!.docs[index]['title']}",
+                                                            style: TextStyle(
+                                                              color: AppColors
+                                                                  .grey,
+                                                              fontWeight:
+                                                                  FontWeight
+                                                                      .w400,
+                                                              fontSize: 16,
+                                                            ),
                                                           ),
-                                                          maxValue: 100,
-                                                          currentValue: double
-                                                              .parse(snapshot
-                                                                  .data!
-                                                                  .docs[index][
-                                                                      'progress']
-                                                                  .toString()),
                                                         ),
-                                                      ),
-                                                      Padding(
-                                                        padding: EdgeInsets
-                                                            .symmetric(
-                                                                horizontal:
-                                                                    padding.top *
-                                                                        0.4),
-                                                        child: Row(
-                                                          mainAxisAlignment:
-                                                              MainAxisAlignment
-                                                                  .spaceBetween,
-                                                          children: [
-                                                            Align(
-                                                              heightFactor:
-                                                                  size.height /
-                                                                      90 *
-                                                                      0.4,
-                                                              alignment:
-                                                                  Alignment
-                                                                      .center,
-                                                              child: Text(
-                                                                snapshot.data!
-                                                                            .docs[
-                                                                        index]
-                                                                    ['title'],
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontSize: 16,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w400,
-                                                                  color: AppColors
-                                                                      .fadeblue,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                            Align(
-                                                              heightFactor: 2,
-                                                              alignment:
-                                                                  Alignment
-                                                                      .center,
-                                                              child: Text(
-                                                                "${snapshot.data!.docs[index]['progress']} %",
-                                                                style:
-                                                                    TextStyle(
-                                                                  fontSize: 16,
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w400,
-                                                                  color: AppColors
-                                                                      .fadeblue,
-                                                                ),
-                                                              ),
-                                                            ),
-                                                          ],
+                                                        Text(
+                                                          "${snapshot.data!.docs[index]['progress']} %",
+                                                          style: TextStyle(
+                                                            color:
+                                                                AppColors.grey,
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                            fontSize: 16,
+                                                          ),
                                                         ),
-                                                      )
-                                                    ],
+                                                        Container(
+                                                          height: size.height /
+                                                              90 *
+                                                              2.6,
+                                                          width: size.width /
+                                                              8 *
+                                                              1.3,
+                                                          margin: EdgeInsets
+                                                              .symmetric(
+                                                            horizontal:
+                                                                padding.top *
+                                                                    0.2,
+                                                            vertical:
+                                                                padding.top *
+                                                                    0.2,
+                                                          ),
+                                                          decoration: BoxDecoration(
+                                                              color: AppColors
+                                                                  .white,
+                                                              borderRadius:
+                                                                  BorderRadius
+                                                                      .circular(
+                                                                          15),
+                                                              boxShadow: [
+                                                                BoxShadow(
+                                                                  color: AppColors
+                                                                      .grey
+                                                                      .withOpacity(
+                                                                          0.3),
+                                                                  blurRadius:
+                                                                      2.0,
+                                                                )
+                                                              ]),
+                                                          child: FAProgressBar(
+                                                            formatValueFixed: 2,
+                                                            animatedDuration:
+                                                                const Duration(
+                                                                    seconds: 2),
+                                                            borderRadius:
+                                                                BorderRadius
+                                                                    .circular(
+                                                                        15),
+                                                            backgroundColor:
+                                                                AppColors.white,
+                                                            progressColor:
+                                                                AppColors
+                                                                    .orange,
+                                                            direction:
+                                                                Axis.horizontal,
+                                                            maxValue: 100,
+                                                            currentValue: double
+                                                                .parse(snapshot
+                                                                    .data!
+                                                                    .docs[index]
+                                                                        [
+                                                                        'progress']
+                                                                    .toString()),
+                                                          ),
+                                                        ),
+                                                      ],
+                                                    ),
                                                   ),
-                                                ),
+                                                  const Divider(
+                                                    thickness: 1.3,
+                                                  ),
+                                                ],
                                               );
                                             },
                                           ),

@@ -20,3 +20,30 @@ class FailedUpdatingStockQuantityEvent extends StocksEvent {
   final String? error;
   FailedUpdatingStockQuantityEvent({this.error});
 }
+
+class DeletingStockEvent extends StocksEvent {}
+
+class CompleteDeletingStockEvent extends StocksEvent {}
+
+class FailedDeletingStockEvent extends StocksEvent {
+  final String? error;
+  FailedDeletingStockEvent({this.error});
+}
+
+class UpdatingSiteStockEvent extends StocksEvent {}
+
+class CompleteUpdatingSiteStockEvent extends StocksEvent {}
+
+class FailedUpdatingSiteStockEvent extends StocksEvent {
+  final String? error;
+  FailedUpdatingSiteStockEvent({this.error});
+}
+
+class UpdatingQuantityEvent extends StocksEvent {}
+
+class CompleteUpdatingQuantityEvent extends StocksEvent {}
+
+class FailedUpdatingQuantityEvent extends StocksEvent {
+  final String? error;
+  FailedUpdatingQuantityEvent({this.error});
+}
