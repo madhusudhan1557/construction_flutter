@@ -54,8 +54,7 @@ dependencies:
   carousel_indicator: ^1.0.6
   flutter_animation_progress_bar: ^2.3.1
   intl: ^0.17.0
-  firebase_admin: ^0.2.0
-  data_table_2: ^2.3.9
+
 
   
 
