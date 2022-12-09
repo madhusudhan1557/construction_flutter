@@ -14,6 +14,7 @@ import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.da
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/fluent_mdl2.dart';
+import 'package:intl/intl.dart';
 
 import '../../../bloc/dropdown/dropdown_bloc.dart';
 import '../../../bloc/workinprogress/workinprogress_bloc.dart';
@@ -31,6 +32,9 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
   final TextEditingController _progress = TextEditingController();
   String dropdownvalue = "";
   final _formKey = GlobalKey<FormState>();
+  DateTime? startDate;
+
+  DateTime? endDate;
 
   @override
   Widget build(BuildContext context) {
@@ -460,10 +464,13 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                                                               .spaceBetween,
                                                       children: [
                                                         SizedBox(
-                                                          width: size.width / 2,
+                                                          width: size.width / 3,
                                                           child: Text(
                                                             "${snapshot.data!.docs[index]['title']}",
                                                             style: TextStyle(
+                                                              overflow:
+                                                                  TextOverflow
+                                                                      .clip,
                                                               color: AppColors
                                                                   .grey,
                                                               fontWeight:
@@ -474,7 +481,12 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                                                           ),
                                                         ),
                                                         Text(
-                                                          "${snapshot.data!.docs[index]['progress']} %",
+                                                          DateFormat.MMMd()
+                                                              .format(snapshot
+                                                                  .data!
+                                                                  .docs[index][
+                                                                      'endDate']
+                                                                  .toDate()),
                                                           style: TextStyle(
                                                             color:
                                                                 AppColors.grey,
@@ -487,9 +499,7 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                                                           height: size.height /
                                                               90 *
                                                               2.6,
-                                                          width: size.width /
-                                                              8 *
-                                                              1.3,
+                                                          width: size.width / 8,
                                                           margin: EdgeInsets
                                                               .symmetric(
                                                             horizontal:
@@ -540,6 +550,65 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                                                                         [
                                                                         'progress']
                                                                     .toString()),
+                                                          ),
+                                                        ),
+                                                        Text(
+                                                          "${snapshot.data!.docs[index]['progress']} %",
+                                                          style: TextStyle(
+                                                            color:
+                                                                AppColors.grey,
+                                                            fontWeight:
+                                                                FontWeight.w400,
+                                                            fontSize: 16,
+                                                          ),
+                                                        ),
+                                                        IconButton(
+                                                          onPressed: () {
+                                                            Navigator.of(
+                                                                    context)
+                                                                .pushNamed(
+                                                                    editwork,
+                                                                    arguments: {
+                                                                  "sid": snapshot
+                                                                          .data!
+                                                                          .docs[
+                                                                      index]['sid'],
+                                                                  "wid": snapshot
+                                                                          .data!
+                                                                          .docs[
+                                                                      index]['wid'],
+                                                                  "title": snapshot
+                                                                          .data!
+                                                                          .docs[index]
+                                                                      ['title'],
+                                                                  "startdate": snapshot
+                                                                      .data!
+                                                                      .docs[
+                                                                          index]
+                                                                          [
+                                                                          'startdate']
+                                                                      .toDate(),
+                                                                  "endDate": snapshot
+                                                                      .data!
+                                                                      .docs[
+                                                                          index]
+                                                                          [
+                                                                          'endDate']
+                                                                      .toDate(),
+                                                                  "workdesc": snapshot
+                                                                          .data!
+                                                                          .docs[index]
+                                                                      [
+                                                                      'workdesc']
+                                                                });
+                                                          },
+                                                          icon: Iconify(
+                                                            FluentMdl2.edit,
+                                                            color:
+                                                                AppColors.grey,
+                                                            size: size.height /
+                                                                90 *
+                                                                2.2,
                                                           ),
                                                         ),
                                                       ],

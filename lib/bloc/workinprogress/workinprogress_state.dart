@@ -22,3 +22,12 @@ class FailedUpdatingWorkProgressState extends WorkinprogressState {
   final String? error;
   FailedUpdatingWorkProgressState({this.error});
 }
+
+class UpdatingWorkInfoState extends WorkinprogressState {}
+
+class CompleteUpdatingWorkInfoState extends WorkinprogressState {}
+
+class FailedUpdatingWorkInfoState extends WorkinprogressState {
+  final String? error;
+  FailedUpdatingWorkInfoState({this.error});
+}

@@ -20,3 +20,12 @@ class FailedUpdatingWorkProgressEvent extends WorkinprogressEvent {
   final String? error;
   FailedUpdatingWorkProgressEvent({this.error});
 }
+
+class UpdatingWorkInfoEvent extends WorkinprogressEvent {}
+
+class CompleteUpdatingWorkInfoEvent extends WorkinprogressEvent {}
+
+class FailedUpdatingWorkInfoEvent extends WorkinprogressEvent {
+  final String? error;
+  FailedUpdatingWorkInfoEvent({this.error});
+}

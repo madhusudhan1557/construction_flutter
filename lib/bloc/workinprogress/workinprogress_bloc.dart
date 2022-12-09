@@ -41,6 +41,21 @@ class WorkinprogressBloc
         emit(FailedUpdatingWorkProgressState(error: event.error));
       },
     );
+    on<CompleteUpdatingWorkInfoEvent>(
+      (event, emit) {
+        emit(CompleteUpdatingWorkInfoState());
+      },
+    );
+    on<UpdatingWorkInfoEvent>(
+      (event, emit) {
+        emit(UpdatingWorkInfoState());
+      },
+    );
+    on<FailedUpdatingWorkInfoEvent>(
+      (event, emit) {
+        emit(FailedUpdatingWorkInfoState(error: event.error));
+      },
+    );
   }
 
   addWork(WorksModel worksModel, String sid) async {
@@ -81,6 +96,32 @@ class WorkinprogressBloc
     } on FirebaseException catch (e) {
       add(
         FailedUpdatingWorkProgressEvent(error: e.message!),
+      );
+    }
+  }
+
+  updateWorkInfo(WorksModel worksModel, String sid) async {
+    try {
+      add(UpdatingWorkInfoEvent());
+      DocumentReference workDoc = FirebaseFirestore.instance
+          .collection("sites")
+          .doc(sid)
+          .collection("works")
+          .doc(worksModel.wid);
+      await workDoc.update({
+        "title": worksModel.title,
+        "startdate": worksModel.startdate,
+        "endDate": worksModel.endDate,
+      });
+      if (worksModel.workdesc != null) {
+        await workDoc.update({
+          "workdesc": worksModel.workdesc,
+        });
+      }
+      add(CompleteUpdatingWorkInfoEvent());
+    } on FirebaseException catch (e) {
+      add(
+        FailedUpdatingWorkInfoEvent(error: e.message!),
       );
     }
   }
