@@ -322,326 +322,308 @@ class _SiteStocksState extends State<SiteStocks> {
       return showDialog(
         context: context,
         builder: (context) => AlertDialog(
-          content: StreamBuilder<QuerySnapshot>(
-              stream: FirebaseFirestore.instance
-                  .collection("users")
-                  .where("role", isEqualTo: "Supervisor")
-                  .get()
-                  .asStream(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return SizedBox(
-                    width: size.width,
-                    height: size.height / 90 * 53.334,
-                    child: Form(
-                      key: _formKey,
-                      child: SingleChildScrollView(
-                        child: Column(
-                          children: [
-                            SizedBox(
-                              height: size.height / 90 * 1.338,
-                            ),
-                            Text(
-                              "Update Site Stocks Info",
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600,
-                                  color: AppColors.fadeblue),
-                            ),
-                            SizedBox(
-                              height: size.height / 90 * 1.538,
-                            ),
-                            Container(
-                              height: size.height / 90 * 5.44,
-                              width: size.width,
-                              decoration: BoxDecoration(
-                                color: AppColors.customWhite.withOpacity(0.6),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: TextFormField(
-                                initialValue: itemname,
-                                decoration: InputDecoration(
-                                  contentPadding: EdgeInsets.symmetric(
-                                    horizontal: padding.top * 0.4,
-                                  ),
-                                  hintText: "Item Name",
-                                  border: InputBorder.none,
-                                ),
-                                onChanged: (value) {
-                                  itemname = value;
-                                },
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return "Cant Send Empty value";
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
-                            SizedBox(
-                              height: size.height / 90 * 1.538,
-                            ),
-                            Container(
-                              height: size.height / 90 * 5.44,
-                              width: size.width,
-                              decoration: BoxDecoration(
-                                color: AppColors.customWhite.withOpacity(0.6),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: TextFormField(
-                                initialValue: suppliername,
-                                decoration: InputDecoration(
-                                  contentPadding: EdgeInsets.symmetric(
-                                    horizontal: padding.top * 0.4,
-                                  ),
-                                  hintText: "Supplier Name",
-                                  border: InputBorder.none,
-                                ),
-                                onChanged: (value) {
-                                  suppliername = value;
-                                },
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return "Cant Send Empty value";
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
-                            SizedBox(
-                              height: size.height / 90 * 1.538,
-                            ),
-                            Container(
-                              height: size.height / 90 * 5.44,
-                              width: size.width,
-                              decoration: BoxDecoration(
-                                color: AppColors.customWhite.withOpacity(0.6),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: TextFormField(
-                                initialValue: itembrand,
-                                decoration: InputDecoration(
-                                  contentPadding: EdgeInsets.symmetric(
-                                    horizontal: padding.top * 0.4,
-                                  ),
-                                  hintText: "Item Brand",
-                                  border: InputBorder.none,
-                                ),
-                                onChanged: (value) {
-                                  itembrand = value;
-                                },
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return "Cant Send Empty value";
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
-                            SizedBox(
-                              height: size.height / 90 * 1.538,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Quantity",
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColors.fadeblue,
-                                  ),
-                                ),
-                                Container(
-                                  height: size.height / 90 * 5.44,
-                                  width: size.width / 8 * 1.5,
-                                  decoration: BoxDecoration(
-                                    color:
-                                        AppColors.customWhite.withOpacity(0.6),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: TextFormField(
-                                    keyboardType: TextInputType.number,
-                                    initialValue: quantity.toString(),
-                                    decoration: InputDecoration(
-                                      contentPadding: EdgeInsets.symmetric(
-                                        horizontal: padding.top * 0.4,
-                                      ),
-                                      hintText: "Quantity",
-                                      border: InputBorder.none,
-                                    ),
-                                    onChanged: (value) {
-                                      quantity = double.parse(value);
-                                    },
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return "Cant Send Empty value";
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: size.height / 90 * 1.538,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                              children: [
-                                Text(
-                                  "Rate (Rs.)",
-                                  style: TextStyle(
-                                    fontSize: 18,
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColors.fadeblue,
-                                  ),
-                                ),
-                                Container(
-                                  height: size.height / 90 * 5.44,
-                                  width: size.width / 8 * 1.5,
-                                  decoration: BoxDecoration(
-                                    color:
-                                        AppColors.customWhite.withOpacity(0.6),
-                                    borderRadius: BorderRadius.circular(10),
-                                  ),
-                                  child: TextFormField(
-                                    keyboardType: TextInputType.number,
-                                    initialValue: rate.toString(),
-                                    decoration: InputDecoration(
-                                      contentPadding: EdgeInsets.symmetric(
-                                        horizontal: padding.top * 0.4,
-                                      ),
-                                      hintText: "Rate",
-                                      border: InputBorder.none,
-                                    ),
-                                    onChanged: (value) {
-                                      rate = double.parse(value);
-                                    },
-                                    validator: (value) {
-                                      if (value == null || value.isEmpty) {
-                                        return "Cant Send Empty value";
-                                      }
-                                      return null;
-                                    },
-                                  ),
-                                ),
-                              ],
-                            ),
-                            SizedBox(
-                              height: size.height / 90 * 2.538,
-                            ),
-                            Container(
-                              height: size.height / 90 * 5.44,
-                              width: size.width,
-                              decoration: BoxDecoration(
-                                color: AppColors.customWhite.withOpacity(0.6),
-                                borderRadius: BorderRadius.circular(10),
-                              ),
-                              child: TextFormField(
-                                initialValue: unit,
-                                decoration: InputDecoration(
-                                  contentPadding: EdgeInsets.symmetric(
-                                    horizontal: padding.top * 0.4,
-                                  ),
-                                  hintText: "Unit",
-                                  border: InputBorder.none,
-                                ),
-                                onChanged: (value) {
-                                  unit = value;
-                                },
-                                validator: (value) {
-                                  if (value == null || value.isEmpty) {
-                                    return "Cant Send Empty value";
-                                  }
-                                  return null;
-                                },
-                              ),
-                            ),
-                            SizedBox(
-                              height: size.height / 90 * 1.538,
-                            ),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.spaceAround,
-                              children: [
-                                ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    elevation: 0,
-                                    fixedSize: const Size(103, 33),
-                                    backgroundColor: AppColors.white,
-                                    foregroundColor: AppColors.fadeblue,
-                                  ),
-                                  onPressed: () {
-                                    Navigator.of(context).pop();
-                                  },
-                                  child: const Text("Cancel"),
-                                ),
-                                BlocConsumer<StocksBloc, StocksState>(
-                                  listener: (context, state) {
-                                    if (state is UpdatingSiteStockState) {
-                                      BotToast.showCustomLoading(
-                                        toastBuilder: (context) =>
-                                            customLoading(size),
-                                      );
-                                    }
-                                    if (state
-                                        is CompleteUpdatingSiteStockState) {
-                                      BotToast.closeAllLoading();
-                                      Navigator.of(context).pop();
-                                      BotToast.showText(
-                                        text: "Stock Information Updated",
-                                        contentColor: AppColors.green,
-                                      );
-                                    }
-                                    if (state is FailedUpdatingSiteStockState) {
-                                      BotToast.closeAllLoading();
-                                      Navigator.of(context).pop();
-                                      BotToast.showText(
-                                        text: state.error!,
-                                        contentColor: AppColors.red,
-                                      );
-                                    }
-                                  },
-                                  builder: (context, state) {
-                                    return ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                        elevation: 0,
-                                        fixedSize: const Size(103, 33),
-                                        backgroundColor: AppColors.yellow,
-                                        foregroundColor: AppColors.fadeblue,
-                                      ),
-                                      onPressed: () {
-                                        if (_formKey.currentState!.validate()) {
-                                          BlocProvider.of<StocksBloc>(context)
-                                              .updateSiteStock(
-                                            sid,
-                                            skid,
-                                            itemname,
-                                            suppliername,
-                                            itembrand,
-                                            quantity,
-                                            rate,
-                                            unit,
-                                          );
-                                        }
-                                      },
-                                      child: const Text("Update"),
-                                    );
-                                  },
-                                ),
-                              ],
-                            ),
-                          ],
+          content: SizedBox(
+            width: size.width,
+            height: size.height / 90 * 53.334,
+            child: Form(
+              key: _formKey,
+              child: SingleChildScrollView(
+                child: Column(
+                  children: [
+                    SizedBox(
+                      height: size.height / 90 * 1.338,
+                    ),
+                    Text(
+                      "Update Site Stocks Info",
+                      style: TextStyle(
+                          fontSize: 18,
+                          fontWeight: FontWeight.w600,
+                          color: AppColors.fadeblue),
+                    ),
+                    SizedBox(
+                      height: size.height / 90 * 1.538,
+                    ),
+                    Container(
+                      height: size.height / 90 * 5.44,
+                      width: size.width,
+                      decoration: BoxDecoration(
+                        color: AppColors.customWhite.withOpacity(0.6),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: TextFormField(
+                        initialValue: itemname,
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: padding.top * 0.4,
+                          ),
+                          hintText: "Item Name",
+                          border: InputBorder.none,
                         ),
+                        onChanged: (value) {
+                          itemname = value;
+                        },
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Cant Send Empty value";
+                          }
+                          return null;
+                        },
                       ),
                     ),
-                  );
-                } else {
-                  return const Center(
-                    child: CircularProgressIndicator.adaptive(),
-                  );
-                }
-              }),
+                    SizedBox(
+                      height: size.height / 90 * 1.538,
+                    ),
+                    Container(
+                      height: size.height / 90 * 5.44,
+                      width: size.width,
+                      decoration: BoxDecoration(
+                        color: AppColors.customWhite.withOpacity(0.6),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: TextFormField(
+                        initialValue: suppliername,
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: padding.top * 0.4,
+                          ),
+                          hintText: "Supplier Name",
+                          border: InputBorder.none,
+                        ),
+                        onChanged: (value) {
+                          suppliername = value;
+                        },
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Cant Send Empty value";
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                    SizedBox(
+                      height: size.height / 90 * 1.538,
+                    ),
+                    Container(
+                      height: size.height / 90 * 5.44,
+                      width: size.width,
+                      decoration: BoxDecoration(
+                        color: AppColors.customWhite.withOpacity(0.6),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: TextFormField(
+                        initialValue: itembrand,
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: padding.top * 0.4,
+                          ),
+                          hintText: "Item Brand",
+                          border: InputBorder.none,
+                        ),
+                        onChanged: (value) {
+                          itembrand = value;
+                        },
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Cant Send Empty value";
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                    SizedBox(
+                      height: size.height / 90 * 1.538,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Quantity",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400,
+                            color: AppColors.fadeblue,
+                          ),
+                        ),
+                        Container(
+                          height: size.height / 90 * 5.44,
+                          width: size.width / 8 * 1.5,
+                          decoration: BoxDecoration(
+                            color: AppColors.customWhite.withOpacity(0.6),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: TextFormField(
+                            keyboardType: TextInputType.number,
+                            initialValue: quantity.toString(),
+                            decoration: InputDecoration(
+                              contentPadding: EdgeInsets.symmetric(
+                                horizontal: padding.top * 0.4,
+                              ),
+                              hintText: "Quantity",
+                              border: InputBorder.none,
+                            ),
+                            onChanged: (value) {
+                              quantity = double.parse(value);
+                            },
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "Cant Send Empty value";
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: size.height / 90 * 1.538,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          "Rate (Rs.)",
+                          style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400,
+                            color: AppColors.fadeblue,
+                          ),
+                        ),
+                        Container(
+                          height: size.height / 90 * 5.44,
+                          width: size.width / 8 * 1.5,
+                          decoration: BoxDecoration(
+                            color: AppColors.customWhite.withOpacity(0.6),
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: TextFormField(
+                            keyboardType: TextInputType.number,
+                            initialValue: rate.toString(),
+                            decoration: InputDecoration(
+                              contentPadding: EdgeInsets.symmetric(
+                                horizontal: padding.top * 0.4,
+                              ),
+                              hintText: "Rate",
+                              border: InputBorder.none,
+                            ),
+                            onChanged: (value) {
+                              rate = double.parse(value);
+                            },
+                            validator: (value) {
+                              if (value == null || value.isEmpty) {
+                                return "Cant Send Empty value";
+                              }
+                              return null;
+                            },
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: size.height / 90 * 2.538,
+                    ),
+                    Container(
+                      height: size.height / 90 * 5.44,
+                      width: size.width,
+                      decoration: BoxDecoration(
+                        color: AppColors.customWhite.withOpacity(0.6),
+                        borderRadius: BorderRadius.circular(10),
+                      ),
+                      child: TextFormField(
+                        initialValue: unit,
+                        decoration: InputDecoration(
+                          contentPadding: EdgeInsets.symmetric(
+                            horizontal: padding.top * 0.4,
+                          ),
+                          hintText: "Unit",
+                          border: InputBorder.none,
+                        ),
+                        onChanged: (value) {
+                          unit = value;
+                        },
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Cant Send Empty value";
+                          }
+                          return null;
+                        },
+                      ),
+                    ),
+                    SizedBox(
+                      height: size.height / 90 * 1.538,
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            elevation: 0,
+                            fixedSize: const Size(103, 33),
+                            backgroundColor: AppColors.white,
+                            foregroundColor: AppColors.fadeblue,
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text("Cancel"),
+                        ),
+                        BlocConsumer<StocksBloc, StocksState>(
+                          listener: (context, state) {
+                            if (state is UpdatingSiteStockState) {
+                              BotToast.showCustomLoading(
+                                toastBuilder: (context) => customLoading(size),
+                              );
+                            }
+                            if (state is CompleteUpdatingSiteStockState) {
+                              BotToast.closeAllLoading();
+                              Navigator.of(context).pop();
+                              BotToast.showText(
+                                text: "Stock Information Updated",
+                                contentColor: AppColors.green,
+                              );
+                            }
+                            if (state is FailedUpdatingSiteStockState) {
+                              BotToast.closeAllLoading();
+                              Navigator.of(context).pop();
+                              BotToast.showText(
+                                text: state.error!,
+                                contentColor: AppColors.red,
+                              );
+                            }
+                          },
+                          builder: (context, state) {
+                            return ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                elevation: 0,
+                                fixedSize: const Size(103, 33),
+                                backgroundColor: AppColors.yellow,
+                                foregroundColor: AppColors.fadeblue,
+                              ),
+                              onPressed: () {
+                                if (_formKey.currentState!.validate()) {
+                                  BlocProvider.of<StocksBloc>(context)
+                                      .updateSiteStock(
+                                    sid,
+                                    skid,
+                                    itemname,
+                                    suppliername,
+                                    itembrand,
+                                    quantity,
+                                    rate,
+                                    unit,
+                                  );
+                                }
+                              },
+                              child: const Text("Update"),
+                            );
+                          },
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          ),
         ),
       );
     }
@@ -825,7 +807,7 @@ class _SiteStocksState extends State<SiteStocks> {
                               width: size.width,
                               radius: 15,
                               blurRadius: 4.0,
-                              shadowColor: AppColors.grey.withOpacity(0.2),
+                              shadowColor: AppColors.customWhite,
                               color: AppColors.white,
                               horizontalMargin: padding.top * 0.4,
                               verticalMargin: padding.top * 0.2,

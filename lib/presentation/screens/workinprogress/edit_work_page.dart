@@ -1,8 +1,7 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:construction/data/models/works.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
+
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
 
@@ -253,18 +252,37 @@ class _EditWorkPageState extends State<EditWorkPage> {
                         ),
                       ),
                       onPressed: () {
-                        WorksModel worksModel = WorksModel(
-                          wid: args['wid'],
-                          title: args["title"],
-                          startdate: args['startdate'],
-                          endDate: args['endDate'],
-                          workdesc: args["workdesc"],
-                        );
-                        BlocProvider.of<WorkinprogressBloc>(context)
-                            .updateWorkInfo(
-                          worksModel,
-                          args['sid'],
-                        );
+                        if (args['title'].isEmpty || args['title'] == null) {
+                          BotToast.showText(
+                            text: "Title must not be empty",
+                            contentColor: AppColors.red,
+                          );
+                        }
+                        if (args['startdate'] == null) {
+                          BotToast.showText(
+                            text: "Start Date must not be empty",
+                            contentColor: AppColors.red,
+                          );
+                        }
+                        if (args['endDate'] == null) {
+                          BotToast.showText(
+                            text: "End Date must not be empty",
+                            contentColor: AppColors.red,
+                          );
+                        } else {
+                          WorksModel worksModel = WorksModel(
+                            wid: args['wid'],
+                            title: args["title"],
+                            startdate: args['startdate'],
+                            endDate: args['endDate'],
+                            workdesc: args["workdesc"],
+                          );
+                          BlocProvider.of<WorkinprogressBloc>(context)
+                              .updateWorkInfo(
+                            worksModel,
+                            args['sid'],
+                          );
+                        }
                       },
                       child: const Text("Save"),
                     );

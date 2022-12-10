@@ -263,13 +263,22 @@ class _ScheduleWorkState extends State<ScheduleWork> {
                           ),
                         ),
                         onPressed: () {
-                          WorksModel worksModel = WorksModel(
-                            title: worktitle.text,
-                            startdate: startDate!,
-                            endDate: endDate!,
-                          );
-                          BlocProvider.of<WorkinprogressBloc>(context)
-                              .addWork(worksModel, args['sid']);
+                          if (worktitle.text.isEmpty ||
+                              startDate == null ||
+                              endDate == null) {
+                            BotToast.showText(
+                              text: "Cant send null or empty value",
+                              contentColor: AppColors.red,
+                            );
+                          } else {
+                            WorksModel worksModel = WorksModel(
+                              title: worktitle.text,
+                              startdate: startDate!,
+                              endDate: endDate!,
+                            );
+                            BlocProvider.of<WorkinprogressBloc>(context)
+                                .addWork(worksModel, args['sid']);
+                          }
                         },
                         child: const Text("Save"),
                       );

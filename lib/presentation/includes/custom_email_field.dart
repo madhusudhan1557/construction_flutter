@@ -16,7 +16,7 @@ class CustomEmailField {
   customEmailField() {
     return Container(
       height: size,
-      decoration: BoxDecoration(color: AppColors.customWhite.withOpacity(0.6)),
+      decoration: BoxDecoration(color: AppColors.customWhite),
       child: TextFormField(
         controller: controller,
         decoration: InputDecoration(
