@@ -54,21 +54,23 @@ class _ScheduleWorkState extends State<ScheduleWork> {
         body: Container(
           margin: EdgeInsets.only(top: padding.top * 0.4),
           padding: EdgeInsets.symmetric(
-            horizontal: padding.top * 0.4,
+            horizontal: padding.top * 0.6,
           ),
           child: Form(
             child: SingleChildScrollView(
               child: Column(
                 children: [
-                  SizedBox(
-                    height: size.height / 90 * 6.5,
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: padding.top * 0.4,
+                    ),
+                    height: size.height / 90 * 5.85,
+                    color: AppColors.customWhite,
                     child: TextFormField(
                       controller: worktitle,
-                      decoration: InputDecoration(
+                      decoration: const InputDecoration(
                         hintText: "Work Title",
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
+                        border: InputBorder.none,
                       ),
                     ),
                   ),
@@ -103,18 +105,8 @@ class _ScheduleWorkState extends State<ScheduleWork> {
                       padding: EdgeInsets.symmetric(
                         horizontal: padding.top * 0.4,
                       ),
-                      height: size.height / 90 * 6.5,
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                              color: AppColors.grey.withOpacity(0.5)),
-                          borderRadius: BorderRadius.circular(15),
-                          color: AppColors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: AppColors.customWhite,
-                              blurRadius: 2.0,
-                            )
-                          ]),
+                      height: size.height / 90 * 5.85,
+                      color: AppColors.customWhite,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -174,18 +166,8 @@ class _ScheduleWorkState extends State<ScheduleWork> {
                       padding: EdgeInsets.symmetric(
                         horizontal: padding.top * 0.4,
                       ),
-                      height: size.height / 90 * 6.5,
-                      decoration: BoxDecoration(
-                          border: Border.all(
-                              color: AppColors.grey.withOpacity(0.5)),
-                          borderRadius: BorderRadius.circular(15),
-                          color: AppColors.white,
-                          boxShadow: [
-                            BoxShadow(
-                              color: AppColors.customWhite,
-                              blurRadius: 2.0,
-                            )
-                          ]),
+                      color: AppColors.customWhite,
+                      height: size.height / 90 * 5.85,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -216,17 +198,21 @@ class _ScheduleWorkState extends State<ScheduleWork> {
                   SizedBox(
                     height: size.height / 90 * 1.5,
                   ),
-                  TextFormField(
-                    maxLines: 4,
-                    decoration: InputDecoration(
-                      hintText: "Work Description",
-                      border: OutlineInputBorder(
-                        borderRadius: BorderRadius.circular(20),
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: padding.top * 0.4,
+                    ),
+                    color: AppColors.customWhite,
+                    child: TextFormField(
+                      maxLines: 4,
+                      decoration: const InputDecoration(
+                        hintText: "Work Description",
+                        border: InputBorder.none,
                       ),
                     ),
                   ),
                   SizedBox(
-                    height: size.height / 90 * 8.5,
+                    height: size.height / 90 * 4.5,
                   ),
                   BlocConsumer<WorkinprogressBloc, WorkinprogressState>(
                     listener: (context, state) {
