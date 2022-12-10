@@ -17,3 +17,4 @@ const String siteStocks = "sitestocks";
 const String scheduleWOrk = "scheduleWork";
 const String userspage = "userspage";
 const String editwork = "editwork";
+const String addsitepage = "addsite";

@@ -15,6 +15,7 @@ import '../../../data/models/sites.dart';
 import '../../../main.dart';
 import '../../../utils/app_colors.dart';
 import '../../../utils/validator.dart';
+import '../../includes/appbar.dart';
 import '../../includes/custom_phone_field.dart';
 import '../../includes/custom_textarea.dart';
 import '../../includes/custom_textfield.dart';
@@ -56,14 +57,30 @@ class _AddSitePageState extends State<AddSitePage> {
     final paddding = MediaQuery.of(context).padding;
     final siteimageBloc = BlocProvider.of<PickimageBloc>(context);
     return Scaffold(
+      appBar: PreferredSize(
+        preferredSize: Size(size.width, size.height / 90 * 8.5),
+        child: CustomAppbar(
+          bgcolor: AppColors.white,
+          title: "Add Sites",
+          leading: IconButton(
+            icon: const Icon(
+              Icons.arrow_back_ios_new,
+            ),
+            onPressed: () {
+              Navigator.of(context).pop();
+            },
+          ),
+        ).customAppBar(),
+      ),
       body: BlocListener<DropdownBloc, DropdownState>(
         listener: (context, state) {
           if (state is DropdownUserSelectState) {
             dropdownvalue = state.value!;
           }
         },
-        child: AlertDialog(
-          content: StreamBuilder<QuerySnapshot>(
+        child: Container(
+          padding: EdgeInsets.symmetric(horizontal: paddding.top * 0.6),
+          child: StreamBuilder<QuerySnapshot>(
               stream: FirebaseFirestore.instance
                   .collection("users")
                   .where("role", isEqualTo: "Supervisor")
@@ -79,16 +96,6 @@ class _AddSitePageState extends State<AddSitePage> {
                       child: SingleChildScrollView(
                         child: Column(
                           children: [
-                            SizedBox(
-                              height: size.height / 90 * 1.338,
-                            ),
-                            Text(
-                              "Add Site",
-                              style: TextStyle(
-                                  fontSize: 18,
-                                  fontWeight: FontWeight.w600,
-                                  color: AppColors.fadeblue),
-                            ),
                             SizedBox(
                               height: size.height / 90 * 2.538,
                             ),
@@ -248,25 +255,22 @@ class _AddSitePageState extends State<AddSitePage> {
                                                 ),
                                               ),
                                               Align(
-                                                alignment:
-                                                    const Alignment(1.8, -2.8),
+                                                alignment: Alignment.topLeft,
                                                 child: IconButton(
-                                                  icon: const CircleAvatar(
-                                                    radius: 8,
-                                                    backgroundColor: Colors.red,
-                                                    child: Icon(
+                                                  icon: CircleAvatar(
+                                                    radius: 11,
+                                                    backgroundColor:
+                                                        AppColors.red,
+                                                    child: const Icon(
                                                       Icons.close,
-                                                      size: 5,
+                                                      size: 8,
                                                     ),
                                                   ),
                                                   onPressed: () {
-                                                    BlocProvider.of<
-                                                                PickimageBloc>(
-                                                            context)
-                                                        .removeImage(
-                                                      state.siteimage!,
-                                                      index,
-                                                    );
+                                                    setState(() {
+                                                      state.siteimage!
+                                                          .removeAt(index);
+                                                    });
                                                   },
                                                 ),
                                               ),

@@ -3,6 +3,7 @@ import 'package:construction/presentation/screens/dashboard.dart';
 import 'package:construction/presentation/screens/estimations/estimation_page.dart';
 import 'package:construction/presentation/screens/invoices/invoices_page.dart';
 import 'package:construction/presentation/screens/orders/orders_page.dart';
+import 'package:construction/presentation/screens/sites/add_site.dart';
 import 'package:construction/presentation/screens/sites/site_description.dart';
 import 'package:construction/presentation/screens/sites/site_estimation.dart';
 import 'package:construction/presentation/screens/sites/site_page.dart';
@@ -71,6 +72,9 @@ class AppRouter {
       case editwork:
         return MaterialPageRoute(
             builder: (context) => const EditWorkPage(), settings: settings);
+      case addsitepage:
+        return MaterialPageRoute(
+            builder: (context) => const AddSitePage(), settings: settings);
     }
     return null;
   }

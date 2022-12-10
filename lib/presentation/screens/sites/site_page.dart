@@ -55,14 +55,20 @@ class _SitePageState extends State<SitePage> {
           bgcolor: AppColors.white,
           action: [
             args['role'] == "Admin"
-                ? CircleAvatar(
-                    backgroundColor: AppColors.yellow,
-                    radius: 14,
-                    child: IconButton(
-                      onPressed: () {},
-                      icon: Icon(
-                        Icons.add,
-                        color: AppColors.fadeblue,
+                ? Container(
+                    padding:
+                        EdgeInsets.symmetric(horizontal: paddding.top * 0.6),
+                    child: CircleAvatar(
+                      backgroundColor: AppColors.yellow,
+                      radius: 21,
+                      child: IconButton(
+                        onPressed: () {
+                          Navigator.of(context).pushNamed(addsitepage);
+                        },
+                        icon: Icon(
+                          Icons.add,
+                          color: AppColors.fadeblue,
+                        ),
                       ),
                     ),
                   )
