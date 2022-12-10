@@ -1,16 +1,10 @@
-import 'dart:io';
-
 import 'package:bot_toast/bot_toast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:construction/presentation/includes/appbar.dart';
 import 'package:construction/presentation/includes/custom_box.dart';
-import 'package:construction/presentation/includes/custom_phone_field.dart';
-import 'package:construction/presentation/includes/custom_textarea.dart';
-import 'package:construction/presentation/includes/custom_textfield.dart';
+
 import 'package:construction/presentation/includes/show_modal.dart';
 import 'package:construction/utils/routes.dart';
-import 'package:construction/utils/validator.dart';
-import 'package:dropdown_button2/dropdown_button2.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,7 +14,6 @@ import 'package:image_picker/image_picker.dart';
 
 import '../../../../utils/app_colors.dart';
 
-import '../../../bloc/pickimage/pickimage_bloc.dart';
 import '../../../bloc/sites/sites_bloc.dart';
 
 import '../../../main.dart';

@@ -14,7 +14,6 @@ import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.da
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/fluent_mdl2.dart';
-import 'package:intl/intl.dart';
 
 import '../../../bloc/dropdown/dropdown_bloc.dart';
 import '../../../bloc/workinprogress/workinprogress_bloc.dart';
@@ -458,8 +457,6 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                 shrinkWrap: true,
                 itemCount: snapshot.data!.docs.length,
                 itemBuilder: (context, index) {
-                  num p = snapshot.data!.docs[index]['progress'];
-
                   return Column(
                     children: [
                       InkWell(

@@ -17,7 +17,7 @@ import '../../../utils/app_colors.dart';
 import '../../../utils/validator.dart';
 import '../../includes/appbar.dart';
 import '../../includes/custom_phone_field.dart';
-import '../../includes/custom_textarea.dart';
+
 import '../../includes/custom_textfield.dart';
 
 class AddSitePage extends StatefulWidget {
@@ -28,18 +28,15 @@ class AddSitePage extends StatefulWidget {
 }
 
 class _AddSitePageState extends State<AddSitePage> {
-  final TextEditingController _sitename = TextEditingController(text: "Hello");
+  final TextEditingController _sitename = TextEditingController();
 
-  final TextEditingController _sitedes = TextEditingController(text: "Hello");
+  final TextEditingController _sitedes = TextEditingController();
 
-  final TextEditingController _sitelocation =
-      TextEditingController(text: "Hello");
+  final TextEditingController _sitelocation = TextEditingController();
 
-  final TextEditingController _clientname =
-      TextEditingController(text: "Hello");
+  final TextEditingController _clientname = TextEditingController();
 
-  final TextEditingController _phone =
-      TextEditingController(text: "9864022154");
+  final TextEditingController _phone = TextEditingController();
 
   List<String> imageurl = [];
 
@@ -112,15 +109,22 @@ class _AddSitePageState extends State<AddSitePage> {
                             SizedBox(
                               height: size.height / 90 * 1.538,
                             ),
-                            CustomTextArea(
-                              controller: _sitedes,
-                              hintText: "Site Description",
-                              suffixIcon: const Icon(
-                                Icons.home_sharp,
-                                color: Colors.black,
+                            Container(
+                              color: AppColors.customWhite,
+                              padding:
+                                  EdgeInsets.only(left: paddding.top * 0.3),
+                              child: TextFormField(
+                                maxLines: 4,
+                                decoration: const InputDecoration(
+                                  hintText: "Site Description",
+                                  border: InputBorder.none,
+                                  suffixIcon: Icon(
+                                    Icons.home,
+                                    color: Colors.black,
+                                  ),
+                                ),
                               ),
-                              size: size.height / 90 * 11.44,
-                            ).customTextArea(),
+                            ),
                             SizedBox(
                               height: size.height / 90 * 1.538,
                             ),
