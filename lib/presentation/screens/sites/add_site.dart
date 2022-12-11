@@ -114,6 +114,7 @@ class _AddSitePageState extends State<AddSitePage> {
                               padding:
                                   EdgeInsets.only(left: paddding.top * 0.3),
                               child: TextFormField(
+                                controller: _sitedes,
                                 maxLines: 4,
                                 decoration: const InputDecoration(
                                   hintText: "Site Description",

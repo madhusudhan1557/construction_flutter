@@ -1,6 +1,7 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:construction/bloc/stock/stocks_bloc.dart';
+import 'package:construction/data/services/create_pdf_file.dart';
 import 'package:construction/main.dart';
 import 'package:construction/presentation/includes/appbar.dart';
 import 'package:construction/presentation/includes/custom_box.dart';
@@ -369,7 +370,7 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                         Text(
                           "Progress",
                           style: TextStyle(
-                            fontSize: 21,
+                            fontSize: 18,
                             fontWeight: FontWeight.w500,
                             color: AppColors.fadeblue,
                           ),
@@ -377,30 +378,49 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                         SizedBox(
                           height: size.height / 90 * 1.2,
                         ),
-                        Container(
-                          height: size.height / 90 * 2.26,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                  color: AppColors.customWhite,
-                                  blurRadius: 4.0),
-                            ],
-                          ),
-                          child: FAProgressBar(
-                            formatValueFixed: 2,
-                            animatedDuration: const Duration(seconds: 2),
-                            borderRadius: BorderRadius.circular(15),
-                            backgroundColor: AppColors.white,
-                            progressColor: AppColors.green,
-                            direction: Axis.horizontal,
-                            displayText: "%",
-                            displayTextStyle: TextStyle(
-                              color: AppColors.white,
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            Container(
+                              height: size.height / 90 * 3.26,
+                              width: size.width / 8 * 3.134,
+                              decoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(10),
+                                boxShadow: [
+                                  BoxShadow(
+                                      color: AppColors.customWhite,
+                                      blurRadius: 4.0),
+                                ],
+                              ),
+                              child: FAProgressBar(
+                                formatValueFixed: 2,
+                                animatedDuration: const Duration(seconds: 2),
+                                borderRadius: BorderRadius.circular(15),
+                                backgroundColor: AppColors.white,
+                                progressColor: AppColors.green,
+                                direction: Axis.horizontal,
+                                displayText: "%",
+                                displayTextStyle: TextStyle(
+                                  color: AppColors.white,
+                                ),
+                                maxValue: 100,
+                                currentValue: 90,
+                              ),
                             ),
-                            maxValue: 100,
-                            currentValue: 90,
-                          ),
+                            ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                backgroundColor: AppColors.yellow,
+                                foregroundColor: Colors.black,
+                                fixedSize: Size(size.width / 8 * 2.8, 15),
+                              ),
+                              onPressed: () {
+                                CreatePdfFile().createWorkReportPdf();
+                              },
+                              child: const Text(
+                                "Generate Report",
+                              ),
+                            ),
+                          ],
                         ),
                         SizedBox(
                           height: size.height / 90 * 1.5,
@@ -408,7 +428,7 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                         Text(
                           "Site Works",
                           style: TextStyle(
-                            fontSize: 21,
+                            fontSize: 18,
                             fontWeight: FontWeight.w500,
                             color: AppColors.fadeblue,
                           ),

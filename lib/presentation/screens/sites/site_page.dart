@@ -312,8 +312,9 @@ class _SitePageState extends State<SitePage> {
                                                     },
                                                     child: Iconify(
                                                       FluentMdl2.delete,
-                                                      size:
-                                                          size.height / 90 * 3,
+                                                      size: size.height /
+                                                          90 *
+                                                          2.3,
                                                       color: AppColors.red,
                                                     ),
                                                   ),
@@ -343,7 +344,7 @@ class _SitePageState extends State<SitePage> {
                                                 },
                                                 child: Iconify(
                                                   FluentMdl2.archive,
-                                                  size: size.height / 90 * 3,
+                                                  size: size.height / 90 * 2.3,
                                                   color: AppColors.fadeblue,
                                                 ),
                                               ),
