@@ -1,3 +1,4 @@
+import 'package:construction/data/services/stock_report_pdf.dart';
 import 'package:construction/data/services/work_report_pdf.dart';
 import 'package:construction/main.dart';
 import 'package:flutter/material.dart';
@@ -8,8 +9,8 @@ import 'package:printing/printing.dart';
 import '../../../utils/app_colors.dart';
 import '../../includes/appbar.dart';
 
-class PdfReportPreviewPage extends StatelessWidget {
-  const PdfReportPreviewPage({super.key});
+class StockReportPreview extends StatelessWidget {
+  const StockReportPreview({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ class PdfReportPreviewPage extends StatelessWidget {
       appBar: PreferredSize(
         preferredSize: Size(size.width, size.height / 90 * 8.5),
         child: CustomAppbar(
-          title: "Works Report",
+          title: "Stocks Report",
           bgcolor: AppColors.white,
           leading: IconButton(
             icon: const Icon(
@@ -43,7 +44,7 @@ class PdfReportPreviewPage extends StatelessWidget {
         dynamicLayout: true,
         pdfFileName:
             "${data[0]['sitename']} - ${DateFormat.yMMMd().format(DateTime.now())}",
-        build: (context) => MakeWorkReportPdf().makePdf(data),
+        build: (context) => MakeStockReportPdf().makePdf(data),
       ),
     );
   }

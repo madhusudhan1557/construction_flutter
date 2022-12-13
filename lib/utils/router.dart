@@ -7,9 +7,10 @@ import 'package:construction/presentation/screens/sites/add_site.dart';
 import 'package:construction/presentation/screens/sites/site_description.dart';
 import 'package:construction/presentation/screens/sites/site_estimation.dart';
 import 'package:construction/presentation/screens/sites/site_page.dart';
-import 'package:construction/presentation/screens/sites/site_stocks.dart';
+import 'package:construction/presentation/screens/stocks/site_stocks.dart';
 import 'package:construction/presentation/screens/splash.dart';
-import 'package:construction/presentation/screens/stocks/stock_page.dart';
+import 'package:construction/presentation/screens/stocks/stock_report.dart';
+
 import 'package:construction/presentation/screens/users/users_page.dart';
 import 'package:construction/presentation/screens/workinprogress/edit_work_page.dart';
 import 'package:construction/presentation/screens/workinprogress/report_preview.dart';
@@ -40,9 +41,9 @@ class AppRouter {
       case siteDesc:
         return MaterialPageRoute(
             builder: (context) => const SiteDescription(), settings: settings);
-      case stocks:
+      case siteStocks:
         return MaterialPageRoute(
-            builder: (context) => const StockPage(), settings: settings);
+            builder: (context) => const SiteStocks(), settings: settings);
       case orders:
         return MaterialPageRoute(
             builder: (context) => const OrderPage(), settings: settings);
@@ -55,9 +56,7 @@ class AppRouter {
       case settingspage:
         return MaterialPageRoute(
             builder: (context) => const SettingsPage(), settings: settings);
-      case siteStocks:
-        return MaterialPageRoute(
-            builder: (context) => const SiteStocks(), settings: settings);
+
       case siteEstimation:
         return MaterialPageRoute(
             builder: (context) => const SiteEstimation(), settings: settings);
@@ -77,7 +76,10 @@ class AppRouter {
       case addsitepage:
         return MaterialPageRoute(
             builder: (context) => const AddSitePage(), settings: settings);
-
+      case stocksreport:
+        return MaterialPageRoute(
+            builder: (context) => const StockReportPreview(),
+            settings: settings);
       case workreportPdf:
         return MaterialPageRoute(
             builder: (context) => const PdfReportPreviewPage(),

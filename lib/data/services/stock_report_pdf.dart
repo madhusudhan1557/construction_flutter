@@ -4,14 +4,14 @@ import 'package:pdf/pdf.dart';
 
 import 'package:pdf/widgets.dart';
 
-class MakeWorkReportPdf {
+class MakeStockReportPdf {
   Widget paddedText(
     final String text,
     final PdfColor color, {
     final TextAlign align = TextAlign.left,
   }) =>
       Padding(
-        padding: const EdgeInsets.all(10),
+        padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
         child: Text(
           text,
           textAlign: align,
@@ -40,7 +40,7 @@ class MakeWorkReportPdf {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
-                      "Daily Works Report",
+                      "Daily Stocks Report",
                       style: TextStyle(
                         fontSize: 15,
                         color: PdfColors.white,
@@ -68,21 +68,21 @@ class MakeWorkReportPdf {
                       Text(
                         "Aakar Developers",
                         style: TextStyle(
-                            fontSize: 14,
+                            fontSize: 15,
                             color: PdfColors.black,
                             fontWeight: FontWeight.bold),
                       ),
                       Text(
                         "Kapan, Kathmandu",
                         style: TextStyle(
-                            fontSize: 14,
+                            fontSize: 15,
                             color: PdfColors.black,
                             fontWeight: FontWeight.bold),
                       ),
                       Text(
                         "Sitename : ${data[0]['sitename']}",
                         style: TextStyle(
-                            fontSize: 14,
+                            fontSize: 15,
                             color: PdfColors.black,
                             fontWeight: FontWeight.bold),
                       ),
@@ -114,19 +114,21 @@ class MakeWorkReportPdf {
                     children: [
                       paddedText("SN", PdfColor.fromHex("F5F5F5")),
                       paddedText("Title", PdfColor.fromHex("F5F5F5")),
-                      paddedText("Started At", PdfColor.fromHex("F5F5F5")),
-                      paddedText("End Date", PdfColor.fromHex("F5F5F5")),
-                      paddedText("Progress", PdfColor.fromHex("F5F5F5")),
+                      paddedText("Brand Name", PdfColor.fromHex("F5F5F5")),
+                      paddedText("Supplier Name", PdfColor.fromHex("F5F5F5")),
+                      paddedText("Stocks", PdfColor.fromHex("F5F5F5")),
+                      paddedText("Unit", PdfColor.fromHex("F5F5F5")),
                     ],
                   ),
                   ...data.map((e) {
                     return TableRow(
                       children: [
                         paddedText(e['sn'], PdfColors.black),
-                        paddedText(e['title'], PdfColors.black),
-                        paddedText(e['startdate'], PdfColors.black),
-                        paddedText(e['endDate'], PdfColors.black),
-                        paddedText("${e['progress']}", PdfColors.black),
+                        paddedText(e['itemname'], PdfColors.black),
+                        paddedText(e['brandname'], PdfColors.black),
+                        paddedText(e['suppliername'], PdfColors.black),
+                        paddedText("${e['quantity']}", PdfColors.black),
+                        paddedText(e['unit'], PdfColors.black),
                       ],
                     );
                   }),

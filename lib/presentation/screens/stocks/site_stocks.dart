@@ -5,6 +5,7 @@ import 'package:construction/data/models/stocks.dart';
 import 'package:construction/presentation/includes/appbar.dart';
 import 'package:construction/presentation/includes/custom_box.dart';
 import 'package:construction/utils/app_colors.dart';
+import 'package:construction/utils/routes.dart';
 
 import 'package:flutter/material.dart';
 
@@ -33,8 +34,10 @@ class _SiteStocksState extends State<SiteStocks> {
   final TextEditingController _unit = TextEditingController();
   final TextEditingController _qty = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+
   @override
   Widget build(BuildContext context) {
+    List<Map<String, dynamic>> data = [];
     final size = MediaQuery.of(context).size;
     final padding = MediaQuery.of(context).padding;
 
@@ -745,16 +748,36 @@ class _SiteStocksState extends State<SiteStocks> {
             },
           ),
           action: [
-            IconButton(
-              onPressed: () {
-                showAddStockModal();
-              },
-              icon: CircleAvatar(
-                backgroundColor: AppColors.yellow,
-                radius: 15,
-                child: Icon(
-                  Icons.add,
-                  color: AppColors.fadeblue,
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: padding.top * 0.4),
+              child: IconButton(
+                onPressed: () {
+                  showAddStockModal();
+                },
+                icon: CircleAvatar(
+                  backgroundColor: AppColors.yellow,
+                  radius: 18,
+                  child: Icon(
+                    Icons.add,
+                    color: AppColors.fadeblue,
+                  ),
+                ),
+              ),
+            ),
+            Container(
+              padding: EdgeInsets.symmetric(horizontal: padding.top * 0.4),
+              child: IconButton(
+                onPressed: () {
+                  Navigator.of(context)
+                      .pushNamed(stocksreport, arguments: data);
+                },
+                icon: CircleAvatar(
+                  backgroundColor: AppColors.yellow,
+                  radius: 18,
+                  child: Icon(
+                    Icons.picture_as_pdf,
+                    color: AppColors.fadeblue,
+                  ),
                 ),
               ),
             ),
@@ -767,7 +790,7 @@ class _SiteStocksState extends State<SiteStocks> {
             CustomBox(
               height: size.height / 90 * 4.8,
               width: size.width,
-              radius: 15,
+              radius: 16,
               blurRadius: 4.0,
               shadowColor: AppColors.grey.withOpacity(0.2),
               color: AppColors.white,
@@ -802,6 +825,21 @@ class _SiteStocksState extends State<SiteStocks> {
                           shrinkWrap: true,
                           itemCount: snapshot.data!.docs.length,
                           itemBuilder: (context, index) {
+                            data.add(
+                              {
+                                'sn': "${index + 1}",
+                                "sitename": args['sitename'],
+                                "itemname": snapshot.data!.docs[index]
+                                    ['itemname'],
+                                "brandname": snapshot.data!.docs[index]
+                                    ['brandname'],
+                                "suppliername": snapshot.data!.docs[index]
+                                    ['suppliername'],
+                                "unit": snapshot.data!.docs[index]['unit'],
+                                "quantity": snapshot.data!.docs[index]
+                                    ['quantity'],
+                              },
+                            );
                             return CustomBox(
                               height: size.height / 90 * 15.15,
                               width: size.width,
@@ -990,7 +1028,8 @@ class _SiteStocksState extends State<SiteStocks> {
                                 ),
                               ),
                             ).customBox();
-                          });
+                          },
+                        );
                 } else {
                   return const Center(
                     child: CircularProgressIndicator.adaptive(),
