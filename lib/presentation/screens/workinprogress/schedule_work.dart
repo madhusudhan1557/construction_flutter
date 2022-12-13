@@ -1,6 +1,7 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:construction/data/models/works.dart';
 import 'package:construction/presentation/includes/appbar.dart';
+import 'package:construction/utils/validator.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
@@ -20,6 +21,7 @@ class _ScheduleWorkState extends State<ScheduleWork> {
   DateTime? startDate;
   TextEditingController worktitle = TextEditingController();
   DateTime? endDate;
+  final _formkey = GlobalKey<FormState>();
   @override
   Widget build(BuildContext context) {
     final Map<String, dynamic> args =
@@ -57,6 +59,7 @@ class _ScheduleWorkState extends State<ScheduleWork> {
             horizontal: padding.top * 0.6,
           ),
           child: Form(
+            key: _formkey,
             child: SingleChildScrollView(
               child: Column(
                 children: [
@@ -72,6 +75,8 @@ class _ScheduleWorkState extends State<ScheduleWork> {
                         hintText: "Work Title",
                         border: InputBorder.none,
                       ),
+                      validator: (value) =>
+                          Validator.getBlankFieldValidator(value, "Work Title"),
                     ),
                   ),
                   SizedBox(

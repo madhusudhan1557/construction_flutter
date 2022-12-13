@@ -1,10 +1,10 @@
-import 'package:construction/data/services/work_report_pdf.dart';
 import 'package:construction/main.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 
 import 'package:printing/printing.dart';
 
+import '../../../services/work_report_pdf.dart';
 import '../../../utils/app_colors.dart';
 import '../../includes/appbar.dart';
 
