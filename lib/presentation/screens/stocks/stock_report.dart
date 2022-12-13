@@ -17,34 +17,36 @@ class StockReportPreview extends StatelessWidget {
     final List<Map<String, dynamic>> data = ModalRoute.of(context)!
         .settings
         .arguments as List<Map<String, dynamic>>;
-    return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size(size.width, size.height / 90 * 8.5),
-        child: CustomAppbar(
-          title: "Stocks Report",
-          bgcolor: AppColors.white,
-          leading: IconButton(
-            icon: const Icon(
-              Icons.arrow_back_ios_new,
-              size: 24,
+    return data.isEmpty
+        ? const Scaffold()
+        : Scaffold(
+            appBar: PreferredSize(
+              preferredSize: Size(size.width, size.height / 90 * 8.5),
+              child: CustomAppbar(
+                title: "Stocks Report",
+                bgcolor: AppColors.white,
+                leading: IconButton(
+                  icon: const Icon(
+                    Icons.arrow_back_ios_new,
+                    size: 24,
+                  ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ).customAppBar(),
             ),
-            onPressed: () {
-              Navigator.of(context).pop();
-            },
-          ),
-        ).customAppBar(),
-      ),
-      body: PdfPreview(
-        shouldRepaint: true,
-        allowPrinting: true,
-        allowSharing: true,
-        loadingWidget: customLoading(size),
-        canChangeOrientation: false,
-        dynamicLayout: true,
-        pdfFileName:
-            "${data[0]['sitename']} - ${DateFormat.yMMMd().format(DateTime.now())}",
-        build: (context) => MakeStockReportPdf().makePdf(data),
-      ),
-    );
+            body: PdfPreview(
+              shouldRepaint: true,
+              allowPrinting: true,
+              allowSharing: true,
+              loadingWidget: customLoading(size),
+              canChangeOrientation: false,
+              dynamicLayout: true,
+              pdfFileName:
+                  "${data[0]['sitename']} - ${DateFormat.yMMMd().format(DateTime.now())}",
+              build: (context) => MakeStockReportPdf().makePdf(data),
+            ),
+          );
   }
 }

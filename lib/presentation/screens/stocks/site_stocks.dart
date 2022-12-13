@@ -748,24 +748,21 @@ class _SiteStocksState extends State<SiteStocks> {
             },
           ),
           action: [
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: padding.top * 0.4),
-              child: IconButton(
-                onPressed: () {
-                  showAddStockModal();
-                },
-                icon: CircleAvatar(
-                  backgroundColor: AppColors.yellow,
-                  radius: 18,
-                  child: Icon(
-                    Icons.add,
-                    color: AppColors.fadeblue,
-                  ),
+            IconButton(
+              onPressed: () {
+                showAddStockModal();
+              },
+              icon: CircleAvatar(
+                backgroundColor: AppColors.yellow,
+                radius: 18,
+                child: Icon(
+                  Icons.add,
+                  color: AppColors.fadeblue,
                 ),
               ),
             ),
             Container(
-              padding: EdgeInsets.symmetric(horizontal: padding.top * 0.4),
+              padding: EdgeInsets.symmetric(horizontal: padding.top * 0.2),
               child: IconButton(
                 onPressed: () {
                   if (data.isEmpty) {

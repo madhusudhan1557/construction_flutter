@@ -590,7 +590,7 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                             "progress": snapshot.data!.docs[i]['progress']
                           });
                         }
-                        if (data.isEmpty) {
+                        if (data.isNotEmpty) {
                           Navigator.of(context)
                               .pushNamed(workreportPdf, arguments: data);
                         }
