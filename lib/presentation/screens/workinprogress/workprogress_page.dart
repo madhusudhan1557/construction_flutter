@@ -1,7 +1,7 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:construction/bloc/stock/stocks_bloc.dart';
-import 'package:construction/data/services/create_pdf_file.dart';
+
 import 'package:construction/main.dart';
 import 'package:construction/presentation/includes/appbar.dart';
 import 'package:construction/presentation/includes/custom_box.dart';
@@ -15,6 +15,7 @@ import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.da
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/fluent_mdl2.dart';
+import 'package:intl/intl.dart';
 
 import '../../../bloc/dropdown/dropdown_bloc.dart';
 import '../../../bloc/workinprogress/workinprogress_bloc.dart';
@@ -378,49 +379,31 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                         SizedBox(
                           height: size.height / 90 * 1.2,
                         ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              height: size.height / 90 * 3.26,
-                              width: size.width / 8 * 3.134,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(10),
-                                boxShadow: [
-                                  BoxShadow(
-                                      color: AppColors.customWhite,
-                                      blurRadius: 4.0),
-                                ],
-                              ),
-                              child: FAProgressBar(
-                                formatValueFixed: 2,
-                                animatedDuration: const Duration(seconds: 2),
-                                borderRadius: BorderRadius.circular(15),
-                                backgroundColor: AppColors.white,
-                                progressColor: AppColors.green,
-                                direction: Axis.horizontal,
-                                displayText: "%",
-                                displayTextStyle: TextStyle(
-                                  color: AppColors.white,
-                                ),
-                                maxValue: 100,
-                                currentValue: 90,
-                              ),
+                        Container(
+                          height: size.height / 90 * 1.8,
+                          width: size.width,
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(10),
+                            boxShadow: [
+                              BoxShadow(
+                                  color: AppColors.customWhite,
+                                  blurRadius: 4.0),
+                            ],
+                          ),
+                          child: FAProgressBar(
+                            formatValueFixed: 2,
+                            animatedDuration: const Duration(seconds: 2),
+                            borderRadius: BorderRadius.circular(15),
+                            backgroundColor: AppColors.white,
+                            progressColor: AppColors.green,
+                            direction: Axis.horizontal,
+                            displayText: "%",
+                            displayTextStyle: TextStyle(
+                              color: AppColors.white,
                             ),
-                            ElevatedButton(
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: AppColors.yellow,
-                                foregroundColor: Colors.black,
-                                fixedSize: Size(size.width / 8 * 2.8, 15),
-                              ),
-                              onPressed: () {
-                                CreatePdfFile().createWorkReportPdf();
-                              },
-                              child: const Text(
-                                "Generate Report",
-                              ),
-                            ),
-                          ],
+                            maxValue: 100,
+                            currentValue: 90,
+                          ),
                         ),
                         SizedBox(
                           height: size.height / 90 * 1.5,
@@ -464,118 +447,153 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
           .snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return SizedBox(
-            height: size.height / 90 * 48.78,
-            width: size.width,
-            child: Scrollbar(
-              thickness: 4,
-              radius: const Radius.circular(12),
-              child: ListView.builder(
-                padding: const EdgeInsets.only(
-                  top: 0,
+          return Column(
+            children: [
+              SizedBox(
+                height: size.height / 90 * 42.78,
+                width: size.width,
+                child: Scrollbar(
+                  thickness: 4,
+                  radius: const Radius.circular(12),
+                  child: ListView.builder(
+                    padding: const EdgeInsets.only(
+                      top: 0,
+                    ),
+                    shrinkWrap: true,
+                    itemCount: snapshot.data!.docs.length,
+                    itemBuilder: (context, index) {
+                      return Column(
+                        children: [
+                          InkWell(
+                            onTap: () {
+                              showProgressModal(
+                                snapshot.data!.docs[index]['wid'],
+                                snapshot.data!.docs[index]['sid'],
+                              );
+                            },
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                              children: [
+                                SizedBox(
+                                  width: size.width / 3,
+                                  child: Text(
+                                    "${snapshot.data!.docs[index]['title']}",
+                                    style: TextStyle(
+                                      overflow: TextOverflow.clip,
+                                      color: AppColors.grey,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ),
+                                SizedBox(
+                                  width: size.width / 8,
+                                  child: Text(
+                                    "${snapshot.data!.docs[index]['progress']} %",
+                                    style: TextStyle(
+                                      overflow: TextOverflow.clip,
+                                      color: AppColors.grey,
+                                      fontWeight: FontWeight.w400,
+                                      fontSize: 16,
+                                    ),
+                                  ),
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    Navigator.of(context)
+                                        .pushNamed(editwork, arguments: {
+                                      "sid": snapshot.data!.docs[index]['sid'],
+                                      "wid": snapshot.data!.docs[index]['wid'],
+                                      "title": snapshot.data!.docs[index]
+                                          ['title'],
+                                      "startdate": snapshot
+                                          .data!.docs[index]['startdate']
+                                          .toDate(),
+                                      "endDate": snapshot
+                                          .data!.docs[index]['endDate']
+                                          .toDate(),
+                                      "workdesc": snapshot.data!.docs[index]
+                                          ['workdesc']
+                                    });
+                                  },
+                                  icon: Iconify(
+                                    FluentMdl2.edit,
+                                    color: AppColors.grey,
+                                    size: size.height / 90 * 2.2,
+                                  ),
+                                ),
+                                Container(
+                                  height: size.height / 90 * 1.5,
+                                  width: size.width / 6,
+                                  margin: EdgeInsets.symmetric(
+                                    horizontal: padding.top * 0.2,
+                                    vertical: padding.top * 0.2,
+                                  ),
+                                  decoration: BoxDecoration(
+                                      color: AppColors.white,
+                                      borderRadius: BorderRadius.circular(15),
+                                      boxShadow: [
+                                        BoxShadow(
+                                          color: AppColors.customWhite,
+                                          blurRadius: 2.0,
+                                        )
+                                      ]),
+                                  child: FAProgressBar(
+                                    formatValueFixed: 2,
+                                    animatedDuration:
+                                        const Duration(seconds: 2),
+                                    borderRadius: BorderRadius.circular(15),
+                                    backgroundColor: AppColors.white,
+                                    progressColor: AppColors.orange,
+                                    direction: Axis.horizontal,
+                                    maxValue: 100,
+                                    currentValue: double.parse(snapshot
+                                        .data!.docs[index]['progress']
+                                        .toString()),
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          const Divider(
+                            thickness: 1.3,
+                          ),
+                        ],
+                      );
+                    },
+                  ),
                 ),
-                shrinkWrap: true,
-                itemCount: snapshot.data!.docs.length,
-                itemBuilder: (context, index) {
-                  return Column(
-                    children: [
-                      InkWell(
-                        onTap: () {
-                          showProgressModal(
-                            snapshot.data!.docs[index]['wid'],
-                            snapshot.data!.docs[index]['sid'],
-                          );
-                        },
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            SizedBox(
-                              width: size.width / 3,
-                              child: Text(
-                                "${snapshot.data!.docs[index]['title']}",
-                                style: TextStyle(
-                                  overflow: TextOverflow.clip,
-                                  color: AppColors.grey,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ),
-                            SizedBox(
-                              width: size.width / 8,
-                              child: Text(
-                                "${snapshot.data!.docs[index]['progress']} %",
-                                style: TextStyle(
-                                  overflow: TextOverflow.clip,
-                                  color: AppColors.grey,
-                                  fontWeight: FontWeight.w400,
-                                  fontSize: 16,
-                                ),
-                              ),
-                            ),
-                            IconButton(
-                              onPressed: () {
-                                Navigator.of(context)
-                                    .pushNamed(editwork, arguments: {
-                                  "sid": snapshot.data!.docs[index]['sid'],
-                                  "wid": snapshot.data!.docs[index]['wid'],
-                                  "title": snapshot.data!.docs[index]['title'],
-                                  "startdate": snapshot
-                                      .data!.docs[index]['startdate']
-                                      .toDate(),
-                                  "endDate": snapshot
-                                      .data!.docs[index]['endDate']
-                                      .toDate(),
-                                  "workdesc": snapshot.data!.docs[index]
-                                      ['workdesc']
-                                });
-                              },
-                              icon: Iconify(
-                                FluentMdl2.edit,
-                                color: AppColors.grey,
-                                size: size.height / 90 * 2.2,
-                              ),
-                            ),
-                            Container(
-                              height: size.height / 90 * 2.6,
-                              width: size.width / 6,
-                              margin: EdgeInsets.symmetric(
-                                horizontal: padding.top * 0.2,
-                                vertical: padding.top * 0.2,
-                              ),
-                              decoration: BoxDecoration(
-                                  color: AppColors.white,
-                                  borderRadius: BorderRadius.circular(15),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: AppColors.customWhite,
-                                      blurRadius: 2.0,
-                                    )
-                                  ]),
-                              child: FAProgressBar(
-                                formatValueFixed: 2,
-                                animatedDuration: const Duration(seconds: 2),
-                                borderRadius: BorderRadius.circular(15),
-                                backgroundColor: AppColors.white,
-                                progressColor: AppColors.orange,
-                                direction: Axis.horizontal,
-                                maxValue: 100,
-                                currentValue: double.parse(snapshot
-                                    .data!.docs[index]['progress']
-                                    .toString()),
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                      const Divider(
-                        thickness: 1.3,
-                      ),
-                    ],
-                  );
-                },
               ),
-            ),
+              SizedBox(
+                height: size.height / 90 * 1.5,
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  elevation: 0,
+                  backgroundColor: AppColors.yellow,
+                  foregroundColor: AppColors.fadeblue,
+                  fixedSize: Size(size.width, size.height / 90 * 4.2),
+                ),
+                onPressed: () {
+                  List<Map<String, dynamic>> data = [];
+                  for (int i = 0; i < snapshot.data!.docs.length; i++) {
+                    data.add({
+                      "sn": "${i + 1}",
+                      "sitename": args['sitename'],
+                      "title": snapshot.data!.docs[i]['title'],
+                      "startdate": DateFormat.yMMMMd()
+                          .format(snapshot.data!.docs[i]['startdate'].toDate()),
+                      "endDate": DateFormat.yMMMMd()
+                          .format(snapshot.data!.docs[i]['endDate'].toDate()),
+                      "progress": snapshot.data!.docs[i]['progress']
+                    });
+                  }
+                  Navigator.of(context)
+                      .pushNamed(workreportPdf, arguments: data);
+                },
+                child: const Text("Generate Report"),
+              )
+            ],
           );
         } else {
           return const Center(

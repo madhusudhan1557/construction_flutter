@@ -12,7 +12,9 @@ import 'package:construction/presentation/screens/splash.dart';
 import 'package:construction/presentation/screens/stocks/stock_page.dart';
 import 'package:construction/presentation/screens/users/users_page.dart';
 import 'package:construction/presentation/screens/workinprogress/edit_work_page.dart';
+import 'package:construction/presentation/screens/workinprogress/report_preview.dart';
 import 'package:construction/presentation/screens/workinprogress/schedule_work.dart';
+
 import 'package:construction/presentation/screens/workinprogress/workprogress_page.dart';
 import 'package:construction/presentation/settings.dart';
 import 'package:construction/utils/routes.dart';
@@ -75,6 +77,11 @@ class AppRouter {
       case addsitepage:
         return MaterialPageRoute(
             builder: (context) => const AddSitePage(), settings: settings);
+
+      case workreportPdf:
+        return MaterialPageRoute(
+            builder: (context) => const PdfReportPreviewPage(),
+            settings: settings);
     }
     return null;
   }

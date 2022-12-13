@@ -710,7 +710,10 @@ class _SiteDescriptionState extends State<SiteDescription> {
                                     onTap: () {
                                       Navigator.of(context).pushNamed(
                                           workinprogress,
-                                          arguments: {"sid": args['sid']});
+                                          arguments: {
+                                            "sid": args['sid'],
+                                            "sitename": args['sitename']
+                                          });
                                     },
                                     child: Container(
                                       padding: EdgeInsets.symmetric(

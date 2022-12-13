@@ -18,3 +18,5 @@ const String scheduleWOrk = "scheduleWork";
 const String userspage = "userspage";
 const String editwork = "editwork";
 const String addsitepage = "addsite";
+
+const String workreportPdf = "workReportpdf";
