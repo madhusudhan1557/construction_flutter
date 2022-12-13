@@ -567,32 +567,36 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
               SizedBox(
                 height: size.height / 90 * 1.5,
               ),
-              ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  elevation: 0,
-                  backgroundColor: AppColors.yellow,
-                  foregroundColor: AppColors.fadeblue,
-                  fixedSize: Size(size.width, size.height / 90 * 4.2),
-                ),
-                onPressed: () {
-                  List<Map<String, dynamic>> data = [];
-                  for (int i = 0; i < snapshot.data!.docs.length; i++) {
-                    data.add({
-                      "sn": "${i + 1}",
-                      "sitename": args['sitename'],
-                      "title": snapshot.data!.docs[i]['title'],
-                      "startdate": DateFormat.yMMMMd()
-                          .format(snapshot.data!.docs[i]['startdate'].toDate()),
-                      "endDate": DateFormat.yMMMMd()
-                          .format(snapshot.data!.docs[i]['endDate'].toDate()),
-                      "progress": snapshot.data!.docs[i]['progress']
-                    });
-                  }
-                  Navigator.of(context)
-                      .pushNamed(workreportPdf, arguments: data);
-                },
-                child: const Text("Generate Report"),
-              )
+              snapshot.data!.docs.isEmpty
+                  ? Container()
+                  : ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                        elevation: 0,
+                        backgroundColor: AppColors.yellow,
+                        foregroundColor: AppColors.fadeblue,
+                        fixedSize: Size(size.width, size.height / 90 * 4.2),
+                      ),
+                      onPressed: () {
+                        List<Map<String, dynamic>> data = [];
+                        for (int i = 0; i < snapshot.data!.docs.length; i++) {
+                          data.add({
+                            "sn": "${i + 1}",
+                            "sitename": args['sitename'],
+                            "title": snapshot.data!.docs[i]['title'],
+                            "startdate": DateFormat.yMMMMd().format(
+                                snapshot.data!.docs[i]['startdate'].toDate()),
+                            "endDate": DateFormat.yMMMMd().format(
+                                snapshot.data!.docs[i]['endDate'].toDate()),
+                            "progress": snapshot.data!.docs[i]['progress']
+                          });
+                        }
+                        if (data.isEmpty) {
+                          Navigator.of(context)
+                              .pushNamed(workreportPdf, arguments: data);
+                        }
+                      },
+                      child: const Text("Generate Report"),
+                    )
             ],
           );
         } else {

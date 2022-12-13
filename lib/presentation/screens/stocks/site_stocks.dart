@@ -768,8 +768,14 @@ class _SiteStocksState extends State<SiteStocks> {
               padding: EdgeInsets.symmetric(horizontal: padding.top * 0.4),
               child: IconButton(
                 onPressed: () {
-                  Navigator.of(context)
-                      .pushNamed(stocksreport, arguments: data);
+                  if (data.isEmpty) {
+                    BotToast.showText(
+                        text: "No Stocks at the moment",
+                        contentColor: AppColors.red);
+                  } else {
+                    Navigator.of(context)
+                        .pushNamed(stocksreport, arguments: data);
+                  }
                 },
                 icon: CircleAvatar(
                   backgroundColor: AppColors.yellow,
