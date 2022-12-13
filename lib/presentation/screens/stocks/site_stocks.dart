@@ -831,21 +831,23 @@ class _SiteStocksState extends State<SiteStocks> {
                           shrinkWrap: true,
                           itemCount: snapshot.data!.docs.length,
                           itemBuilder: (context, index) {
-                            data.add(
-                              {
-                                'sn': "${index + 1}",
-                                "sitename": args['sitename'],
-                                "itemname": snapshot.data!.docs[index]
-                                    ['itemname'],
-                                "brandname": snapshot.data!.docs[index]
-                                    ['brandname'],
-                                "suppliername": snapshot.data!.docs[index]
-                                    ['suppliername'],
-                                "unit": snapshot.data!.docs[index]['unit'],
-                                "quantity": snapshot.data!.docs[index]
-                                    ['quantity'],
-                              },
-                            );
+                            if (snapshot.data!.docs.isNotEmpty) {
+                              data.add(
+                                {
+                                  'sn': "${index + 1}",
+                                  "sitename": args['sitename'],
+                                  "itemname": snapshot.data!.docs[index]
+                                      ['itemname'],
+                                  "brandname": snapshot.data!.docs[index]
+                                      ['brandname'],
+                                  "suppliername": snapshot.data!.docs[index]
+                                      ['suppliername'],
+                                  "unit": snapshot.data!.docs[index]['unit'],
+                                  "quantity": snapshot.data!.docs[index]
+                                      ['quantity'],
+                                },
+                              );
+                            }
                             return CustomBox(
                               height: size.height / 90 * 15.15,
                               width: size.width,

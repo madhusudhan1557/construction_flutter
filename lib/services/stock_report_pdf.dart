@@ -126,7 +126,7 @@ class MakeStockReportPdf {
                         paddedText(e['itemname'], PdfColors.black),
                         paddedText(e['brandname'], PdfColors.black),
                         paddedText(e['suppliername'], PdfColors.black),
-                        paddedText(e['quantity'], PdfColors.black),
+                        paddedText("${e['quantity']}", PdfColors.black),
                         paddedText(e['unit'], PdfColors.black),
                       ],
                     );

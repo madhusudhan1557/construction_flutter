@@ -168,7 +168,7 @@ class MakeWorkReportPdf {
                         paddedText(e['title'], PdfColors.black),
                         paddedText(e['startdate'], PdfColors.black),
                         paddedText(e['endDate'], PdfColors.black),
-                        paddedText(e['progress'], PdfColors.black),
+                        paddedText("${e['progress']}", PdfColors.black),
                       ],
                     );
                   },
