@@ -44,7 +44,7 @@ class PdfReportPreviewPage extends StatelessWidget {
               canChangeOrientation: false,
               dynamicLayout: true,
               pdfFileName:
-                  "${data[0]['sitename']} - ${DateFormat.yMMMd().format(DateTime.now())}",
+                  "${data[0]['sitename']} Work Report - ${DateFormat.yMMMd().format(DateTime.now())}",
               build: (context) => MakeWorkReportPdf().makePdf(data),
             ),
           );

@@ -44,7 +44,7 @@ class StockReportPreview extends StatelessWidget {
               canChangeOrientation: false,
               dynamicLayout: true,
               pdfFileName:
-                  "${data[0]['sitename']} - ${DateFormat.yMMMd().format(DateTime.now())}",
+                  "${data[0]['sitename']} Stock Report - ${DateFormat.yMMMd().format(DateTime.now())}",
               build: (context) => MakeStockReportPdf().makePdf(data),
             ),
           );

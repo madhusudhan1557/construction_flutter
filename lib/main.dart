@@ -3,6 +3,7 @@ import 'package:construction/bloc/auth/auth_bloc.dart';
 
 import 'package:construction/bloc/dropdown/dropdown_bloc.dart';
 import 'package:construction/bloc/hidepassword/hidepassword_cubit.dart';
+import 'package:construction/bloc/orders/orders_bloc.dart';
 import 'package:construction/bloc/pickimage/pickimage_bloc.dart';
 import 'package:construction/bloc/progressbar/progressbar_cubit.dart';
 import 'package:construction/bloc/sites/sites_bloc.dart';
@@ -43,6 +44,7 @@ class AkarDevelopers extends StatelessWidget {
         BlocProvider<AuthBloc>(create: (context) => AuthBloc()),
         BlocProvider<ProgressbarCubit>(create: (context) => ProgressbarCubit()),
         BlocProvider<UsersBloc>(create: (context) => UsersBloc()),
+        BlocProvider<OrdersBloc>(create: (context) => OrdersBloc()),
         BlocProvider<StocksBloc>(create: (context) => StocksBloc()),
         BlocProvider<WorkinprogressBloc>(
             create: (context) => WorkinprogressBloc()),
@@ -68,6 +70,7 @@ Container customLoading(Size size) {
   return Container(
     height: size.width / 7 * 1.8,
     width: size.width / 7 * 1.8,
+    alignment: Alignment.center,
     decoration: BoxDecoration(
       color: AppColors.customWhite,
       borderRadius: BorderRadius.circular(15),

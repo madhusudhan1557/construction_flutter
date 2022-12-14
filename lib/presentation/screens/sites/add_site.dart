@@ -423,8 +423,8 @@ class _AddSitePageState extends State<AddSitePage> {
                     ),
                   );
                 } else {
-                  return const Center(
-                    child: CircularProgressIndicator.adaptive(),
+                  return Builder(
+                    builder: (context) => customLoading(size),
                   );
                 }
               }),

@@ -1,31 +1,30 @@
 import 'package:bot_toast/bot_toast.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
-
-import 'package:construction/data/models/stocks.dart';
-import 'package:construction/presentation/includes/appbar.dart';
-import 'package:construction/presentation/includes/custom_box.dart';
-import 'package:construction/utils/app_colors.dart';
-import 'package:construction/utils/routes.dart';
-
+import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
-
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/fluent_mdl2.dart';
 
-import '../../../bloc/stock/stocks_bloc.dart';
+import '../../../bloc/dropdown/dropdown_bloc.dart';
+import '../../../bloc/orders/orders_bloc.dart';
+import '../../../data/models/order_model.dart';
 import '../../../main.dart';
+import '../../../utils/app_colors.dart';
+import '../../../utils/routes.dart';
+import '../../includes/appbar.dart';
+import '../../includes/custom_box.dart';
 import '../../includes/custom_number_field.dart';
 import '../../includes/custom_textfield.dart';
 
-class SiteStocks extends StatefulWidget {
-  const SiteStocks({super.key});
+class OrderPage extends StatefulWidget {
+  const OrderPage({super.key});
 
   @override
-  State<SiteStocks> createState() => _SiteStocksState();
+  State<OrderPage> createState() => _OrderPageState();
 }
 
-class _SiteStocksState extends State<SiteStocks> {
+class _OrderPageState extends State<OrderPage> {
   final TextEditingController _itemname = TextEditingController();
   final TextEditingController _brandname = TextEditingController();
   final TextEditingController _suppliername = TextEditingController();
@@ -34,6 +33,8 @@ class _SiteStocksState extends State<SiteStocks> {
   final TextEditingController _unit = TextEditingController();
   final TextEditingController _qty = TextEditingController();
   final _formKey = GlobalKey<FormState>();
+  List<dynamic> selectStatus = ["Delivered", "On The Way", "Cancel"];
+  String orderstatus = '';
 
   @override
   Widget build(BuildContext context) {
@@ -43,7 +44,7 @@ class _SiteStocksState extends State<SiteStocks> {
 
     final Map<String, dynamic> args =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
-    showAddStockModal() {
+    showAddOrderModal() {
       return showDialog(
         context: context,
         builder: (context) {
@@ -51,174 +52,176 @@ class _SiteStocksState extends State<SiteStocks> {
             shape:
                 RoundedRectangleBorder(borderRadius: BorderRadius.circular(15)),
             content: Form(
-                key: _formKey,
-                child: SizedBox(
-                  height: size.height / 90 * 58.334,
-                  child: SingleChildScrollView(
-                    child: Column(
-                      children: [
-                        SizedBox(
-                          height: size.height / 90 * 1.338,
-                        ),
-                        Text(
-                          "Add Stocks",
-                          style: TextStyle(
-                              fontSize: 18,
-                              fontWeight: FontWeight.w600,
-                              color: AppColors.fadeblue),
-                        ),
-                        SizedBox(
-                          height: size.height / 90 * 2.538,
-                        ),
-                        CustomTextField(
-                          controller: _itemname,
-                          hintText: "Item Name",
-                          size: size.height / 90 * 5.44,
-                          width: size.width,
-                        ).customTextField(),
-                        SizedBox(
-                          height: size.height / 90 * 1.538,
-                        ),
-                        CustomTextField(
-                          controller: _brandname,
-                          hintText: "Brand Name",
-                          size: size.height / 90 * 5.44,
-                          width: size.width,
-                        ).customTextField(),
-                        SizedBox(
-                          height: size.height / 90 * 1.538,
-                        ),
-                        CustomTextField(
-                          controller: _suppliername,
-                          hintText: "Supplier Name",
-                          size: size.height / 90 * 5.44,
-                          width: size.width,
-                        ).customTextField(),
-                        SizedBox(
-                          height: size.height / 90 * 1.538,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text("Item Quantity"),
-                            SizedBox(
-                              width: size.width / 5.6,
-                              child: CustomNumberField(
-                                hintText: "Qty",
-                                controller: _quantity,
-                                color: AppColors.grey.withOpacity(0.1),
-                                size: size.height / 90 * 5.44,
-                              ).customNumberField(),
+              key: _formKey,
+              child: SizedBox(
+                height: size.height / 90 * 58.334,
+                child: SingleChildScrollView(
+                  child: Column(
+                    children: [
+                      SizedBox(
+                        height: size.height / 90 * 1.338,
+                      ),
+                      Text(
+                        "Add Orders",
+                        style: TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w600,
+                            color: AppColors.fadeblue),
+                      ),
+                      SizedBox(
+                        height: size.height / 90 * 2.538,
+                      ),
+                      CustomTextField(
+                        controller: _itemname,
+                        hintText: "Item Name",
+                        size: size.height / 90 * 5.44,
+                        width: size.width,
+                      ).customTextField(),
+                      SizedBox(
+                        height: size.height / 90 * 1.538,
+                      ),
+                      CustomTextField(
+                        controller: _brandname,
+                        hintText: "Brand Name",
+                        size: size.height / 90 * 5.44,
+                        width: size.width,
+                      ).customTextField(),
+                      SizedBox(
+                        height: size.height / 90 * 1.538,
+                      ),
+                      CustomTextField(
+                        controller: _suppliername,
+                        hintText: "Supplier Name",
+                        size: size.height / 90 * 5.44,
+                        width: size.width,
+                      ).customTextField(),
+                      SizedBox(
+                        height: size.height / 90 * 1.538,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text("Item Quantity"),
+                          SizedBox(
+                            width: size.width / 5.6,
+                            child: CustomNumberField(
+                              hintText: "Qty",
+                              controller: _quantity,
+                              color: AppColors.grey.withOpacity(0.1),
+                              size: size.height / 90 * 5.44,
+                            ).customNumberField(),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: size.height / 90 * 1.538,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          const Text("Item rate"),
+                          SizedBox(
+                            width: size.width / 5.6,
+                            child: CustomNumberField(
+                              hintText: "Rate",
+                              color: AppColors.grey.withOpacity(0.1),
+                              controller: _rate,
+                              size: size.height / 90 * 5.44,
+                            ).customNumberField(),
+                          ),
+                        ],
+                      ),
+                      SizedBox(
+                        height: size.height / 90 * 2.334,
+                      ),
+                      CustomTextField(
+                        controller: _unit,
+                        hintText: "Unit",
+                        size: size.height / 90 * 5.44,
+                        width: size.width,
+                      ).customTextField(),
+                      SizedBox(
+                        height: size.height / 90 * 1.838,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          TextButton(
+                            style: ElevatedButton.styleFrom(
+                              elevation: 0,
+                              fixedSize: Size(size.width / 90 * 8.66,
+                                  size.height / 90 * 5.86),
+                              foregroundColor: AppColors.fadeblue,
                             ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: size.height / 90 * 1.538,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const Text("Item rate"),
-                            SizedBox(
-                              width: size.width / 5.6,
-                              child: CustomNumberField(
-                                hintText: "Rate",
-                                color: AppColors.grey.withOpacity(0.1),
-                                controller: _rate,
-                                size: size.height / 90 * 5.44,
-                              ).customNumberField(),
-                            ),
-                          ],
-                        ),
-                        SizedBox(
-                          height: size.height / 90 * 2.334,
-                        ),
-                        CustomTextField(
-                          controller: _unit,
-                          hintText: "Unit",
-                          size: size.height / 90 * 5.44,
-                          width: size.width,
-                        ).customTextField(),
-                        SizedBox(
-                          height: size.height / 90 * 1.838,
-                        ),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            TextButton(
-                              style: ElevatedButton.styleFrom(
-                                elevation: 0,
-                                fixedSize: Size(size.width / 90 * 8.66,
-                                    size.height / 90 * 5.86),
-                                foregroundColor: AppColors.fadeblue,
-                              ),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              },
-                              child: const Text("Cancel"),
-                            ),
-                            BlocConsumer<StocksBloc, StocksState>(
-                              listener: (context, state) {
-                                if (state is AddingSiteStockState) {
-                                  BotToast.showCustomLoading(
-                                    toastBuilder: (cancelFunc) {
-                                      return customLoading(size);
-                                    },
-                                  );
-                                }
-                                if (state is CompletedAddingSiteStockState) {
-                                  BotToast.closeAllLoading();
-                                  BotToast.showText(
-                                      text: "New Stock Added",
-                                      contentColor: AppColors.green);
-                                }
-                                if (state is FailedSiteStockState) {
-                                  BotToast.closeAllLoading();
-                                  BotToast.showText(
-                                    text: state.error!,
-                                    contentColor: AppColors.red,
-                                  );
-                                }
-                              },
-                              builder: (context, state) {
-                                return ElevatedButton(
-                                  style: ElevatedButton.styleFrom(
-                                    elevation: 0,
-                                    fixedSize: Size(size.width / 90 * 25.66,
-                                        size.height / 90 * 3.86),
-                                    backgroundColor: AppColors.yellow,
-                                    foregroundColor: AppColors.fadeblue,
-                                  ),
-                                  onPressed: () {
-                                    if (_formKey.currentState!.validate()) {
-                                      StockModel stockModel = StockModel(
-                                        itemname: _itemname.text,
-                                        brandname: _brandname.text,
-                                        suppliername: _suppliername.text,
-                                        quantity: double.parse(_quantity.text),
-                                        rate: double.parse(_rate.text),
-                                        unit: _unit.text,
-                                      );
-                                      BlocProvider.of<StocksBloc>(context)
-                                          .addStock(stockModel, args['sid']);
-                                    }
+                            onPressed: () {
+                              Navigator.of(context).pop();
+                            },
+                            child: const Text("Cancel"),
+                          ),
+                          BlocConsumer<OrdersBloc, OrdersState>(
+                            listener: (context, state) {
+                              if (state is AddingSiteOrderState) {
+                                BotToast.showCustomLoading(
+                                  toastBuilder: (cancelFunc) {
+                                    return customLoading(size);
                                   },
-                                  child: const Text("Save"),
                                 );
-                              },
-                            ),
-                          ],
-                        )
-                      ],
-                    ),
+                              }
+                              if (state is CompletedAddingSiteOrderState) {
+                                BotToast.closeAllLoading();
+                                BotToast.showText(
+                                    text: "New Order Added",
+                                    contentColor: AppColors.green);
+                              }
+                              if (state is FailedSiteOrderState) {
+                                BotToast.closeAllLoading();
+                                BotToast.showText(
+                                  text: state.error!,
+                                  contentColor: AppColors.red,
+                                );
+                              }
+                            },
+                            builder: (context, state) {
+                              return ElevatedButton(
+                                style: ElevatedButton.styleFrom(
+                                  elevation: 0,
+                                  fixedSize: Size(size.width / 90 * 25.66,
+                                      size.height / 90 * 3.86),
+                                  backgroundColor: AppColors.yellow,
+                                  foregroundColor: AppColors.fadeblue,
+                                ),
+                                onPressed: () {
+                                  if (_formKey.currentState!.validate()) {
+                                    OrderModel orderModel = OrderModel(
+                                      itemname: _itemname.text,
+                                      brandname: _brandname.text,
+                                      suppliername: _suppliername.text,
+                                      quantity: double.parse(_quantity.text),
+                                      rate: double.parse(_rate.text),
+                                      status: orderstatus,
+                                      unit: _unit.text,
+                                    );
+                                    BlocProvider.of<OrdersBloc>(context)
+                                        .addOrder(orderModel, args['sid']);
+                                  }
+                                },
+                                child: const Text("Save"),
+                              );
+                            },
+                          ),
+                        ],
+                      )
+                    ],
                   ),
-                )),
+                ),
+              ),
+            ),
           );
         },
       );
     }
 
-    showDeleteDialog(String skid, String sid) {
+    showDeleteDialog(String oid, String sid) {
       return showDialog(
           context: context,
           builder: (context) {
@@ -263,22 +266,22 @@ class _SiteStocksState extends State<SiteStocks> {
                           },
                           child: const Text("Cancel"),
                         ),
-                        BlocConsumer<StocksBloc, StocksState>(
+                        BlocConsumer<OrdersBloc, OrdersState>(
                           listener: (context, state) {
-                            if (state is DeletingStockState) {
+                            if (state is DeletingOrderState) {
                               BotToast.showCustomLoading(
                                 toastBuilder: (context) => customLoading(size),
                               );
                             }
-                            if (state is CompleteDeletingStockState) {
+                            if (state is CompleteDeletingOrderState) {
                               BotToast.closeAllLoading();
                               Navigator.of(context).pop();
                               BotToast.showText(
-                                text: "Stock Deleted",
+                                text: "Order Deleted",
                                 contentColor: AppColors.green,
                               );
                             }
-                            if (state is FailedDeletingStockState) {
+                            if (state is FailedDeletingOrderState) {
                               BotToast.closeAllLoading();
                               Navigator.of(context).pop();
                               BotToast.showText(
@@ -296,8 +299,8 @@ class _SiteStocksState extends State<SiteStocks> {
                                 foregroundColor: AppColors.white,
                               ),
                               onPressed: () {
-                                BlocProvider.of<StocksBloc>(context)
-                                    .deleteSiteStock(sid, skid);
+                                BlocProvider.of<OrdersBloc>(context)
+                                    .deleteSiteOrder(sid, oid);
                               },
                               child: const Text("Delete"),
                             );
@@ -312,13 +315,14 @@ class _SiteStocksState extends State<SiteStocks> {
           });
     }
 
-    showEditSiteModal({
+    showEditSiteOrderModal({
       required String sid,
-      required String skid,
+      required String oid,
       required String itemname,
       required String suppliername,
       required String itembrand,
       required double quantity,
+      required String status,
       required String unit,
       required double rate,
     }) {
@@ -337,7 +341,7 @@ class _SiteStocksState extends State<SiteStocks> {
                       height: size.height / 90 * 1.338,
                     ),
                     Text(
-                      "Update Site Stocks Info",
+                      "Update Site Orders Info",
                       style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
@@ -480,6 +484,40 @@ class _SiteStocksState extends State<SiteStocks> {
                     SizedBox(
                       height: size.height / 90 * 1.538,
                     ),
+                    BlocConsumer<DropdownBloc, DropdownState>(
+                      listener: (context, state) {
+                        if (state is DropdownUserSelectState) {
+                          orderstatus = state.value!;
+                        }
+                      },
+                      builder: (context, state) {
+                        return Container(
+                          decoration: BoxDecoration(
+                            color: AppColors.customWhite,
+                          ),
+                          child: DropdownButtonFormField2(
+                            decoration: const InputDecoration(
+                              border: InputBorder.none,
+                            ),
+                            hint: const Text("Select Status"),
+                            offset: Offset(0, -size.height / 90 * 2.44),
+                            items: selectStatus.map((st) {
+                              return DropdownMenuItem(
+                                value: st,
+                                child: Text(st['sitename']),
+                              );
+                            }).toList(),
+                            onChanged: (newValue) {
+                              BlocProvider.of<DropdownBloc>(context)
+                                  .onUserSelectDropdown(newValue.toString());
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                    SizedBox(
+                      height: size.height / 90 * 1.538,
+                    ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -569,22 +607,22 @@ class _SiteStocksState extends State<SiteStocks> {
                           },
                           child: const Text("Cancel"),
                         ),
-                        BlocConsumer<StocksBloc, StocksState>(
+                        BlocConsumer<OrdersBloc, OrdersState>(
                           listener: (context, state) {
-                            if (state is UpdatingSiteStockState) {
+                            if (state is UpdatingSiteOrderState) {
                               BotToast.showCustomLoading(
                                 toastBuilder: (context) => customLoading(size),
                               );
                             }
-                            if (state is CompleteUpdatingSiteStockState) {
+                            if (state is CompleteUpdatingSiteOrderState) {
                               BotToast.closeAllLoading();
                               Navigator.of(context).pop();
                               BotToast.showText(
-                                text: "Stock Information Updated",
+                                text: "Order Information Updated",
                                 contentColor: AppColors.green,
                               );
                             }
-                            if (state is FailedUpdatingSiteStockState) {
+                            if (state is FailedUpdatingSiteOrderState) {
                               BotToast.closeAllLoading();
                               Navigator.of(context).pop();
                               BotToast.showText(
@@ -603,14 +641,15 @@ class _SiteStocksState extends State<SiteStocks> {
                               ),
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
-                                  BlocProvider.of<StocksBloc>(context)
-                                      .updateSiteStock(
+                                  BlocProvider.of<OrdersBloc>(context)
+                                      .updateSiteOrder(
                                     sid,
-                                    skid,
+                                    oid,
                                     itemname,
                                     suppliername,
                                     itembrand,
                                     quantity,
+                                    orderstatus,
                                     rate,
                                     unit,
                                   );
@@ -631,7 +670,7 @@ class _SiteStocksState extends State<SiteStocks> {
       );
     }
 
-    showAddQuantityModal(String skid, String sid) {
+    showAddQuantityModal(String oid, String sid) {
       return showDialog(
         context: context,
         builder: (context) {
@@ -644,7 +683,7 @@ class _SiteStocksState extends State<SiteStocks> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     Text(
-                      "Add Stock Quantity",
+                      "Add Order Quantity",
                       style: TextStyle(
                           color: AppColors.fadeblue,
                           fontSize: 18,
@@ -675,12 +714,16 @@ class _SiteStocksState extends State<SiteStocks> {
                         },
                       ),
                     ),
-                    BlocConsumer<StocksBloc, StocksState>(
+                    BlocConsumer<OrdersBloc, OrdersState>(
                       listener: (context, state) {
                         if (state is UpdatingQuantityState) {
                           BotToast.showCustomLoading(
                             toastBuilder: (cancelFunc) {
-                              return customLoading(size);
+                              return Center(
+                                child: CircularProgressIndicator(
+                                  color: AppColors.fadeblue,
+                                ),
+                              );
                             },
                           );
                         }
@@ -710,9 +753,9 @@ class _SiteStocksState extends State<SiteStocks> {
                           ),
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
-                              BlocProvider.of<StocksBloc>(context)
-                                  .addStockQuantity(
-                                      sid, skid, double.parse(_qty.text));
+                              BlocProvider.of<OrdersBloc>(context)
+                                  .addOrderQuantity(
+                                      sid, oid, double.parse(_qty.text));
                             }
                           },
                           child: const Iconify(FluentMdl2.update_restore),
@@ -746,7 +789,7 @@ class _SiteStocksState extends State<SiteStocks> {
           action: [
             IconButton(
               onPressed: () {
-                showAddStockModal();
+                showAddOrderModal();
               },
               icon: CircleAvatar(
                 backgroundColor: AppColors.yellow,
@@ -763,11 +806,11 @@ class _SiteStocksState extends State<SiteStocks> {
                 onPressed: () {
                   if (data.isEmpty) {
                     BotToast.showText(
-                        text: "No Stocks at the moment",
+                        text: "No Orders at the moment",
                         contentColor: AppColors.red);
                   } else {
                     Navigator.of(context)
-                        .pushNamed(stocksreport, arguments: data);
+                        .pushNamed(orderinvoicepdf, arguments: data);
                   }
                 },
                 icon: CircleAvatar(
@@ -812,13 +855,13 @@ class _SiteStocksState extends State<SiteStocks> {
               stream: FirebaseFirestore.instance
                   .collection("sites")
                   .doc(args['sid'])
-                  .collection("stocks")
+                  .collection("orders")
                   .snapshots(),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
                   return snapshot.data!.docs.isEmpty
                       ? const Center(
-                          child: Text("No Stocks at the Moment"),
+                          child: Text("No Orders at the Moment"),
                         )
                       : ListView.builder(
                           shrinkWrap: true,
@@ -838,6 +881,8 @@ class _SiteStocksState extends State<SiteStocks> {
                                   "unit": snapshot.data!.docs[index]['unit'],
                                   "quantity": snapshot.data!.docs[index]
                                       ['quantity'],
+                                  "status": snapshot.data!.docs[index]
+                                      ['status'],
                                 },
                               );
                             }
@@ -853,7 +898,7 @@ class _SiteStocksState extends State<SiteStocks> {
                               child: InkWell(
                                 onTap: () {
                                   showAddQuantityModal(
-                                    snapshot.data!.docs[index]['skid'],
+                                    snapshot.data!.docs[index]['oid'],
                                     snapshot.data!.docs[index]['sid'],
                                   );
                                 },
@@ -886,7 +931,7 @@ class _SiteStocksState extends State<SiteStocks> {
                                               onPressed: () {
                                                 showDeleteDialog(
                                                   snapshot.data!.docs[index]
-                                                      ['skid'],
+                                                      ['oid'],
                                                   snapshot.data!.docs[index]
                                                       ['sid'],
                                                 );
@@ -923,12 +968,12 @@ class _SiteStocksState extends State<SiteStocks> {
                                             blurRadius: 4.0,
                                             shadowColor: AppColors.customWhite,
                                             color: snapshot.data!.docs[index]
-                                                        ['quantity'] ==
-                                                    0
+                                                        ['status'] ==
+                                                    "Order Cancel"
                                                 ? AppColors.red
                                                 : snapshot.data!.docs[index]
-                                                            ['quantity'] >=
-                                                        10
+                                                            ['status'] ==
+                                                        "Delivered"
                                                     ? AppColors.green
                                                     : Colors.deepOrangeAccent,
                                             horizontalMargin: 0,
@@ -936,14 +981,7 @@ class _SiteStocksState extends State<SiteStocks> {
                                             child: Center(
                                               child: Text(
                                                 snapshot.data!.docs[index]
-                                                            ['quantity'] ==
-                                                        0
-                                                    ? "Out of Stock"
-                                                    : snapshot.data!.docs[index]
-                                                                ['quantity'] >=
-                                                            10
-                                                        ? "In Stock"
-                                                        : "Low Stock",
+                                                    ['status'],
                                                 style: TextStyle(
                                                     color: AppColors.white),
                                               ),
@@ -954,11 +992,11 @@ class _SiteStocksState extends State<SiteStocks> {
                                             alignment: Alignment.centerRight,
                                             child: IconButton(
                                               onPressed: () {
-                                                showEditSiteModal(
+                                                showEditSiteOrderModal(
                                                   sid: snapshot
                                                       .data!.docs[index]['sid'],
-                                                  skid: snapshot.data!
-                                                      .docs[index]['skid'],
+                                                  oid: snapshot
+                                                      .data!.docs[index]['oid'],
                                                   itemname: snapshot.data!
                                                       .docs[index]['itemname'],
                                                   suppliername:
@@ -968,6 +1006,8 @@ class _SiteStocksState extends State<SiteStocks> {
                                                       .docs[index]['brandname'],
                                                   quantity: snapshot.data!
                                                       .docs[index]['quantity'],
+                                                  status: snapshot.data!
+                                                      .docs[index]['status'],
                                                   unit: snapshot.data!
                                                       .docs[index]['unit'],
                                                   rate: snapshot.data!
@@ -1032,8 +1072,8 @@ class _SiteStocksState extends State<SiteStocks> {
                           },
                         );
                 } else {
-                  return Builder(
-                    builder: (context) => customLoading(size),
+                  return const Center(
+                    child: CircularProgressIndicator.adaptive(),
                   );
                 }
               },

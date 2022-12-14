@@ -530,8 +530,8 @@ class _UsersPageState extends State<UsersPage> {
               ),
             );
           } else {
-            return const Center(
-              child: CircularProgressIndicator.adaptive(),
+            return Builder(
+              builder: (context) => customLoading(size),
             );
           }
         },

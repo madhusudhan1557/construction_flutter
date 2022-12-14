@@ -1,5 +1,11 @@
+import 'package:construction/services/order_invoice.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:printing/printing.dart';
+import '../../../main.dart';
+
 import '../../../utils/app_colors.dart';
+import '../../includes/appbar.dart';
 
 class InvoicePage extends StatelessWidget {
   const InvoicePage({super.key});
@@ -7,63 +13,39 @@ class InvoicePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
-    final paddding = MediaQuery.of(context).padding;
-    return Scaffold(
-      body: Container(
-        padding: EdgeInsets.symmetric(horizontal: paddding.top * 0.8),
-        margin: EdgeInsets.only(top: paddding.top * 0.8),
-        child: Column(
-          children: [
-            Expanded(
-              flex: 1,
-              child: Row(
-                children: [
-                  Image.asset(
-                    "assets/images/logo.png",
-                    height: size.height / 90 * 3.44,
+    final List<Map<String, dynamic>> data = ModalRoute.of(context)!
+        .settings
+        .arguments as List<Map<String, dynamic>>;
+    return data.isEmpty
+        ? const Scaffold()
+        : Scaffold(
+            appBar: PreferredSize(
+              preferredSize: Size(size.width, size.height / 90 * 8.5),
+              child: CustomAppbar(
+                title: "Order Invoice",
+                bgcolor: AppColors.white,
+                leading: IconButton(
+                  icon: const Icon(
+                    Icons.arrow_back_ios_new,
+                    size: 24,
                   ),
-                  SizedBox(
-                    width: size.width / 5 * 1.432,
-                  ),
-                  Text(
-                    "Invoices",
-                    style: TextStyle(
-                      color: AppColors.fadeblue,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 24,
-                    ),
-                  ),
-                ],
-              ),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                ),
+              ).customAppBar(),
             ),
-            Expanded(
-              flex: 11,
-              child: Column(
-                children: [
-                  SizedBox(
-                    height: size.height / 90 * 3.44,
-                  ),
-                  Image.asset(
-                    "assets/images/invoices.png",
-                    height: size.height / 90 * 15.334,
-                  ),
-                  SizedBox(
-                    height: size.height / 90 * 3.44,
-                  ),
-                  Text(
-                    "Seems Like there are no Invoices",
-                    style: TextStyle(
-                      color: AppColors.fadeblue,
-                      fontWeight: FontWeight.w700,
-                      fontSize: 24,
-                    ),
-                  ),
-                ],
-              ),
-            )
-          ],
-        ),
-      ),
-    );
+            body: PdfPreview(
+              shouldRepaint: true,
+              allowPrinting: true,
+              allowSharing: true,
+              loadingWidget: customLoading(size),
+              canChangeOrientation: false,
+              dynamicLayout: true,
+              pdfFileName:
+                  "${data[0]['sitename']} Orders Invoice - ${DateFormat.yMMMd().format(DateTime.now())}",
+              build: (context) => MakeOrderInvoiceReportPdf().makePdf(data),
+            ),
+          );
   }
 }

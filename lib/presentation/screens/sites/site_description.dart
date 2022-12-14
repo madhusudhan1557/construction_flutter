@@ -747,8 +747,13 @@ class _SiteDescriptionState extends State<SiteDescription> {
                               ),
                               InkWell(
                                 onTap: () {
-                                  Navigator.of(context)
-                                      .pushNamed(siteEstimation);
+                                  Navigator.of(context).pushNamed(
+                                    orders,
+                                    arguments: {
+                                      "sid": args['sid'],
+                                      "sitename": args['sitename']
+                                    },
+                                  );
                                 },
                                 child: CustomBox(
                                   height: size.height / 90 * 4.2,
@@ -792,8 +797,8 @@ class _SiteDescriptionState extends State<SiteDescription> {
                           ),
                         );
                       } else {
-                        return const Center(
-                          child: CircularProgressIndicator.adaptive(),
+                        return Builder(
+                          builder: (context) => customLoading(size),
                         );
                       }
                     },
@@ -802,8 +807,8 @@ class _SiteDescriptionState extends State<SiteDescription> {
               ),
             );
           } else {
-            return const Center(
-              child: CircularProgressIndicator.adaptive(),
+            return Builder(
+              builder: (context) => customLoading(size),
             );
           }
         },

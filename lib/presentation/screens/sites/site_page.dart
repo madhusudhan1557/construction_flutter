@@ -361,8 +361,8 @@ class _SitePageState extends State<SitePage> {
                     },
                   );
           } else {
-            return const Center(
-              child: CircularProgressIndicator.adaptive(),
+            return Builder(
+              builder: (context) => customLoading(size),
             );
           }
         },

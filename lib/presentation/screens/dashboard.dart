@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:construction/main.dart';
 
 import 'package:construction/presentation/includes/appbar.dart';
 import 'package:construction/presentation/includes/show_modal.dart';
@@ -33,11 +34,6 @@ class _DashboardState extends State<Dashboard> {
       "route": estimation,
       "title": "Estimation",
       "image": "assets/images/estimation.png"
-    },
-    {
-      "route": invoices,
-      "title": "Invoices",
-      "image": "assets/images/invoices.png"
     },
   ];
 
@@ -177,8 +173,8 @@ class _DashboardState extends State<Dashboard> {
                 ],
               );
             } else {
-              return const Center(
-                child: CircularProgressIndicator.adaptive(),
+              return Builder(
+                builder: (context) => customLoading(size),
               );
             }
           }),

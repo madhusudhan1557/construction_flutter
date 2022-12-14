@@ -2,10 +2,10 @@ import 'package:construction/presentation/screens/auth/register.dart';
 import 'package:construction/presentation/screens/dashboard.dart';
 import 'package:construction/presentation/screens/estimations/estimation_page.dart';
 import 'package:construction/presentation/screens/invoices/invoices_page.dart';
-import 'package:construction/presentation/screens/orders/orders_page.dart';
+
 import 'package:construction/presentation/screens/sites/add_site.dart';
 import 'package:construction/presentation/screens/sites/site_description.dart';
-import 'package:construction/presentation/screens/sites/site_estimation.dart';
+
 import 'package:construction/presentation/screens/sites/site_page.dart';
 import 'package:construction/presentation/screens/stocks/site_stocks.dart';
 import 'package:construction/presentation/screens/splash.dart';
@@ -22,6 +22,7 @@ import 'package:construction/utils/routes.dart';
 import 'package:flutter/material.dart';
 
 import '../presentation/screens/auth/login.dart';
+import '../presentation/screens/orders/site_order.dart';
 
 class AppRouter {
   Route? onGenerateRoute(RouteSettings settings) {
@@ -50,16 +51,13 @@ class AppRouter {
       case estimation:
         return MaterialPageRoute(
             builder: (context) => const EstimationPage(), settings: settings);
-      case invoices:
+      case orderinvoicepdf:
         return MaterialPageRoute(
             builder: (context) => const InvoicePage(), settings: settings);
       case settingspage:
         return MaterialPageRoute(
             builder: (context) => const SettingsPage(), settings: settings);
 
-      case siteEstimation:
-        return MaterialPageRoute(
-            builder: (context) => const SiteEstimation(), settings: settings);
       case workinprogress:
         return MaterialPageRoute(
             builder: (context) => const WorkInProgressPage(),
