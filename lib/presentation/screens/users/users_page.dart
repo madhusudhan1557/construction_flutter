@@ -530,8 +530,10 @@ class _UsersPageState extends State<UsersPage> {
               ),
             );
           } else {
-            return Builder(
-              builder: (context) => customLoading(size),
+            return Center(
+              child: Builder(
+                builder: (context) => customLoading(size),
+              ),
             );
           }
         },

@@ -8,6 +8,10 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:iconify_flutter/iconify_flutter.dart';
+import 'package:iconify_flutter/icons/fluent_mdl2.dart';
+import 'package:iconify_flutter/icons/iconoir.dart';
+import 'package:iconify_flutter/icons/zondicons.dart';
 
 import '../../../bloc/dropdown/dropdown_bloc.dart';
 import '../../../bloc/sites/sites_bloc.dart';
@@ -445,7 +449,7 @@ class _SiteDescriptionState extends State<SiteDescription> {
                                             image: DecorationImage(
                                               image: NetworkImage(snapshot
                                                   .data!.docs[index]['image']),
-                                              fit: BoxFit.cover,
+                                              fit: BoxFit.fill,
                                             ),
                                           ),
                                         ),
@@ -454,7 +458,7 @@ class _SiteDescriptionState extends State<SiteDescription> {
                             },
                             options: CarouselOptions(
                               viewportFraction: 1.0,
-                              height: size.height / 90 * 21.5,
+                              height: size.height / 90 * 15.5,
                             ),
                           ),
                   ),
@@ -493,7 +497,7 @@ class _SiteDescriptionState extends State<SiteDescription> {
                             shrinkWrap: true,
                             children: [
                               SizedBox(
-                                height: size.height / 90 * 1.4,
+                                height: size.height / 90 * 1.2,
                               ),
                               Align(
                                 alignment: Alignment.topLeft,
@@ -595,210 +599,187 @@ class _SiteDescriptionState extends State<SiteDescription> {
                                 ),
                               ),
                               SizedBox(
-                                height: size.height / 90 * 3.5,
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  Navigator.of(context)
-                                      .pushNamed(siteStocks, arguments: {
-                                    "sid": args['sid'],
-                                    "sitename": args['sitename'],
-                                    "sitedesc": args['sitedesc'],
-                                    "sitelocation": args['sitelocation'],
-                                    "clientname": args['clientname'],
-                                    "phone": args['phone'],
-                                    "supervisor": args['supervisor']
-                                  });
-                                },
-                                child: CustomBox(
-                                  height: size.height / 90 * 4.2,
-                                  width: size.width,
-                                  radius: 15,
-                                  blurRadius: 8.0,
-                                  shadowColor: AppColors.customWhite,
-                                  color: AppColors.white,
-                                  horizontalMargin: 0,
-                                  verticalMargin: 0,
-                                  child: Container(
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: padding.top * 0.4),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: const [
-                                        Text(
-                                          "Manage Stocks",
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 16,
-                                          ),
-                                        ),
-                                        Spacer(),
-                                        Icon(
-                                          Icons.arrow_forward_ios,
-                                          size: 18,
-                                        )
-                                      ],
-                                    ),
-                                  ),
-                                ).customBox(),
-                              ),
-                              SizedBox(
                                 height: size.height / 90 * 1.2,
                               ),
-                              args['role'] == "Admin"
-                                  ? InkWell(
+                              SizedBox(
+                                height: size.height / 90 * 25.5,
+                                child: GridView(
+                                  gridDelegate:
+                                      const SliverGridDelegateWithFixedCrossAxisCount(
+                                    crossAxisCount: 2,
+                                    mainAxisSpacing: 5,
+                                    crossAxisSpacing: 5,
+                                    childAspectRatio: 3 / 2,
+                                  ),
+                                  children: [
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.of(context)
+                                            .pushNamed(siteStocks, arguments: {
+                                          "sid": args['sid'],
+                                          "sitename": args['sitename'],
+                                          "sitedesc": args['sitedesc'],
+                                          "sitelocation": args['sitelocation'],
+                                          "clientname": args['clientname'],
+                                          "phone": args['phone'],
+                                          "supervisor": args['supervisor']
+                                        });
+                                      },
+                                      child: CustomBox(
+                                        height: size.height / 90 * 6,
+                                        width: size.width / 8 * 1.3,
+                                        blurRadius: 4,
+                                        radius: 15,
+                                        shadowColor: AppColors.customWhite,
+                                        color: AppColors.white,
+                                        horizontalMargin: 0,
+                                        verticalMargin: 0,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Iconify(
+                                              FluentMdl2.blob_storage,
+                                              size: size.height / 90 * 6.2,
+                                              color: AppColors.fadeblue,
+                                            ),
+                                            Text(
+                                              "Manage Stocks",
+                                              style: TextStyle(
+                                                color: AppColors.grey,
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 18,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ).customBox(),
+                                    ),
+                                    InkWell(
                                       onTap: () {
                                         Navigator.of(context)
                                             .pushNamed(siteEstimation);
                                       },
                                       child: CustomBox(
-                                        height: size.height / 90 * 4.2,
-                                        width: size.width,
+                                        height: size.height / 90 * 6,
+                                        width: size.width / 8 * 1.3,
+                                        blurRadius: 4,
                                         radius: 15,
-                                        blurRadius: 8.0,
                                         shadowColor: AppColors.customWhite,
                                         color: AppColors.white,
                                         horizontalMargin: 0,
                                         verticalMargin: 0,
-                                        child: Container(
-                                          padding: EdgeInsets.symmetric(
-                                            horizontal: padding.top * 0.4,
-                                          ),
-                                          child: Row(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.start,
-                                            children: const [
-                                              Text(
-                                                "Estimation",
-                                                style: TextStyle(
-                                                  color: Colors.black,
-                                                  fontWeight: FontWeight.w400,
-                                                  fontSize: 16,
-                                                ),
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Iconify(
+                                              Zondicons.currency_dollar,
+                                              size: size.height / 90 * 6.2,
+                                              color: AppColors.fadeblue,
+                                            ),
+                                            Text(
+                                              "Estimation",
+                                              style: TextStyle(
+                                                color: AppColors.grey,
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 18,
                                               ),
-                                              Spacer(),
-                                              Icon(
-                                                Icons.arrow_forward_ios,
-                                                size: 18,
-                                              )
-                                            ],
-                                          ),
+                                            ),
+                                          ],
                                         ),
                                       ).customBox(),
-                                    )
-                                  : Container(),
-                              SizedBox(
-                                height: size.height / 90 * 1.2,
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  Navigator.of(context)
-                                      .pushNamed(siteEstimation);
-                                },
-                                child: CustomBox(
-                                  height: size.height / 90 * 4.2,
-                                  width: size.width,
-                                  radius: 15,
-                                  blurRadius: 8.0,
-                                  shadowColor: AppColors.customWhite,
-                                  color: AppColors.white,
-                                  horizontalMargin: 0,
-                                  verticalMargin: 0,
-                                  child: InkWell(
-                                    onTap: () {
-                                      Navigator.of(context).pushNamed(
-                                          workinprogress,
+                                    ),
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.of(context).pushNamed(
+                                            workinprogress,
+                                            arguments: {
+                                              "sid": args['sid'],
+                                              "sitename": args['sitename']
+                                            });
+                                      },
+                                      child: CustomBox(
+                                        height: size.height / 90 * 6,
+                                        width: size.width / 8 * 1.3,
+                                        blurRadius: 4,
+                                        radius: 15,
+                                        shadowColor: AppColors.customWhite,
+                                        color: AppColors.white,
+                                        horizontalMargin: 0,
+                                        verticalMargin: 0,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Iconify(
+                                              Zondicons.inbox_check,
+                                              color: AppColors.fadeblue,
+                                              size: size.height / 90 * 6,
+                                            ),
+                                            Text(
+                                              "Work in Progress",
+                                              style: TextStyle(
+                                                color: AppColors.grey,
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 18,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      ).customBox(),
+                                    ),
+                                    InkWell(
+                                      onTap: () {
+                                        Navigator.of(context).pushNamed(
+                                          orders,
                                           arguments: {
                                             "sid": args['sid'],
                                             "sitename": args['sitename']
-                                          });
-                                    },
-                                    child: Container(
-                                      padding: EdgeInsets.symmetric(
-                                        horizontal: padding.top * 0.4,
-                                      ),
-                                      child: Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.start,
-                                        children: const [
-                                          Text(
-                                            "Work in Progress",
-                                            style: TextStyle(
-                                              color: Colors.black,
-                                              fontWeight: FontWeight.w400,
-                                              fontSize: 16,
+                                          },
+                                        );
+                                      },
+                                      child: CustomBox(
+                                        height: size.height / 90 * 6,
+                                        width: size.width / 8 * 1.3,
+                                        blurRadius: 4,
+                                        radius: 15,
+                                        shadowColor: AppColors.customWhite,
+                                        color: AppColors.white,
+                                        horizontalMargin: 0,
+                                        verticalMargin: 0,
+                                        child: Column(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceAround,
+                                          children: [
+                                            Iconify(
+                                              FluentMdl2.reservation_orders,
+                                              color: AppColors.fadeblue,
+                                              size: size.height / 90 * 6,
                                             ),
-                                          ),
-                                          Spacer(),
-                                          Icon(
-                                            Icons.arrow_forward_ios,
-                                            size: 18,
-                                          )
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                ).customBox(),
-                              ),
-                              SizedBox(
-                                height: size.height / 90 * 1.2,
-                              ),
-                              InkWell(
-                                onTap: () {
-                                  Navigator.of(context).pushNamed(
-                                    orders,
-                                    arguments: {
-                                      "sid": args['sid'],
-                                      "sitename": args['sitename']
-                                    },
-                                  );
-                                },
-                                child: CustomBox(
-                                  height: size.height / 90 * 4.2,
-                                  width: size.width,
-                                  radius: 15,
-                                  blurRadius: 8.0,
-                                  shadowColor: AppColors.customWhite,
-                                  color: AppColors.white,
-                                  horizontalMargin: 0,
-                                  verticalMargin: 0,
-                                  child: Container(
-                                    padding: EdgeInsets.symmetric(
-                                      horizontal: padding.top * 0.4,
-                                    ),
-                                    child: Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.start,
-                                      children: const [
-                                        Text(
-                                          "Manage Orders",
-                                          style: TextStyle(
-                                            color: Colors.black,
-                                            fontWeight: FontWeight.w400,
-                                            fontSize: 16,
-                                          ),
+                                            Text(
+                                              "Manage Orders",
+                                              style: TextStyle(
+                                                color: AppColors.grey,
+                                                fontWeight: FontWeight.w600,
+                                                fontSize: 18,
+                                              ),
+                                            ),
+                                          ],
                                         ),
-                                        Spacer(),
-                                        Icon(
-                                          Icons.arrow_forward_ios,
-                                          size: 18,
-                                        )
-                                      ],
+                                      ).customBox(),
                                     ),
-                                  ),
-                                ).customBox(),
-                              ),
-                              SizedBox(
-                                height: size.height / 90 * 0.5,
+                                  ],
+                                ),
                               ),
                             ],
                           ),
                         );
                       } else {
-                        return Builder(
-                          builder: (context) => customLoading(size),
+                        return Center(
+                          child: Builder(
+                            builder: (context) => customLoading(size),
+                          ),
                         );
                       }
                     },
@@ -807,8 +788,10 @@ class _SiteDescriptionState extends State<SiteDescription> {
               ),
             );
           } else {
-            return Builder(
-              builder: (context) => customLoading(size),
+            return Center(
+              child: Builder(
+                builder: (context) => customLoading(size),
+              ),
             );
           }
         },

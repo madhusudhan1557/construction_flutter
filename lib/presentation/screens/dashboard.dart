@@ -173,8 +173,10 @@ class _DashboardState extends State<Dashboard> {
                 ],
               );
             } else {
-              return Builder(
-                builder: (context) => customLoading(size),
+              return Center(
+                child: Builder(
+                  builder: (context) => customLoading(size),
+                ),
               );
             }
           }),

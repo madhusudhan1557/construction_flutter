@@ -427,8 +427,10 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
               ),
             );
           } else {
-            return const Center(
-              child: CircularProgressIndicator.adaptive(),
+            return Center(
+              child: Builder(
+                builder: (context) => customLoading(size),
+              ),
             );
           }
         });
@@ -591,8 +593,13 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                           });
                         }
                         if (data.isNotEmpty) {
-                          Navigator.of(context)
-                              .pushNamed(workreportPdf, arguments: data);
+                          Navigator.of(context).pushNamed(
+                              workInvoiceSignaturePadPage,
+                              arguments: {
+                                "data": data,
+                                "name": "WorkReport - ${data[0]['sitename']}",
+                                "count": 5,
+                              });
                         }
                       },
                       child: const Text("Generate Report"),

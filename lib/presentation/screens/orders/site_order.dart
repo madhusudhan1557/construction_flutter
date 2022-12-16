@@ -809,8 +809,14 @@ class _OrderPageState extends State<OrderPage> {
                         text: "No Orders at the moment",
                         contentColor: AppColors.red);
                   } else {
-                    Navigator.of(context)
-                        .pushNamed(orderinvoicepdf, arguments: data);
+                    Navigator.of(context).pushNamed(
+                      orderInvoiceSignaturePadPage,
+                      arguments: {
+                        "count": 9,
+                        "data": data,
+                        "name": "Order Invoice ${data[0]['sitename']}"
+                      },
+                    );
                   }
                 },
                 icon: CircleAvatar(
@@ -868,6 +874,9 @@ class _OrderPageState extends State<OrderPage> {
                           itemCount: snapshot.data!.docs.length,
                           itemBuilder: (context, index) {
                             if (snapshot.data!.docs.isNotEmpty) {
+                              double amount = snapshot.data!.docs[index]
+                                      ['rate'] *
+                                  snapshot.data!.docs[index]['quantity'];
                               data.add(
                                 {
                                   'sn': "${index + 1}",
@@ -883,6 +892,8 @@ class _OrderPageState extends State<OrderPage> {
                                       ['quantity'],
                                   "status": snapshot.data!.docs[index]
                                       ['status'],
+                                  "rate": snapshot.data!.docs[index]['rate'],
+                                  "amount": amount,
                                 },
                               );
                             }
@@ -1072,8 +1083,10 @@ class _OrderPageState extends State<OrderPage> {
                           },
                         );
                 } else {
-                  return const Center(
-                    child: CircularProgressIndicator.adaptive(),
+                  return Center(
+                    child: Builder(
+                      builder: (context) => customLoading(size),
+                    ),
                   );
                 }
               },

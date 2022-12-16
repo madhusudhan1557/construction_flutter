@@ -1,7 +1,8 @@
 import 'package:construction/presentation/screens/auth/register.dart';
 import 'package:construction/presentation/screens/dashboard.dart';
 import 'package:construction/presentation/screens/estimations/estimation_page.dart';
-import 'package:construction/presentation/screens/invoices/invoices_page.dart';
+
+import 'package:construction/presentation/screens/orders/order_signature_page.dart';
 
 import 'package:construction/presentation/screens/sites/add_site.dart';
 import 'package:construction/presentation/screens/sites/site_description.dart';
@@ -9,12 +10,12 @@ import 'package:construction/presentation/screens/sites/site_description.dart';
 import 'package:construction/presentation/screens/sites/site_page.dart';
 import 'package:construction/presentation/screens/stocks/site_stocks.dart';
 import 'package:construction/presentation/screens/splash.dart';
-import 'package:construction/presentation/screens/stocks/stock_report.dart';
+import 'package:construction/presentation/screens/stocks/stocks_signature_page.dart';
 
 import 'package:construction/presentation/screens/users/users_page.dart';
 import 'package:construction/presentation/screens/workinprogress/edit_work_page.dart';
-import 'package:construction/presentation/screens/workinprogress/report_preview.dart';
 import 'package:construction/presentation/screens/workinprogress/schedule_work.dart';
+import 'package:construction/presentation/screens/workinprogress/work_report_signature_pad.dart';
 
 import 'package:construction/presentation/screens/workinprogress/workprogress_page.dart';
 import 'package:construction/presentation/settings.dart';
@@ -51,13 +52,13 @@ class AppRouter {
       case estimation:
         return MaterialPageRoute(
             builder: (context) => const EstimationPage(), settings: settings);
-      case orderinvoicepdf:
-        return MaterialPageRoute(
-            builder: (context) => const InvoicePage(), settings: settings);
       case settingspage:
         return MaterialPageRoute(
             builder: (context) => const SettingsPage(), settings: settings);
-
+      case orderInvoiceSignaturePadPage:
+        return MaterialPageRoute(
+            builder: (context) => const OrderInvoiceSignaturePadPage(),
+            settings: settings);
       case workinprogress:
         return MaterialPageRoute(
             builder: (context) => const WorkInProgressPage(),
@@ -74,13 +75,13 @@ class AppRouter {
       case addsitepage:
         return MaterialPageRoute(
             builder: (context) => const AddSitePage(), settings: settings);
-      case stocksreport:
+      case stockSignaturePadPage:
         return MaterialPageRoute(
-            builder: (context) => const StockReportPreview(),
+            builder: (context) => const StockReportSignaturePadPage(),
             settings: settings);
-      case workreportPdf:
+      case workInvoiceSignaturePadPage:
         return MaterialPageRoute(
-            builder: (context) => const PdfReportPreviewPage(),
+            builder: (context) => const WorkReportSignaturePadPage(),
             settings: settings);
     }
     return null;

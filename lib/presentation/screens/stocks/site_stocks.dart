@@ -766,8 +766,14 @@ class _SiteStocksState extends State<SiteStocks> {
                         text: "No Stocks at the moment",
                         contentColor: AppColors.red);
                   } else {
-                    Navigator.of(context)
-                        .pushNamed(stocksreport, arguments: data);
+                    Navigator.of(context).pushNamed(
+                      stockSignaturePadPage,
+                      arguments: {
+                        "data": data,
+                        "name": "StocksReport - ${data[0]['sitename']}",
+                        "count": 8
+                      },
+                    );
                   }
                 },
                 icon: CircleAvatar(
@@ -825,6 +831,9 @@ class _SiteStocksState extends State<SiteStocks> {
                           itemCount: snapshot.data!.docs.length,
                           itemBuilder: (context, index) {
                             if (snapshot.data!.docs.isNotEmpty) {
+                              double amount = snapshot.data!.docs[index]
+                                      ['quantity'] *
+                                  snapshot.data!.docs[index]['rate'];
                               data.add(
                                 {
                                   'sn': "${index + 1}",
@@ -838,6 +847,9 @@ class _SiteStocksState extends State<SiteStocks> {
                                   "unit": snapshot.data!.docs[index]['unit'],
                                   "quantity": snapshot.data!.docs[index]
                                       ['quantity'],
+                                  "rate": snapshot.data!.docs[index]
+                                      ['quantity'],
+                                  "amount": amount,
                                 },
                               );
                             }
@@ -1032,8 +1044,10 @@ class _SiteStocksState extends State<SiteStocks> {
                           },
                         );
                 } else {
-                  return Builder(
-                    builder: (context) => customLoading(size),
+                  return Center(
+                    child: Builder(
+                      builder: (context) => customLoading(size),
+                    ),
                   );
                 }
               },

@@ -7,7 +7,7 @@ const String dashboard = "dashboard";
 const String site = "sites";
 const String workinprogress = "workinprogress";
 const String estimation = "estimation";
-
+const String orderInvoiceSignaturePadPage = "orderInvoiceSignaturePadPage";
 const String stocks = "stocks";
 const String orders = "orders";
 const String siteDesc = 'sitedesc';
@@ -21,3 +21,5 @@ const String addsitepage = "addsite";
 const String stocksreport = "stocksreport";
 const String workreportPdf = "workReportpdf";
 const String orderinvoicepdf = "orderinvoicepdf";
+const String stockSignaturePadPage = "stockSignaturePadPage";
+const String workInvoiceSignaturePadPage = "workInvoiceSignaturePadPage";

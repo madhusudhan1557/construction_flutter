@@ -5,7 +5,7 @@ import 'package:intl/intl.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:syncfusion_flutter_pdf/pdf.dart';
 
-class StockReportPdfApi {
+class OrderInvoicePdfApi {
   static Future<File> generatePDF(
       {required String name,
       required List<Map<String, dynamic>> data,
@@ -13,7 +13,9 @@ class StockReportPdfApi {
       required ByteData logo,
       required int count}) async {
     final PdfDocument pdfdoc = PdfDocument();
+
     final page = pdfdoc.pages.add();
+
     PdfPageTemplateElement header = PdfPageTemplateElement(Rect.fromLTWH(
         0,
         0,
@@ -24,7 +26,7 @@ class StockReportPdfApi {
         PdfStandardFont(PdfFontFamily.helvetica, 12, style: PdfFontStyle.bold),
         bounds: const Rect.fromLTWH(0, 0, 0, 0));
 
-    header.graphics.drawString('Site Stocks Report',
+    header.graphics.drawString('Order Invoice Report',
         PdfStandardFont(PdfFontFamily.helvetica, 12, style: PdfFontStyle.bold),
         bounds: const Rect.fromLTWH(0, 20, 0, 0));
     header.graphics.drawString('Sitename : ${data[0]['sitename']}',
@@ -42,7 +44,7 @@ class StockReportPdfApi {
     pdfdoc.template.top = header;
 
     drawTable(data, page, count);
-    drawSignature(data, page, signatureImage);
+    drawSignature(data, page, signatureImage, header);
 
     return saveFile(pdfdoc, name);
   }
@@ -61,6 +63,7 @@ class StockReportPdfApi {
     List<Map<String, dynamic>> data,
     PdfPage page,
     ByteData signatureImage,
+    PdfPageTemplateElement header,
   ) {
     final pageSize = page.getClientSize();
     final PdfBitmap image = PdfBitmap(signatureImage.buffer.asUint8List());
@@ -103,8 +106,8 @@ class StockReportPdfApi {
     headerRow.cells[4].value = "Qty.";
     headerRow.cells[5].value = "Rate";
     headerRow.cells[6].value = "Unit";
-    headerRow.cells[7].value = "Amount";
-
+    headerRow.cells[7].value = "Status";
+    headerRow.cells[8].value = "Amount";
     grid.applyBuiltInStyle(PdfGridBuiltInStyle.listTable1LightAccent5);
     grid.allowRowBreakingAcrossPages = true;
     headerRow.style.textBrush = PdfSolidBrush(PdfColor(255, 255, 255, 1));
@@ -133,7 +136,8 @@ class StockReportPdfApi {
       row.cells[4].value = "${element['quantity']}";
       row.cells[5].value = "${element['rate']}";
       row.cells[6].value = element['unit'];
-      row.cells[7].value = "${element['amount']}";
+      row.cells[7].value = element['status'];
+      row.cells[8].value = "${element['amount']}";
       for (int i = 0; i < row.cells.count; i++) {
         row.cells[i].style.cellPadding =
             PdfPaddings(bottom: 5, left: 8, right: 8, top: 5);
