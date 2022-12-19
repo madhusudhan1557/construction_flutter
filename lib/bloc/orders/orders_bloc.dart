@@ -163,7 +163,7 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
       DocumentReference orderdoc = FirebaseFirestore.instance
           .collection("sites")
           .doc(sid)
-          .collection("Orders")
+          .collection("orders")
           .doc(oid);
       await orderdoc.update({
         "quantity": qty,
