@@ -490,7 +490,7 @@ class _SiteDescriptionState extends State<SiteDescription> {
                         phone = snapshot.data!['phone'];
                         about = snapshot.data!['sitedesc'];
                         return Container(
-                          height: size.height / 90 * 52,
+                          height: size.height / 90 * 55,
                           padding: EdgeInsets.symmetric(
                               horizontal: padding.top * 0.8),
                           child: ListView(
@@ -599,16 +599,17 @@ class _SiteDescriptionState extends State<SiteDescription> {
                                 ),
                               ),
                               SizedBox(
-                                height: size.height / 90 * 1.2,
+                                height: size.height / 90 * 1.8,
                               ),
                               SizedBox(
                                 height: size.height / 90 * 25.5,
                                 child: GridView(
+                                  physics: const NeverScrollableScrollPhysics(),
                                   gridDelegate:
                                       const SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 2,
-                                    mainAxisSpacing: 5,
-                                    crossAxisSpacing: 5,
+                                    mainAxisSpacing: 10,
+                                    crossAxisSpacing: 10,
                                     childAspectRatio: 3 / 2,
                                   ),
                                   children: [
@@ -771,6 +772,9 @@ class _SiteDescriptionState extends State<SiteDescription> {
                                     ),
                                   ],
                                 ),
+                              ),
+                              SizedBox(
+                                height: size.height / 90 * 1.3,
                               ),
                             ],
                           ),

@@ -33,7 +33,7 @@ class _OrderPageState extends State<OrderPage> {
   final TextEditingController _unit = TextEditingController();
   final TextEditingController _qty = TextEditingController();
   final _formKey = GlobalKey<FormState>();
-  List<dynamic> selectStatus = ["Delivered", "On The Way", "Cancel"];
+  List<dynamic> selectStatus = ["Delivered", "On The Way", "Cancelled"];
   String orderstatus = '';
 
   @override
@@ -331,7 +331,7 @@ class _OrderPageState extends State<OrderPage> {
         builder: (context) => AlertDialog(
           content: SizedBox(
             width: size.width,
-            height: size.height / 90 * 53.334,
+            height: size.height / 90 * 62.334,
             child: Form(
               key: _formKey,
               child: SingleChildScrollView(
@@ -499,12 +499,14 @@ class _OrderPageState extends State<OrderPage> {
                             decoration: const InputDecoration(
                               border: InputBorder.none,
                             ),
+                            buttonPadding: EdgeInsets.symmetric(
+                                horizontal: padding.top * 0.2),
                             hint: const Text("Select Status"),
-                            offset: Offset(0, -size.height / 90 * 2.44),
+                            offset: Offset(-4, -size.height / 90 * 2.44),
                             items: selectStatus.map((st) {
                               return DropdownMenuItem(
                                 value: st,
-                                child: Text(st['sitename']),
+                                child: Text(st),
                               );
                             }).toList(),
                             onChanged: (newValue) {
@@ -590,7 +592,7 @@ class _OrderPageState extends State<OrderPage> {
                       ),
                     ),
                     SizedBox(
-                      height: size.height / 90 * 1.538,
+                      height: size.height / 90 * 3.538,
                     ),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -804,6 +806,12 @@ class _OrderPageState extends State<OrderPage> {
               padding: EdgeInsets.symmetric(horizontal: padding.top * 0.2),
               child: IconButton(
                 onPressed: () {
+                  double total = 0;
+                  for (int i = 0; i < data.length; i++) {
+                    total += data[i]['amount'];
+                  }
+                  print(total);
+
                   if (data.isEmpty) {
                     BotToast.showText(
                         text: "No Orders at the moment",
@@ -814,6 +822,7 @@ class _OrderPageState extends State<OrderPage> {
                       arguments: {
                         "count": 9,
                         "data": data,
+                        "total": total,
                         "name": "Order Invoice ${data[0]['sitename']}"
                       },
                     );
@@ -877,25 +886,23 @@ class _OrderPageState extends State<OrderPage> {
                               double amount = snapshot.data!.docs[index]
                                       ['rate'] *
                                   snapshot.data!.docs[index]['quantity'];
-                              data.add(
-                                {
-                                  'sn': "${index + 1}",
-                                  "sitename": args['sitename'],
-                                  "itemname": snapshot.data!.docs[index]
-                                      ['itemname'],
-                                  "brandname": snapshot.data!.docs[index]
-                                      ['brandname'],
-                                  "suppliername": snapshot.data!.docs[index]
-                                      ['suppliername'],
-                                  "unit": snapshot.data!.docs[index]['unit'],
-                                  "quantity": snapshot.data!.docs[index]
-                                      ['quantity'],
-                                  "status": snapshot.data!.docs[index]
-                                      ['status'],
-                                  "rate": snapshot.data!.docs[index]['rate'],
-                                  "amount": amount,
-                                },
-                              );
+
+                              data.add({
+                                'sn': "${index + 1}",
+                                "sitename": args['sitename'],
+                                "itemname": snapshot.data!.docs[index]
+                                    ['itemname'],
+                                "brandname": snapshot.data!.docs[index]
+                                    ['brandname'],
+                                "suppliername": snapshot.data!.docs[index]
+                                    ['suppliername'],
+                                "unit": snapshot.data!.docs[index]['unit'],
+                                "quantity": snapshot.data!.docs[index]
+                                    ['quantity'],
+                                "status": snapshot.data!.docs[index]['status'],
+                                "rate": snapshot.data!.docs[index]['rate'],
+                                "amount": amount,
+                              });
                             }
                             return CustomBox(
                               height: size.height / 90 * 15.15,
@@ -980,7 +987,7 @@ class _OrderPageState extends State<OrderPage> {
                                             shadowColor: AppColors.customWhite,
                                             color: snapshot.data!.docs[index]
                                                         ['status'] ==
-                                                    "Order Cancel"
+                                                    "Cancelled"
                                                 ? AppColors.red
                                                 : snapshot.data!.docs[index]
                                                             ['status'] ==

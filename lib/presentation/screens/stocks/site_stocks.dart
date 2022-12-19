@@ -761,6 +761,11 @@ class _SiteStocksState extends State<SiteStocks> {
               padding: EdgeInsets.symmetric(horizontal: padding.top * 0.2),
               child: IconButton(
                 onPressed: () {
+                  double total = 0;
+                  for (int i = 0; i < data.length; i++) {
+                    total += data[i]['amount'];
+                  }
+
                   if (data.isEmpty) {
                     BotToast.showText(
                         text: "No Stocks at the moment",
@@ -771,6 +776,7 @@ class _SiteStocksState extends State<SiteStocks> {
                       arguments: {
                         "data": data,
                         "name": "StocksReport - ${data[0]['sitename']}",
+                        "total": total,
                         "count": 8
                       },
                     );

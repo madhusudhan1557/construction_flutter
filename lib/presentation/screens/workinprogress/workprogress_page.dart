@@ -36,7 +36,7 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
   DateTime? startDate;
 
   DateTime? endDate;
-
+  double average = 0;
   @override
   Widget build(BuildContext context) {
     final size = MediaQuery.of(context).size;
@@ -379,31 +379,84 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                         SizedBox(
                           height: size.height / 90 * 1.2,
                         ),
-                        Container(
-                          height: size.height / 90 * 1.8,
-                          width: size.width,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(10),
-                            boxShadow: [
-                              BoxShadow(
-                                  color: AppColors.customWhite,
-                                  blurRadius: 4.0),
-                            ],
-                          ),
-                          child: FAProgressBar(
-                            formatValueFixed: 2,
-                            animatedDuration: const Duration(seconds: 2),
-                            borderRadius: BorderRadius.circular(15),
-                            backgroundColor: AppColors.white,
-                            progressColor: AppColors.green,
-                            direction: Axis.horizontal,
-                            displayText: "%",
-                            displayTextStyle: TextStyle(
-                              color: AppColors.white,
-                            ),
-                            maxValue: 100,
-                            currentValue: 90,
-                          ),
+                        StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+                          stream: FirebaseFirestore.instance
+                              .collection("sites")
+                              .doc(args['sid'])
+                              .collection("works")
+                              .snapshots(),
+                          builder: (context, snapshot) {
+                            if (!snapshot.hasData) {
+                              return Center(
+                                child: Builder(
+                                  builder: (context) => customLoading(size),
+                                ),
+                              );
+                            } else {
+                              if (snapshot.data!.docs.isEmpty) {
+                                return Container(
+                                  height: size.height / 90 * 1.8,
+                                  width: size.width,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: AppColors.customWhite,
+                                          blurRadius: 4.0),
+                                    ],
+                                  ),
+                                  child: FAProgressBar(
+                                    formatValueFixed: 2,
+                                    animatedDuration:
+                                        const Duration(seconds: 2),
+                                    borderRadius: BorderRadius.circular(15),
+                                    backgroundColor: AppColors.white,
+                                    progressColor: AppColors.green,
+                                    direction: Axis.horizontal,
+                                    displayText: "%",
+                                    displayTextStyle: TextStyle(
+                                      color: AppColors.white,
+                                    ),
+                                    maxValue: 100,
+                                    currentValue: 0,
+                                  ),
+                                );
+                              } else {
+                                average = snapshot.data!.docs
+                                        .map((e) => e['progress'])
+                                        .reduce((value, element) =>
+                                            value + element) /
+                                    snapshot.data!.docs.length;
+                                return Container(
+                                  height: size.height / 90 * 1.8,
+                                  width: size.width,
+                                  decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(10),
+                                    boxShadow: [
+                                      BoxShadow(
+                                          color: AppColors.customWhite,
+                                          blurRadius: 4.0),
+                                    ],
+                                  ),
+                                  child: FAProgressBar(
+                                    formatValueFixed: 2,
+                                    animatedDuration:
+                                        const Duration(seconds: 2),
+                                    borderRadius: BorderRadius.circular(15),
+                                    backgroundColor: AppColors.white,
+                                    progressColor: AppColors.green,
+                                    direction: Axis.horizontal,
+                                    displayText: "%",
+                                    displayTextStyle: TextStyle(
+                                      color: AppColors.white,
+                                    ),
+                                    maxValue: 100,
+                                    currentValue: average,
+                                  ),
+                                );
+                              }
+                            }
+                          },
                         ),
                         SizedBox(
                           height: size.height / 90 * 1.5,
@@ -570,7 +623,7 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                 height: size.height / 90 * 1.5,
               ),
               snapshot.data!.docs.isEmpty
-                  ? Container()
+                  ? const Center(child: Text("Work Progress appears here"))
                   : ElevatedButton(
                       style: ElevatedButton.styleFrom(
                         elevation: 0,

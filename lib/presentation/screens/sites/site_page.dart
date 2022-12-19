@@ -90,11 +90,6 @@ class _SitePageState extends State<SitePage> {
                       SizedBox(
                         height: size.height / 90 * 4.43,
                       ),
-                      Image.asset(
-                        "assets/images/sites.png",
-                        height: size.height / 90 * 18.54,
-                        width: size.width / 2,
-                      ),
                       SizedBox(
                         height: size.height / 90 * 2.43,
                       ),

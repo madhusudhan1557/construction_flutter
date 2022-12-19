@@ -19,7 +19,7 @@ class WorkReportPdfApi {
         0,
         0,
         pdfdoc.pageSettings.size.width,
-        pdfdoc.pageSettings.size.height / 90 * 13));
+        pdfdoc.pageSettings.size.height / 90 * 10));
     final PdfBitmap logoImage = PdfBitmap(logo.buffer.asUint8List());
     header.graphics.drawString('Aakar Developers',
         PdfStandardFont(PdfFontFamily.helvetica, 12, style: PdfFontStyle.bold),
@@ -38,7 +38,7 @@ class WorkReportPdfApi {
         bounds: const Rect.fromLTWH(0, 60, 0, 0));
 
     header.graphics.drawImage(
-        logoImage, Rect.fromLTWH(page.getClientSize().width + 40, 0, 40, 40));
+        logoImage, Rect.fromLTWH(page.getClientSize().width - 5, 0, 80, 80));
 
     pdfdoc.template.top = header;
 
@@ -68,14 +68,14 @@ class WorkReportPdfApi {
     final PdfBitmap image = PdfBitmap(signatureImage.buffer.asUint8List());
 
     page.graphics.drawString(
-        "SupervisorSignature",
+        "Supervisor Signature",
         PdfStandardFont(
           PdfFontFamily.helvetica,
           12,
         ),
         format: PdfStringFormat(alignment: PdfTextAlignment.right),
         bounds: Rect.fromLTWH(
-          pageSize.width - 150,
+          pageSize.width - 145,
           pageSize.height - 20,
           140,
           15,

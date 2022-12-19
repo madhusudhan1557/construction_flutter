@@ -23,3 +23,4 @@ const String workreportPdf = "workReportpdf";
 const String orderinvoicepdf = "orderinvoicepdf";
 const String stockSignaturePadPage = "stockSignaturePadPage";
 const String workInvoiceSignaturePadPage = "workInvoiceSignaturePadPage";
+const String navscreen = "navscreen";

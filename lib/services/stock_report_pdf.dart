@@ -11,6 +11,7 @@ class StockReportPdfApi {
       required List<Map<String, dynamic>> data,
       required ByteData signatureImage,
       required ByteData logo,
+      required double total,
       required int count}) async {
     final PdfDocument pdfdoc = PdfDocument();
     final page = pdfdoc.pages.add();
@@ -18,30 +19,30 @@ class StockReportPdfApi {
         0,
         0,
         pdfdoc.pageSettings.size.width,
-        pdfdoc.pageSettings.size.height / 90 * 13));
+        pdfdoc.pageSettings.size.height / 90 * 8));
     final PdfBitmap logoImage = PdfBitmap(logo.buffer.asUint8List());
     header.graphics.drawString('Aakar Developers',
-        PdfStandardFont(PdfFontFamily.helvetica, 12, style: PdfFontStyle.bold),
+        PdfStandardFont(PdfFontFamily.helvetica, 14, style: PdfFontStyle.bold),
         bounds: const Rect.fromLTWH(0, 0, 0, 0));
 
     header.graphics.drawString('Site Stocks Report',
-        PdfStandardFont(PdfFontFamily.helvetica, 12, style: PdfFontStyle.bold),
+        PdfStandardFont(PdfFontFamily.helvetica, 14, style: PdfFontStyle.bold),
         bounds: const Rect.fromLTWH(0, 20, 0, 0));
     header.graphics.drawString('Sitename : ${data[0]['sitename']}',
-        PdfStandardFont(PdfFontFamily.helvetica, 12, style: PdfFontStyle.bold),
+        PdfStandardFont(PdfFontFamily.helvetica, 14, style: PdfFontStyle.bold),
         bounds: const Rect.fromLTWH(0, 40, 0, 0));
 
     header.graphics.drawString(
         'Date : ${DateFormat.yMMMd().format(DateTime.now())}',
-        PdfStandardFont(PdfFontFamily.helvetica, 12, style: PdfFontStyle.bold),
+        PdfStandardFont(PdfFontFamily.helvetica, 14, style: PdfFontStyle.bold),
         bounds: const Rect.fromLTWH(0, 60, 0, 0));
 
     header.graphics.drawImage(
-        logoImage, Rect.fromLTWH(page.getClientSize().width + 40, 0, 40, 40));
+        logoImage, Rect.fromLTWH(page.getClientSize().width - 5, 0, 80, 80));
 
     pdfdoc.template.top = header;
 
-    drawTable(data, page, count);
+    drawTable(data, page, count, total);
     drawSignature(data, page, signatureImage);
 
     return saveFile(pdfdoc, name);
@@ -66,7 +67,7 @@ class StockReportPdfApi {
     final PdfBitmap image = PdfBitmap(signatureImage.buffer.asUint8List());
 
     page.graphics.drawString(
-        "SupervisorSignature",
+        "Supervisor Signature",
         PdfStandardFont(
           PdfFontFamily.helvetica,
           12,
@@ -90,7 +91,8 @@ class StockReportPdfApi {
     );
   }
 
-  static void drawTable(List<Map<String, dynamic>> data, PdfPage page, count) {
+  static void drawTable(
+      List<Map<String, dynamic>> data, PdfPage page, int count, double total) {
     final grid = PdfGrid();
     grid.columns.add(count: count);
     final headerRow = grid.headers.add(1)[0];
@@ -123,7 +125,7 @@ class StockReportPdfApi {
 
       row.style.font = PdfStandardFont(
         PdfFontFamily.helvetica,
-        8,
+        10,
         style: PdfFontStyle.regular,
       );
       row.cells[0].value = element['sn'];
@@ -139,6 +141,21 @@ class StockReportPdfApi {
             PdfPaddings(bottom: 5, left: 8, right: 8, top: 5);
       }
     }
+
+    page.graphics.drawString(
+      "Total : Rs.$total",
+      PdfStandardFont(
+        PdfFontFamily.helvetica,
+        12,
+      ),
+      format: PdfStringFormat(alignment: PdfTextAlignment.right),
+      bounds: Rect.fromLTWH(
+        page.size.width - 150,
+        page.size.height - 20,
+        140,
+        15,
+      ),
+    );
 
     grid.draw(
       page: page,

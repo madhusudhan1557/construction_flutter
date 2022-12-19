@@ -196,10 +196,15 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
         "brandname": itembrand,
         "suppliername": suppliername,
         "quantity": quantity,
-        "status": status,
         "rate": rate,
         "unit": unit,
       });
+      if (status.isNotEmpty) {
+        await ordersDoc.update({
+          "status": status,
+        });
+      }
+
       add(CompleteUpdatingSiteOrderEvent());
     } on FirebaseException catch (e) {
       add(FailedUpdatingSiteOrderEvent(error: e.message!));

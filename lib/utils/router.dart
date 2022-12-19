@@ -1,6 +1,5 @@
 import 'package:construction/presentation/screens/auth/register.dart';
-import 'package:construction/presentation/screens/dashboard.dart';
-import 'package:construction/presentation/screens/estimations/estimation_page.dart';
+import 'package:construction/presentation/screens/bottom_navbar.dart';
 
 import 'package:construction/presentation/screens/orders/order_signature_page.dart';
 
@@ -35,8 +34,8 @@ class AppRouter {
       case register:
         return MaterialPageRoute(
             builder: (context) => const RegistrationScreen());
-      case dashboard:
-        return MaterialPageRoute(builder: (context) => const Dashboard());
+      case navscreen:
+        return MaterialPageRoute(builder: (context) => const BottomNavBar());
       case site:
         return MaterialPageRoute(
             builder: (context) => const SitePage(), settings: settings);
@@ -49,9 +48,7 @@ class AppRouter {
       case orders:
         return MaterialPageRoute(
             builder: (context) => const OrderPage(), settings: settings);
-      case estimation:
-        return MaterialPageRoute(
-            builder: (context) => const EstimationPage(), settings: settings);
+
       case settingspage:
         return MaterialPageRoute(
             builder: (context) => const SettingsPage(), settings: settings);

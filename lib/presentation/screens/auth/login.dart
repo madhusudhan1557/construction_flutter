@@ -212,7 +212,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   if (state is CompletedLoadingState) {
                                     BotToast.closeAllLoading();
                                     Navigator.of(context)
-                                        .pushReplacementNamed(dashboard);
+                                        .pushReplacementNamed(navscreen);
                                   }
                                   if (state is UserNotFountState) {
                                     BotToast.closeAllLoading();

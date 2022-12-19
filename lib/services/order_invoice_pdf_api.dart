@@ -20,26 +20,26 @@ class OrderInvoicePdfApi {
         0,
         0,
         pdfdoc.pageSettings.size.width,
-        pdfdoc.pageSettings.size.height / 90 * 13));
+        pdfdoc.pageSettings.size.height / 90 * 8));
     final PdfBitmap logoImage = PdfBitmap(logo.buffer.asUint8List());
     header.graphics.drawString('Aakar Developers',
-        PdfStandardFont(PdfFontFamily.helvetica, 12, style: PdfFontStyle.bold),
+        PdfStandardFont(PdfFontFamily.helvetica, 14, style: PdfFontStyle.bold),
         bounds: const Rect.fromLTWH(0, 0, 0, 0));
 
     header.graphics.drawString('Order Invoice Report',
-        PdfStandardFont(PdfFontFamily.helvetica, 12, style: PdfFontStyle.bold),
+        PdfStandardFont(PdfFontFamily.helvetica, 14, style: PdfFontStyle.bold),
         bounds: const Rect.fromLTWH(0, 20, 0, 0));
     header.graphics.drawString('Sitename : ${data[0]['sitename']}',
-        PdfStandardFont(PdfFontFamily.helvetica, 12, style: PdfFontStyle.bold),
+        PdfStandardFont(PdfFontFamily.helvetica, 14, style: PdfFontStyle.bold),
         bounds: const Rect.fromLTWH(0, 40, 0, 0));
 
     header.graphics.drawString(
         'Date : ${DateFormat.yMMMd().format(DateTime.now())}',
-        PdfStandardFont(PdfFontFamily.helvetica, 12, style: PdfFontStyle.bold),
+        PdfStandardFont(PdfFontFamily.helvetica, 14, style: PdfFontStyle.bold),
         bounds: const Rect.fromLTWH(0, 60, 0, 0));
 
     header.graphics.drawImage(
-        logoImage, Rect.fromLTWH(page.getClientSize().width + 40, 0, 40, 40));
+        logoImage, Rect.fromLTWH(page.getClientSize().width - 5, 0, 80, 80));
 
     pdfdoc.template.top = header;
 
@@ -69,7 +69,7 @@ class OrderInvoicePdfApi {
     final PdfBitmap image = PdfBitmap(signatureImage.buffer.asUint8List());
 
     page.graphics.drawString(
-        "SupervisorSignature",
+        "Supervisor Signature",
         PdfStandardFont(
           PdfFontFamily.helvetica,
           12,
@@ -126,7 +126,7 @@ class OrderInvoicePdfApi {
 
       row.style.font = PdfStandardFont(
         PdfFontFamily.helvetica,
-        8,
+        10,
         style: PdfFontStyle.regular,
       );
       row.cells[0].value = element['sn'];
