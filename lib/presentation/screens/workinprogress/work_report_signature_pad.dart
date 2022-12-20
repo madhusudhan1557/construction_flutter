@@ -1,6 +1,5 @@
 import 'dart:ui';
 
-import 'package:bot_toast/bot_toast.dart';
 import 'package:construction/main.dart';
 
 import 'package:flutter/material.dart';
@@ -67,7 +66,7 @@ class _WorkReportSignaturePadPageState
           ElevatedButton(
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.yellow,
-              foregroundColor: AppColors.fadeblue,
+              foregroundColor: AppColors.blue,
               fixedSize: Size(size.width, size.height / 90 * 3.44),
             ),
             onPressed: () {

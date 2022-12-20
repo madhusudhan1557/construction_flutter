@@ -58,7 +58,7 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                     Text(
                       "Update Work Progress",
                       style: TextStyle(
-                          color: AppColors.fadeblue,
+                          color: AppColors.blue,
                           fontSize: 18,
                           fontWeight: FontWeight.w400),
                     ),
@@ -75,7 +75,7 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                             toastBuilder: (cancelFunc) {
                               return Center(
                                 child: CircularProgressIndicator(
-                                  color: AppColors.fadeblue,
+                                  color: AppColors.blue,
                                 ),
                               );
                             },
@@ -102,7 +102,7 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                         return ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             shape: const CircleBorder(),
-                            foregroundColor: AppColors.fadeblue,
+                            foregroundColor: AppColors.blue,
                             backgroundColor: AppColors.yellow,
                           ),
                           onPressed: () {
@@ -156,7 +156,7 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                   backgroundColor: AppColors.yellow,
                   child: Icon(
                     Icons.add,
-                    color: AppColors.fadeblue,
+                    color: AppColors.blue,
                   ),
                 ),
               ),
@@ -373,7 +373,7 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w500,
-                            color: AppColors.fadeblue,
+                            color: AppColors.blue,
                           ),
                         ),
                         SizedBox(
@@ -466,7 +466,7 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w500,
-                            color: AppColors.fadeblue,
+                            color: AppColors.blue,
                           ),
                         ),
                         SizedBox(
@@ -628,7 +628,7 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                       style: ElevatedButton.styleFrom(
                         elevation: 0,
                         backgroundColor: AppColors.yellow,
-                        foregroundColor: AppColors.fadeblue,
+                        foregroundColor: AppColors.blue,
                         fixedSize: Size(size.width, size.height / 90 * 4.2),
                       ),
                       onPressed: () {

@@ -225,7 +225,7 @@ class _AddSitePageState extends State<AddSitePage> {
                                     style: TextStyle(
                                       decoration: TextDecoration.underline,
                                       fontSize: 14,
-                                      color: AppColors.fadeblue,
+                                      color: AppColors.blue,
                                     ),
                                   ),
                                 ],
@@ -298,7 +298,7 @@ class _AddSitePageState extends State<AddSitePage> {
                                       style: ElevatedButton.styleFrom(
                                         elevation: 0,
                                         fixedSize: const Size(103, 33),
-                                        foregroundColor: AppColors.fadeblue,
+                                        foregroundColor: AppColors.blue,
                                       ),
                                       onPressed: () {
                                         Navigator.of(context).pop();
@@ -373,8 +373,7 @@ class _AddSitePageState extends State<AddSitePage> {
                                                 fixedSize: const Size(103, 33),
                                                 backgroundColor:
                                                     AppColors.yellow,
-                                                foregroundColor:
-                                                    AppColors.fadeblue,
+                                                foregroundColor: AppColors.blue,
                                               ),
                                               onPressed: () {
                                                 if (_formKey.currentState!

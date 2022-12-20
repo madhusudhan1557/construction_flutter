@@ -27,7 +27,7 @@ class SettingsPage extends StatelessWidget {
           leading: IconButton(
             icon: Icon(
               Icons.arrow_back_ios_new,
-              color: AppColors.fadeblue,
+              color: AppColors.blue,
             ),
             onPressed: () {
               Navigator.of(context).pop();
@@ -57,7 +57,7 @@ class SettingsPage extends StatelessWidget {
                   children: [
                     SizedBox(width: size.width / 18.3),
                     CircleAvatar(
-                      backgroundColor: AppColors.fadeblue,
+                      backgroundColor: AppColors.blue,
                       radius: 18,
                       child: Iconify(
                         FluentMdl2.engineering_group,
@@ -69,7 +69,7 @@ class SettingsPage extends StatelessWidget {
                       "View Users",
                       textAlign: TextAlign.start,
                       style: TextStyle(
-                        color: AppColors.fadeblue,
+                        color: AppColors.blue,
                         fontWeight: FontWeight.w500,
                         fontSize: 16,
                       ),
@@ -79,7 +79,7 @@ class SettingsPage extends StatelessWidget {
                       padding: const EdgeInsets.all(8.0),
                       child: Icon(
                         Icons.arrow_forward_ios,
-                        color: AppColors.fadeblue,
+                        color: AppColors.blue,
                         size: 18,
                       ),
                     ),
@@ -103,7 +103,7 @@ class SettingsPage extends StatelessWidget {
                 children: [
                   SizedBox(width: size.width / 18.3),
                   CircleAvatar(
-                    backgroundColor: AppColors.fadeblue,
+                    backgroundColor: AppColors.blue,
                     radius: 18,
                     child: Iconify(
                       FluentMdl2.archive,
@@ -115,7 +115,7 @@ class SettingsPage extends StatelessWidget {
                     "View Archrive",
                     textAlign: TextAlign.start,
                     style: TextStyle(
-                      color: AppColors.fadeblue,
+                      color: AppColors.blue,
                       fontWeight: FontWeight.w500,
                       fontSize: 16,
                     ),
@@ -125,7 +125,7 @@ class SettingsPage extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: Icon(
                       Icons.arrow_forward_ios,
-                      color: AppColors.fadeblue,
+                      color: AppColors.blue,
                       size: 18,
                     ),
                   ),
@@ -148,7 +148,7 @@ class SettingsPage extends StatelessWidget {
                 children: [
                   SizedBox(width: size.width / 18.3),
                   CircleAvatar(
-                    backgroundColor: AppColors.fadeblue,
+                    backgroundColor: AppColors.blue,
                     radius: 18,
                     child: Iconify(
                       FluentMdl2.database_view,
@@ -160,7 +160,7 @@ class SettingsPage extends StatelessWidget {
                     "Add Static Data",
                     textAlign: TextAlign.start,
                     style: TextStyle(
-                      color: AppColors.fadeblue,
+                      color: AppColors.blue,
                       fontWeight: FontWeight.w500,
                       fontSize: 16,
                     ),
@@ -170,7 +170,7 @@ class SettingsPage extends StatelessWidget {
                     padding: const EdgeInsets.all(8.0),
                     child: Icon(
                       Icons.arrow_forward_ios,
-                      color: AppColors.fadeblue,
+                      color: AppColors.blue,
                       size: 18,
                     ),
                   ),
@@ -204,7 +204,7 @@ class SettingsPage extends StatelessWidget {
                       children: [
                         SizedBox(width: size.width / 18.3),
                         CircleAvatar(
-                          backgroundColor: AppColors.fadeblue,
+                          backgroundColor: AppColors.blue,
                           radius: 18,
                           child: Iconify(
                             FluentMdl2.sign_out,
@@ -216,7 +216,7 @@ class SettingsPage extends StatelessWidget {
                           "Log out",
                           textAlign: TextAlign.start,
                           style: TextStyle(
-                            color: AppColors.fadeblue,
+                            color: AppColors.blue,
                             fontWeight: FontWeight.w500,
                             fontSize: 16,
                           ),
@@ -226,7 +226,7 @@ class SettingsPage extends StatelessWidget {
                           padding: const EdgeInsets.all(8.0),
                           child: Icon(
                             Icons.arrow_forward_ios,
-                            color: AppColors.fadeblue,
+                            color: AppColors.blue,
                             size: 18,
                           ),
                         ),

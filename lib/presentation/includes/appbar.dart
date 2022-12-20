@@ -18,7 +18,7 @@ class CustomAppbar {
     return Column(
       children: [
         AppBar(
-          iconTheme: IconThemeData(color: AppColors.fadeblue),
+          iconTheme: IconThemeData(color: AppColors.blue),
           automaticallyImplyLeading: false,
           leading: leading,
           backgroundColor: bgcolor,
@@ -26,7 +26,7 @@ class CustomAppbar {
           title: Text(
             title,
             style: TextStyle(
-              color: AppColors.fadeblue,
+              color: AppColors.blue,
               fontSize: 21,
               fontWeight: FontWeight.w700,
             ),

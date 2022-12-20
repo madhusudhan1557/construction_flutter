@@ -30,7 +30,7 @@ class ShowCustomModal {
                 children: [
                   CircleAvatar(
                     radius: size.width / 8.6,
-                    backgroundColor: AppColors.fadeblue,
+                    backgroundColor: AppColors.blue,
                     child: Iconify(
                       FluentMdl2.archive_undo,
                       color: AppColors.white,
@@ -52,7 +52,7 @@ class ShowCustomModal {
                           elevation: 0,
                           fixedSize: const Size(103, 33),
                           backgroundColor: AppColors.white,
-                          foregroundColor: AppColors.fadeblue,
+                          foregroundColor: AppColors.blue,
                         ),
                         onPressed: () {
                           Navigator.of(context).pop();
@@ -63,7 +63,7 @@ class ShowCustomModal {
                         style: ElevatedButton.styleFrom(
                           elevation: 0,
                           fixedSize: const Size(103, 33),
-                          backgroundColor: AppColors.fadeblue,
+                          backgroundColor: AppColors.blue,
                           foregroundColor: AppColors.white,
                         ),
                         onPressed: () {},
@@ -122,7 +122,7 @@ class ShowCustomModal {
                           elevation: 0,
                           fixedSize: const Size(103, 33),
                           backgroundColor: AppColors.white,
-                          foregroundColor: AppColors.fadeblue,
+                          foregroundColor: AppColors.blue,
                         ),
                         onPressed: () {
                           Navigator.of(context).pop();
@@ -193,7 +193,7 @@ class ShowCustomModal {
                           elevation: 0,
                           fixedSize: const Size(103, 33),
                           backgroundColor: AppColors.white,
-                          foregroundColor: AppColors.fadeblue,
+                          foregroundColor: AppColors.blue,
                         ),
                         onPressed: () {
                           Navigator.of(context).pop();

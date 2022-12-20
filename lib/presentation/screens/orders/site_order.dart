@@ -66,7 +66,7 @@ class _OrderPageState extends State<OrderPage> {
                         style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w600,
-                            color: AppColors.fadeblue),
+                            color: AppColors.blue),
                       ),
                       SizedBox(
                         height: size.height / 90 * 2.538,
@@ -151,7 +151,7 @@ class _OrderPageState extends State<OrderPage> {
                               elevation: 0,
                               fixedSize: Size(size.width / 90 * 8.66,
                                   size.height / 90 * 5.86),
-                              foregroundColor: AppColors.fadeblue,
+                              foregroundColor: AppColors.blue,
                             ),
                             onPressed: () {
                               Navigator.of(context).pop();
@@ -188,7 +188,7 @@ class _OrderPageState extends State<OrderPage> {
                                   fixedSize: Size(size.width / 90 * 25.66,
                                       size.height / 90 * 3.86),
                                   backgroundColor: AppColors.yellow,
-                                  foregroundColor: AppColors.fadeblue,
+                                  foregroundColor: AppColors.blue,
                                 ),
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
@@ -259,7 +259,7 @@ class _OrderPageState extends State<OrderPage> {
                             elevation: 0,
                             fixedSize: const Size(103, 33),
                             backgroundColor: AppColors.white,
-                            foregroundColor: AppColors.fadeblue,
+                            foregroundColor: AppColors.blue,
                           ),
                           onPressed: () {
                             Navigator.of(context).pop();
@@ -345,7 +345,7 @@ class _OrderPageState extends State<OrderPage> {
                       style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
-                          color: AppColors.fadeblue),
+                          color: AppColors.blue),
                     ),
                     SizedBox(
                       height: size.height / 90 * 1.538,
@@ -448,7 +448,7 @@ class _OrderPageState extends State<OrderPage> {
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w400,
-                            color: AppColors.fadeblue,
+                            color: AppColors.blue,
                           ),
                         ),
                         Container(
@@ -528,7 +528,7 @@ class _OrderPageState extends State<OrderPage> {
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w400,
-                            color: AppColors.fadeblue,
+                            color: AppColors.blue,
                           ),
                         ),
                         Container(
@@ -602,7 +602,7 @@ class _OrderPageState extends State<OrderPage> {
                             elevation: 0,
                             fixedSize: const Size(103, 33),
                             backgroundColor: AppColors.white,
-                            foregroundColor: AppColors.fadeblue,
+                            foregroundColor: AppColors.blue,
                           ),
                           onPressed: () {
                             Navigator.of(context).pop();
@@ -639,7 +639,7 @@ class _OrderPageState extends State<OrderPage> {
                                 elevation: 0,
                                 fixedSize: const Size(103, 33),
                                 backgroundColor: AppColors.yellow,
-                                foregroundColor: AppColors.fadeblue,
+                                foregroundColor: AppColors.blue,
                               ),
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
@@ -687,7 +687,7 @@ class _OrderPageState extends State<OrderPage> {
                     Text(
                       "Add Order Quantity",
                       style: TextStyle(
-                          color: AppColors.fadeblue,
+                          color: AppColors.blue,
                           fontSize: 18,
                           fontWeight: FontWeight.w400),
                     ),
@@ -723,7 +723,7 @@ class _OrderPageState extends State<OrderPage> {
                             toastBuilder: (cancelFunc) {
                               return Center(
                                 child: CircularProgressIndicator(
-                                  color: AppColors.fadeblue,
+                                  color: AppColors.blue,
                                 ),
                               );
                             },
@@ -750,7 +750,7 @@ class _OrderPageState extends State<OrderPage> {
                         return ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             shape: const CircleBorder(),
-                            foregroundColor: AppColors.fadeblue,
+                            foregroundColor: AppColors.blue,
                             backgroundColor: AppColors.yellow,
                           ),
                           onPressed: () {
@@ -798,7 +798,7 @@ class _OrderPageState extends State<OrderPage> {
                 radius: 18,
                 child: Icon(
                   Icons.add,
-                  color: AppColors.fadeblue,
+                  color: AppColors.blue,
                 ),
               ),
             ),
@@ -810,7 +810,6 @@ class _OrderPageState extends State<OrderPage> {
                   for (int i = 0; i < data.length; i++) {
                     total += data[i]['amount'];
                   }
-                  print(total);
 
                   if (data.isEmpty) {
                     BotToast.showText(
@@ -833,7 +832,7 @@ class _OrderPageState extends State<OrderPage> {
                   radius: 18,
                   child: Icon(
                     Icons.picture_as_pdf,
-                    color: AppColors.fadeblue,
+                    color: AppColors.blue,
                   ),
                 ),
               ),
@@ -1072,7 +1071,7 @@ class _OrderPageState extends State<OrderPage> {
                                               onPressed: () {},
                                               icon: Iconify(
                                                 FluentMdl2.archive,
-                                                color: AppColors.fadeblue,
+                                                color: AppColors.blue,
                                                 size: size.height / 90 * 2.3,
                                               ),
                                             ),

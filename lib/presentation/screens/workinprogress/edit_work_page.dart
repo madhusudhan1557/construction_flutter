@@ -122,7 +122,7 @@ class _EditWorkPageState extends State<EditWorkPage> {
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.w500,
-                                  color: AppColors.fadeblue,
+                                  color: AppColors.blue,
                                 ),
                               ),
                         const Icon(Icons.calendar_month_rounded),
@@ -185,7 +185,7 @@ class _EditWorkPageState extends State<EditWorkPage> {
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.w500,
-                                  color: AppColors.fadeblue,
+                                  color: AppColors.blue,
                                 ),
                               ),
                         const Icon(Icons.calendar_month_rounded),
@@ -245,7 +245,7 @@ class _EditWorkPageState extends State<EditWorkPage> {
                     return TextButton(
                       style: ElevatedButton.styleFrom(
                         backgroundColor: AppColors.yellow,
-                        foregroundColor: AppColors.fadeblue,
+                        foregroundColor: AppColors.blue,
                         fixedSize: Size(
                           size.width,
                           size.height / 90 * 3,

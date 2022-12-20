@@ -65,7 +65,7 @@ class _SiteStocksState extends State<SiteStocks> {
                           style: TextStyle(
                               fontSize: 18,
                               fontWeight: FontWeight.w600,
-                              color: AppColors.fadeblue),
+                              color: AppColors.blue),
                         ),
                         SizedBox(
                           height: size.height / 90 * 2.538,
@@ -150,7 +150,7 @@ class _SiteStocksState extends State<SiteStocks> {
                                 elevation: 0,
                                 fixedSize: Size(size.width / 90 * 8.66,
                                     size.height / 90 * 5.86),
-                                foregroundColor: AppColors.fadeblue,
+                                foregroundColor: AppColors.blue,
                               ),
                               onPressed: () {
                                 Navigator.of(context).pop();
@@ -187,7 +187,7 @@ class _SiteStocksState extends State<SiteStocks> {
                                     fixedSize: Size(size.width / 90 * 25.66,
                                         size.height / 90 * 3.86),
                                     backgroundColor: AppColors.yellow,
-                                    foregroundColor: AppColors.fadeblue,
+                                    foregroundColor: AppColors.blue,
                                   ),
                                   onPressed: () {
                                     if (_formKey.currentState!.validate()) {
@@ -256,7 +256,7 @@ class _SiteStocksState extends State<SiteStocks> {
                             elevation: 0,
                             fixedSize: const Size(103, 33),
                             backgroundColor: AppColors.white,
-                            foregroundColor: AppColors.fadeblue,
+                            foregroundColor: AppColors.blue,
                           ),
                           onPressed: () {
                             Navigator.of(context).pop();
@@ -341,7 +341,7 @@ class _SiteStocksState extends State<SiteStocks> {
                       style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w600,
-                          color: AppColors.fadeblue),
+                          color: AppColors.blue),
                     ),
                     SizedBox(
                       height: size.height / 90 * 1.538,
@@ -444,7 +444,7 @@ class _SiteStocksState extends State<SiteStocks> {
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w400,
-                            color: AppColors.fadeblue,
+                            color: AppColors.blue,
                           ),
                         ),
                         Container(
@@ -488,7 +488,7 @@ class _SiteStocksState extends State<SiteStocks> {
                           style: TextStyle(
                             fontSize: 18,
                             fontWeight: FontWeight.w400,
-                            color: AppColors.fadeblue,
+                            color: AppColors.blue,
                           ),
                         ),
                         Container(
@@ -562,7 +562,7 @@ class _SiteStocksState extends State<SiteStocks> {
                             elevation: 0,
                             fixedSize: const Size(103, 33),
                             backgroundColor: AppColors.white,
-                            foregroundColor: AppColors.fadeblue,
+                            foregroundColor: AppColors.blue,
                           ),
                           onPressed: () {
                             Navigator.of(context).pop();
@@ -599,7 +599,7 @@ class _SiteStocksState extends State<SiteStocks> {
                                 elevation: 0,
                                 fixedSize: const Size(103, 33),
                                 backgroundColor: AppColors.yellow,
-                                foregroundColor: AppColors.fadeblue,
+                                foregroundColor: AppColors.blue,
                               ),
                               onPressed: () {
                                 if (_formKey.currentState!.validate()) {
@@ -646,7 +646,7 @@ class _SiteStocksState extends State<SiteStocks> {
                     Text(
                       "Add Stock Quantity",
                       style: TextStyle(
-                          color: AppColors.fadeblue,
+                          color: AppColors.blue,
                           fontSize: 18,
                           fontWeight: FontWeight.w400),
                     ),
@@ -705,7 +705,7 @@ class _SiteStocksState extends State<SiteStocks> {
                         return ElevatedButton(
                           style: ElevatedButton.styleFrom(
                             shape: const CircleBorder(),
-                            foregroundColor: AppColors.fadeblue,
+                            foregroundColor: AppColors.blue,
                             backgroundColor: AppColors.yellow,
                           ),
                           onPressed: () {
@@ -753,7 +753,7 @@ class _SiteStocksState extends State<SiteStocks> {
                 radius: 18,
                 child: Icon(
                   Icons.add,
-                  color: AppColors.fadeblue,
+                  color: AppColors.blue,
                 ),
               ),
             ),
@@ -787,7 +787,7 @@ class _SiteStocksState extends State<SiteStocks> {
                   radius: 18,
                   child: Icon(
                     Icons.picture_as_pdf,
-                    color: AppColors.fadeblue,
+                    color: AppColors.blue,
                   ),
                 ),
               ),
@@ -1032,7 +1032,7 @@ class _SiteStocksState extends State<SiteStocks> {
                                               onPressed: () {},
                                               icon: Iconify(
                                                 FluentMdl2.archive,
-                                                color: AppColors.fadeblue,
+                                                color: AppColors.blue,
                                                 size: size.height / 90 * 2.3,
                                               ),
                                             ),

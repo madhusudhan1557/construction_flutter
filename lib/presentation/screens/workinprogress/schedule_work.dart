@@ -131,7 +131,7 @@ class _ScheduleWorkState extends State<ScheduleWork> {
                                   style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w500,
-                                    color: AppColors.fadeblue,
+                                    color: AppColors.blue,
                                   ),
                                 ),
                           const Icon(Icons.calendar_month_rounded),
@@ -192,7 +192,7 @@ class _ScheduleWorkState extends State<ScheduleWork> {
                                   style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w500,
-                                    color: AppColors.fadeblue,
+                                    color: AppColors.blue,
                                   ),
                                 ),
                           const Icon(Icons.calendar_month_rounded),
@@ -247,7 +247,7 @@ class _ScheduleWorkState extends State<ScheduleWork> {
                       return ElevatedButton(
                         style: ElevatedButton.styleFrom(
                           backgroundColor: AppColors.yellow,
-                          foregroundColor: AppColors.fadeblue,
+                          foregroundColor: AppColors.blue,
                           fixedSize: Size(
                             size.width,
                             size.height / 90 * 3,

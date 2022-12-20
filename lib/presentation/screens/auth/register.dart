@@ -207,7 +207,7 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                           size.height / 90 * 4.41,
                         ),
                         backgroundColor: AppColors.yellow,
-                        foregroundColor: AppColors.fadeblue,
+                        foregroundColor: AppColors.blue,
                       ),
                       onPressed: () {
                         if (_formKey.currentState!.validate()) {

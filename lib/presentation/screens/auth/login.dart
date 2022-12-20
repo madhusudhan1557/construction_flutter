@@ -60,7 +60,7 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: ClipPath(
                   clipper: CustomCurve(),
                   child: Container(
-                    color: AppColors.fadeblue,
+                    color: AppColors.blue,
                   ),
                 ),
               ),
@@ -79,7 +79,7 @@ class _LoginScreenState extends State<LoginScreen> {
                         Text(
                           "Login",
                           style: TextStyle(
-                            color: AppColors.fadeblue,
+                            color: AppColors.blue,
                             fontSize: 28,
                             fontWeight: FontWeight.w500,
                           ),
@@ -102,7 +102,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       child: Iconify(
                                         AntDesign.user_outlined,
                                         size: 16,
-                                        color: AppColors.fadeblue,
+                                        color: AppColors.blue,
                                       ),
                                     ),
                                   ),
@@ -129,18 +129,18 @@ class _LoginScreenState extends State<LoginScreen> {
                                           child: Iconify(
                                             Carbon.password,
                                             size: 16,
-                                            color: AppColors.fadeblue,
+                                            color: AppColors.blue,
                                           ),
                                         ),
                                         suffixIcon: IconButton(
                                           icon: state.hidepassword
                                               ? Icon(
                                                   Icons.visibility_off,
-                                                  color: AppColors.fadeblue,
+                                                  color: AppColors.blue,
                                                 )
                                               : Icon(
                                                   Icons.visibility,
-                                                  color: AppColors.fadeblue,
+                                                  color: AppColors.blue,
                                                 ),
                                           onPressed: () {
                                             BlocProvider.of<HidepasswordCubit>(
@@ -169,14 +169,14 @@ class _LoginScreenState extends State<LoginScreen> {
                                     Row(
                                       children: [
                                         Checkbox(
-                                          activeColor: AppColors.fadeblue,
+                                          activeColor: AppColors.blue,
                                           value: true,
                                           onChanged: (value) {},
                                         ),
                                         Text(
                                           "Remember me",
                                           style: TextStyle(
-                                            color: AppColors.fadeblue,
+                                            color: AppColors.blue,
                                             fontSize: 16,
                                             fontWeight: FontWeight.w400,
                                           ),
@@ -187,7 +187,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                       child: Text(
                                         "Forgot Password ?",
                                         style: TextStyle(
-                                          color: AppColors.fadeblue,
+                                          color: AppColors.blue,
                                           fontSize: 16,
                                           fontWeight: FontWeight.w400,
                                         ),
@@ -212,7 +212,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                   if (state is CompletedLoadingState) {
                                     BotToast.closeAllLoading();
                                     Navigator.of(context)
-                                        .pushReplacementNamed(navscreen);
+                                        .pushReplacementNamed(dashboard);
                                   }
                                   if (state is UserNotFountState) {
                                     BotToast.closeAllLoading();
@@ -231,7 +231,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 builder: (context, state) {
                                   return ElevatedButton(
                                     style: ElevatedButton.styleFrom(
-                                      backgroundColor: AppColors.fadeblue,
+                                      backgroundColor: AppColors.blue,
                                       fixedSize: Size(
                                           size.width / 1.12, size.height / 20),
                                       shape: RoundedRectangleBorder(
@@ -260,7 +260,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               const Icon(Icons.more_vert),
                               Text(
                                 "Or",
-                                style: TextStyle(color: AppColors.fadeblue),
+                                style: TextStyle(color: AppColors.blue),
                               ),
                               const Icon(Icons.more_vert),
                               SizedBox(
@@ -287,8 +287,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                     ),
                                     Text(
                                       "Sign in with Gmail",
-                                      style:
-                                          TextStyle(color: AppColors.fadeblue),
+                                      style: TextStyle(color: AppColors.blue),
                                     ),
                                   ],
                                 ),

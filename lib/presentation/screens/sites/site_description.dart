@@ -10,7 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/fluent_mdl2.dart';
-import 'package:iconify_flutter/icons/iconoir.dart';
+
 import 'package:iconify_flutter/icons/zondicons.dart';
 
 import '../../../bloc/dropdown/dropdown_bloc.dart';
@@ -87,7 +87,7 @@ class _SiteDescriptionState extends State<SiteDescription> {
                                 style: TextStyle(
                                     fontSize: 18,
                                     fontWeight: FontWeight.w600,
-                                    color: AppColors.fadeblue),
+                                    color: AppColors.blue),
                               ),
                               SizedBox(
                                 height: size.height / 90 * 2.538,
@@ -287,7 +287,7 @@ class _SiteDescriptionState extends State<SiteDescription> {
                                       elevation: 0,
                                       fixedSize: const Size(103, 33),
                                       backgroundColor: AppColors.white,
-                                      foregroundColor: AppColors.fadeblue,
+                                      foregroundColor: AppColors.blue,
                                     ),
                                     onPressed: () {
                                       Navigator.of(context).pop();
@@ -325,7 +325,7 @@ class _SiteDescriptionState extends State<SiteDescription> {
                                           elevation: 0,
                                           fixedSize: const Size(103, 33),
                                           backgroundColor: AppColors.yellow,
-                                          foregroundColor: AppColors.fadeblue,
+                                          foregroundColor: AppColors.blue,
                                         ),
                                         onPressed: () {
                                           BlocProvider.of<SitesBloc>(context)
@@ -385,7 +385,7 @@ class _SiteDescriptionState extends State<SiteDescription> {
                       radius: 18,
                       child: Icon(
                         Icons.edit,
-                        color: AppColors.fadeblue,
+                        color: AppColors.blue,
                       ),
                     ),
                   )
@@ -445,7 +445,7 @@ class _SiteDescriptionState extends State<SiteDescription> {
                                               horizontal: padding.top * 0.2,
                                               vertical: padding.top * 0.2),
                                           decoration: BoxDecoration(
-                                            color: AppColors.fadeblue,
+                                            color: AppColors.blue,
                                             image: DecorationImage(
                                               image: NetworkImage(snapshot
                                                   .data!.docs[index]['image']),
@@ -472,7 +472,7 @@ class _SiteDescriptionState extends State<SiteDescription> {
                           child: CarouselIndicator(
                             count: snapshot.data!.docs.length,
                             activeColor: AppColors.yellow,
-                            color: AppColors.fadeblue,
+                            color: AppColors.blue,
                             index: dotposition,
                           ),
                         ),
@@ -504,7 +504,7 @@ class _SiteDescriptionState extends State<SiteDescription> {
                                 child: Text(
                                   "${snapshot.data!['sitename']}",
                                   style: TextStyle(
-                                    color: AppColors.fadeblue,
+                                    color: AppColors.blue,
                                     fontWeight: FontWeight.w700,
                                     fontSize: 21,
                                   ),
@@ -578,7 +578,7 @@ class _SiteDescriptionState extends State<SiteDescription> {
                               Text(
                                 "About ${snapshot.data!['sitename']}",
                                 style: TextStyle(
-                                  color: AppColors.fadeblue,
+                                  color: AppColors.blue,
                                   fontWeight: FontWeight.w700,
                                   fontSize: 21,
                                 ),
@@ -642,12 +642,12 @@ class _SiteDescriptionState extends State<SiteDescription> {
                                             Iconify(
                                               FluentMdl2.blob_storage,
                                               size: size.height / 90 * 6.2,
-                                              color: AppColors.fadeblue,
+                                              color: AppColors.red,
                                             ),
                                             Text(
                                               "Manage Stocks",
                                               style: TextStyle(
-                                                color: AppColors.grey,
+                                                color: AppColors.red,
                                                 fontWeight: FontWeight.w600,
                                                 fontSize: 18,
                                               ),
@@ -677,12 +677,12 @@ class _SiteDescriptionState extends State<SiteDescription> {
                                             Iconify(
                                               Zondicons.currency_dollar,
                                               size: size.height / 90 * 6.2,
-                                              color: AppColors.fadeblue,
+                                              color: AppColors.green,
                                             ),
                                             Text(
                                               "Estimation",
                                               style: TextStyle(
-                                                color: AppColors.grey,
+                                                color: AppColors.green,
                                                 fontWeight: FontWeight.w600,
                                                 fontSize: 18,
                                               ),
@@ -715,13 +715,13 @@ class _SiteDescriptionState extends State<SiteDescription> {
                                           children: [
                                             Iconify(
                                               Zondicons.inbox_check,
-                                              color: AppColors.fadeblue,
+                                              color: AppColors.orange,
                                               size: size.height / 90 * 6,
                                             ),
                                             Text(
                                               "Work in Progress",
                                               style: TextStyle(
-                                                color: AppColors.grey,
+                                                color: AppColors.orange,
                                                 fontWeight: FontWeight.w600,
                                                 fontSize: 18,
                                               ),
@@ -755,13 +755,13 @@ class _SiteDescriptionState extends State<SiteDescription> {
                                           children: [
                                             Iconify(
                                               FluentMdl2.reservation_orders,
-                                              color: AppColors.fadeblue,
+                                              color: AppColors.blue,
                                               size: size.height / 90 * 6,
                                             ),
                                             Text(
                                               "Manage Orders",
                                               style: TextStyle(
-                                                color: AppColors.grey,
+                                                color: AppColors.blue,
                                                 fontWeight: FontWeight.w600,
                                                 fontSize: 18,
                                               ),

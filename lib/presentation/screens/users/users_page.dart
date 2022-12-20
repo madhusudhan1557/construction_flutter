@@ -52,7 +52,7 @@ class _UsersPageState extends State<UsersPage> {
                       style: TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w500,
-                          color: AppColors.fadeblue),
+                          color: AppColors.blue),
                     ),
                     SizedBox(
                       height: size.height / 90 * 2.51,
@@ -195,7 +195,7 @@ class _UsersPageState extends State<UsersPage> {
                             elevation: 0,
                             fixedSize: const Size(103, 33),
                             backgroundColor: AppColors.white,
-                            foregroundColor: AppColors.fadeblue,
+                            foregroundColor: AppColors.blue,
                           ),
                           onPressed: () {
                             Navigator.of(context).pop();
@@ -232,7 +232,7 @@ class _UsersPageState extends State<UsersPage> {
                                 elevation: 0,
                                 fixedSize: const Size(103, 33),
                                 backgroundColor: AppColors.yellow,
-                                foregroundColor: AppColors.fadeblue,
+                                foregroundColor: AppColors.blue,
                               ),
                               onPressed: () {
                                 BlocProvider.of<UsersBloc>(context)
@@ -297,7 +297,7 @@ class _UsersPageState extends State<UsersPage> {
                             elevation: 0,
                             fixedSize: const Size(103, 33),
                             backgroundColor: AppColors.white,
-                            foregroundColor: AppColors.fadeblue,
+                            foregroundColor: AppColors.blue,
                           ),
                           onPressed: () {
                             Navigator.of(context).pop();
@@ -372,7 +372,7 @@ class _UsersPageState extends State<UsersPage> {
                   },
                   icon: Icon(
                     Icons.add,
-                    color: AppColors.fadeblue,
+                    color: AppColors.blue,
                   ),
                 ),
               ),
@@ -384,7 +384,7 @@ class _UsersPageState extends State<UsersPage> {
             },
             icon: Icon(
               Icons.arrow_back_ios_new,
-              color: AppColors.fadeblue,
+              color: AppColors.blue,
             ),
           ),
         ).customAppBar(),
@@ -448,7 +448,7 @@ class _UsersPageState extends State<UsersPage> {
                                         ? AppColors.green
                                         : snapshot.data!.docs[index]['role'] ==
                                                 "Supervisor"
-                                            ? AppColors.fadeblue
+                                            ? AppColors.blue
                                             : Colors.deepOrangeAccent,
                                     horizontalMargin: 0,
                                     verticalMargin: 0,
@@ -515,7 +515,7 @@ class _UsersPageState extends State<UsersPage> {
                                   onPressed: () {},
                                   icon: Iconify(
                                     FluentMdl2.archive,
-                                    color: AppColors.fadeblue,
+                                    color: AppColors.blue,
                                     size: size.height / 90 * 2.3,
                                   ),
                                 ),

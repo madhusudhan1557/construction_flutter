@@ -5,7 +5,7 @@ class AppColors {
     return Color(int.parse("0xff$value"));
   }
 
-  static Color fadeblue = getColor("262262");
+  static Color blue = getColor("262262");
   static Color white = getColor("F5F5F5");
   static Color customWhite = getColor("E5E5E5");
   static Color yellow = getColor("FFC000");

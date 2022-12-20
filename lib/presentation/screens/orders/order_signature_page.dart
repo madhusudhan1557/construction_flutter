@@ -65,7 +65,7 @@ class _OrderInvoiceSignaturePadPageState
           ElevatedButton(
             style: ElevatedButton.styleFrom(
               backgroundColor: AppColors.yellow,
-              foregroundColor: AppColors.fadeblue,
+              foregroundColor: AppColors.blue,
               fixedSize: Size(size.width, size.height / 90 * 3.44),
             ),
             onPressed: () => onGeneratePdf(size, args),

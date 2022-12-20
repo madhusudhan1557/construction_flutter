@@ -26,7 +26,7 @@ dependencies:
   hive: ^2.2.3
   dio: ^4.0.6
   iconify_flutter: ^0.0.5
-  flutter_local_notifications: ^12.0.3+1
+  flutter_local_notifications: ^13.0.0
   carousel_slider: ^4.1.1
   firebase_cached_image: ^0.4.1
   carousel_indicator: ^1.0.6

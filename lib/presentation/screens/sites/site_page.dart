@@ -60,7 +60,7 @@ class _SitePageState extends State<SitePage> {
                         },
                         icon: Icon(
                           Icons.add,
-                          color: AppColors.fadeblue,
+                          color: AppColors.blue,
                         ),
                       ),
                     ),
@@ -70,7 +70,7 @@ class _SitePageState extends State<SitePage> {
           leading: IconButton(
             icon: Icon(
               Icons.arrow_back_ios_new,
-              color: AppColors.fadeblue,
+              color: AppColors.blue,
             ),
             onPressed: () {
               Navigator.of(context).pop();
@@ -97,7 +97,7 @@ class _SitePageState extends State<SitePage> {
                         child: Text(
                           "No Sites At The Moment",
                           style: TextStyle(
-                            color: AppColors.fadeblue,
+                            color: AppColors.blue,
                             fontWeight: FontWeight.w700,
                             fontSize: 24,
                           ),
@@ -180,7 +180,7 @@ class _SitePageState extends State<SitePage> {
                                       style: TextStyle(
                                         fontSize: 18,
                                         fontWeight: FontWeight.w700,
-                                        color: AppColors.fadeblue,
+                                        color: AppColors.blue,
                                       ),
                                     ),
                                     SizedBox(
@@ -207,7 +207,7 @@ class _SitePageState extends State<SitePage> {
                                         style: TextStyle(
                                           fontSize: 14,
                                           fontWeight: FontWeight.w600,
-                                          color: AppColors.fadeblue,
+                                          color: AppColors.blue,
                                         ),
                                         children: <TextSpan>[
                                           TextSpan(
@@ -216,7 +216,7 @@ class _SitePageState extends State<SitePage> {
                                             style: TextStyle(
                                               fontSize: 14,
                                               fontWeight: FontWeight.w500,
-                                              color: AppColors.fadeblue,
+                                              color: AppColors.blue,
                                             ),
                                           ),
                                         ],
@@ -340,7 +340,7 @@ class _SitePageState extends State<SitePage> {
                                                 child: Iconify(
                                                   FluentMdl2.archive,
                                                   size: size.height / 90 * 2.3,
-                                                  color: AppColors.fadeblue,
+                                                  color: AppColors.blue,
                                                 ),
                                               ),
                                             )

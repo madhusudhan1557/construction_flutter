@@ -77,7 +77,7 @@ Container customLoading(Size size) {
     ),
     child: Center(
       child: CircularProgressIndicator(
-        color: AppColors.fadeblue,
+        color: AppColors.blue,
         strokeWidth: 4.0,
       ),
     ),
