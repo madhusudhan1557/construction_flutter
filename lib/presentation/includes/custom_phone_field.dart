@@ -23,10 +23,8 @@ class CustomPhoneField {
         decoration: InputDecoration(
           hintText: "Phone Number ",
           suffixIcon: suffixIcon,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide.none,
-          ),
+          border: InputBorder.none,
+          contentPadding: const EdgeInsets.all(10),
         ),
         validator: (value) => Validator.getPhoneValidator(value),
       ),

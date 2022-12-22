@@ -89,6 +89,7 @@ class _OrderInvoiceSignaturePadPageState
         data: args['data'],
         signatureImage: signatureImage!,
         logo: logo,
+        total: args['total'],
         count: args['count']);
     pop();
     await OpenFilex.open(file.path);

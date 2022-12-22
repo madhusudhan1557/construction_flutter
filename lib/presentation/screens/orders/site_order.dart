@@ -107,7 +107,7 @@ class _OrderPageState extends State<OrderPage> {
                             child: CustomNumberField(
                               hintText: "Qty",
                               controller: _quantity,
-                              color: AppColors.grey.withOpacity(0.1),
+                              color: AppColors.customWhite,
                               size: size.height / 90 * 5.44,
                             ).customNumberField(),
                           ),
@@ -124,7 +124,7 @@ class _OrderPageState extends State<OrderPage> {
                             width: size.width / 5.6,
                             child: CustomNumberField(
                               hintText: "Rate",
-                              color: AppColors.grey.withOpacity(0.1),
+                              color: AppColors.customWhite,
                               controller: _rate,
                               size: size.height / 90 * 5.44,
                             ).customNumberField(),
@@ -841,6 +841,7 @@ class _OrderPageState extends State<OrderPage> {
         ).customAppBar(),
       ),
       body: SingleChildScrollView(
+        physics: const NeverScrollableScrollPhysics(),
         child: Column(
           children: [
             CustomBox(
@@ -877,216 +878,225 @@ class _OrderPageState extends State<OrderPage> {
                       ? const Center(
                           child: Text("No Orders at the Moment"),
                         )
-                      : ListView.builder(
-                          shrinkWrap: true,
-                          itemCount: snapshot.data!.docs.length,
-                          itemBuilder: (context, index) {
-                            if (snapshot.data!.docs.isNotEmpty) {
-                              double amount = snapshot.data!.docs[index]
-                                      ['rate'] *
-                                  snapshot.data!.docs[index]['quantity'];
+                      : SizedBox(
+                          height: size.height / 90 * 68,
+                          child: ListView.builder(
+                            shrinkWrap: true,
+                            itemCount: snapshot.data!.docs.length,
+                            itemBuilder: (context, index) {
+                              if (snapshot.data!.docs.isNotEmpty) {
+                                data.clear();
+                                double amount = snapshot.data!.docs[index]
+                                        ['rate'] *
+                                    snapshot.data!.docs[index]['quantity'];
 
-                              data.add({
-                                'sn': "${index + 1}",
-                                "sitename": args['sitename'],
-                                "itemname": snapshot.data!.docs[index]
-                                    ['itemname'],
-                                "brandname": snapshot.data!.docs[index]
-                                    ['brandname'],
-                                "suppliername": snapshot.data!.docs[index]
-                                    ['suppliername'],
-                                "unit": snapshot.data!.docs[index]['unit'],
-                                "quantity": snapshot.data!.docs[index]
-                                    ['quantity'],
-                                "status": snapshot.data!.docs[index]['status'],
-                                "rate": snapshot.data!.docs[index]['rate'],
-                                "amount": amount,
-                              });
-                            }
-                            return CustomBox(
-                              height: size.height / 90 * 15.15,
-                              width: size.width,
-                              radius: 15,
-                              blurRadius: 4.0,
-                              shadowColor: AppColors.customWhite,
-                              color: AppColors.white,
-                              horizontalMargin: padding.top * 0.4,
-                              verticalMargin: padding.top * 0.2,
-                              child: InkWell(
-                                onTap: () {
-                                  showAddQuantityModal(
-                                    snapshot.data!.docs[index]['oid'],
-                                    snapshot.data!.docs[index]['sid'],
-                                  );
-                                },
-                                child: Container(
-                                  height: size.height,
-                                  padding: EdgeInsets.symmetric(
-                                      horizontal: padding.top * 0.4),
-                                  child: Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Text(
-                                            snapshot.data!.docs[index]
-                                                ['itemname'],
-                                            style: TextStyle(
-                                              fontSize: 18,
-                                              color: AppColors.grey,
-                                              fontWeight: FontWeight.w700,
-                                            ),
-                                          ),
-                                          Align(
-                                            alignment: Alignment.centerRight,
-                                            child: IconButton(
-                                              onPressed: () {
-                                                showDeleteDialog(
-                                                  snapshot.data!.docs[index]
-                                                      ['oid'],
-                                                  snapshot.data!.docs[index]
-                                                      ['sid'],
-                                                );
-                                              },
-                                              icon: Iconify(
-                                                FluentMdl2.delete,
-                                                color: AppColors.red,
-                                                size: size.height / 90 * 2.3,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          SizedBox(
-                                            width: size.width / 7 * 2.6,
-                                            child: Text(
+                                data.add({
+                                  'sn': "${index + 1}",
+                                  "sitename": args['sitename'],
+                                  "itemname": snapshot.data!.docs[index]
+                                      ['itemname'],
+                                  "brandname": snapshot.data!.docs[index]
+                                      ['brandname'],
+                                  "suppliername": snapshot.data!.docs[index]
+                                      ['suppliername'],
+                                  "unit": snapshot.data!.docs[index]['unit'],
+                                  "quantity": snapshot.data!.docs[index]
+                                      ['quantity'],
+                                  "status": snapshot.data!.docs[index]
+                                      ['status'],
+                                  "rate": snapshot.data!.docs[index]['rate'],
+                                  "amount": amount,
+                                });
+                              }
+                              return CustomBox(
+                                height: size.height / 90 * 15.15,
+                                width: size.width,
+                                radius: 15,
+                                blurRadius: 4.0,
+                                shadowColor: AppColors.customWhite,
+                                color: AppColors.white,
+                                horizontalMargin: padding.top * 0.4,
+                                verticalMargin: padding.top * 0.2,
+                                child: InkWell(
+                                  onTap: () {
+                                    showAddQuantityModal(
+                                      snapshot.data!.docs[index]['oid'],
+                                      snapshot.data!.docs[index]['sid'],
+                                    );
+                                  },
+                                  child: Container(
+                                    height: size.height,
+                                    padding: EdgeInsets.symmetric(
+                                        horizontal: padding.top * 0.4),
+                                    child: Column(
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Text(
                                               snapshot.data!.docs[index]
-                                                  ['brandname'],
-                                              style: const TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w500,
+                                                  ['itemname'],
+                                              style: TextStyle(
+                                                fontSize: 18,
+                                                color: AppColors.grey,
+                                                fontWeight: FontWeight.w700,
                                               ),
                                             ),
-                                          ),
-                                          const Spacer(),
-                                          CustomBox(
-                                            height: size.height / 90 * 2.44,
-                                            width: size.width / 3.16,
-                                            radius: 15,
-                                            blurRadius: 4.0,
-                                            shadowColor: AppColors.customWhite,
-                                            color: snapshot.data!.docs[index]
-                                                        ['status'] ==
-                                                    "Cancelled"
-                                                ? AppColors.red
-                                                : snapshot.data!.docs[index]
-                                                            ['status'] ==
-                                                        "Delivered"
-                                                    ? AppColors.green
-                                                    : Colors.deepOrangeAccent,
-                                            horizontalMargin: 0,
-                                            verticalMargin: 0,
-                                            child: Center(
+                                            Align(
+                                              alignment: Alignment.centerRight,
+                                              child: IconButton(
+                                                onPressed: () {
+                                                  showDeleteDialog(
+                                                    snapshot.data!.docs[index]
+                                                        ['oid'],
+                                                    snapshot.data!.docs[index]
+                                                        ['sid'],
+                                                  );
+                                                },
+                                                icon: Iconify(
+                                                  FluentMdl2.delete,
+                                                  color: AppColors.red,
+                                                  size: size.height / 90 * 2.3,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            SizedBox(
+                                              width: size.width / 7 * 2.6,
                                               child: Text(
                                                 snapshot.data!.docs[index]
-                                                    ['status'],
+                                                    ['brandname'],
+                                                style: const TextStyle(
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ),
+                                            ),
+                                            const Spacer(),
+                                            CustomBox(
+                                              height: size.height / 90 * 2.44,
+                                              width: size.width / 3.16,
+                                              radius: 15,
+                                              blurRadius: 4.0,
+                                              shadowColor:
+                                                  AppColors.customWhite,
+                                              color: snapshot.data!.docs[index]
+                                                          ['status'] ==
+                                                      "Cancelled"
+                                                  ? AppColors.red
+                                                  : snapshot.data!.docs[index]
+                                                              ['status'] ==
+                                                          "Delivered"
+                                                      ? AppColors.green
+                                                      : Colors.deepOrangeAccent,
+                                              horizontalMargin: 0,
+                                              verticalMargin: 0,
+                                              child: Center(
+                                                child: Text(
+                                                  snapshot.data!.docs[index]
+                                                      ['status'],
+                                                  style: TextStyle(
+                                                      color: AppColors.white),
+                                                ),
+                                              ),
+                                            ).customBox(),
+                                            const Spacer(),
+                                            Align(
+                                              alignment: Alignment.centerRight,
+                                              child: IconButton(
+                                                onPressed: () {
+                                                  showEditSiteOrderModal(
+                                                    sid: snapshot.data!
+                                                        .docs[index]['sid'],
+                                                    oid: snapshot.data!
+                                                        .docs[index]['oid'],
+                                                    itemname: snapshot
+                                                            .data!.docs[index]
+                                                        ['itemname'],
+                                                    suppliername: snapshot
+                                                            .data!.docs[index]
+                                                        ['suppliername'],
+                                                    itembrand: snapshot
+                                                            .data!.docs[index]
+                                                        ['brandname'],
+                                                    quantity: snapshot
+                                                            .data!.docs[index]
+                                                        ['quantity'],
+                                                    status: snapshot.data!
+                                                        .docs[index]['status'],
+                                                    unit: snapshot.data!
+                                                        .docs[index]['unit'],
+                                                    rate: snapshot.data!
+                                                        .docs[index]['rate'],
+                                                  );
+                                                },
+                                                icon: Iconify(
+                                                  FluentMdl2.edit,
+                                                  color: AppColors.grey,
+                                                  size: size.height / 90 * 2.3,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        Row(
+                                          children: [
+                                            SizedBox(
+                                              width: size.width / 7 * 2.2,
+                                              child: const Text(
+                                                "Quantities : ",
                                                 style: TextStyle(
-                                                    color: AppColors.white),
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
                                               ),
                                             ),
-                                          ).customBox(),
-                                          const Spacer(),
-                                          Align(
-                                            alignment: Alignment.centerRight,
-                                            child: IconButton(
-                                              onPressed: () {
-                                                showEditSiteOrderModal(
-                                                  sid: snapshot
-                                                      .data!.docs[index]['sid'],
-                                                  oid: snapshot
-                                                      .data!.docs[index]['oid'],
-                                                  itemname: snapshot.data!
-                                                      .docs[index]['itemname'],
-                                                  suppliername:
-                                                      snapshot.data!.docs[index]
-                                                          ['suppliername'],
-                                                  itembrand: snapshot.data!
-                                                      .docs[index]['brandname'],
-                                                  quantity: snapshot.data!
-                                                      .docs[index]['quantity'],
-                                                  status: snapshot.data!
-                                                      .docs[index]['status'],
-                                                  unit: snapshot.data!
-                                                      .docs[index]['unit'],
-                                                  rate: snapshot.data!
-                                                      .docs[index]['rate'],
-                                                );
-                                              },
-                                              icon: Iconify(
-                                                FluentMdl2.edit,
-                                                color: AppColors.grey,
-                                                size: size.height / 90 * 2.3,
+                                            const Spacer(),
+                                            SizedBox(
+                                              width: size.width / 8 * 1.8,
+                                              child: Text(
+                                                "${snapshot.data!.docs[index]['quantity']} ${snapshot.data!.docs[index]['unit']}",
+                                                style: const TextStyle(
+                                                  overflow: TextOverflow.clip,
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        children: [
-                                          SizedBox(
-                                            width: size.width / 7 * 2.2,
-                                            child: const Text(
-                                              "Quantities : ",
-                                              style: TextStyle(
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w500,
+                                            const Spacer(),
+                                            Align(
+                                              alignment: Alignment.centerRight,
+                                              child: IconButton(
+                                                onPressed: () {},
+                                                icon: Iconify(
+                                                  FluentMdl2.archive,
+                                                  color: AppColors.blue,
+                                                  size: size.height / 90 * 2.3,
+                                                ),
                                               ),
                                             ),
-                                          ),
-                                          const Spacer(),
-                                          SizedBox(
-                                            width: size.width / 8 * 1.8,
-                                            child: Text(
-                                              "${snapshot.data!.docs[index]['quantity']} ${snapshot.data!.docs[index]['unit']}",
-                                              style: const TextStyle(
-                                                overflow: TextOverflow.clip,
-                                                fontSize: 16,
-                                                fontWeight: FontWeight.w500,
-                                              ),
-                                            ),
-                                          ),
-                                          const Spacer(),
-                                          Align(
-                                            alignment: Alignment.centerRight,
-                                            child: IconButton(
-                                              onPressed: () {},
-                                              icon: Iconify(
-                                                FluentMdl2.archive,
-                                                color: AppColors.blue,
-                                                size: size.height / 90 * 2.3,
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      SizedBox(
-                                        height: size.height / 90 * 0.1,
-                                      ),
-                                    ],
+                                          ],
+                                        ),
+                                        SizedBox(
+                                          height: size.height / 90 * 0.1,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
-                              ),
-                            ).customBox();
-                          },
+                              ).customBox();
+                            },
+                          ),
                         );
                 } else {
                   return Center(

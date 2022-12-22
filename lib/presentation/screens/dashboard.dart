@@ -44,7 +44,9 @@ class _DashboardState extends State<Dashboard> {
                     action: [
                       role == "Admin"
                           ? IconButton(
-                              onPressed: () {},
+                              onPressed: () {
+                                Navigator.of(context).pushNamed(settingspage);
+                              },
                               icon: Iconify(
                                 EmojioneMonotone.construction_worker,
                                 color: AppColors.blue,
@@ -128,7 +130,9 @@ class _DashboardState extends State<Dashboard> {
                                     height: size.height / 90 * 34.86,
                                     child: ListView.builder(
                                       shrinkWrap: true,
-                                      itemCount: 2,
+                                      itemCount: snapshot.data!.docs.length <= 5
+                                          ? snapshot.data!.docs.length
+                                          : 5,
                                       scrollDirection: Axis.horizontal,
                                       itemBuilder: (context, index) {
                                         return Container(

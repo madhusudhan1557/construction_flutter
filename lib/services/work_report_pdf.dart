@@ -15,35 +15,50 @@ class WorkReportPdfApi {
     final PdfDocument pdfdoc = PdfDocument();
     final page = pdfdoc.pages.add();
 
-    PdfPageTemplateElement header = PdfPageTemplateElement(Rect.fromLTWH(
-        0,
-        0,
-        pdfdoc.pageSettings.size.width,
-        pdfdoc.pageSettings.size.height / 90 * 10));
     final PdfBitmap logoImage = PdfBitmap(logo.buffer.asUint8List());
-    header.graphics.drawString('Aakar Developers',
-        PdfStandardFont(PdfFontFamily.helvetica, 12, style: PdfFontStyle.bold),
-        bounds: const Rect.fromLTWH(0, 0, 0, 0));
+    page.graphics.drawString(
+      'Aakar Developers',
+      PdfStandardFont(PdfFontFamily.helvetica, 14, style: PdfFontStyle.bold),
+      bounds: const Rect.fromLTWH(0, 0, 0, 0),
+      brush: PdfSolidBrush(
+        PdfColor(1, 0, 0),
+      ),
+    );
 
-    header.graphics.drawString('Daily Work Report',
-        PdfStandardFont(PdfFontFamily.helvetica, 12, style: PdfFontStyle.bold),
-        bounds: const Rect.fromLTWH(0, 20, 0, 0));
-    header.graphics.drawString('Sitename : ${data[0]['sitename']}',
-        PdfStandardFont(PdfFontFamily.helvetica, 12, style: PdfFontStyle.bold),
-        bounds: const Rect.fromLTWH(0, 40, 0, 0));
+    page.graphics.drawString(
+      'Daily Work Report',
+      PdfStandardFont(
+        PdfFontFamily.helvetica,
+        14,
+        style: PdfFontStyle.bold,
+      ),
+      bounds: const Rect.fromLTWH(0, 20, 0, 0),
+      brush: PdfSolidBrush(
+        PdfColor(1, 0, 0),
+      ),
+    );
+    page.graphics.drawString(
+      'Sitename : ${data[0]['sitename']}',
+      PdfStandardFont(PdfFontFamily.helvetica, 14, style: PdfFontStyle.bold),
+      bounds: const Rect.fromLTWH(0, 40, 0, 0),
+      brush: PdfSolidBrush(
+        PdfColor(1, 0, 0),
+      ),
+    );
 
-    header.graphics.drawString(
-        'Date : ${DateFormat.yMMMd().format(DateTime.now())}',
-        PdfStandardFont(PdfFontFamily.helvetica, 12, style: PdfFontStyle.bold),
-        bounds: const Rect.fromLTWH(0, 60, 0, 0));
+    page.graphics.drawString(
+      'Date : ${DateFormat.yMMMd().format(DateTime.now())}',
+      PdfStandardFont(PdfFontFamily.helvetica, 14, style: PdfFontStyle.bold),
+      bounds: const Rect.fromLTWH(0, 60, 0, 0),
+      brush: PdfSolidBrush(
+        PdfColor(1, 0, 0),
+      ),
+    );
 
-    header.graphics.drawImage(
-        logoImage, Rect.fromLTWH(page.getClientSize().width - 5, 0, 80, 80));
+    page.graphics.drawImage(
+        logoImage, Rect.fromLTWH(page.getClientSize().width - 85, 0, 80, 80));
 
-    pdfdoc.template.top = header;
-
-    drawTable(data, page, count);
-    drawSignature(data, page, signatureImage, logo);
+    drawSignatureWithTable(data, page, signatureImage, logo, count);
 
     return saveFile(pdfdoc, name);
   }
@@ -58,45 +73,18 @@ class WorkReportPdfApi {
     return file;
   }
 
-  static void drawSignature(
-    List<Map<String, dynamic>> data,
-    PdfPage page,
-    ByteData signatureImage,
-    ByteData logo,
-  ) {
+  static void drawSignatureWithTable(List<Map<String, dynamic>> data,
+      PdfPage page, ByteData signatureImage, ByteData logo, int count) {
     final pageSize = page.getClientSize();
     final PdfBitmap image = PdfBitmap(signatureImage.buffer.asUint8List());
-
-    page.graphics.drawString(
-        "Supervisor Signature",
-        PdfStandardFont(
-          PdfFontFamily.helvetica,
-          12,
-        ),
-        format: PdfStringFormat(alignment: PdfTextAlignment.right),
-        bounds: Rect.fromLTWH(
-          pageSize.width - 145,
-          pageSize.height - 20,
-          140,
-          15,
-        ));
-
-    page.graphics.drawImage(
-      image,
-      Rect.fromLTWH(
-        pageSize.width - 120,
-        pageSize.height - 70,
-        120,
-        40,
-      ),
-    );
-  }
-
-  static void drawTable(List<Map<String, dynamic>> data, PdfPage page, count) {
     final grid = PdfGrid();
     grid.columns.add(count: count);
     final headerRow = grid.headers.add(1)[0];
 
+    PdfLayoutFormat format = PdfLayoutFormat(
+      breakType: PdfLayoutBreakType.fitColumnsToPage,
+      layoutType: PdfLayoutType.paginate,
+    );
     headerRow.style.backgroundBrush = PdfSolidBrush(PdfColor(38, 34, 98, 1));
     headerRow.cells[0].value = "SN";
     headerRow.cells[1].value = "Title";
@@ -137,9 +125,34 @@ class WorkReportPdfApi {
       }
     }
 
-    grid.draw(
+    PdfLayoutResult result = grid.draw(
       page: page,
-      bounds: const Rect.fromLTWH(0, 0, 0, 0),
+      bounds: const Rect.fromLTWH(0, 105, 0, 0),
+      format: format,
+    ) as PdfLayoutResult;
+
+    page.graphics.drawString(
+        "Supervisor Signature",
+        PdfStandardFont(
+          PdfFontFamily.helvetica,
+          12,
+        ),
+        format: PdfStringFormat(alignment: PdfTextAlignment.right),
+        bounds: Rect.fromLTWH(
+          pageSize.width - 145,
+          result.bounds.bottom + 70,
+          140,
+          15,
+        ));
+
+    page.graphics.drawImage(
+      image,
+      Rect.fromLTWH(
+        pageSize.width - 120,
+        result.bounds.bottom + 20,
+        120,
+        40,
+      ),
     );
   }
 }

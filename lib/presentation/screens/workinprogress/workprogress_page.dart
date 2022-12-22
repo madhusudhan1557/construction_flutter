@@ -502,6 +502,7 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
           .snapshots(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
+          List<Map<String, dynamic>> data = [];
           return Column(
             children: [
               SizedBox(
@@ -632,7 +633,7 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                         fixedSize: Size(size.width, size.height / 90 * 4.2),
                       ),
                       onPressed: () {
-                        List<Map<String, dynamic>> data = [];
+                        data.clear();
                         for (int i = 0; i < snapshot.data!.docs.length; i++) {
                           data.add({
                             "sn": "${i + 1}",
