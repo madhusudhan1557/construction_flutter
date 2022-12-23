@@ -56,6 +56,36 @@ class WorkinprogressBloc
         emit(FailedUpdatingWorkInfoState(error: event.error));
       },
     );
+    on<CompleteDeletingWorkInfoEvent>(
+      (event, emit) {
+        emit(CompleteDeletingWorkInfoState());
+      },
+    );
+    on<DeletingWorkInfoEvent>(
+      (event, emit) {
+        emit(DeletingWorkInfoState());
+      },
+    );
+    on<FailedDeletingWorkProgressEvent>(
+      (event, emit) {
+        emit(FailedDeletingWorkProgressState(error: event.error));
+      },
+    );
+  }
+
+  deleteWork(String sid, String wid) async {
+    add(DeletingWorkInfoEvent());
+    try {
+      DocumentReference works = FirebaseFirestore.instance
+          .collection('sites')
+          .doc(sid)
+          .collection("works")
+          .doc(wid);
+      await works.delete();
+      add(CompleteDeletingWorkInfoEvent());
+    } on FirebaseException catch (e) {
+      add(FailedDeletingWorkProgressEvent(error: e.message!));
+    }
   }
 
   addWork(WorksModel worksModel, String sid) async {

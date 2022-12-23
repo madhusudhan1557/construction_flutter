@@ -68,12 +68,10 @@ class StockReportPdfApi {
   static void drawSignatureWithTable(List<Map<String, dynamic>> data,
       PdfPage page, ByteData signatureImage, int count, double total) {
     final pageSize = page.getClientSize();
-
     final PdfBitmap image = PdfBitmap(signatureImage.buffer.asUint8List());
     final grid = PdfGrid();
     grid.columns.add(count: count);
     final headerRow = grid.headers.add(1)[0];
-
     PdfLayoutFormat format = PdfLayoutFormat(
       breakType: PdfLayoutBreakType.fitColumnsToPage,
       layoutType: PdfLayoutType.paginate,
@@ -86,10 +84,11 @@ class StockReportPdfApi {
     headerRow.cells[4].value = "Qty.";
     headerRow.cells[5].value = "Rate";
     headerRow.cells[6].value = "Unit";
-    headerRow.cells[7].value = "Amount";
 
+    headerRow.cells[7].value = "Amount";
     grid.applyBuiltInStyle(PdfGridBuiltInStyle.listTable1LightAccent5);
     grid.allowRowBreakingAcrossPages = true;
+
     headerRow.style.textBrush = PdfSolidBrush(PdfColor(255, 255, 255, 1));
     headerRow.style.font = PdfStandardFont(
       PdfFontFamily.helvetica,
@@ -99,7 +98,7 @@ class StockReportPdfApi {
 
     for (int i = 0; i < headerRow.cells.count; i++) {
       headerRow.cells[i].style.cellPadding =
-          PdfPaddings(bottom: 5, left: 8, right: 8, top: 5);
+          PdfPaddings(bottom: 5, left: 5, right: 5, top: 5);
     }
     for (Map<String, dynamic> element in data) {
       final row = grid.rows.add();
@@ -119,10 +118,9 @@ class StockReportPdfApi {
       row.cells[7].value = "${element['amount']}";
       for (int i = 0; i < row.cells.count; i++) {
         row.cells[i].style.cellPadding =
-            PdfPaddings(bottom: 5, left: 8, right: 8, top: 5);
+            PdfPaddings(bottom: 5, left: 5, right: 5, top: 5);
       }
     }
-
     final totals = grid.rows.add();
     totals.cells[0].value = "Total(Rs)";
 
@@ -146,30 +144,26 @@ class StockReportPdfApi {
     ) as PdfLayoutResult;
 
     page.graphics.drawString(
-      "Supervisor Signature",
-      PdfStandardFont(
-        PdfFontFamily.helvetica,
-        12,
-      ),
-      format: PdfStringFormat(alignment: PdfTextAlignment.right),
-      bounds: Rect.fromLTWH(
-        pageSize.width - 145,
-        result.bounds.bottom + 70,
-        140,
-        15,
-      ),
-      brush: PdfSolidBrush(
-        PdfColor(1, 0, 0),
-      ),
-    );
+        "Supervisor Signature",
+        PdfStandardFont(
+          PdfFontFamily.helvetica,
+          12,
+        ),
+        format: PdfStringFormat(alignment: PdfTextAlignment.right),
+        bounds: Rect.fromLTWH(
+          pageSize.width - 145,
+          result.bounds.bottom + 80,
+          140,
+          15,
+        ));
 
     page.graphics.drawImage(
       image,
       Rect.fromLTWH(
         pageSize.width - 120,
-        result.bounds.bottom + 20,
+        result.bounds.bottom + 10,
         120,
-        40,
+        70,
       ),
     );
   }

@@ -15,6 +15,7 @@ import 'package:flutter_animation_progress_bar/flutter_animation_progress_bar.da
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/fluent_mdl2.dart';
+import 'package:iconify_flutter/icons/zondicons.dart';
 import 'package:intl/intl.dart';
 
 import '../../../bloc/dropdown/dropdown_bloc.dart';
@@ -132,6 +133,78 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
       );
     }
 
+    showDeleteDialog({
+      String? sid,
+      String? wid,
+      double? height,
+      double? width,
+    }) {
+      return showDialog(
+          context: context,
+          builder: (context) {
+            final size = MediaQuery.of(context).size;
+            return AlertDialog(
+              shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15)),
+              content: SizedBox(
+                width: width,
+                height: height,
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  children: [
+                    CircleAvatar(
+                      radius: size.width / 8.2,
+                      backgroundColor: AppColors.red,
+                      child: Iconify(
+                        FluentMdl2.delete,
+                        size: size.height / 90 * 6.76,
+                        color: AppColors.white,
+                      ),
+                    ),
+                    const Text(
+                      "Are you sure you want to Delete ?",
+                      style: TextStyle(
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                      ),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            elevation: 0,
+                            fixedSize: const Size(103, 33),
+                            backgroundColor: AppColors.white,
+                            foregroundColor: AppColors.blue,
+                          ),
+                          onPressed: () {
+                            Navigator.of(context).pop();
+                          },
+                          child: const Text("Cancel"),
+                        ),
+                        ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                            elevation: 0,
+                            fixedSize: const Size(103, 33),
+                            backgroundColor: AppColors.red,
+                            foregroundColor: AppColors.white,
+                          ),
+                          onPressed: () {
+                            BlocProvider.of<WorkinprogressBloc>(context)
+                                .deleteWork(sid!, wid!);
+                          },
+                          child: const Text("Delete"),
+                        ),
+                      ],
+                    ),
+                  ],
+                ),
+              ),
+            );
+          });
+    }
+
     return GestureDetector(
       onTap: () {
         FocusScopeNode cf = FocusScope.of(context);
@@ -181,7 +254,8 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
         body: BlocConsumer<DropdownBloc, DropdownState>(
           listener: (context, state) {},
           builder: (context, state) {
-            return stocksused(args, size, padding, showProgressModal);
+            return stocksused(
+                args, size, padding, showProgressModal, showDeleteDialog);
           },
         ),
       ),
@@ -189,10 +263,18 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
   }
 
   StreamBuilder<QuerySnapshot<Map<String, dynamic>>> stocksused(
-      Map<String, dynamic> args,
-      Size size,
-      EdgeInsets padding,
-      Future<dynamic> Function(String wid, dynamic sid) showProgressModal) {
+    Map<String, dynamic> args,
+    Size size,
+    EdgeInsets padding,
+    Future<dynamic> Function(String wid, dynamic sid) showProgressModal,
+    Future<dynamic> Function({
+      String? sid,
+      String? wid,
+      double? height,
+      double? width,
+    })
+        showDeleteDialog,
+  ) {
     return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream: FirebaseFirestore.instance
             .collection("sites")
@@ -472,7 +554,8 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                         SizedBox(
                           height: size.height / 90 * 1.5,
                         ),
-                        worklist(args, size, showProgressModal, padding),
+                        worklist(args, size, showProgressModal,
+                            showDeleteDialog, padding),
                       ],
                     ),
                   ),
@@ -493,6 +576,13 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
       Map<String, dynamic> args,
       Size size,
       Future<dynamic> Function(String wid, dynamic sid) showProgressModal,
+      Future<dynamic> Function({
+    String? sid,
+    String? wid,
+    double? height,
+    double? width,
+  })
+          showDeleteDialog,
       EdgeInsets padding) {
     return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
       stream: FirebaseFirestore.instance
@@ -554,33 +644,9 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                                     ),
                                   ),
                                 ),
-                                IconButton(
-                                  onPressed: () {
-                                    Navigator.of(context)
-                                        .pushNamed(editwork, arguments: {
-                                      "sid": snapshot.data!.docs[index]['sid'],
-                                      "wid": snapshot.data!.docs[index]['wid'],
-                                      "title": snapshot.data!.docs[index]
-                                          ['title'],
-                                      "startdate": snapshot
-                                          .data!.docs[index]['startdate']
-                                          .toDate(),
-                                      "endDate": snapshot
-                                          .data!.docs[index]['endDate']
-                                          .toDate(),
-                                      "workdesc": snapshot.data!.docs[index]
-                                          ['workdesc']
-                                    });
-                                  },
-                                  icon: Iconify(
-                                    FluentMdl2.edit,
-                                    color: AppColors.grey,
-                                    size: size.height / 90 * 2.2,
-                                  ),
-                                ),
                                 Container(
                                   height: size.height / 90 * 1.5,
-                                  width: size.width / 6,
+                                  width: size.width / 8,
                                   margin: EdgeInsets.symmetric(
                                     horizontal: padding.top * 0.2,
                                     vertical: padding.top * 0.2,
@@ -607,6 +673,77 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                                         .data!.docs[index]['progress']
                                         .toString()),
                                   ),
+                                ),
+                                IconButton(
+                                  onPressed: () {
+                                    Navigator.of(context)
+                                        .pushNamed(editwork, arguments: {
+                                      "sid": snapshot.data!.docs[index]['sid'],
+                                      "wid": snapshot.data!.docs[index]['wid'],
+                                      "title": snapshot.data!.docs[index]
+                                          ['title'],
+                                      "startdate": snapshot
+                                          .data!.docs[index]['startdate']
+                                          .toDate(),
+                                      "endDate": snapshot
+                                          .data!.docs[index]['endDate']
+                                          .toDate(),
+                                      "workdesc": snapshot.data!.docs[index]
+                                          ['workdesc']
+                                    });
+                                  },
+                                  icon: Iconify(
+                                    FluentMdl2.edit,
+                                    color: AppColors.grey,
+                                    size: size.height / 90 * 2.2,
+                                  ),
+                                ),
+                                BlocConsumer<WorkinprogressBloc,
+                                    WorkinprogressState>(
+                                  listener: (context, state) {
+                                    if (state is DeletingWorkInfoState) {
+                                      BotToast.showCustomLoading(
+                                        toastBuilder: (cancelFunc) =>
+                                            customLoading(size),
+                                      );
+                                    }
+                                    if (state
+                                        is FailedDeletingWorkProgressState) {
+                                      BotToast.closeAllLoading();
+                                      BotToast.showText(
+                                        text: state.error!,
+                                        contentColor: AppColors.red,
+                                      );
+                                      Navigator.of(context).pop();
+                                    }
+                                    if (state
+                                        is CompleteDeletingWorkInfoState) {
+                                      BotToast.closeAllLoading();
+                                      BotToast.showText(
+                                        text: "Work Deleted",
+                                        contentColor: AppColors.red,
+                                      );
+                                      Navigator.of(context).pop();
+                                    }
+                                  },
+                                  builder: (context, state) {
+                                    return IconButton(
+                                      onPressed: () {
+                                        showDeleteDialog(
+                                            height: size.height / 90 * 23,
+                                            width: size.width / 8 * 14,
+                                            wid: snapshot.data!.docs[index]
+                                                ['wid'],
+                                            sid: snapshot.data!.docs[index]
+                                                ['sid']);
+                                      },
+                                      icon: Iconify(
+                                        Zondicons.trash,
+                                        size: size.height / 90 * 2.3,
+                                        color: AppColors.red,
+                                      ),
+                                    );
+                                  },
                                 ),
                               ],
                             ),

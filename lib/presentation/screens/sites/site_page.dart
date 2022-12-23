@@ -9,7 +9,8 @@ import 'package:construction/utils/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
-import 'package:iconify_flutter/icons/fluent_mdl2.dart';
+
+import 'package:iconify_flutter/icons/zondicons.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../../../../utils/app_colors.dart';
@@ -306,43 +307,15 @@ class _SitePageState extends State<SitePage> {
                                                       );
                                                     },
                                                     child: Iconify(
-                                                      FluentMdl2.delete,
+                                                      Zondicons.trash,
                                                       size: size.height /
                                                           90 *
-                                                          2.3,
+                                                          2.6,
                                                       color: AppColors.red,
                                                     ),
                                                   ),
                                                 );
                                               },
-                                            )
-                                          : Container(),
-                                      SizedBox(
-                                        height: size.height / 90 * 2.3,
-                                      ),
-                                      args['role'] == "Admin"
-                                          ? Align(
-                                              alignment: Alignment.centerRight,
-                                              child: InkWell(
-                                                onTap: () {
-                                                  ShowCustomModal()
-                                                      .showArchriveDialog(
-                                                    id: snapshot.data!
-                                                        .docs[index]['sid'],
-                                                    context: context,
-                                                    height:
-                                                        size.height / 90 * 23,
-                                                    width: size.width / 2 * 11,
-                                                    imageheight:
-                                                        size.height / 90 * 6.54,
-                                                  );
-                                                },
-                                                child: Iconify(
-                                                  FluentMdl2.archive,
-                                                  size: size.height / 90 * 2.3,
-                                                  color: AppColors.blue,
-                                                ),
-                                              ),
                                             )
                                           : Container(),
                                     ],

@@ -158,7 +158,7 @@ class OrderInvoicePdfApi {
         format: PdfStringFormat(alignment: PdfTextAlignment.right),
         bounds: Rect.fromLTWH(
           pageSize.width - 145,
-          result.bounds.bottom + 70,
+          result.bounds.bottom + 80,
           140,
           15,
         ));
@@ -167,9 +167,9 @@ class OrderInvoicePdfApi {
       image,
       Rect.fromLTWH(
         pageSize.width - 120,
-        result.bounds.bottom + 20,
+        result.bounds.bottom + 10,
         120,
-        40,
+        70,
       ),
     );
   }

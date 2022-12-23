@@ -31,3 +31,12 @@ class FailedUpdatingWorkInfoState extends WorkinprogressState {
   final String? error;
   FailedUpdatingWorkInfoState({this.error});
 }
+
+class FailedDeletingWorkProgressState extends WorkinprogressState {
+  final String? error;
+  FailedDeletingWorkProgressState({this.error});
+}
+
+class DeletingWorkInfoState extends WorkinprogressState {}
+
+class CompleteDeletingWorkInfoState extends WorkinprogressState {}

@@ -63,14 +63,30 @@ class _StockReportSignaturePadPageState
           SizedBox(
             height: size.height / 90 * 3.44,
           ),
-          ElevatedButton(
-            style: ElevatedButton.styleFrom(
-              backgroundColor: AppColors.yellow,
-              foregroundColor: AppColors.blue,
-              fixedSize: Size(size.width, size.height / 90 * 3.44),
-            ),
-            onPressed: () => onGeneratePdf(size, args),
-            child: const Text("Generate Report"),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            children: [
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.yellow,
+                  foregroundColor: AppColors.blue,
+                  fixedSize: Size(size.width / 3, size.height / 90 * 3.44),
+                ),
+                onPressed: () {
+                  onGeneratePdf(size, args);
+                },
+                child: const Text("Generate Report"),
+              ),
+              ElevatedButton(
+                style: ElevatedButton.styleFrom(
+                  backgroundColor: AppColors.blue,
+                  foregroundColor: AppColors.white,
+                  fixedSize: Size(size.width / 3, size.height / 90 * 3.44),
+                ),
+                onPressed: () => _key.currentState!.clear(),
+                child: const Text("Retry"),
+              ),
+            ],
           ),
         ],
       ),
