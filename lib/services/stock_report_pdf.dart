@@ -68,6 +68,7 @@ class StockReportPdfApi {
   static void drawSignatureWithTable(List<Map<String, dynamic>> data,
       PdfPage page, ByteData signatureImage, int count, double total) {
     final pageSize = page.getClientSize();
+
     final PdfBitmap image = PdfBitmap(signatureImage.buffer.asUint8List());
     final grid = PdfGrid();
     grid.columns.add(count: count);

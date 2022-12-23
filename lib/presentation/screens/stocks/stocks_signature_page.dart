@@ -55,7 +55,7 @@ class _StockReportSignaturePadPageState
             color: AppColors.customWhite,
             child: SfSignaturePad(
               key: _key,
-              backgroundColor: AppColors.white,
+              backgroundColor: Colors.white,
               maximumStrokeWidth: 2.0,
               minimumStrokeWidth: 1.0,
             ),

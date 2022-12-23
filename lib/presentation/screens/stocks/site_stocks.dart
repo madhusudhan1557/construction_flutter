@@ -757,112 +757,115 @@ class _SiteStocksState extends State<SiteStocks> {
                 ),
               ),
             ),
-            Container(
-              padding: EdgeInsets.symmetric(horizontal: padding.top * 0.2),
-              child: IconButton(
-                onPressed: () {
-                  double total = 0;
-                  for (int i = 0; i < data.length; i++) {
-                    total += data[i]['amount'];
-                  }
-
-                  if (data.isEmpty) {
-                    BotToast.showText(
-                        text: "No Stocks at the moment",
-                        contentColor: AppColors.red);
-                  } else {
-                    Navigator.of(context).pushNamed(
-                      stockSignaturePadPage,
-                      arguments: {
-                        "data": data,
-                        "name": "StocksReport - ${data[0]['sitename']}",
-                        "total": total,
-                        "count": 8
-                      },
-                    );
-                  }
-                },
-                icon: CircleAvatar(
-                  backgroundColor: AppColors.yellow,
-                  radius: 18,
-                  child: Icon(
-                    Icons.picture_as_pdf,
-                    color: AppColors.blue,
-                  ),
-                ),
-              ),
-            ),
           ],
         ).customAppBar(),
       ),
-      body: SingleChildScrollView(
-        physics: const NeverScrollableScrollPhysics(),
-        child: Column(
-          children: [
-            CustomBox(
-              height: size.height / 90 * 4.8,
-              width: size.width,
-              radius: 16,
-              blurRadius: 4.0,
-              shadowColor: AppColors.grey.withOpacity(0.2),
-              color: AppColors.white,
-              horizontalMargin: padding.top * 0.4,
-              verticalMargin: padding.top * 0.2,
-              child: TextFormField(
-                style: const TextStyle(fontSize: 18),
-                decoration: InputDecoration(
-                  border: InputBorder.none,
-                  prefixIcon: Padding(
-                    padding: EdgeInsets.all(padding.top * 0.3),
-                    child: const Iconify(
-                      FluentMdl2.search,
-                    ),
-                  ),
-                ),
-              ),
-            ).customBox(),
-            StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
-              stream: FirebaseFirestore.instance
-                  .collection("sites")
-                  .doc(args['sid'])
-                  .collection("stocks")
-                  .snapshots(),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  return snapshot.data!.docs.isEmpty
-                      ? const Center(
-                          child: Text("No Stocks at the Moment"),
-                        )
-                      : SizedBox(
+      body: StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
+        stream: FirebaseFirestore.instance
+            .collection("sites")
+            .doc(args['sid'])
+            .collection("stocks")
+            .snapshots(),
+        builder: (context, snapshot) {
+          if (snapshot.hasData) {
+            return snapshot.data!.docs.isEmpty
+                ? const Center(
+                    child: Text("No Stocks at the Moment"),
+                  )
+                : SingleChildScrollView(
+                    physics: const NeverScrollableScrollPhysics(),
+                    child: Column(
+                      children: [
+                        Row(
+                          children: [
+                            CustomBox(
+                              height: size.height / 90 * 4.8,
+                              width: size.width / 8 * 6.3,
+                              radius: 16,
+                              blurRadius: 4.0,
+                              shadowColor: AppColors.grey.withOpacity(0.2),
+                              color: AppColors.white,
+                              horizontalMargin: padding.top * 0.4,
+                              verticalMargin: padding.top * 0.2,
+                              child: TextFormField(
+                                style: const TextStyle(fontSize: 18),
+                                decoration: InputDecoration(
+                                  border: InputBorder.none,
+                                  prefixIcon: Padding(
+                                    padding: EdgeInsets.all(padding.top * 0.3),
+                                    child: const Iconify(
+                                      FluentMdl2.search,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ).customBox(),
+                            IconButton(
+                              onPressed: () {
+                                data.clear();
+                                if (snapshot.data!.docs.isNotEmpty) {
+                                  for (int i = 0;
+                                      i < snapshot.data!.docs.length;
+                                      i++) {
+                                    double amount = snapshot.data!.docs[i]
+                                            ['quantity'] *
+                                        snapshot.data!.docs[i]['rate'];
+                                    data.add({
+                                      'sn': "${i + 1}",
+                                      "sitename": args['sitename'],
+                                      "itemname": snapshot.data!.docs[i]
+                                          ['itemname'],
+                                      "brandname": snapshot.data!.docs[i]
+                                          ['brandname'],
+                                      "suppliername": snapshot.data!.docs[i]
+                                          ['suppliername'],
+                                      "unit": snapshot.data!.docs[i]['unit'],
+                                      "quantity": snapshot.data!.docs[i]
+                                          ['quantity'],
+                                      "rate": snapshot.data!.docs[i]['rate'],
+                                      "amount": amount,
+                                    });
+                                  }
+                                }
+                                double total = 0;
+                                for (int i = 0; i < data.length; i++) {
+                                  total += data[i]['amount'];
+                                }
+
+                                if (data.isEmpty) {
+                                  BotToast.showText(
+                                      text: "No Orders at the moment",
+                                      contentColor: AppColors.red);
+                                } else {
+                                  Navigator.of(context).pushNamed(
+                                    stockSignaturePadPage,
+                                    arguments: {
+                                      "count": 9,
+                                      "data": data,
+                                      "total": total,
+                                      "name":
+                                          "Order Invoice ${data[0]['sitename']}"
+                                    },
+                                  );
+                                }
+                              },
+                              icon: CircleAvatar(
+                                backgroundColor: AppColors.yellow,
+                                radius: 18,
+                                child: Icon(
+                                  Icons.picture_as_pdf,
+                                  color: AppColors.blue,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        SizedBox(
                           height: size.height / 90 * 68,
                           child: ListView.builder(
                             shrinkWrap: true,
                             itemCount: snapshot.data!.docs.length,
                             itemBuilder: (context, index) {
-                              if (snapshot.data!.docs.isNotEmpty) {
-                                data.clear();
-                                double amount = snapshot.data!.docs[index]
-                                        ['quantity'] *
-                                    snapshot.data!.docs[index]['rate'];
-                                data.add(
-                                  {
-                                    'sn': "${index + 1}",
-                                    "sitename": args['sitename'],
-                                    "itemname": snapshot.data!.docs[index]
-                                        ['itemname'],
-                                    "brandname": snapshot.data!.docs[index]
-                                        ['brandname'],
-                                    "suppliername": snapshot.data!.docs[index]
-                                        ['suppliername'],
-                                    "unit": snapshot.data!.docs[index]['unit'],
-                                    "quantity": snapshot.data!.docs[index]
-                                        ['quantity'],
-                                    "rate": snapshot.data!.docs[index]
-                                        ['quantity'],
-                                    "amount": amount,
-                                  },
-                                );
-                              }
                               return CustomBox(
                                 height: size.height / 90 * 15.15,
                                 width: size.width,
@@ -1058,18 +1061,18 @@ class _SiteStocksState extends State<SiteStocks> {
                               ).customBox();
                             },
                           ),
-                        );
-                } else {
-                  return Center(
-                    child: Builder(
-                      builder: (context) => customLoading(size),
+                        ),
+                      ],
                     ),
                   );
-                }
-              },
-            ),
-          ],
-        ),
+          } else {
+            return Center(
+              child: Builder(
+                builder: (context) => customLoading(size),
+              ),
+            );
+          }
+        },
       ),
     );
   }
