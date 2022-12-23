@@ -205,6 +205,23 @@ class OrdersBloc extends Bloc<OrdersEvent, OrdersState> {
         });
       }
 
+      if (status == "Delivered") {
+        CollectionReference sitesStock = FirebaseFirestore.instance
+            .collection("sites")
+            .doc(sid)
+            .collection("stocks");
+        await sitesStock.doc(oid).set({
+          "sid": sid,
+          "skid": oid,
+          "itemname": itemname,
+          "brandname": itembrand,
+          "suppliername": suppliername,
+          "quantity": quantity,
+          "rate": rate,
+          "unit": unit,
+        });
+      }
+
       add(CompleteUpdatingSiteOrderEvent());
     } on FirebaseException catch (e) {
       add(FailedUpdatingSiteOrderEvent(error: e.message!));

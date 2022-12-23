@@ -45,7 +45,7 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     final padding = MediaQuery.of(context).padding;
 
-    showProgressModal(String wid, sid) {
+    showProgressModal(String wid, sid) async {
       return showDialog(
         context: context,
         builder: (context) {
@@ -138,7 +138,7 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
       String? wid,
       double? height,
       double? width,
-    }) {
+    }) async {
       return showDialog(
           context: context,
           builder: (context) {
@@ -183,18 +183,46 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                           },
                           child: const Text("Cancel"),
                         ),
-                        ElevatedButton(
-                          style: ElevatedButton.styleFrom(
-                            elevation: 0,
-                            fixedSize: const Size(103, 33),
-                            backgroundColor: AppColors.red,
-                            foregroundColor: AppColors.white,
-                          ),
-                          onPressed: () {
-                            BlocProvider.of<WorkinprogressBloc>(context)
-                                .deleteWork(sid!, wid!);
+                        BlocConsumer<WorkinprogressBloc, WorkinprogressState>(
+                          listener: (context, state) {
+                            if (state is DeletingWorkInfoState) {
+                              BotToast.showCustomLoading(
+                                toastBuilder: (cancelFunc) =>
+                                    customLoading(size),
+                              );
+                            }
+                            if (state is FailedDeletingWorkProgressState) {
+                              BotToast.closeAllLoading();
+                              BotToast.showText(
+                                text: state.error!,
+                                contentColor: AppColors.red,
+                              );
+                              Navigator.of(context).pop();
+                            }
+                            if (state is CompleteDeletingWorkInfoState) {
+                              BotToast.closeAllLoading();
+                              BotToast.showText(
+                                text: "Work Deleted",
+                                contentColor: AppColors.red,
+                              );
+                              Navigator.of(context).pop();
+                            }
                           },
-                          child: const Text("Delete"),
+                          builder: (context, state) {
+                            return ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                elevation: 0,
+                                fixedSize: const Size(103, 33),
+                                backgroundColor: AppColors.red,
+                                foregroundColor: AppColors.white,
+                              ),
+                              onPressed: () {
+                                BlocProvider.of<WorkinprogressBloc>(context)
+                                    .deleteWork(sid!, wid!);
+                              },
+                              child: const Text("Delete"),
+                            );
+                          },
                         ),
                       ],
                     ),
@@ -254,8 +282,8 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
         body: BlocConsumer<DropdownBloc, DropdownState>(
           listener: (context, state) {},
           builder: (context, state) {
-            return stocksused(
-                args, size, padding, showProgressModal, showDeleteDialog);
+            return stocksused(args, size, padding, context, showProgressModal,
+                showDeleteDialog);
           },
         ),
       ),
@@ -266,6 +294,7 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
     Map<String, dynamic> args,
     Size size,
     EdgeInsets padding,
+    BuildContext context,
     Future<dynamic> Function(String wid, dynamic sid) showProgressModal,
     Future<dynamic> Function({
       String? sid,
@@ -298,9 +327,10 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                         snapshot.data!.docs.isEmpty
                             ? const Text("There are no stocks for this sites")
                             : Container(
+                                height: size.height / 90 * 5.26,
                                 width: size.width,
                                 decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(10),
+                                  borderRadius: BorderRadius.circular(15),
                                   boxShadow: [
                                     BoxShadow(
                                       blurRadius: 4.0,
@@ -310,11 +340,13 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                                   color: AppColors.white,
                                 ),
                                 child: DropdownButtonFormField2(
-                                  buttonPadding:
-                                      EdgeInsets.only(right: padding.top * 0.4),
+                                  scrollbarAlwaysShow: true,
+                                  buttonPadding: EdgeInsets.only(
+                                      right: padding.top * 0.5,
+                                      top: padding.top * 0),
                                   dropdownDecoration: BoxDecoration(
                                     borderRadius: BorderRadius.circular(15),
-                                    color: AppColors.customWhite,
+                                    color: AppColors.white,
                                   ),
                                   decoration: const InputDecoration(
                                     border: InputBorder.none,
@@ -323,11 +355,44 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                                   offset: Offset(0, -size.height / 90 * 2.44),
                                   items: snapshot.data!.docs.map((item) {
                                     return DropdownMenuItem(
-                                      value: item['skid'],
-                                      child: Text(
-                                        item['itemname'],
-                                      ),
-                                    );
+                                        value: item['skid'],
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            SizedBox(
+                                              width: size.width / 90 * 20,
+                                              child: Text(
+                                                item['itemname'],
+                                                style: TextStyle(
+                                                  color: AppColors.grey,
+                                                  fontSize: 16,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ),
+                                            ),
+                                            SizedBox(
+                                              width: size.width / 90 * 20,
+                                              child: Text(
+                                                "${item['unit']}",
+                                                style: TextStyle(
+                                                  color: AppColors.blue,
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w400,
+                                                ),
+                                              ),
+                                            ),
+                                            CircleAvatar(
+                                              radius: 8,
+                                              backgroundColor:
+                                                  item['quantity'] == 0
+                                                      ? AppColors.red
+                                                      : item['quantity'] > 10
+                                                          ? AppColors.green
+                                                          : AppColors.orange,
+                                            )
+                                          ],
+                                        ));
                                   }).toList(),
                                   onChanged: (newValue) {
                                     BlocProvider.of<DropdownBloc>(context)
@@ -349,20 +414,24 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                                     MainAxisAlignment.spaceBetween,
                                 children: [
                                   CustomBox(
-                                    height: size.height / 90 * 5.86,
-                                    width: size.width / 7 * 3.8,
-                                    radius: 15,
-                                    blurRadius: 4.0,
-                                    shadowColor: AppColors.customWhite,
-                                    color: AppColors.white,
-                                    horizontalMargin: 0,
-                                    verticalMargin: 0,
-                                    child: CustomNumberField(
-                                      controller: stocks,
-                                      hintText: "Stock Used",
-                                      size: size.height / 90 * 5.86,
-                                    ).customNumberField(),
-                                  ).customBox(),
+                                      height: size.height / 90 * 5.26,
+                                      width: size.width / 7 * 3.8,
+                                      radius: 15,
+                                      blurRadius: 4.0,
+                                      shadowColor: AppColors.customWhite,
+                                      color: AppColors.white,
+                                      horizontalMargin: 0,
+                                      verticalMargin: 0,
+                                      child: TextFormField(
+                                        keyboardType: TextInputType.number,
+                                        controller: stocks,
+                                        decoration: InputDecoration(
+                                          border: InputBorder.none,
+                                          hintText: "Stock Used",
+                                          contentPadding: EdgeInsets.symmetric(
+                                              horizontal: padding.top * 0.4),
+                                        ),
+                                      )).customBox(),
                                   BlocConsumer<StocksBloc, StocksState>(
                                     listener: (context, state) {
                                       if (state is UpdatingStockQuantityState) {
@@ -554,7 +623,7 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                         SizedBox(
                           height: size.height / 90 * 1.5,
                         ),
-                        worklist(args, size, showProgressModal,
+                        worklist(args, size, context, showProgressModal,
                             showDeleteDialog, padding),
                       ],
                     ),
@@ -575,6 +644,7 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
   StreamBuilder<QuerySnapshot<Map<String, dynamic>>> worklist(
       Map<String, dynamic> args,
       Size size,
+      BuildContext context,
       Future<dynamic> Function(String wid, dynamic sid) showProgressModal,
       Future<dynamic> Function({
     String? sid,
@@ -698,52 +768,19 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                                     size: size.height / 90 * 2.2,
                                   ),
                                 ),
-                                BlocConsumer<WorkinprogressBloc,
-                                    WorkinprogressState>(
-                                  listener: (context, state) {
-                                    if (state is DeletingWorkInfoState) {
-                                      BotToast.showCustomLoading(
-                                        toastBuilder: (cancelFunc) =>
-                                            customLoading(size),
-                                      );
-                                    }
-                                    if (state
-                                        is FailedDeletingWorkProgressState) {
-                                      BotToast.closeAllLoading();
-                                      BotToast.showText(
-                                        text: state.error!,
-                                        contentColor: AppColors.red,
-                                      );
-                                      Navigator.of(context).pop();
-                                    }
-                                    if (state
-                                        is CompleteDeletingWorkInfoState) {
-                                      BotToast.closeAllLoading();
-                                      BotToast.showText(
-                                        text: "Work Deleted",
-                                        contentColor: AppColors.red,
-                                      );
-                                      Navigator.of(context).pop();
-                                    }
+                                IconButton(
+                                  onPressed: () {
+                                    showDeleteDialog(
+                                        height: size.height / 90 * 23,
+                                        width: size.width / 8 * 14,
+                                        wid: snapshot.data!.docs[index]['wid'],
+                                        sid: snapshot.data!.docs[index]['sid']);
                                   },
-                                  builder: (context, state) {
-                                    return IconButton(
-                                      onPressed: () {
-                                        showDeleteDialog(
-                                            height: size.height / 90 * 23,
-                                            width: size.width / 8 * 14,
-                                            wid: snapshot.data!.docs[index]
-                                                ['wid'],
-                                            sid: snapshot.data!.docs[index]
-                                                ['sid']);
-                                      },
-                                      icon: Iconify(
-                                        Zondicons.trash,
-                                        size: size.height / 90 * 2.3,
-                                        color: AppColors.red,
-                                      ),
-                                    );
-                                  },
+                                  icon: Iconify(
+                                    Zondicons.trash,
+                                    size: size.height / 90 * 2.3,
+                                    color: AppColors.red,
+                                  ),
                                 ),
                               ],
                             ),

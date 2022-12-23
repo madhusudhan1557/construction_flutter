@@ -9,6 +9,7 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
+import 'package:iconify_flutter/icons/emojione_monotone.dart';
 import 'package:iconify_flutter/icons/fluent_mdl2.dart';
 
 import 'package:iconify_flutter/icons/zondicons.dart';
@@ -506,7 +507,7 @@ class _SiteDescriptionState extends State<SiteDescription> {
                                   style: TextStyle(
                                     color: AppColors.blue,
                                     fontWeight: FontWeight.w700,
-                                    fontSize: 21,
+                                    fontSize: 18,
                                   ),
                                 ),
                               ),
@@ -525,7 +526,7 @@ class _SiteDescriptionState extends State<SiteDescription> {
                                       style: TextStyle(
                                         color: AppColors.grey,
                                         fontWeight: FontWeight.w500,
-                                        fontSize: 18,
+                                        fontSize: 16,
                                       ),
                                     ),
                                   ),
@@ -546,7 +547,7 @@ class _SiteDescriptionState extends State<SiteDescription> {
                                   style: TextStyle(
                                     color: AppColors.grey,
                                     fontWeight: FontWeight.w500,
-                                    fontSize: 18,
+                                    fontSize: 16,
                                   ),
                                 ),
                               ),
@@ -562,7 +563,7 @@ class _SiteDescriptionState extends State<SiteDescription> {
                                     style: TextStyle(
                                       color: AppColors.grey,
                                       fontWeight: FontWeight.w500,
-                                      fontSize: 18,
+                                      fontSize: 16,
                                     ),
                                   ),
                                   Icon(
@@ -573,36 +574,39 @@ class _SiteDescriptionState extends State<SiteDescription> {
                                 ],
                               ),
                               SizedBox(
-                                height: size.height / 90 * 1.0,
+                                height: size.height / 90 * 1.5,
                               ),
                               Text(
                                 "About ${snapshot.data!['sitename']}",
                                 style: TextStyle(
                                   color: AppColors.blue,
                                   fontWeight: FontWeight.w700,
-                                  fontSize: 21,
-                                ),
-                              ),
-                              SizedBox(
-                                height: size.height / 90 * 1.0,
-                              ),
-                              Text(
-                                maxLines: 15,
-                                softWrap: true,
-                                overflow: TextOverflow.ellipsis,
-                                textWidthBasis: TextWidthBasis.parent,
-                                "${snapshot.data!['sitedesc']}",
-                                style: TextStyle(
-                                  color: AppColors.grey,
-                                  fontWeight: FontWeight.w500,
                                   fontSize: 18,
                                 ),
                               ),
                               SizedBox(
-                                height: size.height / 90 * 1.8,
+                                height: size.height / 90 * 0.5,
                               ),
                               SizedBox(
-                                height: size.height / 90 * 25.5,
+                                height: size.height / 90 * 8.5,
+                                child: Text(
+                                  maxLines: 20,
+                                  softWrap: true,
+                                  overflow: TextOverflow.ellipsis,
+                                  textWidthBasis: TextWidthBasis.parent,
+                                  "${snapshot.data!['sitedesc']}",
+                                  style: TextStyle(
+                                    color: AppColors.grey,
+                                    fontWeight: FontWeight.w500,
+                                    fontSize: 16,
+                                  ),
+                                ),
+                              ),
+                              SizedBox(
+                                height: size.height / 90 * 2.8,
+                              ),
+                              SizedBox(
+                                height: size.height / 90 * 24.5,
                                 child: GridView(
                                   physics: const NeverScrollableScrollPhysics(),
                                   gridDelegate:
@@ -610,7 +614,7 @@ class _SiteDescriptionState extends State<SiteDescription> {
                                     crossAxisCount: 2,
                                     mainAxisSpacing: 10,
                                     crossAxisSpacing: 10,
-                                    childAspectRatio: 3 / 2,
+                                    childAspectRatio: 7 / 4,
                                   ),
                                   children: [
                                     InkWell(
@@ -628,7 +632,7 @@ class _SiteDescriptionState extends State<SiteDescription> {
                                       },
                                       child: CustomBox(
                                         height: size.height / 90 * 6,
-                                        width: size.width / 8 * 1.3,
+                                        width: size.width / 9 * 1.3,
                                         blurRadius: 4,
                                         radius: 15,
                                         shadowColor: AppColors.customWhite,
@@ -640,8 +644,8 @@ class _SiteDescriptionState extends State<SiteDescription> {
                                               MainAxisAlignment.spaceAround,
                                           children: [
                                             Iconify(
-                                              FluentMdl2.blob_storage,
-                                              size: size.height / 90 * 6.2,
+                                              FluentMdl2.storage_acount,
+                                              size: size.height / 90 * 4.2,
                                               color: AppColors.red,
                                             ),
                                             Text(
@@ -649,7 +653,7 @@ class _SiteDescriptionState extends State<SiteDescription> {
                                               style: TextStyle(
                                                 color: AppColors.red,
                                                 fontWeight: FontWeight.w600,
-                                                fontSize: 18,
+                                                fontSize: 14,
                                               ),
                                             ),
                                           ],
@@ -662,7 +666,7 @@ class _SiteDescriptionState extends State<SiteDescription> {
                                             .pushNamed(siteEstimation);
                                       },
                                       child: CustomBox(
-                                        height: size.height / 90 * 6,
+                                        height: size.height / 90 * 5,
                                         width: size.width / 8 * 1.3,
                                         blurRadius: 4,
                                         radius: 15,
@@ -676,7 +680,7 @@ class _SiteDescriptionState extends State<SiteDescription> {
                                           children: [
                                             Iconify(
                                               Zondicons.currency_dollar,
-                                              size: size.height / 90 * 6.2,
+                                              size: size.height / 90 * 4.2,
                                               color: AppColors.green,
                                             ),
                                             Text(
@@ -684,7 +688,7 @@ class _SiteDescriptionState extends State<SiteDescription> {
                                               style: TextStyle(
                                                 color: AppColors.green,
                                                 fontWeight: FontWeight.w600,
-                                                fontSize: 18,
+                                                fontSize: 14,
                                               ),
                                             ),
                                           ],
@@ -701,7 +705,7 @@ class _SiteDescriptionState extends State<SiteDescription> {
                                             });
                                       },
                                       child: CustomBox(
-                                        height: size.height / 90 * 6,
+                                        height: size.height / 90 * 5,
                                         width: size.width / 8 * 1.3,
                                         blurRadius: 4,
                                         radius: 15,
@@ -716,14 +720,14 @@ class _SiteDescriptionState extends State<SiteDescription> {
                                             Iconify(
                                               Zondicons.inbox_check,
                                               color: AppColors.orange,
-                                              size: size.height / 90 * 6,
+                                              size: size.height / 90 * 4.2,
                                             ),
                                             Text(
                                               "Work in Progress",
                                               style: TextStyle(
                                                 color: AppColors.orange,
                                                 fontWeight: FontWeight.w600,
-                                                fontSize: 18,
+                                                fontSize: 14,
                                               ),
                                             ),
                                           ],
@@ -741,7 +745,7 @@ class _SiteDescriptionState extends State<SiteDescription> {
                                         );
                                       },
                                       child: CustomBox(
-                                        height: size.height / 90 * 6,
+                                        height: size.height / 90 * 5,
                                         width: size.width / 8 * 1.3,
                                         blurRadius: 4,
                                         radius: 15,
@@ -756,14 +760,14 @@ class _SiteDescriptionState extends State<SiteDescription> {
                                             Iconify(
                                               FluentMdl2.reservation_orders,
                                               color: AppColors.blue,
-                                              size: size.height / 90 * 6,
+                                              size: size.height / 90 * 4.2,
                                             ),
                                             Text(
                                               "Manage Orders",
                                               style: TextStyle(
                                                 color: AppColors.blue,
                                                 fontWeight: FontWeight.w600,
-                                                fontSize: 18,
+                                                fontSize: 14,
                                               ),
                                             ),
                                           ],

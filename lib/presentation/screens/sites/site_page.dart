@@ -151,7 +151,7 @@ class _SitePageState extends State<SitePage> {
                         child: CustomBox(
                           horizontalMargin: paddding.top * 0.4,
                           verticalMargin: paddding.top * 0.28,
-                          height: size.height / 90 * 18,
+                          height: size.height / 90 * 15,
                           width: size.width,
                           color: AppColors.white,
                           blurRadius: 4.0,
@@ -171,7 +171,7 @@ class _SitePageState extends State<SitePage> {
                                     Text(
                                       snapshot.data!.docs[index]['sitename'],
                                       style: TextStyle(
-                                        fontSize: 21,
+                                        fontSize: 18,
                                         fontWeight: FontWeight.w700,
                                         color: Colors.grey[700],
                                       ),
@@ -179,7 +179,7 @@ class _SitePageState extends State<SitePage> {
                                     Text(
                                       snapshot.data!.docs[index]['clientname'],
                                       style: TextStyle(
-                                        fontSize: 18,
+                                        fontSize: 16,
                                         fontWeight: FontWeight.w700,
                                         color: AppColors.blue,
                                       ),
@@ -191,7 +191,7 @@ class _SitePageState extends State<SitePage> {
                                             ['sitelocation'],
                                         style: TextStyle(
                                           overflow: TextOverflow.clip,
-                                          fontSize: 18,
+                                          fontSize: 16,
                                           fontWeight: FontWeight.w500,
                                           color: Colors.grey[700],
                                         ),

@@ -243,7 +243,7 @@ class _DashboardState extends State<Dashboard> {
                                                 ),
                                               ),
                                               SizedBox(
-                                                height: size.height / 90 * 3,
+                                                height: size.height / 90 * 2.5,
                                               ),
                                               ElevatedButton(
                                                 style: ElevatedButton.styleFrom(
@@ -319,7 +319,7 @@ class _DashboardState extends State<Dashboard> {
                   },
                   child: Container(
                     margin: EdgeInsets.symmetric(horizontal: padding.top * 0.4),
-                    height: size.height / 90 * 8.86,
+                    height: size.height / 90 * 7.86,
                     width: size.width,
                     decoration: BoxDecoration(
                       borderRadius: BorderRadius.circular(25),
@@ -348,7 +348,7 @@ class _DashboardState extends State<Dashboard> {
                           style: TextStyle(
                             color: AppColors.white,
                             fontWeight: FontWeight.w600,
-                            fontSize: 21,
+                            fontSize: 18,
                           ),
                         ),
                         const Spacer(),

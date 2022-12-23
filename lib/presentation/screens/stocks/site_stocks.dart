@@ -44,6 +44,7 @@ class _SiteStocksState extends State<SiteStocks> {
 
     final Map<String, dynamic> args =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
+
     showAddStockModal() {
       return showDialog(
         context: context,
@@ -868,7 +869,7 @@ class _SiteStocksState extends State<SiteStocks> {
                             itemCount: snapshot.data!.docs.length,
                             itemBuilder: (context, index) {
                               return CustomBox(
-                                height: size.height / 90 * 15.15,
+                                height: size.height / 90 * 12,
                                 width: size.width,
                                 radius: 15,
                                 blurRadius: 4.0,
@@ -904,7 +905,7 @@ class _SiteStocksState extends State<SiteStocks> {
                                                   snapshot.data!.docs[index]
                                                       ['itemname'],
                                                   style: TextStyle(
-                                                    fontSize: 18,
+                                                    fontSize: 16,
                                                     color: AppColors.grey,
                                                     fontWeight: FontWeight.w700,
                                                   ),
@@ -922,7 +923,7 @@ class _SiteStocksState extends State<SiteStocks> {
                                                     snapshot.data!.docs[index]
                                                         ['brandname'],
                                                     style: const TextStyle(
-                                                      fontSize: 16,
+                                                      fontSize: 14,
                                                       fontWeight:
                                                           FontWeight.w500,
                                                     ),
@@ -982,7 +983,7 @@ class _SiteStocksState extends State<SiteStocks> {
                                                   child: const Text(
                                                     "Quantities : ",
                                                     style: TextStyle(
-                                                      fontSize: 16,
+                                                      fontSize: 14,
                                                       fontWeight:
                                                           FontWeight.w500,
                                                     ),
@@ -996,7 +997,7 @@ class _SiteStocksState extends State<SiteStocks> {
                                                     style: const TextStyle(
                                                       overflow:
                                                           TextOverflow.clip,
-                                                      fontSize: 16,
+                                                      fontSize: 14,
                                                       fontWeight:
                                                           FontWeight.w500,
                                                     ),
@@ -1029,7 +1030,7 @@ class _SiteStocksState extends State<SiteStocks> {
                                               icon: Iconify(
                                                 Zondicons.trash,
                                                 color: AppColors.red,
-                                                size: size.height / 90 * 2.6,
+                                                size: size.height / 90 * 2.1,
                                               ),
                                             ),
                                           ),
@@ -1060,7 +1061,7 @@ class _SiteStocksState extends State<SiteStocks> {
                                               icon: Iconify(
                                                 FluentMdl2.edit,
                                                 color: AppColors.grey,
-                                                size: size.height / 90 * 2.6,
+                                                size: size.height / 90 * 2.1,
                                               ),
                                             ),
                                           ),

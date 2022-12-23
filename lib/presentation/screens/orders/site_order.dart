@@ -829,7 +829,7 @@ class _OrderPageState extends State<OrderPage> {
                               width: size.width / 8 * 6.3,
                               radius: 16,
                               blurRadius: 4.0,
-                              shadowColor: AppColors.grey.withOpacity(0.2),
+                              shadowColor: AppColors.customWhite,
                               color: AppColors.white,
                               horizontalMargin: padding.top * 0.4,
                               verticalMargin: padding.top * 0.2,
@@ -915,7 +915,7 @@ class _OrderPageState extends State<OrderPage> {
                             itemCount: snapshot.data!.docs.length,
                             itemBuilder: (context, index) {
                               return CustomBox(
-                                height: size.height / 90 * 15.15,
+                                height: size.height / 90 * 12,
                                 width: size.width,
                                 radius: 15,
                                 blurRadius: 4.0,
@@ -946,7 +946,7 @@ class _OrderPageState extends State<OrderPage> {
                                               snapshot.data!.docs[index]
                                                   ['itemname'],
                                               style: TextStyle(
-                                                fontSize: 18,
+                                                fontSize: 16,
                                                 color: AppColors.grey,
                                                 fontWeight: FontWeight.w700,
                                               ),
@@ -962,7 +962,7 @@ class _OrderPageState extends State<OrderPage> {
                                                     snapshot.data!.docs[index]
                                                         ['brandname'],
                                                     style: const TextStyle(
-                                                      fontSize: 16,
+                                                      fontSize: 14,
                                                       fontWeight:
                                                           FontWeight.w500,
                                                     ),
@@ -1012,7 +1012,7 @@ class _OrderPageState extends State<OrderPage> {
                                                   child: const Text(
                                                     "Quantities : ",
                                                     style: TextStyle(
-                                                      fontSize: 16,
+                                                      fontSize: 14,
                                                       fontWeight:
                                                           FontWeight.w500,
                                                     ),
@@ -1026,7 +1026,7 @@ class _OrderPageState extends State<OrderPage> {
                                                     style: const TextStyle(
                                                       overflow:
                                                           TextOverflow.clip,
-                                                      fontSize: 16,
+                                                      fontSize: 14,
                                                       fontWeight:
                                                           FontWeight.w500,
                                                     ),
@@ -1059,7 +1059,7 @@ class _OrderPageState extends State<OrderPage> {
                                               icon: Iconify(
                                                 Zondicons.trash,
                                                 color: AppColors.red,
-                                                size: size.height / 90 * 2.6,
+                                                size: size.height / 90 * 2.1,
                                               ),
                                             ),
                                           ),
@@ -1092,7 +1092,7 @@ class _OrderPageState extends State<OrderPage> {
                                               icon: Iconify(
                                                 FluentMdl2.edit,
                                                 color: AppColors.grey,
-                                                size: size.height / 90 * 2.6,
+                                                size: size.height / 90 * 2.1,
                                               ),
                                             ),
                                           ),

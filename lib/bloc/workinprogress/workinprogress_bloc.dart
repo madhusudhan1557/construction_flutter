@@ -148,6 +148,7 @@ class WorkinprogressBloc
           "workdesc": worksModel.workdesc,
         });
       }
+
       add(CompleteUpdatingWorkInfoEvent());
     } on FirebaseException catch (e) {
       add(
