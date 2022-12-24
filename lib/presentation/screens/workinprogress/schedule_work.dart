@@ -20,6 +20,7 @@ class ScheduleWork extends StatefulWidget {
 class _ScheduleWorkState extends State<ScheduleWork> {
   DateTime? startDate;
   TextEditingController worktitle = TextEditingController();
+  TextEditingController desc = TextEditingController();
   DateTime? endDate;
   final _formkey = GlobalKey<FormState>();
   @override
@@ -43,9 +44,9 @@ class _ScheduleWorkState extends State<ScheduleWork> {
             title: "Schedule Work",
             bgcolor: AppColors.white,
             leading: IconButton(
-              icon: const Icon(
+              icon: Icon(
                 Icons.arrow_back_ios_new,
-                size: 24,
+                size: size.height / 90 * 2.3,
               ),
               onPressed: () {
                 Navigator.of(context).pop();
@@ -67,9 +68,14 @@ class _ScheduleWorkState extends State<ScheduleWork> {
                     padding: EdgeInsets.symmetric(
                       horizontal: padding.top * 0.4,
                     ),
-                    height: size.height / 90 * 5.85,
+                    height: size.height / 90 * 5.44,
                     color: AppColors.customWhite,
                     child: TextFormField(
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w500,
+                      ),
                       controller: worktitle,
                       decoration: const InputDecoration(
                         hintText: "Work Title",
@@ -110,7 +116,7 @@ class _ScheduleWorkState extends State<ScheduleWork> {
                       padding: EdgeInsets.symmetric(
                         horizontal: padding.top * 0.4,
                       ),
-                      height: size.height / 90 * 5.85,
+                      height: size.height / 90 * 5.44,
                       color: AppColors.customWhite,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -129,7 +135,7 @@ class _ScheduleWorkState extends State<ScheduleWork> {
                                       .format(startDate!)
                                       .toString(),
                                   style: TextStyle(
-                                    fontSize: 18,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.w500,
                                     color: AppColors.blue,
                                   ),
@@ -172,7 +178,7 @@ class _ScheduleWorkState extends State<ScheduleWork> {
                         horizontal: padding.top * 0.4,
                       ),
                       color: AppColors.customWhite,
-                      height: size.height / 90 * 5.85,
+                      height: size.height / 90 * 5.44,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -180,7 +186,7 @@ class _ScheduleWorkState extends State<ScheduleWork> {
                               ? Text(
                                   "Pick a End Date",
                                   style: TextStyle(
-                                    fontSize: 18,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.w500,
                                     color: AppColors.grey,
                                   ),
@@ -190,7 +196,7 @@ class _ScheduleWorkState extends State<ScheduleWork> {
                                       .format(endDate!)
                                       .toString(),
                                   style: TextStyle(
-                                    fontSize: 18,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.w500,
                                     color: AppColors.blue,
                                   ),
@@ -209,6 +215,12 @@ class _ScheduleWorkState extends State<ScheduleWork> {
                     ),
                     color: AppColors.customWhite,
                     child: TextFormField(
+                      style: const TextStyle(
+                        fontSize: 14,
+                        color: Colors.black,
+                        fontWeight: FontWeight.w500,
+                      ),
+                      controller: desc,
                       maxLines: 4,
                       decoration: const InputDecoration(
                         hintText: "Work Description",
@@ -264,6 +276,7 @@ class _ScheduleWorkState extends State<ScheduleWork> {
                           } else {
                             WorksModel worksModel = WorksModel(
                               title: worktitle.text,
+                              workdesc: desc.text,
                               startdate: startDate!,
                               endDate: endDate!,
                             );
@@ -271,7 +284,14 @@ class _ScheduleWorkState extends State<ScheduleWork> {
                                 .addWork(worksModel, args['sid']);
                           }
                         },
-                        child: const Text("Save"),
+                        child: const Text(
+                          "Save",
+                          style: TextStyle(
+                            fontSize: 14,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
                       );
                     },
                   )

@@ -51,11 +51,16 @@ class _EditWorkPageState extends State<EditWorkPage> {
               children: [
                 Container(
                   width: size.width,
-                  height: size.height / 90 * 5.5,
+                  height: size.height / 90 * 5.44,
                   decoration: BoxDecoration(
-                    color: AppColors.grey.withOpacity(0.1),
+                    color: AppColors.customWhite,
                   ),
                   child: TextFormField(
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w500,
+                    ),
                     initialValue: args["title"],
                     decoration: InputDecoration(
                       hintText: "Work Title",
@@ -99,9 +104,9 @@ class _EditWorkPageState extends State<EditWorkPage> {
                     padding: EdgeInsets.symmetric(
                       horizontal: padding.top * 0.4,
                     ),
-                    height: size.height / 90 * 5.5,
+                    height: size.height / 90 * 5.44,
                     decoration: BoxDecoration(
-                      color: AppColors.grey.withOpacity(0.1),
+                      color: AppColors.customWhite,
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -110,7 +115,7 @@ class _EditWorkPageState extends State<EditWorkPage> {
                             ? Text(
                                 "Pick a Start Date",
                                 style: TextStyle(
-                                  fontSize: 18,
+                                  fontSize: 14,
                                   fontWeight: FontWeight.w500,
                                   color: AppColors.grey,
                                 ),
@@ -120,7 +125,7 @@ class _EditWorkPageState extends State<EditWorkPage> {
                                     .format(args["startdate"])
                                     .toString(),
                                 style: TextStyle(
-                                  fontSize: 18,
+                                  fontSize: 14,
                                   fontWeight: FontWeight.w500,
                                   color: AppColors.blue,
                                 ),
@@ -162,9 +167,9 @@ class _EditWorkPageState extends State<EditWorkPage> {
                     padding: EdgeInsets.symmetric(
                       horizontal: padding.top * 0.4,
                     ),
-                    height: size.height / 90 * 5.5,
+                    height: size.height / 90 * 5.44,
                     decoration: BoxDecoration(
-                      color: AppColors.grey.withOpacity(0.1),
+                      color: AppColors.customWhite,
                     ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -173,7 +178,7 @@ class _EditWorkPageState extends State<EditWorkPage> {
                             ? Text(
                                 "Pick a End Date",
                                 style: TextStyle(
-                                  fontSize: 18,
+                                  fontSize: 14,
                                   fontWeight: FontWeight.w500,
                                   color: AppColors.grey,
                                 ),
@@ -183,7 +188,7 @@ class _EditWorkPageState extends State<EditWorkPage> {
                                     .format(args["endDate"])
                                     .toString(),
                                 style: TextStyle(
-                                  fontSize: 18,
+                                  fontSize: 14,
                                   fontWeight: FontWeight.w500,
                                   color: AppColors.blue,
                                 ),
@@ -197,12 +202,17 @@ class _EditWorkPageState extends State<EditWorkPage> {
                   height: size.height / 90 * 1.3,
                 ),
                 Container(
-                  height: size.height / 90 * 5.5,
+                  height: size.height / 90 * 5.4,
                   width: size.width,
                   decoration: BoxDecoration(
-                    color: AppColors.grey.withOpacity(0.1),
+                    color: AppColors.customWhite,
                   ),
                   child: TextFormField(
+                    style: const TextStyle(
+                      fontSize: 14,
+                      color: Colors.black,
+                      fontWeight: FontWeight.w500,
+                    ),
                     initialValue: args["workdesc"],
                     maxLines: 4,
                     decoration: InputDecoration(
@@ -284,7 +294,14 @@ class _EditWorkPageState extends State<EditWorkPage> {
                           );
                         }
                       },
-                      child: const Text("Save"),
+                      child: const Text(
+                        "Update",
+                        style: TextStyle(
+                          fontSize: 14,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
                     );
                   },
                 ),
