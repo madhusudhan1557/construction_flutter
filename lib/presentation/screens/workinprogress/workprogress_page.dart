@@ -253,17 +253,13 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                       .pushNamed(scheduleWOrk, arguments: {"sid": args['sid']});
                 },
                 icon: CircleAvatar(
-                  radius: 18,
+                  radius: size.width / 12.1,
                   backgroundColor: AppColors.yellow,
                   child: Icon(
                     Icons.add,
                     color: AppColors.blue,
                   ),
                 ),
-              ),
-              IconButton(
-                onPressed: () {},
-                icon: Image.asset("assets/icons/camera.png"),
               ),
             ],
             title: "Work in Progress",
@@ -340,6 +336,11 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                                   color: AppColors.white,
                                 ),
                                 child: DropdownButtonFormField2(
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    color: Colors.black,
+                                    fontWeight: FontWeight.w500,
+                                  ),
                                   scrollbarAlwaysShow: true,
                                   buttonPadding: EdgeInsets.only(
                                       right: padding.top * 0.5,
@@ -366,7 +367,7 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                                                 item['itemname'],
                                                 style: TextStyle(
                                                   color: AppColors.grey,
-                                                  fontSize: 16,
+                                                  fontSize: 14,
                                                   fontWeight: FontWeight.w500,
                                                 ),
                                               ),
@@ -423,6 +424,11 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                                       horizontalMargin: 0,
                                       verticalMargin: 0,
                                       child: TextFormField(
+                                        style: const TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w500,
+                                        ),
                                         keyboardType: TextInputType.number,
                                         controller: stocks,
                                         decoration: InputDecoration(
@@ -462,52 +468,58 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                                       return SizedBox(
                                         width: size.width / 7 * 1.3,
                                         child: IconButton(
-                                            color: AppColors.yellow,
-                                            style: ButtonStyle(
-                                              backgroundColor:
-                                                  MaterialStateProperty.all(
-                                                      AppColors.yellow),
-                                            ),
-                                            onPressed: () {
-                                              if (_formKey.currentState!
-                                                  .validate()) {
-                                                if (dropdownvalue.isEmpty) {
+                                          color: AppColors.yellow,
+                                          style: ButtonStyle(
+                                            backgroundColor:
+                                                MaterialStateProperty.all(
+                                                    AppColors.yellow),
+                                          ),
+                                          onPressed: () {
+                                            if (_formKey.currentState!
+                                                .validate()) {
+                                              if (dropdownvalue.isEmpty) {
+                                                BotToast.showText(
+                                                  text: "Please select a Stock",
+                                                  contentColor: AppColors.red,
+                                                );
+                                              } else {
+                                                String sid = "";
+
+                                                for (int i = 0;
+                                                    i <
+                                                        snapshot
+                                                            .data!.docs.length;
+                                                    i++) {
+                                                  sid = snapshot.data!.docs[i]
+                                                      ['sid'];
+                                                }
+                                                if (stocks.text.isEmpty) {
                                                   BotToast.showText(
                                                     text:
-                                                        "Please select a Stock",
+                                                        "Stock used value is Empty",
                                                     contentColor: AppColors.red,
                                                   );
                                                 } else {
-                                                  String sid = "";
-
-                                                  for (int i = 0;
-                                                      i <
-                                                          snapshot.data!.docs
-                                                              .length;
-                                                      i++) {
-                                                    sid = snapshot.data!.docs[i]
-                                                        ['sid'];
-                                                  }
-                                                  if (stocks.text.isEmpty) {
-                                                    BotToast.showText(
-                                                      text:
-                                                          "Stock used value is Empty",
-                                                      contentColor:
-                                                          AppColors.red,
-                                                    );
-                                                  } else {
-                                                    BlocProvider.of<StocksBloc>(
-                                                            context)
-                                                        .updateStockQuantity(
-                                                      sid,
-                                                      double.parse(stocks.text),
-                                                      dropdownvalue,
-                                                    );
-                                                  }
+                                                  BlocProvider.of<StocksBloc>(
+                                                          context)
+                                                      .updateStockQuantity(
+                                                    sid,
+                                                    double.parse(stocks.text),
+                                                    dropdownvalue,
+                                                  );
                                                 }
                                               }
-                                            },
-                                            icon: const Text("Update")),
+                                            }
+                                          },
+                                          icon: const Text(
+                                            "Update",
+                                            style: TextStyle(
+                                              fontSize: 14,
+                                              color: Colors.black,
+                                              fontWeight: FontWeight.w500,
+                                            ),
+                                          ),
+                                        ),
                                       );
                                     },
                                   ),
@@ -522,7 +534,7 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                         Text(
                           "Progress",
                           style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 16,
                             fontWeight: FontWeight.w500,
                             color: AppColors.blue,
                           ),
@@ -615,7 +627,7 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                         Text(
                           "Site Works",
                           style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 16,
                             fontWeight: FontWeight.w500,
                             color: AppColors.blue,
                           ),
@@ -698,7 +710,7 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                                       overflow: TextOverflow.clip,
                                       color: AppColors.grey,
                                       fontWeight: FontWeight.w400,
-                                      fontSize: 16,
+                                      fontSize: 14,
                                     ),
                                   ),
                                 ),
@@ -710,7 +722,7 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                                       overflow: TextOverflow.clip,
                                       color: AppColors.grey,
                                       fontWeight: FontWeight.w400,
-                                      fontSize: 16,
+                                      fontSize: 14,
                                     ),
                                   ),
                                 ),
@@ -830,7 +842,13 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                               });
                         }
                       },
-                      child: const Text("Generate Report"),
+                      child: const Text(
+                        "Generate Report",
+                        style: TextStyle(
+                          fontSize: 14,
+                          fontWeight: FontWeight.w500,
+                        ),
+                      ),
                     )
             ],
           );
