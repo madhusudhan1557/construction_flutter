@@ -29,18 +29,18 @@ class ShowCustomModal {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   CircleAvatar(
-                    radius: size.width / 8.6,
+                    radius: size.width / 9.6,
                     backgroundColor: AppColors.blue,
                     child: Iconify(
                       FluentMdl2.archive_undo,
                       color: AppColors.white,
-                      size: size.height / 90 * 6.76,
+                      size: size.height / 90 * 4.76,
                     ),
                   ),
                   const Text(
                     "Are you sure you want to Archrive ?",
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 14,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -67,7 +67,13 @@ class ShowCustomModal {
                           foregroundColor: AppColors.white,
                         ),
                         onPressed: () {},
-                        child: const Text("Archrive"),
+                        child: const Text(
+                          "Archrive",
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
                       ),
                     ],
                   ),
@@ -99,18 +105,18 @@ class ShowCustomModal {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   CircleAvatar(
-                    radius: size.width / 8.2,
+                    radius: size.width / 9.2,
                     backgroundColor: AppColors.red,
                     child: Iconify(
                       FluentMdl2.delete,
-                      size: size.height / 90 * 6.76,
+                      size: size.height / 90 * 4.76,
                       color: AppColors.white,
                     ),
                   ),
                   const Text(
                     "Are you sure you want to Delete ?",
                     style: TextStyle(
-                      fontSize: 16,
+                      fontSize: 14,
                       fontWeight: FontWeight.w500,
                     ),
                   ),
@@ -127,7 +133,13 @@ class ShowCustomModal {
                         onPressed: () {
                           Navigator.of(context).pop();
                         },
-                        child: const Text("Cancel"),
+                        child: const Text(
+                          "Cancel",
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
                       ),
                       ElevatedButton(
                         style: ElevatedButton.styleFrom(
@@ -140,7 +152,13 @@ class ShowCustomModal {
                           BlocProvider.of<SitesBloc>(context)
                               .deleteSite(id, imageurl, context);
                         },
-                        child: const Text("Delete"),
+                        child: const Text(
+                          "Delete",
+                          style: TextStyle(
+                            fontSize: 14,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
                       ),
                     ],
                   ),

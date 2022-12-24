@@ -21,13 +21,18 @@ class CustomNumberField {
       height: size,
       decoration: BoxDecoration(color: color),
       child: TextFormField(
+        style: const TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+          color: Colors.black,
+        ),
         controller: controller,
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
           hintText: hintText,
           suffixIcon: suffixIcon,
           border: InputBorder.none,
-          contentPadding: const EdgeInsets.all(10),
+          contentPadding: const EdgeInsets.all(15),
         ),
         validator: (value) => Validator.getNumberValidator(value, hintText),
       ),

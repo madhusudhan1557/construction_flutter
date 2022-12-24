@@ -55,7 +55,7 @@ class _SiteStocksState extends State<SiteStocks> {
             content: Form(
                 key: _formKey,
                 child: SizedBox(
-                  height: size.height / 90 * 58.334,
+                  height: size.height / 90 * 54.334,
                   child: SingleChildScrollView(
                     child: Column(
                       children: [
@@ -65,7 +65,7 @@ class _SiteStocksState extends State<SiteStocks> {
                         Text(
                           "Add Stocks",
                           style: TextStyle(
-                              fontSize: 18,
+                              fontSize: 16,
                               fontWeight: FontWeight.w600,
                               color: AppColors.blue),
                         ),
@@ -102,13 +102,20 @@ class _SiteStocksState extends State<SiteStocks> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text("Item Quantity"),
+                            const Text(
+                              "Item Quantity",
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
                             SizedBox(
                               width: size.width / 5.6,
                               child: CustomNumberField(
                                 hintText: "Qty",
                                 controller: _quantity,
-                                color: AppColors.grey.withOpacity(0.1),
+                                color: AppColors.customWhite,
                                 size: size.height / 90 * 5.44,
                               ).customNumberField(),
                             ),
@@ -120,12 +127,19 @@ class _SiteStocksState extends State<SiteStocks> {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
-                            const Text("Item rate"),
+                            const Text(
+                              "Item rate",
+                              style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
                             SizedBox(
                               width: size.width / 5.6,
                               child: CustomNumberField(
                                 hintText: "Rate",
-                                color: AppColors.grey.withOpacity(0.1),
+                                color: AppColors.customWhite,
                                 controller: _rate,
                                 size: size.height / 90 * 5.44,
                               ).customNumberField(),
@@ -157,7 +171,14 @@ class _SiteStocksState extends State<SiteStocks> {
                               onPressed: () {
                                 Navigator.of(context).pop();
                               },
-                              child: const Text("Cancel"),
+                              child: const Text(
+                                "Cancel",
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
                             ),
                             BlocConsumer<StocksBloc, StocksState>(
                               listener: (context, state) {
@@ -205,7 +226,13 @@ class _SiteStocksState extends State<SiteStocks> {
                                           .addStock(stockModel, args['sid']);
                                     }
                                   },
-                                  child: const Text("Save"),
+                                  child: const Text(
+                                    "Save",
+                                    style: TextStyle(
+                                      fontSize: 14,
+                                      fontWeight: FontWeight.w500,
+                                    ),
+                                  ),
                                 );
                               },
                             ),
@@ -235,18 +262,18 @@ class _SiteStocksState extends State<SiteStocks> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     CircleAvatar(
-                      radius: size.width / 8.2,
+                      radius: size.width / 9.2,
                       backgroundColor: AppColors.red,
                       child: Iconify(
-                        FluentMdl2.delete,
-                        size: size.height / 90 * 6.76,
+                        Zondicons.trash,
+                        size: size.height / 90 * 4.76,
                         color: AppColors.white,
                       ),
                     ),
                     const Text(
                       "Are you sure you want to Delete ?",
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 14,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -263,7 +290,13 @@ class _SiteStocksState extends State<SiteStocks> {
                           onPressed: () {
                             Navigator.of(context).pop();
                           },
-                          child: const Text("Cancel"),
+                          child: const Text(
+                            "Cancel",
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
                         ),
                         BlocConsumer<StocksBloc, StocksState>(
                           listener: (context, state) {
@@ -301,7 +334,13 @@ class _SiteStocksState extends State<SiteStocks> {
                                 BlocProvider.of<StocksBloc>(context)
                                     .deleteSiteStock(sid, skid);
                               },
-                              child: const Text("Delete"),
+                              child: const Text(
+                                "Delete",
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
                             );
                           },
                         ),
@@ -341,9 +380,10 @@ class _SiteStocksState extends State<SiteStocks> {
                     Text(
                       "Update Site Stocks Info",
                       style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.blue),
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.blue,
+                      ),
                     ),
                     SizedBox(
                       height: size.height / 90 * 1.538,
@@ -352,10 +392,15 @@ class _SiteStocksState extends State<SiteStocks> {
                       height: size.height / 90 * 5.44,
                       width: size.width,
                       decoration: BoxDecoration(
-                        color: AppColors.customWhite.withOpacity(0.6),
+                        color: AppColors.customWhite,
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: TextFormField(
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w500,
+                        ),
                         initialValue: itemname,
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.symmetric(
@@ -382,10 +427,15 @@ class _SiteStocksState extends State<SiteStocks> {
                       height: size.height / 90 * 5.44,
                       width: size.width,
                       decoration: BoxDecoration(
-                        color: AppColors.customWhite.withOpacity(0.6),
+                        color: AppColors.customWhite,
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: TextFormField(
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w500,
+                        ),
                         initialValue: suppliername,
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.symmetric(
@@ -412,10 +462,15 @@ class _SiteStocksState extends State<SiteStocks> {
                       height: size.height / 90 * 5.44,
                       width: size.width,
                       decoration: BoxDecoration(
-                        color: AppColors.customWhite.withOpacity(0.6),
+                        color: AppColors.customWhite,
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: TextFormField(
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w500,
+                        ),
                         initialValue: itembrand,
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.symmetric(
@@ -441,22 +496,27 @@ class _SiteStocksState extends State<SiteStocks> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
+                        const Text(
                           "Quantity",
                           style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.blue,
+                            fontSize: 14,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
                         Container(
                           height: size.height / 90 * 5.44,
                           width: size.width / 8 * 1.5,
                           decoration: BoxDecoration(
-                            color: AppColors.customWhite.withOpacity(0.6),
+                            color: AppColors.customWhite,
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: TextFormField(
+                            style: const TextStyle(
+                              fontSize: 14,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w500,
+                            ),
                             keyboardType: TextInputType.number,
                             initialValue: quantity.toString(),
                             decoration: InputDecoration(
@@ -485,22 +545,27 @@ class _SiteStocksState extends State<SiteStocks> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
+                        const Text(
                           "Rate (Rs.)",
                           style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.blue,
+                            fontSize: 14,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
                         Container(
                           height: size.height / 90 * 5.44,
                           width: size.width / 8 * 1.5,
                           decoration: BoxDecoration(
-                            color: AppColors.customWhite.withOpacity(0.6),
+                            color: AppColors.customWhite,
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: TextFormField(
+                            style: const TextStyle(
+                              fontSize: 14,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w500,
+                            ),
                             keyboardType: TextInputType.number,
                             initialValue: rate.toString(),
                             decoration: InputDecoration(
@@ -530,10 +595,15 @@ class _SiteStocksState extends State<SiteStocks> {
                       height: size.height / 90 * 5.44,
                       width: size.width,
                       decoration: BoxDecoration(
-                        color: AppColors.customWhite.withOpacity(0.6),
+                        color: AppColors.customWhite,
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: TextFormField(
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w500,
+                        ),
                         initialValue: unit,
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.symmetric(
@@ -569,7 +639,14 @@ class _SiteStocksState extends State<SiteStocks> {
                           onPressed: () {
                             Navigator.of(context).pop();
                           },
-                          child: const Text("Cancel"),
+                          child: const Text(
+                            "Cancel",
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
                         ),
                         BlocConsumer<StocksBloc, StocksState>(
                           listener: (context, state) {
@@ -618,7 +695,13 @@ class _SiteStocksState extends State<SiteStocks> {
                                   );
                                 }
                               },
-                              child: const Text("Update"),
+                              child: const Text(
+                                "Update",
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
                             );
                           },
                         ),
@@ -639,27 +722,32 @@ class _SiteStocksState extends State<SiteStocks> {
         builder: (context) {
           return AlertDialog(
             content: SizedBox(
-              height: size.height / 90 * 18.3,
+              height: size.height / 90 * 16.3,
               child: Form(
                 key: _formKey,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     Text(
                       "Add Stock Quantity",
                       style: TextStyle(
                           color: AppColors.blue,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w400),
+                          fontSize: 16,
+                          fontWeight: FontWeight.w600),
                     ),
                     Container(
                       height: size.height / 90 * 5.44,
                       width: size.width,
                       decoration: BoxDecoration(
-                        color: AppColors.customWhite.withOpacity(0.6),
+                        color: AppColors.customWhite,
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: TextFormField(
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w500,
+                        ),
                         keyboardType: TextInputType.number,
                         controller: _qty,
                         decoration: InputDecoration(
@@ -706,7 +794,10 @@ class _SiteStocksState extends State<SiteStocks> {
                       builder: (context, state) {
                         return ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            shape: const CircleBorder(),
+                            fixedSize: Size(
+                              size.width / 6,
+                              size.height / 90 * 3.4,
+                            ),
                             foregroundColor: AppColors.blue,
                             backgroundColor: AppColors.yellow,
                           ),
@@ -717,7 +808,7 @@ class _SiteStocksState extends State<SiteStocks> {
                                       sid, skid, double.parse(_qty.text));
                             }
                           },
-                          child: const Iconify(FluentMdl2.update_restore),
+                          child: const Iconify(FluentMdl2.forward),
                         );
                       },
                     ),
@@ -738,8 +829,9 @@ class _SiteStocksState extends State<SiteStocks> {
           bgcolor: AppColors.white,
           title: args['sitename'],
           leading: IconButton(
-            icon: const Icon(
+            icon: Icon(
               Icons.arrow_back_ios_new,
+              size: size.height / 90 * 2.3,
             ),
             onPressed: () {
               Navigator.of(context).pop();
@@ -752,7 +844,7 @@ class _SiteStocksState extends State<SiteStocks> {
               },
               icon: CircleAvatar(
                 backgroundColor: AppColors.yellow,
-                radius: 18,
+                radius: size.width / 12.4,
                 child: Icon(
                   Icons.add,
                   color: AppColors.blue,
@@ -785,7 +877,7 @@ class _SiteStocksState extends State<SiteStocks> {
                               width: size.width / 8 * 6.3,
                               radius: 16,
                               blurRadius: 4.0,
-                              shadowColor: AppColors.grey.withOpacity(0.2),
+                              shadowColor: AppColors.customWhite,
                               color: AppColors.white,
                               horizontalMargin: padding.top * 0.4,
                               verticalMargin: padding.top * 0.2,
@@ -853,7 +945,7 @@ class _SiteStocksState extends State<SiteStocks> {
                               },
                               icon: CircleAvatar(
                                 backgroundColor: AppColors.yellow,
-                                radius: 18,
+                                radius: size.width / 21,
                                 child: Icon(
                                   Icons.picture_as_pdf,
                                   color: AppColors.blue,
@@ -894,8 +986,11 @@ class _SiteStocksState extends State<SiteStocks> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
+                                            SizedBox(
+                                              height: size.height / 90 * 0.3,
+                                            ),
                                             Row(
                                               mainAxisAlignment:
                                                   MainAxisAlignment
@@ -1030,7 +1125,7 @@ class _SiteStocksState extends State<SiteStocks> {
                                               icon: Iconify(
                                                 Zondicons.trash,
                                                 color: AppColors.red,
-                                                size: size.height / 90 * 2.1,
+                                                size: size.height / 90 * 2.3,
                                               ),
                                             ),
                                           ),
@@ -1061,7 +1156,7 @@ class _SiteStocksState extends State<SiteStocks> {
                                               icon: Iconify(
                                                 FluentMdl2.edit,
                                                 color: AppColors.grey,
-                                                size: size.height / 90 * 2.1,
+                                                size: size.height / 90 * 2.3,
                                               ),
                                             ),
                                           ),

@@ -54,7 +54,7 @@ class _SitePageState extends State<SitePage> {
                         EdgeInsets.symmetric(horizontal: paddding.top * 0.6),
                     child: CircleAvatar(
                       backgroundColor: AppColors.yellow,
-                      radius: 21,
+                      radius: size.width / 21.4,
                       child: IconButton(
                         onPressed: () {
                           Navigator.of(context).pushNamed(addsitepage);
@@ -151,7 +151,7 @@ class _SitePageState extends State<SitePage> {
                         child: CustomBox(
                           horizontalMargin: paddding.top * 0.4,
                           verticalMargin: paddding.top * 0.28,
-                          height: size.height / 90 * 15,
+                          height: size.height / 90 * 14.5,
                           width: size.width,
                           color: AppColors.white,
                           blurRadius: 4.0,
@@ -166,12 +166,15 @@ class _SitePageState extends State<SitePage> {
                                 Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
+                                    SizedBox(
+                                      height: size.height / 90 * 0.3,
+                                    ),
                                     Text(
                                       snapshot.data!.docs[index]['sitename'],
                                       style: TextStyle(
-                                        fontSize: 18,
+                                        fontSize: 16,
                                         fontWeight: FontWeight.w700,
                                         color: Colors.grey[700],
                                       ),
@@ -179,7 +182,7 @@ class _SitePageState extends State<SitePage> {
                                     Text(
                                       snapshot.data!.docs[index]['clientname'],
                                       style: TextStyle(
-                                        fontSize: 16,
+                                        fontSize: 14,
                                         fontWeight: FontWeight.w700,
                                         color: AppColors.blue,
                                       ),
@@ -191,7 +194,7 @@ class _SitePageState extends State<SitePage> {
                                             ['sitelocation'],
                                         style: TextStyle(
                                           overflow: TextOverflow.clip,
-                                          fontSize: 16,
+                                          fontSize: 14,
                                           fontWeight: FontWeight.w500,
                                           color: Colors.grey[700],
                                         ),
@@ -310,7 +313,7 @@ class _SitePageState extends State<SitePage> {
                                                       Zondicons.trash,
                                                       size: size.height /
                                                           90 *
-                                                          2.6,
+                                                          2.3,
                                                       color: AppColors.red,
                                                     ),
                                                   ),

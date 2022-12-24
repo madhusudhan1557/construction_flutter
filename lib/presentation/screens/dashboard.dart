@@ -61,8 +61,9 @@ class _DashboardState extends State<Dashboard> {
                         ),
                       ),
                     ],
-                    leading: Padding(
-                      padding: EdgeInsets.all(padding.top * 0.2),
+                    leading: Container(
+                      margin:
+                          EdgeInsets.symmetric(horizontal: padding.top * 0.3),
                       child: Image.asset(
                         "assets/images/logo.png",
                       ),
@@ -91,7 +92,7 @@ class _DashboardState extends State<Dashboard> {
                           style: TextStyle(
                             color: AppColors.blue,
                             fontWeight: FontWeight.w600,
-                            fontSize: 18,
+                            fontSize: 16,
                           ),
                         ),
                       ),
@@ -236,7 +237,7 @@ class _DashboardState extends State<Dashboard> {
                                                         color: AppColors.blue,
                                                         fontWeight:
                                                             FontWeight.w600,
-                                                        fontSize: 16,
+                                                        fontSize: 14,
                                                       ),
                                                     )
                                                   ],
@@ -428,11 +429,16 @@ class _DashboardState extends State<Dashboard> {
                             style: TextStyle(
                               color: AppColors.white,
                               fontWeight: FontWeight.w600,
-                              fontSize: 18,
+                              fontSize: 14,
                             ),
                           )
                         : Text(
                             "${snapshot.data!.docs.length}",
+                            style: TextStyle(
+                              color: AppColors.white,
+                              fontWeight: FontWeight.w600,
+                              fontSize: 14,
+                            ),
                           ),
                   ],
                 ),
@@ -495,7 +501,7 @@ class _DashboardState extends State<Dashboard> {
                             style: TextStyle(
                               color: AppColors.blue,
                               fontWeight: FontWeight.w600,
-                              fontSize: 18,
+                              fontSize: 14,
                             ),
                           )
                         : Text(
@@ -503,7 +509,7 @@ class _DashboardState extends State<Dashboard> {
                             style: TextStyle(
                               color: AppColors.blue,
                               fontWeight: FontWeight.w600,
-                              fontSize: 18,
+                              fontSize: 14,
                             ),
                           ),
                   ],
@@ -564,7 +570,7 @@ class _DashboardState extends State<Dashboard> {
                             style: TextStyle(
                               color: AppColors.white,
                               fontWeight: FontWeight.w600,
-                              fontSize: 18,
+                              fontSize: 14,
                             ),
                           )
                         : Text(
@@ -572,7 +578,7 @@ class _DashboardState extends State<Dashboard> {
                             style: TextStyle(
                               color: AppColors.white,
                               fontWeight: FontWeight.w600,
-                              fontSize: 18,
+                              fontSize: 14,
                             ),
                           ),
                   ],

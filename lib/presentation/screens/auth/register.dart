@@ -51,9 +51,9 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
             title: "Add a New User",
             bgcolor: AppColors.white,
             leading: IconButton(
-              icon: const Icon(
+              icon: Icon(
                 Icons.arrow_back_ios_new,
-                size: 24,
+                size: size.height / 90 * 2.3,
               ),
               onPressed: () {
                 Navigator.of(context).pop();
@@ -127,14 +127,21 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                         builder: (context, state) {
                           return Container(
                             decoration: BoxDecoration(
-                              color: AppColors.customWhite.withOpacity(0.6),
+                              color: AppColors.customWhite,
                             ),
                             child: DropdownButtonFormField2(
+                              style: const TextStyle(
+                                fontSize: 14,
+                                color: Colors.black,
+                                fontWeight: FontWeight.w500,
+                              ),
                               decoration: const InputDecoration(
                                 border: InputBorder.none,
                               ),
                               hint: const Text("Select Role"),
                               offset: Offset(0, -size.height / 90 * 2.44),
+                              buttonPadding:
+                                  EdgeInsets.only(right: padding.top * 0.4),
                               items: roles.map((role) {
                                 return DropdownMenuItem(
                                   value: role,

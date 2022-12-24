@@ -25,13 +25,18 @@ class CustomTextField {
       width: width,
       decoration: BoxDecoration(color: AppColors.customWhite),
       child: TextFormField(
+        style: const TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+          color: Colors.black,
+        ),
         controller: controller,
         decoration: InputDecoration(
           prefixIcon: prefixIcon,
           hintText: hintText,
           suffixIcon: suffixIcon,
           border: InputBorder.none,
-          contentPadding: const EdgeInsets.all(10),
+          contentPadding: const EdgeInsets.all(15),
         ),
         validator: (value) => Validator.getBlankFieldValidator(value, hintText),
       ),

@@ -10,6 +10,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/fluent_mdl2.dart';
+import 'package:iconify_flutter/icons/zondicons.dart';
 
 import '../../../bloc/dropdown/dropdown_bloc.dart';
 import '../../../bloc/users/users_bloc.dart';
@@ -50,9 +51,10 @@ class _UsersPageState extends State<UsersPage> {
                     Text(
                       "Update User Info",
                       style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500,
-                          color: AppColors.blue),
+                        fontSize: 16,
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.blue,
+                      ),
                     ),
                     SizedBox(
                       height: size.height / 90 * 2.51,
@@ -61,10 +63,15 @@ class _UsersPageState extends State<UsersPage> {
                       height: size.height / 90 * 5.44,
                       width: size.width,
                       decoration: BoxDecoration(
-                        color: AppColors.customWhite.withOpacity(0.6),
+                        color: AppColors.customWhite,
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: TextFormField(
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w500,
+                        ),
                         initialValue: fullname,
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.symmetric(
@@ -91,10 +98,16 @@ class _UsersPageState extends State<UsersPage> {
                       height: size.height / 90 * 5.44,
                       width: size.width,
                       decoration: BoxDecoration(
-                        color: AppColors.customWhite.withOpacity(0.6),
+                        color: AppColors.customWhite,
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: TextFormField(
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w500,
+                        ),
+                        keyboardType: TextInputType.number,
                         initialValue: phone,
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.symmetric(
@@ -124,10 +137,15 @@ class _UsersPageState extends State<UsersPage> {
                       height: size.height / 90 * 5.44,
                       width: size.width,
                       decoration: BoxDecoration(
-                        color: AppColors.customWhite.withOpacity(0.6),
+                        color: AppColors.customWhite,
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: TextFormField(
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w500,
+                        ),
                         initialValue: address,
                         decoration: InputDecoration(
                           hintText: "Address",
@@ -160,9 +178,14 @@ class _UsersPageState extends State<UsersPage> {
                         return Container(
                           decoration: BoxDecoration(
                             borderRadius: BorderRadius.circular(10),
-                            color: AppColors.customWhite.withOpacity(0.6),
+                            color: AppColors.customWhite,
                           ),
                           child: DropdownButtonFormField2(
+                            style: const TextStyle(
+                              fontSize: 14,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w500,
+                            ),
                             decoration: const InputDecoration(
                               border: InputBorder.none,
                             ),
@@ -170,6 +193,9 @@ class _UsersPageState extends State<UsersPage> {
                                 horizontal: padding.top * 0.2),
                             hint: const Text("Select Role (Optional)"),
                             offset: Offset(0, -size.height / 90 * 2.44),
+                            dropdownDecoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                            ),
                             items: roles.map((role) {
                               return DropdownMenuItem(
                                 value: role,
@@ -200,7 +226,14 @@ class _UsersPageState extends State<UsersPage> {
                           onPressed: () {
                             Navigator.of(context).pop();
                           },
-                          child: const Text("Cancel"),
+                          child: const Text(
+                            "Cancel",
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
                         ),
                         BlocConsumer<UsersBloc, UsersState>(
                           listener: (context, state) {
@@ -244,7 +277,14 @@ class _UsersPageState extends State<UsersPage> {
                                   dropdownvalue,
                                 );
                               },
-                              child: const Text("Update"),
+                              child: const Text(
+                                "Update",
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
                             );
                           },
                         ),
@@ -274,18 +314,18 @@ class _UsersPageState extends State<UsersPage> {
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
                     CircleAvatar(
-                      radius: size.width / 8.2,
+                      radius: size.width / 9.2,
                       backgroundColor: AppColors.red,
                       child: Iconify(
-                        FluentMdl2.delete,
-                        size: size.height / 90 * 6.76,
+                        Zondicons.trash,
+                        size: size.height / 90 * 4.76,
                         color: AppColors.white,
                       ),
                     ),
                     const Text(
                       "Are you sure you want to Delete ?",
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 14,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -302,7 +342,13 @@ class _UsersPageState extends State<UsersPage> {
                           onPressed: () {
                             Navigator.of(context).pop();
                           },
-                          child: const Text("Cancel"),
+                          child: const Text(
+                            "Cancel",
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
                         ),
                         BlocConsumer<UsersBloc, UsersState>(
                           listener: (context, state) {
@@ -340,7 +386,13 @@ class _UsersPageState extends State<UsersPage> {
                                 BlocProvider.of<UsersBloc>(context)
                                     .deleteUsers(uid);
                               },
-                              child: const Text("Delete"),
+                              child: const Text(
+                                "Delete",
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
                             );
                           },
                         ),
@@ -364,7 +416,7 @@ class _UsersPageState extends State<UsersPage> {
             Padding(
               padding: EdgeInsets.only(right: padding.top * 0.4),
               child: CircleAvatar(
-                radius: 21,
+                radius: size.width / 21.4,
                 backgroundColor: AppColors.yellow,
                 child: IconButton(
                   onPressed: () {
@@ -400,7 +452,7 @@ class _UsersPageState extends State<UsersPage> {
                 itemCount: snapshot.data!.docs.length,
                 itemBuilder: (context, index) {
                   return CustomBox(
-                    height: size.height / 90 * 15.3,
+                    height: size.height / 90 * 12,
                     width: size.width,
                     radius: 15,
                     blurRadius: 4.0,
@@ -421,7 +473,7 @@ class _UsersPageState extends State<UsersPage> {
                                 snapshot.data!.docs[index]['fullname'],
                                 style: TextStyle(
                                   color: AppColors.grey,
-                                  fontSize: 18,
+                                  fontSize: 16,
                                   fontWeight: FontWeight.w600,
                                 ),
                               ),
@@ -433,10 +485,11 @@ class _UsersPageState extends State<UsersPage> {
                                   Text(
                                     snapshot.data!.docs[index]['phone'],
                                     style: const TextStyle(
-                                      fontSize: 16,
+                                      fontSize: 14,
                                       fontWeight: FontWeight.w500,
                                     ),
                                   ),
+                                  const Spacer(),
                                   CustomBox(
                                     height: size.height / 90 * 2.44,
                                     width: size.width / 3.86,
@@ -460,39 +513,21 @@ class _UsersPageState extends State<UsersPage> {
                                       ),
                                     ),
                                   ).customBox(),
-                                  Align(
-                                    alignment: Alignment.centerRight,
-                                    child: IconButton(
-                                      onPressed: () {
-                                        showEditUserModal(
-                                          snapshot.data!.docs[index]['uid'],
-                                          snapshot.data!.docs[index]
-                                              ['fullname'],
-                                          snapshot.data!.docs[index]['phone'],
-                                          snapshot.data!.docs[index]['address'],
-                                        );
-                                      },
-                                      icon: Iconify(
-                                        FluentMdl2.edit,
-                                        color: AppColors.grey,
-                                        size: size.height / 90 * 2.3,
-                                      ),
-                                    ),
-                                  ),
+                                  const Spacer()
                                 ],
                               ),
                               SizedBox(height: size.height / 90 * 1.1),
                               Text(
                                 snapshot.data!.docs[index]['address'],
                                 style: const TextStyle(
-                                  fontSize: 16,
+                                  fontSize: 14,
                                   fontWeight: FontWeight.w500,
                                 ),
                               ),
                             ],
                           ),
                           Column(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            mainAxisAlignment: MainAxisAlignment.center,
                             children: [
                               Align(
                                 alignment: Alignment.centerRight,
@@ -503,7 +538,7 @@ class _UsersPageState extends State<UsersPage> {
                                     );
                                   },
                                   icon: Iconify(
-                                    FluentMdl2.delete,
+                                    Zondicons.trash,
                                     color: AppColors.red,
                                     size: size.height / 90 * 2.3,
                                   ),
@@ -512,10 +547,17 @@ class _UsersPageState extends State<UsersPage> {
                               Align(
                                 alignment: Alignment.centerRight,
                                 child: IconButton(
-                                  onPressed: () {},
+                                  onPressed: () {
+                                    showEditUserModal(
+                                      snapshot.data!.docs[index]['uid'],
+                                      snapshot.data!.docs[index]['fullname'],
+                                      snapshot.data!.docs[index]['phone'],
+                                      snapshot.data!.docs[index]['address'],
+                                    );
+                                  },
                                   icon: Iconify(
-                                    FluentMdl2.archive,
-                                    color: AppColors.blue,
+                                    FluentMdl2.edit,
+                                    color: AppColors.grey,
                                     size: size.height / 90 * 2.3,
                                   ),
                                 ),

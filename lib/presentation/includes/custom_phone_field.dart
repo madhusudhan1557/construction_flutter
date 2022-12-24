@@ -18,13 +18,18 @@ class CustomPhoneField {
       height: size,
       decoration: BoxDecoration(color: AppColors.customWhite),
       child: TextFormField(
+        style: const TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+          color: Colors.black,
+        ),
         controller: controller,
         keyboardType: TextInputType.number,
         decoration: InputDecoration(
           hintText: "Phone Number ",
           suffixIcon: suffixIcon,
           border: InputBorder.none,
-          contentPadding: const EdgeInsets.all(10),
+          contentPadding: const EdgeInsets.all(15),
         ),
         validator: (value) => Validator.getPhoneValidator(value),
       ),

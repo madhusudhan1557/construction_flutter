@@ -55,7 +55,7 @@ class _OrderPageState extends State<OrderPage> {
             content: Form(
               key: _formKey,
               child: SizedBox(
-                height: size.height / 90 * 58.334,
+                height: size.height / 90 * 54.334,
                 child: SingleChildScrollView(
                   child: Column(
                     children: [
@@ -65,7 +65,7 @@ class _OrderPageState extends State<OrderPage> {
                       Text(
                         "Add Orders",
                         style: TextStyle(
-                            fontSize: 18,
+                            fontSize: 16,
                             fontWeight: FontWeight.w600,
                             color: AppColors.blue),
                       ),
@@ -102,7 +102,14 @@ class _OrderPageState extends State<OrderPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text("Item Quantity"),
+                          const Text(
+                            "Item Quantity",
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black,
+                            ),
+                          ),
                           SizedBox(
                             width: size.width / 5.6,
                             child: CustomNumberField(
@@ -120,7 +127,14 @@ class _OrderPageState extends State<OrderPage> {
                       Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          const Text("Item rate"),
+                          const Text(
+                            "Item rate",
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                              color: Colors.black,
+                            ),
+                          ),
                           SizedBox(
                             width: size.width / 5.6,
                             child: CustomNumberField(
@@ -157,7 +171,13 @@ class _OrderPageState extends State<OrderPage> {
                             onPressed: () {
                               Navigator.of(context).pop();
                             },
-                            child: const Text("Cancel"),
+                            child: const Text(
+                              "Cancel",
+                              style: TextStyle(
+                                fontSize: 14,
+                                fontWeight: FontWeight.w500,
+                              ),
+                            ),
                           ),
                           BlocConsumer<OrdersBloc, OrdersState>(
                             listener: (context, state) {
@@ -206,7 +226,13 @@ class _OrderPageState extends State<OrderPage> {
                                         .addOrder(orderModel, args['sid']);
                                   }
                                 },
-                                child: const Text("Save"),
+                                child: const Text(
+                                  "Save",
+                                  style: TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                  ),
+                                ),
                               );
                             },
                           ),
@@ -232,23 +258,24 @@ class _OrderPageState extends State<OrderPage> {
                   borderRadius: BorderRadius.circular(15)),
               content: SizedBox(
                 width: size.width,
-                height: size.height / 90 * 23,
+                height: size.height / 90 * 21,
                 child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     CircleAvatar(
-                      radius: size.width / 8.2,
+                      radius: size.width / 9.2,
                       backgroundColor: AppColors.red,
                       child: Iconify(
                         FluentMdl2.delete,
-                        size: size.height / 90 * 6.76,
+                        size: size.height / 90 * 4.76,
                         color: AppColors.white,
                       ),
                     ),
                     const Text(
                       "Are you sure you want to Delete ?",
                       style: TextStyle(
-                        fontSize: 16,
+                        fontSize: 14,
+                        color: Colors.black,
                         fontWeight: FontWeight.w500,
                       ),
                     ),
@@ -265,7 +292,14 @@ class _OrderPageState extends State<OrderPage> {
                           onPressed: () {
                             Navigator.of(context).pop();
                           },
-                          child: const Text("Cancel"),
+                          child: const Text(
+                            "Cancel",
+                            style: TextStyle(
+                              fontSize: 14,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
                         ),
                         BlocConsumer<OrdersBloc, OrdersState>(
                           listener: (context, state) {
@@ -303,7 +337,13 @@ class _OrderPageState extends State<OrderPage> {
                                 BlocProvider.of<OrdersBloc>(context)
                                     .deleteSiteOrder(sid, oid);
                               },
-                              child: const Text("Delete"),
+                              child: const Text(
+                                "Delete",
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
                             );
                           },
                         ),
@@ -344,9 +384,10 @@ class _OrderPageState extends State<OrderPage> {
                     Text(
                       "Update Site Orders Info",
                       style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.blue),
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.blue,
+                      ),
                     ),
                     SizedBox(
                       height: size.height / 90 * 1.538,
@@ -359,6 +400,11 @@ class _OrderPageState extends State<OrderPage> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: TextFormField(
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w500,
+                        ),
                         initialValue: itemname,
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.symmetric(
@@ -389,6 +435,11 @@ class _OrderPageState extends State<OrderPage> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: TextFormField(
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w500,
+                        ),
                         initialValue: suppliername,
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.symmetric(
@@ -419,6 +470,11 @@ class _OrderPageState extends State<OrderPage> {
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: TextFormField(
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w500,
+                        ),
                         initialValue: itembrand,
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.symmetric(
@@ -444,29 +500,34 @@ class _OrderPageState extends State<OrderPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
+                        const Text(
                           "Quantity",
                           style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.blue,
+                            fontSize: 14,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
                         Container(
                           height: size.height / 90 * 5.44,
                           width: size.width / 8 * 1.5,
                           decoration: BoxDecoration(
-                            color: AppColors.customWhite.withOpacity(0.6),
+                            color: AppColors.customWhite,
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: TextFormField(
+                            style: const TextStyle(
+                              fontSize: 14,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w500,
+                            ),
                             keyboardType: TextInputType.number,
                             initialValue: quantity.toString(),
                             decoration: InputDecoration(
                               contentPadding: EdgeInsets.symmetric(
                                 horizontal: padding.top * 0.4,
                               ),
-                              hintText: "Quantity",
+                              hintText: "Qty",
                               border: InputBorder.none,
                             ),
                             onChanged: (value) {
@@ -495,11 +556,19 @@ class _OrderPageState extends State<OrderPage> {
                         return Container(
                           decoration: BoxDecoration(
                             color: AppColors.customWhite,
+                            borderRadius: BorderRadius.circular(15),
                           ),
                           child: DropdownButtonFormField2(
+                            style: const TextStyle(
+                              fontSize: 14,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w500,
+                            ),
                             decoration: const InputDecoration(
                               border: InputBorder.none,
                             ),
+                            dropdownDecoration: BoxDecoration(
+                                borderRadius: BorderRadius.circular(15)),
                             buttonPadding: EdgeInsets.symmetric(
                                 horizontal: padding.top * 0.2),
                             hint: const Text("Select Status"),
@@ -524,22 +593,27 @@ class _OrderPageState extends State<OrderPage> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
+                        const Text(
                           "Rate (Rs.)",
                           style: TextStyle(
-                            fontSize: 18,
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.blue,
+                            fontSize: 14,
+                            color: Colors.black,
+                            fontWeight: FontWeight.w500,
                           ),
                         ),
                         Container(
                           height: size.height / 90 * 5.44,
                           width: size.width / 8 * 1.5,
                           decoration: BoxDecoration(
-                            color: AppColors.customWhite.withOpacity(0.6),
+                            color: AppColors.customWhite,
                             borderRadius: BorderRadius.circular(10),
                           ),
                           child: TextFormField(
+                            style: const TextStyle(
+                              fontSize: 14,
+                              color: Colors.black,
+                              fontWeight: FontWeight.w500,
+                            ),
                             keyboardType: TextInputType.number,
                             initialValue: rate.toString(),
                             decoration: InputDecoration(
@@ -569,10 +643,15 @@ class _OrderPageState extends State<OrderPage> {
                       height: size.height / 90 * 5.44,
                       width: size.width,
                       decoration: BoxDecoration(
-                        color: AppColors.customWhite.withOpacity(0.6),
+                        color: AppColors.customWhite,
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: TextFormField(
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w500,
+                        ),
                         initialValue: unit,
                         decoration: InputDecoration(
                           contentPadding: EdgeInsets.symmetric(
@@ -608,7 +687,13 @@ class _OrderPageState extends State<OrderPage> {
                           onPressed: () {
                             Navigator.of(context).pop();
                           },
-                          child: const Text("Cancel"),
+                          child: const Text(
+                            "Cancel",
+                            style: TextStyle(
+                              fontSize: 14,
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
                         ),
                         BlocConsumer<OrdersBloc, OrdersState>(
                           listener: (context, state) {
@@ -658,7 +743,13 @@ class _OrderPageState extends State<OrderPage> {
                                   );
                                 }
                               },
-                              child: const Text("Update"),
+                              child: const Text(
+                                "Update",
+                                style: TextStyle(
+                                  fontSize: 14,
+                                  fontWeight: FontWeight.w500,
+                                ),
+                              ),
                             );
                           },
                         ),
@@ -688,18 +779,24 @@ class _OrderPageState extends State<OrderPage> {
                     Text(
                       "Add Order Quantity",
                       style: TextStyle(
-                          color: AppColors.blue,
-                          fontSize: 18,
-                          fontWeight: FontWeight.w400),
+                        color: AppColors.blue,
+                        fontSize: 16,
+                        fontWeight: FontWeight.w600,
+                      ),
                     ),
                     Container(
                       height: size.height / 90 * 5.44,
                       width: size.width,
                       decoration: BoxDecoration(
-                        color: AppColors.customWhite.withOpacity(0.6),
+                        color: AppColors.customWhite,
                         borderRadius: BorderRadius.circular(10),
                       ),
                       child: TextFormField(
+                        style: const TextStyle(
+                          fontSize: 14,
+                          color: Colors.black,
+                          fontWeight: FontWeight.w500,
+                        ),
                         keyboardType: TextInputType.number,
                         controller: _qty,
                         decoration: InputDecoration(
@@ -750,7 +847,8 @@ class _OrderPageState extends State<OrderPage> {
                       builder: (context, state) {
                         return ElevatedButton(
                           style: ElevatedButton.styleFrom(
-                            shape: const CircleBorder(),
+                            fixedSize:
+                                Size(size.width / 4.5, size.height / 90 * 3.4),
                             foregroundColor: AppColors.blue,
                             backgroundColor: AppColors.yellow,
                           ),
@@ -761,7 +859,7 @@ class _OrderPageState extends State<OrderPage> {
                                       sid, oid, double.parse(_qty.text));
                             }
                           },
-                          child: const Iconify(FluentMdl2.update_restore),
+                          child: const Iconify(FluentMdl2.forward),
                         );
                       },
                     ),
@@ -782,8 +880,9 @@ class _OrderPageState extends State<OrderPage> {
           bgcolor: AppColors.white,
           title: args['sitename'],
           leading: IconButton(
-            icon: const Icon(
+            icon: Icon(
               Icons.arrow_back_ios_new,
+              size: size.height / 90 * 2.3,
             ),
             onPressed: () {
               Navigator.of(context).pop();
@@ -796,10 +895,11 @@ class _OrderPageState extends State<OrderPage> {
               },
               icon: CircleAvatar(
                 backgroundColor: AppColors.yellow,
-                radius: 18,
+                radius: size.width / 12.4,
                 child: Icon(
                   Icons.add,
                   color: AppColors.blue,
+                  size: size.height / 90 * 2.3,
                 ),
               ),
             ),
@@ -899,7 +999,7 @@ class _OrderPageState extends State<OrderPage> {
                               },
                               icon: CircleAvatar(
                                 backgroundColor: AppColors.yellow,
-                                radius: 18,
+                                radius: size.width / 20,
                                 child: Icon(
                                   Icons.picture_as_pdf,
                                   color: AppColors.blue,
@@ -940,8 +1040,11 @@ class _OrderPageState extends State<OrderPage> {
                                           crossAxisAlignment:
                                               CrossAxisAlignment.start,
                                           mainAxisAlignment:
-                                              MainAxisAlignment.spaceEvenly,
+                                              MainAxisAlignment.spaceBetween,
                                           children: [
+                                            SizedBox(
+                                              height: size.height / 90 * 0.3,
+                                            ),
                                             Text(
                                               snapshot.data!.docs[index]
                                                   ['itemname'],

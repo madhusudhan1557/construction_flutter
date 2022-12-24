@@ -9,7 +9,6 @@ import 'package:dropdown_button2/dropdown_button2.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
-import 'package:iconify_flutter/icons/emojione_monotone.dart';
 import 'package:iconify_flutter/icons/fluent_mdl2.dart';
 
 import 'package:iconify_flutter/icons/zondicons.dart';
@@ -86,7 +85,7 @@ class _SiteDescriptionState extends State<SiteDescription> {
                               Text(
                                 "Update Site Info",
                                 style: TextStyle(
-                                    fontSize: 18,
+                                    fontSize: 16,
                                     fontWeight: FontWeight.w600,
                                     color: AppColors.blue),
                               ),
@@ -97,10 +96,15 @@ class _SiteDescriptionState extends State<SiteDescription> {
                                 height: size.height / 90 * 5.44,
                                 width: size.width,
                                 decoration: BoxDecoration(
-                                  color: AppColors.customWhite.withOpacity(0.6),
+                                  color: AppColors.customWhite,
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: TextFormField(
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black,
+                                  ),
                                   initialValue: sitename,
                                   decoration: InputDecoration(
                                     contentPadding: EdgeInsets.symmetric(
@@ -127,10 +131,15 @@ class _SiteDescriptionState extends State<SiteDescription> {
                                 height: size.height / 90 * 5.44,
                                 width: size.width,
                                 decoration: BoxDecoration(
-                                  color: AppColors.customWhite.withOpacity(0.6),
+                                  color: AppColors.customWhite,
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: TextFormField(
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black,
+                                  ),
                                   initialValue: sitelocation,
                                   decoration: InputDecoration(
                                     contentPadding: EdgeInsets.symmetric(
@@ -157,10 +166,15 @@ class _SiteDescriptionState extends State<SiteDescription> {
                                 height: size.height / 90 * 5.44,
                                 width: size.width,
                                 decoration: BoxDecoration(
-                                  color: AppColors.customWhite.withOpacity(0.6),
+                                  color: AppColors.customWhite,
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: TextFormField(
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black,
+                                  ),
                                   initialValue: clientname,
                                   decoration: InputDecoration(
                                     contentPadding: EdgeInsets.symmetric(
@@ -187,10 +201,15 @@ class _SiteDescriptionState extends State<SiteDescription> {
                                 height: size.height / 90 * 5.44,
                                 width: size.width,
                                 decoration: BoxDecoration(
-                                  color: AppColors.customWhite.withOpacity(0.6),
+                                  color: AppColors.customWhite,
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: TextFormField(
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black,
+                                  ),
                                   initialValue: phone,
                                   decoration: InputDecoration(
                                     contentPadding: EdgeInsets.symmetric(
@@ -217,11 +236,16 @@ class _SiteDescriptionState extends State<SiteDescription> {
                                 height: size.height / 90 * 5.44,
                                 width: size.width,
                                 decoration: BoxDecoration(
-                                  color: AppColors.customWhite.withOpacity(0.6),
+                                  color: AppColors.customWhite,
                                   borderRadius: BorderRadius.circular(10),
                                 ),
                                 child: TextFormField(
                                   initialValue: about,
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black,
+                                  ),
                                   decoration: InputDecoration(
                                     contentPadding: EdgeInsets.symmetric(
                                       horizontal: padding.top * 0.4,
@@ -245,9 +269,14 @@ class _SiteDescriptionState extends State<SiteDescription> {
                               ),
                               Container(
                                 decoration: BoxDecoration(
-                                  color: AppColors.customWhite.withOpacity(0.6),
+                                  color: AppColors.customWhite,
                                 ),
                                 child: DropdownButtonFormField2(
+                                  style: const TextStyle(
+                                    fontSize: 14,
+                                    fontWeight: FontWeight.w500,
+                                    color: Colors.black,
+                                  ),
                                   decoration: const InputDecoration(
                                     border: InputBorder.none,
                                   ),
@@ -293,7 +322,14 @@ class _SiteDescriptionState extends State<SiteDescription> {
                                     onPressed: () {
                                       Navigator.of(context).pop();
                                     },
-                                    child: const Text("Cancel"),
+                                    child: const Text(
+                                      "Cancel",
+                                      style: TextStyle(
+                                        fontSize: 14,
+                                        fontWeight: FontWeight.w500,
+                                        color: Colors.black,
+                                      ),
+                                    ),
                                   ),
                                   BlocConsumer<SitesBloc, SitesState>(
                                     listener: (context, state) {
@@ -340,7 +376,14 @@ class _SiteDescriptionState extends State<SiteDescription> {
                                             supervisor: dropdownvalue,
                                           );
                                         },
-                                        child: const Text("Update"),
+                                        child: const Text(
+                                          "Update",
+                                          style: TextStyle(
+                                            fontSize: 14,
+                                            fontWeight: FontWeight.w500,
+                                            color: Colors.black,
+                                          ),
+                                        ),
                                       );
                                     },
                                   ),
@@ -383,27 +426,21 @@ class _SiteDescriptionState extends State<SiteDescription> {
                     },
                     icon: CircleAvatar(
                       backgroundColor: AppColors.yellow,
-                      radius: 18,
-                      child: Icon(
-                        Icons.edit,
+                      radius: size.width / 12.4,
+                      child: Iconify(
+                        FluentMdl2.edit,
                         color: AppColors.blue,
+                        size: size.height / 90 * 2.3,
                       ),
                     ),
                   )
                 : Container(),
-            Padding(
-              padding: EdgeInsets.only(right: padding.top * 0.2),
-              child: IconButton(
-                onPressed: () {},
-                icon: Image.asset("assets/icons/camera.png"),
-              ),
-            ),
           ],
           bgcolor: AppColors.white,
           leading: IconButton(
-            icon: const Icon(
+            icon: Icon(
               Icons.arrow_back_ios_new,
-              size: 24,
+              size: size.height / 90 * 2.3,
             ),
             onPressed: () {
               Navigator.of(context).pop();
@@ -588,7 +625,7 @@ class _SiteDescriptionState extends State<SiteDescription> {
                                 height: size.height / 90 * 0.5,
                               ),
                               SizedBox(
-                                height: size.height / 90 * 8.5,
+                                height: size.height / 90 * 6.5,
                                 child: Text(
                                   maxLines: 20,
                                   softWrap: true,
@@ -610,10 +647,10 @@ class _SiteDescriptionState extends State<SiteDescription> {
                                 child: GridView(
                                   physics: const NeverScrollableScrollPhysics(),
                                   gridDelegate:
-                                      const SliverGridDelegateWithFixedCrossAxisCount(
+                                      SliverGridDelegateWithFixedCrossAxisCount(
                                     crossAxisCount: 2,
-                                    mainAxisSpacing: 10,
-                                    crossAxisSpacing: 10,
+                                    mainAxisSpacing: padding.top * 0.4,
+                                    crossAxisSpacing: padding.top * 0.4,
                                     childAspectRatio: 7 / 4,
                                   ),
                                   children: [

@@ -20,13 +20,18 @@ class CustomTextArea {
       height: size,
       decoration: BoxDecoration(color: AppColors.customWhite),
       child: TextFormField(
+        style: const TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+          color: Colors.black,
+        ),
         keyboardType: TextInputType.multiline,
         controller: controller,
         decoration: InputDecoration(
           hintText: hintText,
           suffixIcon: suffixIcon,
           border: InputBorder.none,
-          contentPadding: const EdgeInsets.all(10),
+          contentPadding: const EdgeInsets.all(15),
         ),
         validator: (value) => Validator.getBlankFieldValidator(value, hintText),
       ),

@@ -60,8 +60,9 @@ class _AddSitePageState extends State<AddSitePage> {
           bgcolor: AppColors.white,
           title: "Add Sites",
           leading: IconButton(
-            icon: const Icon(
+            icon: Icon(
               Icons.arrow_back_ios_new,
+              size: size.height / 90 * 2.3,
             ),
             onPressed: () {
               Navigator.of(context).pop();
@@ -114,6 +115,11 @@ class _AddSitePageState extends State<AddSitePage> {
                               padding:
                                   EdgeInsets.only(left: paddding.top * 0.3),
                               child: TextFormField(
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w500,
+                                ),
                                 controller: _sitedes,
                                 maxLines: 4,
                                 decoration: const InputDecoration(
@@ -171,6 +177,11 @@ class _AddSitePageState extends State<AddSitePage> {
                                 color: AppColors.customWhite,
                               ),
                               child: DropdownButtonFormField2(
+                                style: const TextStyle(
+                                  fontSize: 14,
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w500,
+                                ),
                                 decoration: const InputDecoration(
                                   border: InputBorder.none,
                                 ),
@@ -311,7 +322,14 @@ class _AddSitePageState extends State<AddSitePage> {
                                           state.siteimage!.clear();
                                         }
                                       },
-                                      child: const Text("Cancel"),
+                                      child: const Text(
+                                        "Cancel",
+                                        style: TextStyle(
+                                          fontSize: 14,
+                                          color: Colors.black,
+                                          fontWeight: FontWeight.w500,
+                                        ),
+                                      ),
                                     ),
                                     const SizedBox(
                                       width: 20,
@@ -406,7 +424,13 @@ class _AddSitePageState extends State<AddSitePage> {
                                                   }
                                                 }
                                               },
-                                              child: const Text("Save"),
+                                              child: const Text(
+                                                "Save",
+                                                style: TextStyle(
+                                                  fontSize: 14,
+                                                  fontWeight: FontWeight.w500,
+                                                ),
+                                              ),
                                             );
                                           },
                                         );

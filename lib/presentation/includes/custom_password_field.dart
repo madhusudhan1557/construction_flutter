@@ -18,12 +18,17 @@ class CustomPasswordField {
       height: size,
       decoration: BoxDecoration(color: AppColors.customWhite),
       child: TextFormField(
+        style: const TextStyle(
+          fontSize: 14,
+          fontWeight: FontWeight.w500,
+          color: Colors.black,
+        ),
         controller: controller,
         decoration: InputDecoration(
           hintText: "Password",
           suffixIcon: suffixIcon,
           border: InputBorder.none,
-          contentPadding: const EdgeInsets.all(10),
+          contentPadding: const EdgeInsets.all(15),
         ),
         validator: (value) => Validator.getPasswordValidator(value),
       ),
