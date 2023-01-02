@@ -1,8 +1,12 @@
+import 'dart:io';
+
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:construction/data/models/works.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 
 import 'package:flutter/material.dart';
+import 'package:image_picker/image_picker.dart';
 
 part 'workinprogress_event.dart';
 part 'workinprogress_state.dart';
@@ -66,9 +70,34 @@ class WorkinprogressBloc
         emit(DeletingWorkInfoState());
       },
     );
-    on<FailedDeletingWorkProgressEvent>(
+    on<DeletingWorkImagesEvent>(
       (event, emit) {
-        emit(FailedDeletingWorkProgressState(error: event.error));
+        emit(DeletingWorkImagesState());
+      },
+    );
+    on<CompletedDeletingWorkImagesEvent>(
+      (event, emit) {
+        emit(CompletedDeletingWorkImagesState());
+      },
+    );
+    on<FailedDeletingWorkImagesEvent>(
+      (event, emit) {
+        emit(FailedDeletingWorkImagesState(error: event.error));
+      },
+    );
+    on<FailedUploadingWorkImagesEvent>(
+      (event, emit) {
+        emit(FailedUploadingWorkImagesState(error: event.error));
+      },
+    );
+    on<UploadingWorkImagesEvent>(
+      (event, emit) {
+        emit(UploadingWorkImagesState());
+      },
+    );
+    on<CompletedUploadingWorkImagesEvent>(
+      (event, emit) {
+        emit(CompletedUploadingWorkImagesState());
       },
     );
   }
@@ -86,6 +115,43 @@ class WorkinprogressBloc
     } on FirebaseException catch (e) {
       add(FailedDeletingWorkProgressEvent(error: e.message!));
     }
+  }
+
+  addWorkImages(String sid, String wid, List<XFile> images) async {
+    add(UploadingWorkImagesEvent());
+    List<dynamic> imageUrls = [];
+
+    try {
+      for (int i = 0; i < images.length; i++) {
+        var url = uploadWorkImageFile(images[i], sid, wid);
+        imageUrls.add(url.toString());
+      }
+
+      add(CompletedUploadingWorkImagesEvent());
+    } on FirebaseException catch (e) {
+      add(FailedUploadingWorkImagesEvent(error: e.message));
+    }
+  }
+
+  uploadWorkImageFile(XFile image, String sid, String wid) async {
+    Reference reference =
+        FirebaseStorage.instance.ref().child("workimages").child(image.name);
+    UploadTask uploadTask = reference.putFile(File(image.path));
+    await uploadTask.whenComplete(() async {
+      FirebaseFirestore.instance
+          .collection("sites")
+          .doc(sid)
+          .collection("works")
+          .doc(wid)
+          .collection("images")
+          .add({
+        "sid": sid,
+        "wid": wid,
+        "date": DateTime.now(),
+        "image": await reference.getDownloadURL(),
+      });
+    });
+    return await reference.getDownloadURL();
   }
 
   addWork(WorksModel worksModel, String sid) async {

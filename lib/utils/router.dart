@@ -16,6 +16,7 @@ import 'package:construction/presentation/screens/users/users_page.dart';
 import 'package:construction/presentation/screens/workinprogress/edit_work_page.dart';
 import 'package:construction/presentation/screens/workinprogress/schedule_work.dart';
 import 'package:construction/presentation/screens/workinprogress/work_report_signature_pad.dart';
+import 'package:construction/presentation/screens/workinprogress/workimages.dart';
 
 import 'package:construction/presentation/screens/workinprogress/workprogress_page.dart';
 import 'package:construction/presentation/settings.dart';
@@ -77,6 +78,9 @@ class AppRouter {
         return MaterialPageRoute(
             builder: (context) => const StockReportSignaturePadPage(),
             settings: settings);
+      case workimagepage:
+        return MaterialPageRoute(
+            builder: (context) => const WorkImagesPage(), settings: settings);
       case workInvoiceSignaturePadPage:
         return MaterialPageRoute(
             builder: (context) => const WorkReportSignaturePadPage(),

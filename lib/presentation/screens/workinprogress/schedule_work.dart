@@ -125,7 +125,7 @@ class _ScheduleWorkState extends State<ScheduleWork> {
                               ? Text(
                                   "Pick a Start Date",
                                   style: TextStyle(
-                                    fontSize: 18,
+                                    fontSize: 14,
                                     fontWeight: FontWeight.w500,
                                     color: AppColors.grey,
                                   ),

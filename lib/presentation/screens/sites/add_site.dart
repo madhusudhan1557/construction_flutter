@@ -421,6 +421,8 @@ class _AddSitePageState extends State<AddSitePage> {
                                                       siteModel,
                                                       siteimages,
                                                     );
+                                                    siteimages.clear();
+                                                    images.clear();
                                                   }
                                                 }
                                               },

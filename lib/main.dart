@@ -5,6 +5,7 @@ import 'package:construction/bloc/dropdown/dropdown_bloc.dart';
 import 'package:construction/bloc/hidepassword/hidepassword_cubit.dart';
 import 'package:construction/bloc/orders/orders_bloc.dart';
 import 'package:construction/bloc/pickimage/pickimage_bloc.dart';
+import 'package:construction/bloc/pickworkimage/pickworkimage_bloc.dart';
 import 'package:construction/bloc/progressbar/progressbar_cubit.dart';
 import 'package:construction/bloc/sites/sites_bloc.dart';
 import 'package:construction/bloc/stock/stocks_bloc.dart';
@@ -52,6 +53,8 @@ class AkarDevelopers extends StatelessWidget {
           create: (context) => DropdownBloc(),
         ),
         BlocProvider<SitesBloc>(create: (context) => SitesBloc()),
+        BlocProvider<PickworkimageBloc>(
+            create: (context) => PickworkimageBloc()),
         BlocProvider<PickimageBloc>(create: (context) => PickimageBloc()),
       ],
       child: MaterialApp(

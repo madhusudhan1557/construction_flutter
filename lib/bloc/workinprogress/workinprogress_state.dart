@@ -40,3 +40,21 @@ class FailedDeletingWorkProgressState extends WorkinprogressState {
 class DeletingWorkInfoState extends WorkinprogressState {}
 
 class CompleteDeletingWorkInfoState extends WorkinprogressState {}
+
+class FailedUploadingWorkImagesState extends WorkinprogressState {
+  final String? error;
+  FailedUploadingWorkImagesState({this.error});
+}
+
+class UploadingWorkImagesState extends WorkinprogressState {}
+
+class CompletedUploadingWorkImagesState extends WorkinprogressState {}
+
+class DeletingWorkImagesState extends WorkinprogressState {}
+
+class FailedDeletingWorkImagesState extends WorkinprogressState {
+  final String? error;
+  FailedDeletingWorkImagesState({this.error});
+}
+
+class CompletedDeletingWorkImagesState extends WorkinprogressState {}

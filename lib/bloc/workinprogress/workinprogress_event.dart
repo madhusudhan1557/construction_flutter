@@ -38,3 +38,21 @@ class FailedDeletingWorkProgressEvent extends WorkinprogressEvent {
 class DeletingWorkInfoEvent extends WorkinprogressEvent {}
 
 class CompleteDeletingWorkInfoEvent extends WorkinprogressEvent {}
+
+class FailedUploadingWorkImagesEvent extends WorkinprogressEvent {
+  final String? error;
+  FailedUploadingWorkImagesEvent({this.error});
+}
+
+class UploadingWorkImagesEvent extends WorkinprogressEvent {}
+
+class CompletedUploadingWorkImagesEvent extends WorkinprogressEvent {}
+
+class DeletingWorkImagesEvent extends WorkinprogressEvent {}
+
+class FailedDeletingWorkImagesEvent extends WorkinprogressEvent {
+  final String? error;
+  FailedDeletingWorkImagesEvent({this.error});
+}
+
+class CompletedDeletingWorkImagesEvent extends WorkinprogressEvent {}

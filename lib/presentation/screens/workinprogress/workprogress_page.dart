@@ -726,34 +726,35 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                                     ),
                                   ),
                                 ),
-                                Container(
-                                  height: size.height / 90 * 1.5,
+                                SizedBox(
                                   width: size.width / 8,
-                                  margin: EdgeInsets.symmetric(
-                                    horizontal: padding.top * 0.2,
-                                    vertical: padding.top * 0.2,
-                                  ),
-                                  decoration: BoxDecoration(
-                                      color: AppColors.white,
-                                      borderRadius: BorderRadius.circular(15),
-                                      boxShadow: [
-                                        BoxShadow(
-                                          color: AppColors.customWhite,
-                                          blurRadius: 2.0,
-                                        )
-                                      ]),
-                                  child: FAProgressBar(
-                                    formatValueFixed: 2,
-                                    animatedDuration:
-                                        const Duration(seconds: 2),
-                                    borderRadius: BorderRadius.circular(15),
-                                    backgroundColor: AppColors.white,
-                                    progressColor: AppColors.orange,
-                                    direction: Axis.horizontal,
-                                    maxValue: 100,
-                                    currentValue: double.parse(snapshot
-                                        .data!.docs[index]['progress']
-                                        .toString()),
+                                  child: TextButton(
+                                    onPressed: () {
+                                      Navigator.of(context)
+                                          .pushNamed(workimagepage, arguments: {
+                                        "sid": snapshot.data!.docs[index]
+                                            ['sid'],
+                                        "wid": snapshot.data!.docs[index]
+                                            ['wid'],
+                                        "title": snapshot.data!.docs[index]
+                                            ['title'],
+                                        "startdate": snapshot
+                                            .data!.docs[index]['startdate']
+                                            .toDate(),
+                                        "endDate": snapshot
+                                            .data!.docs[index]['endDate']
+                                            .toDate(),
+                                        "workdesc": snapshot.data!.docs[index]
+                                            ['workdesc']
+                                      });
+                                    },
+                                    style: TextButton.styleFrom(
+                                      backgroundColor: AppColors.white,
+                                      foregroundColor: AppColors.blue,
+                                    ),
+                                    child: const Icon(
+                                      Icons.image,
+                                    ),
                                   ),
                                 ),
                                 IconButton(
