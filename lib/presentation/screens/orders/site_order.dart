@@ -6,6 +6,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:iconify_flutter/iconify_flutter.dart';
 import 'package:iconify_flutter/icons/fluent_mdl2.dart';
 import 'package:iconify_flutter/icons/zondicons.dart';
+import 'package:toggle_switch/toggle_switch.dart';
 
 import '../../../bloc/dropdown/dropdown_bloc.dart';
 import '../../../bloc/orders/orders_bloc.dart';
@@ -36,7 +37,7 @@ class _OrderPageState extends State<OrderPage> {
   final _formKey = GlobalKey<FormState>();
   List<dynamic> selectStatus = ["Delivered", "On The Way", "Cancelled"];
   String orderstatus = '';
-
+  int i = 1;
   @override
   Widget build(BuildContext context) {
     List<Map<String, dynamic>> data = [];
@@ -1071,7 +1072,34 @@ class _OrderPageState extends State<OrderPage> {
                                                     ),
                                                   ),
                                                 ),
-                                                const Spacer(),
+                                                Container(
+                                                  margin: EdgeInsets.symmetric(
+                                                    vertical: padding.top * 0.4,
+                                                  ),
+                                                  child: ToggleSwitch(
+                                                    minWidth: 30.0,
+                                                    minHeight: 30,
+                                                    initialLabelIndex: 1,
+                                                    cornerRadius: 20.0,
+                                                    activeFgColor: Colors.white,
+                                                    inactiveBgColor:
+                                                        Colors.grey,
+                                                    inactiveFgColor:
+                                                        Colors.white,
+                                                    totalSwitches: 2,
+                                                    icons: const [
+                                                      Icons.check,
+                                                      Icons.close,
+                                                    ],
+                                                    activeBgColors: [
+                                                      [AppColors.green],
+                                                      [AppColors.red],
+                                                    ],
+                                                    onToggle: (index) {
+                                                      i = index!;
+                                                    },
+                                                  ),
+                                                ),
                                                 CustomBox(
                                                   height:
                                                       size.height / 90 * 2.44,
@@ -1104,8 +1132,6 @@ class _OrderPageState extends State<OrderPage> {
                                                     ),
                                                   ),
                                                 ).customBox(),
-                                                const Spacer(),
-                                                const Spacer(),
                                               ],
                                             ),
                                             Row(
@@ -1146,59 +1172,77 @@ class _OrderPageState extends State<OrderPage> {
                                       ),
                                       Column(
                                         mainAxisAlignment:
-                                            MainAxisAlignment.center,
+                                            MainAxisAlignment.spaceBetween,
                                         children: [
-                                          Align(
-                                            alignment: Alignment.centerRight,
-                                            child: IconButton(
-                                              onPressed: () {
-                                                showDeleteDialog(
-                                                  snapshot.data!.docs[index]
-                                                      ['oid'],
-                                                  snapshot.data!.docs[index]
-                                                      ['sid'],
-                                                );
-                                              },
-                                              icon: Iconify(
-                                                Zondicons.trash,
-                                                color: AppColors.red,
-                                                size: size.height / 90 * 2.1,
-                                              ),
-                                            ),
-                                          ),
-                                          Align(
-                                            alignment: Alignment.centerRight,
-                                            child: IconButton(
-                                              onPressed: () {
-                                                showEditSiteOrderModal(
-                                                  sid: snapshot
-                                                      .data!.docs[index]['sid'],
-                                                  oid: snapshot
-                                                      .data!.docs[index]['oid'],
-                                                  itemname: snapshot.data!
-                                                      .docs[index]['itemname'],
-                                                  suppliername:
-                                                      snapshot.data!.docs[index]
-                                                          ['suppliername'],
-                                                  itembrand: snapshot.data!
-                                                      .docs[index]['brandname'],
-                                                  quantity: snapshot.data!
-                                                      .docs[index]['quantity'],
-                                                  status: snapshot.data!
-                                                      .docs[index]['status'],
-                                                  unit: snapshot.data!
-                                                      .docs[index]['unit'],
-                                                  rate: snapshot.data!
-                                                      .docs[index]['rate'],
-                                                );
-                                              },
-                                              icon: Iconify(
-                                                FluentMdl2.edit,
-                                                color: AppColors.grey,
-                                                size: size.height / 90 * 2.1,
-                                              ),
-                                            ),
-                                          ),
+                                          i == 0
+                                              ? Align(
+                                                  alignment:
+                                                      Alignment.centerRight,
+                                                  child: IconButton(
+                                                    onPressed: () {
+                                                      showDeleteDialog(
+                                                        snapshot.data!
+                                                            .docs[index]['oid'],
+                                                        snapshot.data!
+                                                            .docs[index]['sid'],
+                                                      );
+                                                    },
+                                                    icon: Iconify(
+                                                      Zondicons.trash,
+                                                      color: AppColors.red,
+                                                      size: size.height /
+                                                          90 *
+                                                          2.1,
+                                                    ),
+                                                  ),
+                                                )
+                                              : Container(),
+                                          i == 0
+                                              ? Align(
+                                                  alignment:
+                                                      Alignment.centerRight,
+                                                  child: IconButton(
+                                                    onPressed: () {
+                                                      showEditSiteOrderModal(
+                                                        sid: snapshot.data!
+                                                            .docs[index]['sid'],
+                                                        oid: snapshot.data!
+                                                            .docs[index]['oid'],
+                                                        itemname: snapshot.data!
+                                                                .docs[index]
+                                                            ['itemname'],
+                                                        suppliername: snapshot
+                                                                .data!
+                                                                .docs[index]
+                                                            ['suppliername'],
+                                                        itembrand: snapshot
+                                                                .data!
+                                                                .docs[index]
+                                                            ['brandname'],
+                                                        quantity: snapshot.data!
+                                                                .docs[index]
+                                                            ['quantity'],
+                                                        status: snapshot.data!
+                                                                .docs[index]
+                                                            ['status'],
+                                                        unit: snapshot.data!
+                                                                .docs[index]
+                                                            ['unit'],
+                                                        rate: snapshot.data!
+                                                                .docs[index]
+                                                            ['rate'],
+                                                      );
+                                                    },
+                                                    icon: Iconify(
+                                                      FluentMdl2.edit,
+                                                      color: AppColors.grey,
+                                                      size: size.height /
+                                                          90 *
+                                                          2.1,
+                                                    ),
+                                                  ),
+                                                )
+                                              : Container(),
                                         ],
                                       ),
                                     ],
