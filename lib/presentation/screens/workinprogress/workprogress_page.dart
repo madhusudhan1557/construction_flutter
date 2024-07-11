@@ -297,8 +297,7 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
       String? wid,
       double? height,
       double? width,
-    })
-        showDeleteDialog,
+    }) showDeleteDialog,
   ) {
     return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
         stream: FirebaseFirestore.instance
@@ -341,19 +340,10 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                                     color: Colors.black,
                                     fontWeight: FontWeight.w500,
                                   ),
-                                  scrollbarAlwaysShow: true,
-                                  buttonPadding: EdgeInsets.only(
-                                      right: padding.top * 0.5,
-                                      top: padding.top * 0),
-                                  dropdownDecoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(15),
-                                    color: AppColors.white,
-                                  ),
                                   decoration: const InputDecoration(
                                     border: InputBorder.none,
                                   ),
                                   hint: const Text("Select Item"),
-                                  offset: Offset(0, -size.height / 90 * 2.44),
                                   items: snapshot.data!.docs.map((item) {
                                     return DropdownMenuItem(
                                         value: item['skid'],
@@ -471,7 +461,7 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
                                           color: AppColors.yellow,
                                           style: ButtonStyle(
                                             backgroundColor:
-                                                MaterialStateProperty.all(
+                                                WidgetStateProperty.all(
                                                     AppColors.yellow),
                                           ),
                                           onPressed: () {
@@ -659,12 +649,11 @@ class _WorkInProgressPageState extends State<WorkInProgressPage> {
       BuildContext context,
       Future<dynamic> Function(String wid, dynamic sid) showProgressModal,
       Future<dynamic> Function({
-    String? sid,
-    String? wid,
-    double? height,
-    double? width,
-  })
-          showDeleteDialog,
+        String? sid,
+        String? wid,
+        double? height,
+        double? width,
+      }) showDeleteDialog,
       EdgeInsets padding) {
     return StreamBuilder<QuerySnapshot<Map<String, dynamic>>>(
       stream: FirebaseFirestore.instance

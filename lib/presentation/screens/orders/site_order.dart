@@ -568,12 +568,7 @@ class _OrderPageState extends State<OrderPage> {
                             decoration: const InputDecoration(
                               border: InputBorder.none,
                             ),
-                            dropdownDecoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(15)),
-                            buttonPadding: EdgeInsets.symmetric(
-                                horizontal: padding.top * 0.2),
                             hint: const Text("Select Status"),
-                            offset: Offset(-4, -size.height / 90 * 2.44),
                             items: selectStatus.map((st) {
                               return DropdownMenuItem(
                                 value: st,

@@ -189,13 +189,7 @@ class _UsersPageState extends State<UsersPage> {
                             decoration: const InputDecoration(
                               border: InputBorder.none,
                             ),
-                            buttonPadding: EdgeInsets.symmetric(
-                                horizontal: padding.top * 0.2),
                             hint: const Text("Select Role (Optional)"),
-                            offset: Offset(0, -size.height / 90 * 2.44),
-                            dropdownDecoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(10),
-                            ),
                             items: roles.map((role) {
                               return DropdownMenuItem(
                                 value: role,

@@ -139,9 +139,6 @@ class _RegistrationScreenState extends State<RegistrationScreen> {
                                 border: InputBorder.none,
                               ),
                               hint: const Text("Select Role"),
-                              offset: Offset(0, -size.height / 90 * 2.44),
-                              buttonPadding:
-                                  EdgeInsets.only(right: padding.top * 0.4),
                               items: roles.map((role) {
                                 return DropdownMenuItem(
                                   value: role,

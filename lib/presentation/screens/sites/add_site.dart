@@ -191,9 +191,6 @@ class _AddSitePageState extends State<AddSitePage> {
                                         "Supervisor for site"),
                                 isExpanded: true,
                                 hint: const Text("Assign a Supervisior"),
-                                offset: Offset(0, -size.height / 90 * 2.44),
-                                buttonPadding:
-                                    EdgeInsets.only(right: paddding.top * 0.4),
                                 items: snapshot.data!.docs
                                     .map<DropdownMenuItem>((supervisor) {
                                   return DropdownMenuItem(

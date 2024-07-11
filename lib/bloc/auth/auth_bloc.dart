@@ -184,8 +184,4 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         Navigator.of(context).pushNamedAndRemoveUntil(login, (route) => false));
   }
 
-  @override
-  Future<void> close() async {
-    super.close();
-  }
 }
