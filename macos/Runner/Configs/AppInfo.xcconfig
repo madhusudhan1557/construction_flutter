@@ -5,10 +5,10 @@
 // 'flutter create' template.
 
 // The application's name. By default this is also the title of the Flutter window.
-PRODUCT_NAME = construction
+PRODUCT_NAME = constructionflutter
 
 // The application's bundle identifier
-PRODUCT_BUNDLE_IDENTIFIER = com.mtech.aakar.construction
+PRODUCT_BUNDLE_IDENTIFIER = com.herald.fyp.constructionflutter
 
 // The copyright displayed in application information
-PRODUCT_COPYRIGHT = Copyright © 2022 com.mtech.aakar. All rights reserved.
+PRODUCT_COPYRIGHT = Copyright © 2024 com.herald.fyp. All rights reserved.

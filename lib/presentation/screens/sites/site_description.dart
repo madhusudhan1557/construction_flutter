@@ -41,7 +41,7 @@ class _SiteDescriptionState extends State<SiteDescription> {
     final size = MediaQuery.of(context).size;
     final padding = MediaQuery.of(context).padding;
     int dotposition = 0;
-    CarouselController carouselController = CarouselController();
+    CarouselSliderController carouselController = CarouselSliderController();
 
     final Map<String, dynamic> args =
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;

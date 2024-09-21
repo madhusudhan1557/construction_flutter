@@ -89,13 +89,13 @@ BEGIN
     BEGIN
         BLOCK "040904e4"
         BEGIN
-            VALUE "CompanyName", "com.mtech.aakar" "\0"
-            VALUE "FileDescription", "construction" "\0"
+            VALUE "CompanyName", "com.herald.fyp" "\0"
+            VALUE "FileDescription", "constructionflutter" "\0"
             VALUE "FileVersion", VERSION_AS_STRING "\0"
-            VALUE "InternalName", "construction" "\0"
-            VALUE "LegalCopyright", "Copyright (C) 2022 com.mtech.aakar. All rights reserved." "\0"
-            VALUE "OriginalFilename", "construction.exe" "\0"
-            VALUE "ProductName", "construction" "\0"
+            VALUE "InternalName", "constructionflutter" "\0"
+            VALUE "LegalCopyright", "Copyright (C) 2024 com.herald.fyp. All rights reserved." "\0"
+            VALUE "OriginalFilename", "constructionflutter.exe" "\0"
+            VALUE "ProductName", "constructionflutter" "\0"
             VALUE "ProductVersion", VERSION_AS_STRING "\0"
         END
     END
